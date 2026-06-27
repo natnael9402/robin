@@ -1,0 +1,695 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  // provider = "postgresql"
+  // url      = env("DATABASE_URL")
+
+  provider = "postgresql"
+  url      = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
+}
+
+model ArbitrageHosting {
+  id               BigInt                 @id @default(autoincrement()) @db.BigInt
+  user_id          BigInt                 @db.BigInt
+  product_id       BigInt                 @db.BigInt
+  amount           Decimal                @db.Decimal(14, 2)
+  status           ArbitrageHostingStatus @default(running)
+  currency         String                 @default("USDT") @db.VarChar(255)
+  start_date       DateTime               @default(now()) @db.Timestamp(0)
+  end_date         DateTime?              @db.Timestamp(0)
+  last_profit_date DateTime?              @db.Timestamp(0)
+  total_earned     Decimal                @default(0.00) @db.Decimal(14, 2)
+  created_at       DateTime?              @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?              @updatedAt @db.Timestamp(0)
+  product          ArbitrageProduct       @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  user             User                   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([product_id])
+  @@index([user_id])
+  @@map("arbitrage_hostings")
+}
+
+model ArbitrageProduct {
+  id                   BigInt             @id @default(autoincrement()) @db.BigInt
+  name                 String             @db.VarChar(255)
+  days                 Int
+  daily_rate           Decimal            @db.Decimal(10, 2)
+  min_amount           Decimal            @db.Decimal(14, 2)
+  max_amount           Decimal            @db.Decimal(14, 2)
+  image                String?            @db.VarChar(255)
+  is_active            Boolean            @default(true)
+  supported_currencies String?            @db.Text
+  created_at           DateTime?          @default(now()) @db.Timestamp(0)
+  updated_at           DateTime?          @updatedAt @db.Timestamp(0)
+  hostings             ArbitrageHosting[]
+
+  @@map("arbitrage_products")
+}
+
+model Asset {
+  id                 BigInt    @id @default(autoincrement()) @db.BigInt
+  user_id            BigInt    @db.BigInt
+  symbol             String    @db.VarChar(20)
+  name               String?   @db.VarChar(100)
+  amount             Decimal   @db.Decimal(20, 8)
+  current_price      Decimal?  @db.Decimal(20, 8)
+  current_value      Decimal?  @db.Decimal(20, 2)
+  avg_purchase_price Decimal?  @db.Decimal(20, 8)
+  last_updated_at    DateTime? @db.Timestamp(0)
+  created_at         DateTime? @default(now()) @db.Timestamp(0)
+  updated_at         DateTime? @updatedAt @db.Timestamp(0)
+  user               User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@unique([user_id, symbol])
+  @@index([symbol])
+  @@map("assets")
+}
+
+model Cache {
+  key        String @id @db.VarChar(255)
+  value      String @db.Text
+  expiration Int
+
+  @@map("cache")
+}
+
+model CacheLock {
+  key        String @id @db.VarChar(255)
+  owner      String @db.VarChar(255)
+  expiration Int
+
+  @@map("cache_locks")
+}
+
+model CryptoAddress {
+  id           BigInt    @id @default(autoincrement()) @db.BigInt
+  currency     String    @db.VarChar(10)
+  network      String    @db.VarChar(20)
+  address      String    @db.VarChar(255)
+  qr_code      String?   @db.Text
+  is_active    Boolean   @default(true)
+  notes        String?   @db.Text
+  created_by   BigInt?   @db.BigInt
+  updated_by   BigInt?   @db.BigInt
+  last_updated DateTime? @db.Timestamp(0)
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
+  updated_at   DateTime? @updatedAt @db.Timestamp(0)
+  creator      User?     @relation("CryptoAddressCreator", fields: [created_by], references: [id], onUpdate: Restrict)
+  updater      User?     @relation("CryptoAddressUpdater", fields: [updated_by], references: [id], onUpdate: Restrict)
+
+  @@unique([currency, network, is_active])
+  @@index([created_by])
+  @@index([updated_by])
+  @@map("crypto_addresses")
+}
+
+model Deposit {
+  id               BigInt        @id @default(autoincrement()) @db.BigInt
+  user_id          BigInt        @db.BigInt
+  currency         String        @default("USDT") @db.VarChar(255)
+  amount           Decimal       @db.Decimal(15, 2)
+  transaction_id   String?       @db.VarChar(255)
+  payment_method   String        @db.VarChar(255)
+  payment_details  String?       @db.VarChar(255)
+  description      String?       @db.Text
+  proof_image      String?       @db.VarChar(255)
+  status           DepositStatus @default(pending)
+  rejection_reason String?       @db.Text
+  processed_by     BigInt?       @db.BigInt
+  processed_at     DateTime?     @db.Timestamp(0)
+  created_at       DateTime?     @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?     @updatedAt @db.Timestamp(0)
+  processor        User?         @relation("DepositsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+  user             User          @relation("UserDeposits", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([processed_by])
+  @@index([user_id])
+  @@map("deposits")
+}
+
+model FailedJob {
+  id         BigInt   @id @default(autoincrement()) @db.BigInt
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.Text
+  exception  String   @db.Text
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+
+  @@map("failed_jobs")
+}
+
+model JobBatch {
+  id             String  @id @db.VarChar(255)
+  name           String  @db.VarChar(255)
+  total_jobs     Int
+  pending_jobs   Int
+  failed_jobs    Int
+  failed_job_ids String  @db.Text
+  options        String? @db.Text
+  cancelled_at   Int?
+  created_at     Int
+  finished_at    Int?
+
+  @@map("job_batches")
+}
+
+model Job {
+  id           BigInt @id @default(autoincrement()) @db.BigInt
+  queue        String @db.VarChar(255)
+  payload      String @db.Text
+  attempts     Int    @db.SmallInt
+  reserved_at  Int?   @db.Integer
+  available_at Int    @db.Integer
+  created_at   Int    @db.Integer
+
+  @@index([queue])
+  @@map("jobs")
+}
+
+model KycSubmission {
+  id               BigInt              @id @default(autoincrement()) @db.BigInt
+  user_id          BigInt              @db.BigInt
+  document_type    String              @db.VarChar(255)
+  document_number  String?             @db.VarChar(255)
+  front_image_url  String?             @db.VarChar(255)
+  back_image_url   String?             @db.VarChar(255)
+  selfie_image_url String?             @db.VarChar(255)
+  status           KycSubmissionStatus @default(pending)
+  rejection_reason String?             @db.Text
+  approved_at      DateTime?           @db.Timestamp(0)
+  rejected_at      DateTime?           @db.Timestamp(0)
+  processed_by     BigInt?             @db.BigInt
+  processed_at     DateTime?           @db.Timestamp(0)
+  created_at       DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?           @updatedAt @db.Timestamp(0)
+  processor        User?               @relation("KycSubmissionsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+  user             User                @relation("UserKycSubmissions", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([processed_by])
+  @@index([user_id])
+  @@map("kyc_submissions")
+}
+
+model Migration {
+  id        Int    @id @default(autoincrement()) @db.Integer
+  migration String @db.VarChar(255)
+  batch     Int
+
+  @@map("migrations")
+}
+
+model MiningHosting {
+  id               BigInt              @id @default(autoincrement()) @db.BigInt
+  user_id          BigInt              @db.BigInt
+  product_id       BigInt              @db.BigInt
+  amount           Decimal             @db.Decimal(14, 2)
+  status           MiningHostingStatus @default(running)
+  currency         String              @default("USDT") @db.VarChar(255)
+  start_date       DateTime            @default(now()) @db.Timestamp(0)
+  end_date         DateTime?           @db.Timestamp(0)
+  last_profit_date DateTime?           @db.Timestamp(0)
+  total_earned     Decimal             @default(0.00) @db.Decimal(14, 2)
+  created_at       DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?           @updatedAt @db.Timestamp(0)
+  product          MiningProduct       @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  user             User                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([product_id])
+  @@index([user_id])
+  @@map("mining_hostings")
+}
+
+model MiningProduct {
+  id           BigInt          @id @default(autoincrement()) @db.BigInt
+  name         String          @db.VarChar(255)
+  days         Int
+  daily_rate   Decimal         @db.Decimal(10, 2)
+  min_amount   Decimal         @db.Decimal(14, 2)
+  max_amount   Decimal         @db.Decimal(14, 2)
+  limit_times  Int
+  hashrate     String          @db.VarChar(255)
+  power        String          @db.VarChar(255)
+  network_type String          @db.VarChar(255)
+  manufacturer String?         @db.VarChar(255)
+  size         String?         @db.VarChar(255)
+  weight       String?         @db.VarChar(255)
+  temperature  String?         @db.VarChar(255)
+  humidity     String?         @db.VarChar(255)
+  image        String?         @db.VarChar(255)
+  is_active    Boolean         @default(true)
+  created_at   DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?       @updatedAt @db.Timestamp(0)
+  hostings     MiningHosting[]
+
+  @@map("mining_products")
+}
+
+model PasswordResetToken {
+  email      String    @id @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+
+  @@map("password_reset_tokens")
+}
+
+model Notification {
+  id         BigInt    @id @default(autoincrement()) @db.BigInt
+  user_id    BigInt    @db.BigInt
+  admin_id   BigInt?   @db.BigInt
+  title      String    @db.VarChar(255)
+  message    String    @db.Text
+  image_url  String?   @db.Text
+  is_read    Boolean   @default(false)
+  read_at    DateTime? @db.Timestamp(0)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
+  admin      User?     @relation("AdminSentNotifications", fields: [admin_id], references: [id], onUpdate: Restrict)
+  user       User      @relation("UserNotifications", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([admin_id])
+  @@index([user_id, is_read])
+  @@index([user_id, created_at])
+  @@map("notifications")
+}
+
+model PersonalAccessToken {
+  id             BigInt    @id @default(autoincrement()) @db.BigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt    @db.BigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  expires_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @updatedAt @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id])
+  @@map("personal_access_tokens")
+}
+
+model Profile {
+  id                          BigInt              @id @default(autoincrement()) @db.BigInt
+  user_id                     BigInt              @db.BigInt
+  uuid                        String              @unique(map: "profiles_uuid_unique") @db.Char(36)
+  kyc_status                  ProfileKycStatus    @default(unverified)
+  level                       Int                 @default(1) @db.SmallInt
+  kyc_documents               String?             @db.Text
+  bank_account                String?             @db.VarChar(255)
+  blockchain_addresses        String?             @db.Text
+  google_auth_enabled         Boolean             @default(false)
+  google_auth_secret          String?             @db.VarChar(255)
+  withdrawal_password_enabled Boolean             @default(false)
+  withdrawal_password         String?             @db.VarChar(255)
+  trade_status                ProfileTradeStatus?
+  total_assets                Decimal             @default(0.00000000) @db.Decimal(20, 8)
+  preferred_language          String              @default("en") @db.VarChar(255)
+  notification_settings       String?             @db.Text
+  sim_trade_enabled           Boolean             @default(false)
+  invite_code                 String?             @unique(map: "profiles_invite_code_unique") @db.VarChar(255)
+  referral_count              Int                 @default(0)
+  created_at                  DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at                  DateTime?           @updatedAt @db.Timestamp(0)
+  user                        User                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([user_id])
+  @@map("profiles")
+}
+
+model Session {
+  id            String  @id @db.VarChar(255)
+  user_id       BigInt? @db.BigInt
+  ip_address    String? @db.VarChar(45)
+  user_agent    String? @db.Text
+  payload       String  @db.Text
+  last_activity Int
+
+  @@index([last_activity])
+  @@index([user_id])
+  @@map("sessions")
+}
+
+model SupportTicketMessage {
+  id          BigInt        @id @default(autoincrement()) @db.BigInt
+  ticket_id   BigInt        @db.BigInt
+  user_id     BigInt?       @db.BigInt
+  admin_id    BigInt?       @db.BigInt
+  message     String        @db.Text
+  is_read     Boolean       @default(false)
+  attachments String?       @db.Text
+  created_at  DateTime?     @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?     @updatedAt @db.Timestamp(0)
+  admin       User?         @relation("SupportTicketMessageAdmin", fields: [admin_id], references: [id], onUpdate: Restrict)
+  ticket      SupportTicket @relation(fields: [ticket_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  user        User?         @relation("SupportTicketMessageUser", fields: [user_id], references: [id], onUpdate: Restrict)
+
+  @@index([admin_id])
+  @@index([ticket_id, created_at])
+  @@index([user_id])
+  @@map("support_ticket_messages")
+}
+
+model SupportTicket {
+  id            BigInt                 @id @default(autoincrement()) @db.BigInt
+  user_id       BigInt                 @db.BigInt
+  subject       String                 @db.VarChar(255)
+  status        SupportTicketStatus    @default(open)
+  priority      SupportTicketPriority  @default(medium)
+  category      String                 @db.VarChar(255)
+  last_reply_at DateTime?              @db.Timestamp(0)
+  closed_at     DateTime?              @db.Timestamp(0)
+  created_at    DateTime?              @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?              @updatedAt @db.Timestamp(0)
+  messages      SupportTicketMessage[]
+  user          User                   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([user_id])
+  @@map("support_tickets")
+}
+
+model TradeContract {
+  id                BigInt    @id @default(autoincrement()) @db.BigInt
+  trade_id          BigInt    @db.BigInt
+  quantity          Decimal   @db.Decimal(15, 8)
+  leverage          Int
+  liquidation_price Decimal   @db.Decimal(15, 8)
+  take_profit       Decimal?  @db.Decimal(15, 8)
+  stop_loss         Decimal?  @db.Decimal(15, 8)
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  updated_at        DateTime? @updatedAt @db.Timestamp(0)
+  trade             Trade     @relation(fields: [trade_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([trade_id])
+  @@map("trade_contracts")
+}
+
+model TradeOption {
+  id              BigInt    @id @default(autoincrement()) @db.BigInt
+  trade_id        BigInt    @db.BigInt
+  duration        Int
+  return_rate     Decimal   @db.Decimal(5, 2)
+  expected_return Decimal   @db.Decimal(15, 2)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @updatedAt @db.Timestamp(0)
+  trade           Trade     @relation(fields: [trade_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([trade_id])
+  @@map("trade_options")
+}
+
+model TradeSpot {
+  id            BigInt    @id @default(autoincrement()) @db.BigInt
+  trade_id      BigInt    @db.BigInt
+  quantity      Decimal   @db.Decimal(15, 8)
+  market_price  Decimal   @db.Decimal(15, 8)
+  exchange_rate Decimal?  @db.Decimal(20, 12)
+  from_coin     String?   @db.VarChar(10)
+  to_coin       String?   @db.VarChar(10)
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+  updated_at    DateTime? @updatedAt @db.Timestamp(0)
+  trade         Trade     @relation(fields: [trade_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([trade_id])
+  @@map("trade_spots")
+}
+
+model Trade {
+  id            BigInt          @id @default(autoincrement()) @db.BigInt
+  user_id       BigInt          @db.BigInt
+  symbol        String          @db.VarChar(255)
+  type          String          @db.VarChar(255)
+  direction     String          @db.VarChar(255)
+  amount        Decimal         @db.Decimal(15, 2)
+  entry_price   Decimal         @db.Decimal(15, 8)
+  exit_price    Decimal?        @db.Decimal(15, 8)
+  exchange_rate Decimal?        @db.Decimal(18, 8)
+  from_coin     String?         @db.VarChar(20)
+  to_coin       String?         @db.VarChar(20)
+  status        String          @default("open") @db.VarChar(255)
+  result        String?         @db.VarChar(255)
+  pnl           Decimal         @default(0.00) @db.Decimal(15, 2)
+  fee           Decimal         @default(0.00) @db.Decimal(15, 2)
+  opened_at     DateTime        @default(now()) @db.Timestamp(0)
+  closed_at     DateTime?       @db.Timestamp(0)
+  closed_by     BigInt?         @db.BigInt
+  created_at    DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?       @updatedAt @db.Timestamp(0)
+  contracts     TradeContract[]
+  options       TradeOption[]
+  spots         TradeSpot[]
+  closer        User?           @relation("TradesClosedBy", fields: [closed_by], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  user          User            @relation("UserTrades", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  transactions  Transaction[]
+
+  @@index([closed_by])
+  @@index([user_id])
+  @@map("trades")
+}
+
+model Transaction {
+  id          BigInt    @id @default(autoincrement()) @db.BigInt
+  user_id     BigInt    @db.BigInt
+  trade_id    BigInt?   @db.BigInt
+  type        String    @db.VarChar(255)
+  amount      Decimal   @db.Decimal(15, 2)
+  currency    String    @default("USDT") @db.VarChar(255)
+  balance     Decimal   @db.Decimal(15, 2)
+  description String?   @db.Text
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  updated_at  DateTime? @updatedAt @db.Timestamp(0)
+  trade       Trade?    @relation(fields: [trade_id], references: [id], onUpdate: Restrict)
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([trade_id])
+  @@index([user_id])
+  @@map("transactions")
+}
+
+model User {
+  id                      BigInt                 @id @default(autoincrement()) @db.BigInt
+  name                    String                 @db.VarChar(255)
+  email                   String?                @unique(map: "users_email_unique") @db.VarChar(255)
+  phone                   String?                @unique(map: "users_phone_unique") @db.VarChar(255)
+  email_verified_at       DateTime?              @db.Timestamp(0)
+  password                String                 @db.VarChar(255)
+  role                    UserRole               @default(user)
+  status                  UserStatus             @default(active)
+  remember_token          String?                @db.VarChar(100)
+  created_at              DateTime?              @default(now()) @db.Timestamp(0)
+  updated_at              DateTime?              @updatedAt @db.Timestamp(0)
+  balance                 Decimal                @default(0.00) @db.Decimal(15, 2)
+  arbitrageHostings       ArbitrageHosting[]
+  assets                  Asset[]
+  createdCryptoAddresses  CryptoAddress[]        @relation("CryptoAddressCreator")
+  updatedCryptoAddresses  CryptoAddress[]        @relation("CryptoAddressUpdater")
+  processedDeposits       Deposit[]              @relation("DepositsProcessedBy")
+  deposits                Deposit[]              @relation("UserDeposits")
+  processedKycSubmissions KycSubmission[]        @relation("KycSubmissionsProcessedBy")
+  kycSubmissions          KycSubmission[]        @relation("UserKycSubmissions")
+  miningHostings          MiningHosting[]
+  profiles                Profile[]
+  adminSupportMessages    SupportTicketMessage[] @relation("SupportTicketMessageAdmin")
+  userSupportMessages     SupportTicketMessage[] @relation("SupportTicketMessageUser")
+  supportTickets          SupportTicket[]
+  closedTrades            Trade[]                @relation("TradesClosedBy")
+  trades                  Trade[]                @relation("UserTrades")
+  transactions            Transaction[]
+  processedWithdrawals    Withdrawal[]           @relation("WithdrawalsProcessedBy")
+  withdrawals             Withdrawal[]           @relation("UserWithdrawals")
+  processedLoans          Loan[]                 @relation("LoansProcessedBy")
+  loans                   Loan[]                 @relation("UserLoans")
+  processedLoanRepayments LoanRepayment[]        @relation("LoanRepaymentsProcessedBy")
+  notifications           Notification[]         @relation("UserNotifications")
+  sentNotifications       Notification[]         @relation("AdminSentNotifications")
+
+  @@map("users")
+}
+
+model Withdrawal {
+  id               BigInt           @id @default(autoincrement()) @db.BigInt
+  user_id          BigInt           @db.BigInt
+  currency         String           @default("USDT") @db.VarChar(255)
+  amount           Decimal          @db.Decimal(15, 2)
+  fee              Decimal          @default(0.00000000) @db.Decimal(15, 8)
+  transaction_id   String?          @db.VarChar(255)
+  wallet_address   String?          @db.VarChar(255)
+  network          String           @default("TRC20") @db.VarChar(20)
+  bank_details     String?          @db.VarChar(255)
+  description      String?          @db.Text
+  status           WithdrawalStatus @default(pending)
+  rejection_reason String?          @db.Text
+  processed_by     BigInt?          @db.BigInt
+  processed_at     DateTime?        @db.Timestamp(0)
+  created_at       DateTime?        @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?        @updatedAt @db.Timestamp(0)
+  processor        User?            @relation("WithdrawalsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+  user             User             @relation("UserWithdrawals", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([processed_by])
+  @@index([user_id])
+  @@map("withdrawals")
+}
+
+model Loan {
+  id                   BigInt          @id @default(autoincrement()) @db.BigInt
+  user_id              BigInt          @db.BigInt
+  amount               Decimal         @db.Decimal(15, 2)
+  currency             String          @default("USDT") @db.VarChar(255)
+  status               LoanStatus      @default(pending)
+  document_type        String?         @db.VarChar(255)
+  front_image          String?         @db.VarChar(255)
+  back_image           String?         @db.VarChar(255)
+  rejection_reason     String?         @db.Text
+  duration             Int             @default(30)
+  interest_rate        Decimal         @default(0.00) @db.Decimal(5, 2)
+  total_payable        Decimal         @default(0.00) @db.Decimal(15, 2)
+  accumulated_interest Decimal         @default(0.00) @db.Decimal(15, 2)
+  last_interest_date   DateTime?       @db.Timestamp(0)
+  due_date             DateTime?       @db.Timestamp(0)
+  approved_at          DateTime?       @db.Timestamp(0)
+  repaid_at            DateTime?       @db.Timestamp(0)
+  processed_by         BigInt?         @db.BigInt
+  processed_at         DateTime?       @db.Timestamp(0)
+  created_at           DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at           DateTime?       @updatedAt @db.Timestamp(0)
+  processor            User?           @relation("LoansProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+  user                 User            @relation("UserLoans", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  repayments           LoanRepayment[]
+
+  @@index([processed_by])
+  @@index([user_id])
+  @@map("loans")
+}
+
+model LoanRepayment {
+  id               BigInt              @id @default(autoincrement()) @db.BigInt
+  loan_id          BigInt              @db.BigInt
+  amount           Decimal             @db.Decimal(15, 2)
+  proof_image      String              @db.VarChar(255)
+  status           LoanRepaymentStatus @default(pending)
+  rejection_reason String?             @db.Text
+  processed_by     BigInt?             @db.BigInt
+  processed_at     DateTime?           @db.Timestamp(0)
+  created_at       DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?           @updatedAt @db.Timestamp(0)
+  loan             Loan                @relation(fields: [loan_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  processor        User?               @relation("LoanRepaymentsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+
+  @@index([loan_id])
+  @@index([processed_by])
+  @@map("loan_repayments")
+}
+
+enum ProfileKycStatus {
+  unverified
+  pending
+  verified
+  rejected
+
+  @@map("profiles_kyc_status")
+}
+
+enum SupportTicketStatus {
+  open
+  in_progress
+  awaiting_user
+  closed
+
+  @@map("support_tickets_status")
+}
+
+enum ArbitrageHostingStatus {
+  running
+  ended
+  cancelled
+
+  @@map("arbitrage_hostings_status")
+}
+
+enum MiningHostingStatus {
+  running
+  ended
+  cancelled
+
+  @@map("mining_hostings_status")
+}
+
+enum SupportTicketPriority {
+  low
+  medium
+  high
+  urgent
+
+  @@map("support_tickets_priority")
+}
+
+enum UserRole {
+  admin
+  user
+
+  @@map("users_role")
+}
+
+enum KycSubmissionStatus {
+  pending
+  approved
+  rejected
+
+  @@map("kyc_submissions_status")
+}
+
+enum UserStatus {
+  active
+  inactive
+  suspended
+  banned
+
+  @@map("users_status")
+}
+
+enum DepositStatus {
+  pending
+  approved
+  rejected
+
+  @@map("deposits_status")
+}
+
+enum WithdrawalStatus {
+  pending
+  approved
+  rejected
+
+  @@map("withdrawals_status")
+}
+
+enum LoanStatus {
+  pending
+  approved
+  rejected
+  repaid
+  overdue
+
+  @@map("loans_status")
+}
+
+enum LoanRepaymentStatus {
+  pending
+  approved
+  rejected
+
+  @@map("loan_repayments_status")
+}
+
+enum ProfileTradeStatus {
+  win
+  loss
+  normal
+
+  @@map("profiles_trade_status")
+}
