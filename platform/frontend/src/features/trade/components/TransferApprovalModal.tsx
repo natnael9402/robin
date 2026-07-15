@@ -24,19 +24,23 @@ const ACCOUNT_LABELS: Record<string, string> = {
   fast_trade: 'Fast Trade',
 };
 
-function getSourceAccount(target: string): string {
-  if (target === 'fast_trade') return 'spot';
+function getSourceAccount(target: string, balances?: { spot: number; trading: number; fast_trade: number; total: number }): string {
+  if (target === 'fast_trade') {
+    const spotBal = balances?.spot ?? 0;
+    const tradingBal = balances?.trading ?? 0;
+    return spotBal >= tradingBal ? 'spot' : 'trading';
+  }
   return 'fast_trade';
 }
 
 export function TransferApprovalModal({ open, onClose, onApproved, onDeposit, currentBalance, requiredAmount, targetAccount }: Props) {
-  const sourceAccount = getSourceAccount(targetAccount);
   const { data: balances } = useQuery({
     queryKey: ['trades', 'balances'],
     queryFn: () => walletApi.getBalances(),
     staleTime: 30_000,
     enabled: open,
   });
+  const sourceAccount = getSourceAccount(targetAccount, balances);
   const sourceBalance = safeNumber(balances?.[sourceAccount as keyof typeof balances] ?? 0);
   const shortfall = Math.max(0, requiredAmount - currentBalance);
   const [loading, setLoading] = useState(false);
@@ -47,7 +51,7 @@ export function TransferApprovalModal({ open, onClose, onApproved, onDeposit, cu
     setLoading(true);
     try {
       if (targetAccount === 'fast_trade') {
-        await walletApi.transferToMain('spot', shortfall);
+        await walletApi.transferToMain(sourceAccount as 'spot' | 'trading' | 'fast_trade', shortfall);
       } else {
         await walletApi.loadFromMain(targetAccount, shortfall);
       }

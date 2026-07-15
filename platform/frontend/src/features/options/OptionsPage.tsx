@@ -39,7 +39,7 @@ export function OptionsPage() {
     refetchInterval: 15_000,
   });
 
-  const balance = safeNumber((profile.data as any)?.balance);
+  const balance = safeNumber(balances.data?.trading ?? 0);
 
   // Form state
   const [selectedSymbol, setSelectedSymbol] = useState('BTC');
@@ -340,7 +340,7 @@ export function OptionsPage() {
       <QuickLoadModal
         open={loadOpen}
         onClose={() => setLoadOpen(false)}
-        targetAccount="spot"
+        targetAccount="trading"
         balances={{
           spot: balances.data?.spot ?? 0,
           trading: balances.data?.trading ?? 0,
