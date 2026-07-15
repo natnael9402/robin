@@ -1,6 +1,7 @@
 node_modules
 .next
 dist
+!ol/dist
 build
 coverage
 .env

@@ -115,7 +115,7 @@ router.get("/", (req, res) => controller.index(req, res));
  *         description: KYC submission created
  */
 const multer_1 = __importDefault(require("multer"));
-const upload = (0, multer_1.default)({ storage: multer_1.default.memoryStorage() });
+const upload = (0, multer_1.default)({ storage: multer_1.default.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 const handleKycUpload = (req, res, next) => {
     const contentType = req.headers["content-type"] || "";

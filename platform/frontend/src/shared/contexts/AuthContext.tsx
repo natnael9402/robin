@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, useRef, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { authApi, setTokenProvider, ApiError } from '../api';
 import { storage } from '../lib/storage';
@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isNewSignup, setIsNewSignup] = useState(false);
   const router = useRouter();
+  const lastRefreshRef = useRef<number>(0);
 
   useEffect(() => {
     setTokenProvider(() => storage.getToken());
@@ -42,15 +43,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (force = false) => {
     if (!storage.getToken()) {
       setUser(null);
+      setIsLoading(false);
+      return;
+    }
+    if (!force && Date.now() - lastRefreshRef.current < 30_000) {
       setIsLoading(false);
       return;
     }
     try {
       const profile = await authApi.getProfile();
       setUser(profile);
+      lastRefreshRef.current = Date.now();
       if (profile.name) storage.setUserName(profile.name);
       if (profile.kycStatus) storage.setKycStatus(profile.kycStatus);
     } catch (err) {

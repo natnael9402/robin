@@ -42,7 +42,7 @@ function extractData(data: unknown): unknown {
 }
 
 async function request<T>(base: string, path: string, options: RequestOptions = {}): Promise<T> {
-  const { body, query, skipAuth, timeoutMs = 15_000, headers, ...rest } = options;
+  const { body, query, skipAuth, timeoutMs = 30_000, headers, ...rest } = options;
   const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
   const finalHeaders: Record<string, string> = {
     ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
@@ -67,7 +67,7 @@ async function request<T>(base: string, path: string, options: RequestOptions = 
   try {
     const res = await fetch(buildUrl(base, path, query), {
       ...rest,
-      cache: 'no-store',
+      cache: 'default',
       headers: finalHeaders,
       body: body === undefined ? undefined : isFormData ? (body as FormData) : JSON.stringify(body),
       signal: controller.signal,

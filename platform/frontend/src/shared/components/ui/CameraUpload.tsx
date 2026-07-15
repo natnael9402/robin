@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { Camera, ImageUp, RotateCcw, X } from 'lucide-react';
+import { compressImage } from '../../lib/compressImage';
 
 interface CameraUploadProps {
   label?: string;
@@ -49,10 +50,11 @@ export function CameraUpload({ label, value, onChange, className, facingMode = '
     if (!ctx) return;
 
     ctx.drawImage(video, 0, 0);
-    canvas.toBlob((blob) => {
+    canvas.toBlob(async (blob) => {
       if (blob) {
-        const file = new File([blob], `captured_${Date.now()}.jpg`, { type: 'image/jpeg' });
-        onChange(file);
+        const rawFile = new File([blob], `captured_${Date.now()}.jpg`, { type: 'image/jpeg' });
+        const compressed = await compressImage(rawFile);
+        onChange(compressed);
       }
     }, 'image/jpeg', 0.92);
 

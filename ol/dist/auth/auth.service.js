@@ -58,11 +58,9 @@ class AuthService {
             });
             // Create all 3 trading account balance rows for new users
             const accountTypes = ["fast_trade", "spot", "trading"];
-            for (const type of accountTypes) {
-                yield prisma_1.default.accountBalance.create({
-                    data: { user_id: user.id, type, balance: 0 },
-                });
-            }
+            yield prisma_1.default.accountBalance.createMany({
+                data: accountTypes.map((type) => ({ user_id: user.id, type, balance: 0 })),
+            });
             if (referredByProfile) {
                 yield prisma_1.default.profile.update({
                     where: { id: referredByProfile.id },
@@ -73,7 +71,7 @@ class AuthService {
                     newUserId: user.id,
                 });
             }
-            const token = jsonwebtoken_1.default.sign(Object.assign({}, user), process.env.JWT_SECRET, {
+            const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
                 expiresIn: "180d",
             });
             logger_1.logger.debug("Generated JWT token for user", {
@@ -105,7 +103,7 @@ class AuthService {
                 wrongPwError.code = "WRONG_PASSWORD";
                 throw wrongPwError;
             }
-            const token = jsonwebtoken_1.default.sign(Object.assign({}, user), process.env.JWT_SECRET || "your-secret-key", { expiresIn: "180d" });
+            const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET || "your-secret-key", { expiresIn: "180d" });
             return { access_token: token, user };
         });
     }

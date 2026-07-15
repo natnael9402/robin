@@ -30,6 +30,8 @@ const prisma_1 = __importDefault(require("../prisma"));
 const asset_service_1 = __importDefault(require("../asset/asset.service"));
 const prisma_2 = require("../generated/prisma");
 const logger_1 = require("../utils/logger");
+const profileCache = new Map();
+const PROFILE_CACHE_TTL = 30000;
 const snakeToCamel = (key) => key.replace(/_([a-z])/g, (_, char) => char.toUpperCase());
 const camelizeKeys = (obj) => Object.fromEntries(Object.entries(obj).map(([key, value]) => [snakeToCamel(key), value]));
 const MAX_PROFILE_LEVEL = 3;
@@ -200,6 +202,10 @@ class ProfileService {
     getProfileWithUserData(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b, _c, _d;
+            const cached = profileCache.get(userId);
+            if (cached && Date.now() - cached.ts < PROFILE_CACHE_TTL) {
+                return cached.data;
+            }
             const user = yield prisma_1.default.user.findUnique({
                 where: { id: userId },
                 include: { profiles: true },
@@ -218,7 +224,6 @@ class ProfileService {
             const totalAssetsValue = balance.add(assetsValue);
             const currentTotalAssets = new library_1.Decimal((_d = (_c = profile.total_assets) === null || _c === void 0 ? void 0 : _c.toString()) !== null && _d !== void 0 ? _d : "0");
             const needsUpdate = !currentTotalAssets.eq(totalAssetsValue);
-            // Fire-and-forget update (no await)
             if (needsUpdate) {
                 prisma_1.default.profile
                     .update({
@@ -249,21 +254,16 @@ class ProfileService {
                     }
                 });
             }
-            // Fetch refreshed profile (existing data, not waiting for update)
-            const refreshed = yield prisma_1.default.profile.findUnique({
-                where: { id: profile.id },
-                include: { user: true },
-            });
-            if (!refreshed)
-                throw new Error("Profile not found");
-            return {
-                profile: formatProfile(refreshed),
+            const result = {
+                profile: formatProfile(profile),
                 balance,
                 assets,
                 assetsValue,
                 totalAssetsValue,
                 user: sanitizeUserSummary(user),
             };
+            profileCache.set(userId, { data: result, ts: Date.now() });
+            return result;
         });
     }
 }

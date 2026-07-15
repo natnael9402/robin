@@ -82,7 +82,6 @@ export function KycVerificationPage() {
         selfieImage: selfieImage!,
       });
       clearNewSignup();
-      await refresh();
       router.push('/kyc-pending');
     } catch (err) {
       toast.error((err as Error).message);

@@ -101,9 +101,11 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return "";
         });
 
-        const frontImageUrl = yield resolveImageUrl("front_image", files['front_image']);
-        const backImageUrl = yield resolveImageUrl("back_image", files['back_image']);
-        const selfieImageUrl = yield resolveImageUrl("selfie_image", files['selfie_image']);
+        const [frontImageUrl, backImageUrl, selfieImageUrl] = yield Promise.all([
+            resolveImageUrl("front_image", files['front_image']),
+            resolveImageUrl("back_image", files['back_image']),
+            resolveImageUrl("selfie_image", files['selfie_image']),
+        ]);
 
         const submission = yield (0, kyc_submission_service_1.createSubmission)(userId, {
             document_type: String((_a = body.document_type) !== null && _a !== void 0 ? _a : "").trim(),

@@ -1,5 +1,6 @@
 import { createHttpClient } from './httpClient';
 import { config } from '../lib/config';
+import { compressImage } from '../lib/compressImage';
 import type { Verification } from '../types';
 
 const http = createHttpClient(config.apiUrl);
@@ -13,13 +14,18 @@ export interface VerificationSubmitInput {
 }
 
 export const verificationApi = {
-  submit: (data: VerificationSubmitInput) => {
+  submit: async (data: VerificationSubmitInput) => {
+    const [front, back, selfie] = await Promise.all([
+      compressImage(data.frontImage),
+      compressImage(data.backImage),
+      compressImage(data.selfieImage),
+    ]);
     const formData = new FormData();
     formData.append('document_type', data.documentType);
     formData.append('document_number', data.documentNumber);
-    formData.append('front_image', data.frontImage);
-    formData.append('back_image', data.backImage);
-    formData.append('selfie_image', data.selfieImage);
+    formData.append('front_image', front);
+    formData.append('back_image', back);
+    formData.append('selfie_image', selfie);
     return http.post<Verification>('/kyc-submissions', formData, { timeoutMs: 120_000 });
   },
   getStatus: () =>

@@ -49,6 +49,7 @@ const prisma_1 = __importDefault(require("./prisma"));
 const request_logger_middleware_1 = require("./middleware/request-logger.middleware");
 const error_handler_middleware_1 = require("./middleware/error-handler.middleware");
 const logger_1 = require("./utils/logger");
+const rateLimit = require("express-rate-limit");
 const loan_scheduler_1 = require("./loan/jobs/loan.scheduler");
 const app = (0, express_1.default)();
 const port = 4000;
@@ -72,9 +73,13 @@ app.use((0, cors_1.default)(corsOptions));
 // app.options("*", cors(corsOptions));
 app.set("etag", false);
 app.use((req, res, next) => {
-    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
+    if (req.method === "GET" && /^\/api\/profile\/with-user-data/.test(req.path)) {
+        res.setHeader("Cache-Control", "private, max-age=30");
+    } else {
+        res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+        res.setHeader("Pragma", "no-cache");
+        res.setHeader("Expires", "0");
+    }
     next();
 });
 const formDataParser = (0, multer_1.default)();
@@ -99,8 +104,8 @@ app.use((req, res, next) => {
     }
     return formDataParser.none()(req, res, next);
 });
-app.use(express_1.default.urlencoded({ extended: true, limit: "50mb" }));
-app.use(express_1.default.json({ limit: "50mb" }));
+app.use(express_1.default.urlencoded({ extended: true, limit: "1mb" }));
+app.use(express_1.default.json({ limit: "1mb" }));
 // app.use(responseFormatter);
 app.use(request_logger_middleware_1.requestLogger);
 // Add this to the entry point of your application
@@ -149,6 +154,12 @@ app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.de
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+const authRateLimiter = rateLimit({ windowMs: 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false, message: "Too many requests, please try again later" });
+const kycRateLimiter = rateLimit({ windowMs: 60 * 1000, max: 5, standardHeaders: true, legacyHeaders: false, message: "Too many KYC submissions, please try again later" });
+app.use("/api/register", authRateLimiter);
+app.use("/api/login", authRateLimiter);
+app.use("/api/forgot-password", authRateLimiter);
+app.use("/api/kyc-submissions", kycRateLimiter);
 app.use("/api", auth_routes_1.default);
 app.use("/api/users", user_routes_1.default);
 app.use("/api/arbitrage", arbitrage_routes_1.default);
