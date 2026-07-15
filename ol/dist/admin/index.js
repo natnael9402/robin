@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const admin_mining_routes_1 = __importDefault(require("./admin.mining.routes"));
+const admin_arbitrage_routes_1 = __importDefault(require("./admin.arbitrage.routes"));
+const admin_dashboard_routes_1 = __importDefault(require("./admin.dashboard.routes"));
+const admin_profile_routes_1 = __importDefault(require("./admin.profile.routes"));
+const admin_crypto_address_routes_1 = __importDefault(require("./admin.crypto-address.routes"));
+const admin_accounts_routes_1 = __importDefault(require("./admin.accounts.routes"));
+const admin_notification_routes_1 = __importDefault(require("./admin.notification.routes"));
+const news_admin_routes_1 = __importDefault(require("../news/news.admin.routes"));
+const admin_user_accounts_routes_1 = __importDefault(require("./admin.user-accounts.routes"));
+const router = express_1.default.Router();
+router.use(admin_dashboard_routes_1.default);
+router.use(admin_profile_routes_1.default);
+router.use(admin_notification_routes_1.default);
+router.use("/admins", admin_accounts_routes_1.default);
+router.use("/crypto-addresses", admin_crypto_address_routes_1.default);
+router.use("/mining", admin_mining_routes_1.default);
+router.use("/arbitrage", admin_arbitrage_routes_1.default);
+router.use("/news", news_admin_routes_1.default);
+router.use(admin_user_accounts_routes_1.default);
+exports.default = router;

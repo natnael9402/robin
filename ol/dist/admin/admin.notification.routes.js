@@ -1,0 +1,38 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const multer_1 = __importDefault(require("multer"));
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const admin_middleware_1 = require("../middleware/admin.middleware");
+const validation_middleware_1 = require("../middleware/validation.middleware");
+const http_response_1 = require("../utils/http-response");
+const notification_controller_1 = require("../notification/notification.controller");
+const notification_validation_1 = require("../notification/notification.validation");
+const router = express_1.default.Router();
+const allowedImageMimes = new Set(["image/jpeg", "image/png", "image/webp"]);
+const upload = (0, multer_1.default)({
+    storage: multer_1.default.memoryStorage(),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        if (allowedImageMimes.has(file.mimetype)) {
+            cb(null, true);
+            return;
+        }
+        cb(new Error("Invalid file type. Only JPG, PNG, and WEBP are allowed."));
+    },
+});
+const notificationUpload = upload.single("image");
+const handleNotificationUpload = (req, res, next) => {
+    notificationUpload(req, res, (err) => {
+        if (err) {
+            return (0, http_response_1.errorResponse)(res, err.message || "File upload error", 400);
+        }
+        next();
+    });
+};
+router.use(auth_middleware_1.authenticateJWT, admin_middleware_1.authorizeAdmin);
+router.post("/users/:id/notifications", handleNotificationUpload, notification_validation_1.sendNotificationValidator, validation_middleware_1.validationMiddleware, notification_controller_1.sendNotification);
+exports.default = router;

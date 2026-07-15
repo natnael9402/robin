@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const load_controller_1 = require("./load.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+const loadController = new load_controller_1.LoadController();
+router.post("/from-main", auth_middleware_1.authenticateJWT, loadController.loadFromMain);
+router.post("/to-main", auth_middleware_1.authenticateJWT, loadController.transferToMain);
+exports.default = router;
