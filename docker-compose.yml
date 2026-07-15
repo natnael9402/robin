@@ -1,4 +1,24 @@
 services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: robin-npm
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    volumes:
+      - npm-data:/data
+      - npm-letsencrypt:/etc/letsencrypt
+    environment:
+      DISABLE_IPV6: "true"
+    networks:
+      - proxy
+    depends_on:
+      - frontend
+      - admin
+      - ol
+
   db:
     image: postgres:16-alpine
     container_name: robin-db
@@ -9,8 +29,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
     volumes:
       - pgdata:/var/lib/postgresql/data
-    ports:
-      - "127.0.0.1:5432:5432"
+    networks:
+      - proxy
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d base_trade_prod"]
       interval: 5s
@@ -28,8 +48,8 @@ services:
       DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-postgres}@db:5432/base_trade_prod
       DIRECT_URL: postgresql://postgres:${DB_PASSWORD:-postgres}@db:5432/base_trade_prod
       PORT: 4000
-    ports:
-      - "127.0.0.1:4000:4000"
+    networks:
+      - proxy
     depends_on:
       db:
         condition: service_healthy
@@ -41,9 +61,9 @@ services:
     container_name: robin-frontend
     restart: unless-stopped
     environment:
-      NEXT_PUBLIC_API_URL: https://api.paxoracapitalpro.com/api
-    ports:
-      - "127.0.0.1:3000:3000"
+      NEXT_PUBLIC_API_URL: https://api.premiumpaxoracapital.com/api
+    networks:
+      - proxy
     depends_on:
       - ol
 
@@ -54,11 +74,17 @@ services:
     container_name: robin-admin
     restart: unless-stopped
     environment:
-      NEXT_PUBLIC_API_URL: https://api.paxoracapitalpro.com/api
-    ports:
-      - "127.0.0.1:3001:3001"
+      NEXT_PUBLIC_API_URL: https://api.premiumpaxoracapital.com/api
+    networks:
+      - proxy
     depends_on:
       - ol
 
+networks:
+  proxy:
+    driver: bridge
+
 volumes:
   pgdata:
+  npm-data:
+  npm-letsencrypt:
