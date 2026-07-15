@@ -11,7 +11,7 @@ ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY ol/dist ./dist
 COPY ol/prisma ./prisma
+RUN sed -i 's|output.*=.*"../src/generated/prisma"|output = "../dist/generated/prisma"|' prisma/schema.prisma
 RUN npx prisma generate
-COPY ol/src/generated ./src/generated
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
