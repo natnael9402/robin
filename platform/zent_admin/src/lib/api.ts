@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://k0n87jwbtrig.shares.zrok.io/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.premiumpaxoracapital.com/api';
 
 function getAuthHeader(): Record<string, string> {
   if (typeof window !== 'undefined') {
