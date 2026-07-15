@@ -163,6 +163,26 @@ export type Loan = $Result.DefaultSelection<Prisma.$LoanPayload>
  * 
  */
 export type LoanRepayment = $Result.DefaultSelection<Prisma.$LoanRepaymentPayload>
+/**
+ * Model NewsArticle
+ * 
+ */
+export type NewsArticle = $Result.DefaultSelection<Prisma.$NewsArticlePayload>
+/**
+ * Model AccountBalance
+ * 
+ */
+export type AccountBalance = $Result.DefaultSelection<Prisma.$AccountBalancePayload>
+/**
+ * Model ReferralCommission
+ * 
+ */
+export type ReferralCommission = $Result.DefaultSelection<Prisma.$ReferralCommissionPayload>
+/**
+ * Model UserOnboarding
+ * 
+ */
+export type UserOnboarding = $Result.DefaultSelection<Prisma.$UserOnboardingPayload>
 
 /**
  * Enums
@@ -199,6 +219,7 @@ export type ArbitrageHostingStatus = (typeof ArbitrageHostingStatus)[keyof typeo
 
 export const MiningHostingStatus: {
   running: 'running',
+  paused: 'paused',
   ended: 'ended',
   cancelled: 'cancelled'
 };
@@ -760,6 +781,46 @@ export class PrismaClient<
     * ```
     */
   get loanRepayment(): Prisma.LoanRepaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.newsArticle`: Exposes CRUD operations for the **NewsArticle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NewsArticles
+    * const newsArticles = await prisma.newsArticle.findMany()
+    * ```
+    */
+  get newsArticle(): Prisma.NewsArticleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.accountBalance`: Exposes CRUD operations for the **AccountBalance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountBalances
+    * const accountBalances = await prisma.accountBalance.findMany()
+    * ```
+    */
+  get accountBalance(): Prisma.AccountBalanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.referralCommission`: Exposes CRUD operations for the **ReferralCommission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReferralCommissions
+    * const referralCommissions = await prisma.referralCommission.findMany()
+    * ```
+    */
+  get referralCommission(): Prisma.ReferralCommissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userOnboarding`: Exposes CRUD operations for the **UserOnboarding** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserOnboardings
+    * const userOnboardings = await prisma.userOnboarding.findMany()
+    * ```
+    */
+  get userOnboarding(): Prisma.UserOnboardingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1230,7 +1291,11 @@ export namespace Prisma {
     User: 'User',
     Withdrawal: 'Withdrawal',
     Loan: 'Loan',
-    LoanRepayment: 'LoanRepayment'
+    LoanRepayment: 'LoanRepayment',
+    NewsArticle: 'NewsArticle',
+    AccountBalance: 'AccountBalance',
+    ReferralCommission: 'ReferralCommission',
+    UserOnboarding: 'UserOnboarding'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1249,7 +1314,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "arbitrageHosting" | "arbitrageProduct" | "asset" | "cache" | "cacheLock" | "cryptoAddress" | "deposit" | "failedJob" | "jobBatch" | "job" | "kycSubmission" | "migration" | "miningHosting" | "miningProduct" | "passwordResetToken" | "notification" | "personalAccessToken" | "profile" | "session" | "supportTicketMessage" | "supportTicket" | "tradeContract" | "tradeOption" | "tradeSpot" | "trade" | "transaction" | "user" | "withdrawal" | "loan" | "loanRepayment"
+      modelProps: "arbitrageHosting" | "arbitrageProduct" | "asset" | "cache" | "cacheLock" | "cryptoAddress" | "deposit" | "failedJob" | "jobBatch" | "job" | "kycSubmission" | "migration" | "miningHosting" | "miningProduct" | "passwordResetToken" | "notification" | "personalAccessToken" | "profile" | "session" | "supportTicketMessage" | "supportTicket" | "tradeContract" | "tradeOption" | "tradeSpot" | "trade" | "transaction" | "user" | "withdrawal" | "loan" | "loanRepayment" | "newsArticle" | "accountBalance" | "referralCommission" | "userOnboarding"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3473,6 +3538,302 @@ export namespace Prisma {
           }
         }
       }
+      NewsArticle: {
+        payload: Prisma.$NewsArticlePayload<ExtArgs>
+        fields: Prisma.NewsArticleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NewsArticleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NewsArticleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          findFirst: {
+            args: Prisma.NewsArticleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NewsArticleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          findMany: {
+            args: Prisma.NewsArticleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>[]
+          }
+          create: {
+            args: Prisma.NewsArticleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          createMany: {
+            args: Prisma.NewsArticleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NewsArticleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>[]
+          }
+          delete: {
+            args: Prisma.NewsArticleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          update: {
+            args: Prisma.NewsArticleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          deleteMany: {
+            args: Prisma.NewsArticleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NewsArticleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NewsArticleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>[]
+          }
+          upsert: {
+            args: Prisma.NewsArticleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewsArticlePayload>
+          }
+          aggregate: {
+            args: Prisma.NewsArticleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNewsArticle>
+          }
+          groupBy: {
+            args: Prisma.NewsArticleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NewsArticleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NewsArticleCountArgs<ExtArgs>
+            result: $Utils.Optional<NewsArticleCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountBalance: {
+        payload: Prisma.$AccountBalancePayload<ExtArgs>
+        fields: Prisma.AccountBalanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountBalanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountBalanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          findFirst: {
+            args: Prisma.AccountBalanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountBalanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          findMany: {
+            args: Prisma.AccountBalanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>[]
+          }
+          create: {
+            args: Prisma.AccountBalanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          createMany: {
+            args: Prisma.AccountBalanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountBalanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>[]
+          }
+          delete: {
+            args: Prisma.AccountBalanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          update: {
+            args: Prisma.AccountBalanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountBalanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountBalanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AccountBalanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>[]
+          }
+          upsert: {
+            args: Prisma.AccountBalanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBalancePayload>
+          }
+          aggregate: {
+            args: Prisma.AccountBalanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountBalance>
+          }
+          groupBy: {
+            args: Prisma.AccountBalanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountBalanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountBalanceCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountBalanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      ReferralCommission: {
+        payload: Prisma.$ReferralCommissionPayload<ExtArgs>
+        fields: Prisma.ReferralCommissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReferralCommissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReferralCommissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          findFirst: {
+            args: Prisma.ReferralCommissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReferralCommissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          findMany: {
+            args: Prisma.ReferralCommissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>[]
+          }
+          create: {
+            args: Prisma.ReferralCommissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          createMany: {
+            args: Prisma.ReferralCommissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReferralCommissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>[]
+          }
+          delete: {
+            args: Prisma.ReferralCommissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          update: {
+            args: Prisma.ReferralCommissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReferralCommissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReferralCommissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReferralCommissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReferralCommissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralCommissionPayload>
+          }
+          aggregate: {
+            args: Prisma.ReferralCommissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReferralCommission>
+          }
+          groupBy: {
+            args: Prisma.ReferralCommissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReferralCommissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReferralCommissionCountArgs<ExtArgs>
+            result: $Utils.Optional<ReferralCommissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserOnboarding: {
+        payload: Prisma.$UserOnboardingPayload<ExtArgs>
+        fields: Prisma.UserOnboardingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserOnboardingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserOnboardingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          findFirst: {
+            args: Prisma.UserOnboardingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserOnboardingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          findMany: {
+            args: Prisma.UserOnboardingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>[]
+          }
+          create: {
+            args: Prisma.UserOnboardingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          createMany: {
+            args: Prisma.UserOnboardingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserOnboardingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>[]
+          }
+          delete: {
+            args: Prisma.UserOnboardingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          update: {
+            args: Prisma.UserOnboardingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserOnboardingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserOnboardingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserOnboardingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserOnboardingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnboardingPayload>
+          }
+          aggregate: {
+            args: Prisma.UserOnboardingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserOnboarding>
+          }
+          groupBy: {
+            args: Prisma.UserOnboardingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserOnboardingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserOnboardingCountArgs<ExtArgs>
+            result: $Utils.Optional<UserOnboardingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3599,6 +3960,10 @@ export namespace Prisma {
     withdrawal?: WithdrawalOmit
     loan?: LoanOmit
     loanRepayment?: LoanRepaymentOmit
+    newsArticle?: NewsArticleOmit
+    accountBalance?: AccountBalanceOmit
+    referralCommission?: ReferralCommissionOmit
+    userOnboarding?: UserOnboardingOmit
   }
 
   /* Types for Logging */
@@ -3706,6 +4071,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type DepositCountOutputType
+   */
+
+  export type DepositCountOutputType = {
+    referral_commissions: number
+  }
+
+  export type DepositCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referral_commissions?: boolean | DepositCountOutputTypeCountReferral_commissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DepositCountOutputType without action
+   */
+  export type DepositCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DepositCountOutputType
+     */
+    select?: DepositCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DepositCountOutputType without action
+   */
+  export type DepositCountOutputTypeCountReferral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralCommissionWhereInput
+  }
+
+
+  /**
    * Count Type MiningProductCountOutputType
    */
 
@@ -3733,6 +4129,46 @@ export namespace Prisma {
    */
   export type MiningProductCountOutputTypeCountHostingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MiningHostingWhereInput
+  }
+
+
+  /**
+   * Count Type ProfileCountOutputType
+   */
+
+  export type ProfileCountOutputType = {
+    referred_profiles: number
+    referral_commissions: number
+  }
+
+  export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referred_profiles?: boolean | ProfileCountOutputTypeCountReferred_profilesArgs
+    referral_commissions?: boolean | ProfileCountOutputTypeCountReferral_commissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfileCountOutputType
+     */
+    select?: ProfileCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountReferred_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfileWhereInput
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountReferral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralCommissionWhereInput
   }
 
 
@@ -3830,6 +4266,7 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    accountBalances: number
     arbitrageHostings: number
     assets: number
     createdCryptoAddresses: number
@@ -3838,8 +4275,13 @@ export namespace Prisma {
     deposits: number
     processedKycSubmissions: number
     kycSubmissions: number
+    processedLoanRepayments: number
+    processedLoans: number
+    loans: number
     miningHostings: number
     profiles: number
+    sentNotifications: number
+    notifications: number
     adminSupportMessages: number
     userSupportMessages: number
     supportTickets: number
@@ -3848,14 +4290,11 @@ export namespace Prisma {
     transactions: number
     processedWithdrawals: number
     withdrawals: number
-    processedLoans: number
-    loans: number
-    processedLoanRepayments: number
-    notifications: number
-    sentNotifications: number
+    referral_commissions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountBalances?: boolean | UserCountOutputTypeCountAccountBalancesArgs
     arbitrageHostings?: boolean | UserCountOutputTypeCountArbitrageHostingsArgs
     assets?: boolean | UserCountOutputTypeCountAssetsArgs
     createdCryptoAddresses?: boolean | UserCountOutputTypeCountCreatedCryptoAddressesArgs
@@ -3864,8 +4303,13 @@ export namespace Prisma {
     deposits?: boolean | UserCountOutputTypeCountDepositsArgs
     processedKycSubmissions?: boolean | UserCountOutputTypeCountProcessedKycSubmissionsArgs
     kycSubmissions?: boolean | UserCountOutputTypeCountKycSubmissionsArgs
+    processedLoanRepayments?: boolean | UserCountOutputTypeCountProcessedLoanRepaymentsArgs
+    processedLoans?: boolean | UserCountOutputTypeCountProcessedLoansArgs
+    loans?: boolean | UserCountOutputTypeCountLoansArgs
     miningHostings?: boolean | UserCountOutputTypeCountMiningHostingsArgs
     profiles?: boolean | UserCountOutputTypeCountProfilesArgs
+    sentNotifications?: boolean | UserCountOutputTypeCountSentNotificationsArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     adminSupportMessages?: boolean | UserCountOutputTypeCountAdminSupportMessagesArgs
     userSupportMessages?: boolean | UserCountOutputTypeCountUserSupportMessagesArgs
     supportTickets?: boolean | UserCountOutputTypeCountSupportTicketsArgs
@@ -3874,11 +4318,7 @@ export namespace Prisma {
     transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
     processedWithdrawals?: boolean | UserCountOutputTypeCountProcessedWithdrawalsArgs
     withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
-    processedLoans?: boolean | UserCountOutputTypeCountProcessedLoansArgs
-    loans?: boolean | UserCountOutputTypeCountLoansArgs
-    processedLoanRepayments?: boolean | UserCountOutputTypeCountProcessedLoanRepaymentsArgs
-    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
-    sentNotifications?: boolean | UserCountOutputTypeCountSentNotificationsArgs
+    referral_commissions?: boolean | UserCountOutputTypeCountReferral_commissionsArgs
   }
 
   // Custom InputTypes
@@ -3890,6 +4330,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccountBalancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountBalanceWhereInput
   }
 
   /**
@@ -3951,6 +4398,27 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountProcessedLoanRepaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanRepaymentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProcessedLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountMiningHostingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MiningHostingWhereInput
   }
@@ -3960,6 +4428,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProfileWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSentNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
   /**
@@ -4021,36 +4503,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountProcessedLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LoanWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LoanWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountProcessedLoanRepaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LoanRepaymentWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSentNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
+  export type UserCountOutputTypeCountReferral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralCommissionWhereInput
   }
 
 
@@ -11219,6 +11673,8 @@ export namespace Prisma {
     updated_at?: boolean
     processor?: boolean | Deposit$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referral_commissions?: boolean | Deposit$referral_commissionsArgs<ExtArgs>
+    _count?: boolean | DepositCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["deposit"]>
 
   export type DepositSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11283,6 +11739,8 @@ export namespace Prisma {
   export type DepositInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     processor?: boolean | Deposit$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referral_commissions?: boolean | Deposit$referral_commissionsArgs<ExtArgs>
+    _count?: boolean | DepositCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepositIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     processor?: boolean | Deposit$processorArgs<ExtArgs>
@@ -11298,6 +11756,7 @@ export namespace Prisma {
     objects: {
       processor: Prisma.$UserPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs>
+      referral_commissions: Prisma.$ReferralCommissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -11711,6 +12170,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     processor<T extends Deposit$processorArgs<ExtArgs> = {}>(args?: Subset<T, Deposit$processorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    referral_commissions<T extends Deposit$referral_commissionsArgs<ExtArgs> = {}>(args?: Subset<T, Deposit$referral_commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12167,6 +12627,30 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Deposit.referral_commissions
+   */
+  export type Deposit$referral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    where?: ReferralCommissionWhereInput
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    cursor?: ReferralCommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
   }
 
   /**
@@ -21204,11 +21688,11 @@ export namespace Prisma {
     admin_id: bigint | null
     title: string | null
     message: string | null
-    image_url: string | null
     is_read: boolean | null
     read_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    image_url: string | null
   }
 
   export type NotificationMaxAggregateOutputType = {
@@ -21217,11 +21701,11 @@ export namespace Prisma {
     admin_id: bigint | null
     title: string | null
     message: string | null
-    image_url: string | null
     is_read: boolean | null
     read_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    image_url: string | null
   }
 
   export type NotificationCountAggregateOutputType = {
@@ -21230,11 +21714,11 @@ export namespace Prisma {
     admin_id: number
     title: number
     message: number
-    image_url: number
     is_read: number
     read_at: number
     created_at: number
     updated_at: number
+    image_url: number
     _all: number
   }
 
@@ -21257,11 +21741,11 @@ export namespace Prisma {
     admin_id?: true
     title?: true
     message?: true
-    image_url?: true
     is_read?: true
     read_at?: true
     created_at?: true
     updated_at?: true
+    image_url?: true
   }
 
   export type NotificationMaxAggregateInputType = {
@@ -21270,11 +21754,11 @@ export namespace Prisma {
     admin_id?: true
     title?: true
     message?: true
-    image_url?: true
     is_read?: true
     read_at?: true
     created_at?: true
     updated_at?: true
+    image_url?: true
   }
 
   export type NotificationCountAggregateInputType = {
@@ -21283,11 +21767,11 @@ export namespace Prisma {
     admin_id?: true
     title?: true
     message?: true
-    image_url?: true
     is_read?: true
     read_at?: true
     created_at?: true
     updated_at?: true
+    image_url?: true
     _all?: true
   }
 
@@ -21383,11 +21867,11 @@ export namespace Prisma {
     admin_id: bigint | null
     title: string
     message: string
-    image_url: string | null
     is_read: boolean
     read_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    image_url: string | null
     _count: NotificationCountAggregateOutputType | null
     _avg: NotificationAvgAggregateOutputType | null
     _sum: NotificationSumAggregateOutputType | null
@@ -21415,11 +21899,11 @@ export namespace Prisma {
     admin_id?: boolean
     title?: boolean
     message?: boolean
-    image_url?: boolean
     is_read?: boolean
     read_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_url?: boolean
     admin?: boolean | Notification$adminArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -21430,11 +21914,11 @@ export namespace Prisma {
     admin_id?: boolean
     title?: boolean
     message?: boolean
-    image_url?: boolean
     is_read?: boolean
     read_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_url?: boolean
     admin?: boolean | Notification$adminArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -21445,11 +21929,11 @@ export namespace Prisma {
     admin_id?: boolean
     title?: boolean
     message?: boolean
-    image_url?: boolean
     is_read?: boolean
     read_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_url?: boolean
     admin?: boolean | Notification$adminArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -21460,14 +21944,14 @@ export namespace Prisma {
     admin_id?: boolean
     title?: boolean
     message?: boolean
-    image_url?: boolean
     is_read?: boolean
     read_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_url?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "admin_id" | "title" | "message" | "image_url" | "is_read" | "read_at" | "created_at" | "updated_at", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "admin_id" | "title" | "message" | "is_read" | "read_at" | "created_at" | "updated_at" | "image_url", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admin?: boolean | Notification$adminArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -21493,11 +21977,11 @@ export namespace Prisma {
       admin_id: bigint | null
       title: string
       message: string
-      image_url: string | null
       is_read: boolean
       read_at: Date | null
       created_at: Date | null
       updated_at: Date | null
+      image_url: string | null
     }, ExtArgs["result"]["notification"]>
     composites: {}
   }
@@ -21928,11 +22412,11 @@ export namespace Prisma {
     readonly admin_id: FieldRef<"Notification", 'BigInt'>
     readonly title: FieldRef<"Notification", 'String'>
     readonly message: FieldRef<"Notification", 'String'>
-    readonly image_url: FieldRef<"Notification", 'String'>
     readonly is_read: FieldRef<"Notification", 'Boolean'>
     readonly read_at: FieldRef<"Notification", 'DateTime'>
     readonly created_at: FieldRef<"Notification", 'DateTime'>
     readonly updated_at: FieldRef<"Notification", 'DateTime'>
+    readonly image_url: FieldRef<"Notification", 'String'>
   }
     
 
@@ -23482,6 +23966,7 @@ export namespace Prisma {
     level: number | null
     total_assets: Decimal | null
     referral_count: number | null
+    referred_by_id: number | null
   }
 
   export type ProfileSumAggregateOutputType = {
@@ -23490,6 +23975,7 @@ export namespace Prisma {
     level: number | null
     total_assets: Decimal | null
     referral_count: number | null
+    referred_by_id: bigint | null
   }
 
   export type ProfileMinAggregateOutputType = {
@@ -23514,6 +24000,7 @@ export namespace Prisma {
     referral_count: number | null
     created_at: Date | null
     updated_at: Date | null
+    referred_by_id: bigint | null
   }
 
   export type ProfileMaxAggregateOutputType = {
@@ -23538,6 +24025,7 @@ export namespace Prisma {
     referral_count: number | null
     created_at: Date | null
     updated_at: Date | null
+    referred_by_id: bigint | null
   }
 
   export type ProfileCountAggregateOutputType = {
@@ -23562,6 +24050,7 @@ export namespace Prisma {
     referral_count: number
     created_at: number
     updated_at: number
+    referred_by_id: number
     _all: number
   }
 
@@ -23572,6 +24061,7 @@ export namespace Prisma {
     level?: true
     total_assets?: true
     referral_count?: true
+    referred_by_id?: true
   }
 
   export type ProfileSumAggregateInputType = {
@@ -23580,6 +24070,7 @@ export namespace Prisma {
     level?: true
     total_assets?: true
     referral_count?: true
+    referred_by_id?: true
   }
 
   export type ProfileMinAggregateInputType = {
@@ -23604,6 +24095,7 @@ export namespace Prisma {
     referral_count?: true
     created_at?: true
     updated_at?: true
+    referred_by_id?: true
   }
 
   export type ProfileMaxAggregateInputType = {
@@ -23628,6 +24120,7 @@ export namespace Prisma {
     referral_count?: true
     created_at?: true
     updated_at?: true
+    referred_by_id?: true
   }
 
   export type ProfileCountAggregateInputType = {
@@ -23652,6 +24145,7 @@ export namespace Prisma {
     referral_count?: true
     created_at?: true
     updated_at?: true
+    referred_by_id?: true
     _all?: true
   }
 
@@ -23763,6 +24257,7 @@ export namespace Prisma {
     referral_count: number
     created_at: Date | null
     updated_at: Date | null
+    referred_by_id: bigint | null
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
     _sum: ProfileSumAggregateOutputType | null
@@ -23806,7 +24301,12 @@ export namespace Prisma {
     referral_count?: boolean
     created_at?: boolean
     updated_at?: boolean
+    referred_by_id?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
+    referred_profiles?: boolean | Profile$referred_profilesArgs<ExtArgs>
+    referral_commissions?: boolean | Profile$referral_commissionsArgs<ExtArgs>
+    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -23831,7 +24331,9 @@ export namespace Prisma {
     referral_count?: boolean
     created_at?: boolean
     updated_at?: boolean
+    referred_by_id?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -23856,7 +24358,9 @@ export namespace Prisma {
     referral_count?: boolean
     created_at?: boolean
     updated_at?: boolean
+    referred_by_id?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectScalar = {
@@ -23881,23 +24385,33 @@ export namespace Prisma {
     referral_count?: boolean
     created_at?: boolean
     updated_at?: boolean
+    referred_by_id?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "uuid" | "kyc_status" | "level" | "kyc_documents" | "bank_account" | "blockchain_addresses" | "google_auth_enabled" | "google_auth_secret" | "withdrawal_password_enabled" | "withdrawal_password" | "trade_status" | "total_assets" | "preferred_language" | "notification_settings" | "sim_trade_enabled" | "invite_code" | "referral_count" | "created_at" | "updated_at", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "uuid" | "kyc_status" | "level" | "kyc_documents" | "bank_account" | "blockchain_addresses" | "google_auth_enabled" | "google_auth_secret" | "withdrawal_password_enabled" | "withdrawal_password" | "trade_status" | "total_assets" | "preferred_language" | "notification_settings" | "sim_trade_enabled" | "invite_code" | "referral_count" | "created_at" | "updated_at" | "referred_by_id", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
+    referred_profiles?: boolean | Profile$referred_profilesArgs<ExtArgs>
+    referral_commissions?: boolean | Profile$referral_commissionsArgs<ExtArgs>
+    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
   }
   export type ProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    referred_by?: boolean | Profile$referred_byArgs<ExtArgs>
   }
 
   export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profile"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      referred_by: Prisma.$ProfilePayload<ExtArgs> | null
+      referred_profiles: Prisma.$ProfilePayload<ExtArgs>[]
+      referral_commissions: Prisma.$ReferralCommissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -23921,6 +24435,7 @@ export namespace Prisma {
       referral_count: number
       created_at: Date | null
       updated_at: Date | null
+      referred_by_id: bigint | null
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -24316,6 +24831,9 @@ export namespace Prisma {
   export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    referred_by<T extends Profile$referred_byArgs<ExtArgs> = {}>(args?: Subset<T, Profile$referred_byArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    referred_profiles<T extends Profile$referred_profilesArgs<ExtArgs> = {}>(args?: Subset<T, Profile$referred_profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referral_commissions<T extends Profile$referral_commissionsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$referral_commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24366,6 +24884,7 @@ export namespace Prisma {
     readonly referral_count: FieldRef<"Profile", 'Int'>
     readonly created_at: FieldRef<"Profile", 'DateTime'>
     readonly updated_at: FieldRef<"Profile", 'DateTime'>
+    readonly referred_by_id: FieldRef<"Profile", 'BigInt'>
   }
     
 
@@ -24759,6 +25278,73 @@ export namespace Prisma {
      * Limit how many Profiles to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Profile.referred_by
+   */
+  export type Profile$referred_byArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Profile
+     */
+    omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+  }
+
+  /**
+   * Profile.referred_profiles
+   */
+  export type Profile$referred_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Profile
+     */
+    omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    cursor?: ProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+  }
+
+  /**
+   * Profile.referral_commissions
+   */
+  export type Profile$referral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    where?: ReferralCommissionWhereInput
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    cursor?: ReferralCommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
   }
 
   /**
@@ -34607,6 +35193,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     balance?: boolean
+    accountBalances?: boolean | User$accountBalancesArgs<ExtArgs>
     arbitrageHostings?: boolean | User$arbitrageHostingsArgs<ExtArgs>
     assets?: boolean | User$assetsArgs<ExtArgs>
     createdCryptoAddresses?: boolean | User$createdCryptoAddressesArgs<ExtArgs>
@@ -34615,8 +35202,14 @@ export namespace Prisma {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     processedKycSubmissions?: boolean | User$processedKycSubmissionsArgs<ExtArgs>
     kycSubmissions?: boolean | User$kycSubmissionsArgs<ExtArgs>
+    processedLoanRepayments?: boolean | User$processedLoanRepaymentsArgs<ExtArgs>
+    processedLoans?: boolean | User$processedLoansArgs<ExtArgs>
+    loans?: boolean | User$loansArgs<ExtArgs>
     miningHostings?: boolean | User$miningHostingsArgs<ExtArgs>
     profiles?: boolean | User$profilesArgs<ExtArgs>
+    userOnboarding?: boolean | User$userOnboardingArgs<ExtArgs>
+    sentNotifications?: boolean | User$sentNotificationsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     adminSupportMessages?: boolean | User$adminSupportMessagesArgs<ExtArgs>
     userSupportMessages?: boolean | User$userSupportMessagesArgs<ExtArgs>
     supportTickets?: boolean | User$supportTicketsArgs<ExtArgs>
@@ -34625,11 +35218,7 @@ export namespace Prisma {
     transactions?: boolean | User$transactionsArgs<ExtArgs>
     processedWithdrawals?: boolean | User$processedWithdrawalsArgs<ExtArgs>
     withdrawals?: boolean | User$withdrawalsArgs<ExtArgs>
-    processedLoans?: boolean | User$processedLoansArgs<ExtArgs>
-    loans?: boolean | User$loansArgs<ExtArgs>
-    processedLoanRepayments?: boolean | User$processedLoanRepaymentsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    sentNotifications?: boolean | User$sentNotificationsArgs<ExtArgs>
+    referral_commissions?: boolean | User$referral_commissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -34680,6 +35269,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "email_verified_at" | "password" | "role" | "status" | "remember_token" | "created_at" | "updated_at" | "balance", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountBalances?: boolean | User$accountBalancesArgs<ExtArgs>
     arbitrageHostings?: boolean | User$arbitrageHostingsArgs<ExtArgs>
     assets?: boolean | User$assetsArgs<ExtArgs>
     createdCryptoAddresses?: boolean | User$createdCryptoAddressesArgs<ExtArgs>
@@ -34688,8 +35278,14 @@ export namespace Prisma {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     processedKycSubmissions?: boolean | User$processedKycSubmissionsArgs<ExtArgs>
     kycSubmissions?: boolean | User$kycSubmissionsArgs<ExtArgs>
+    processedLoanRepayments?: boolean | User$processedLoanRepaymentsArgs<ExtArgs>
+    processedLoans?: boolean | User$processedLoansArgs<ExtArgs>
+    loans?: boolean | User$loansArgs<ExtArgs>
     miningHostings?: boolean | User$miningHostingsArgs<ExtArgs>
     profiles?: boolean | User$profilesArgs<ExtArgs>
+    userOnboarding?: boolean | User$userOnboardingArgs<ExtArgs>
+    sentNotifications?: boolean | User$sentNotificationsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     adminSupportMessages?: boolean | User$adminSupportMessagesArgs<ExtArgs>
     userSupportMessages?: boolean | User$userSupportMessagesArgs<ExtArgs>
     supportTickets?: boolean | User$supportTicketsArgs<ExtArgs>
@@ -34698,11 +35294,7 @@ export namespace Prisma {
     transactions?: boolean | User$transactionsArgs<ExtArgs>
     processedWithdrawals?: boolean | User$processedWithdrawalsArgs<ExtArgs>
     withdrawals?: boolean | User$withdrawalsArgs<ExtArgs>
-    processedLoans?: boolean | User$processedLoansArgs<ExtArgs>
-    loans?: boolean | User$loansArgs<ExtArgs>
-    processedLoanRepayments?: boolean | User$processedLoanRepaymentsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    sentNotifications?: boolean | User$sentNotificationsArgs<ExtArgs>
+    referral_commissions?: boolean | User$referral_commissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -34711,6 +35303,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      accountBalances: Prisma.$AccountBalancePayload<ExtArgs>[]
       arbitrageHostings: Prisma.$ArbitrageHostingPayload<ExtArgs>[]
       assets: Prisma.$AssetPayload<ExtArgs>[]
       createdCryptoAddresses: Prisma.$CryptoAddressPayload<ExtArgs>[]
@@ -34719,8 +35312,14 @@ export namespace Prisma {
       deposits: Prisma.$DepositPayload<ExtArgs>[]
       processedKycSubmissions: Prisma.$KycSubmissionPayload<ExtArgs>[]
       kycSubmissions: Prisma.$KycSubmissionPayload<ExtArgs>[]
+      processedLoanRepayments: Prisma.$LoanRepaymentPayload<ExtArgs>[]
+      processedLoans: Prisma.$LoanPayload<ExtArgs>[]
+      loans: Prisma.$LoanPayload<ExtArgs>[]
       miningHostings: Prisma.$MiningHostingPayload<ExtArgs>[]
       profiles: Prisma.$ProfilePayload<ExtArgs>[]
+      userOnboarding: Prisma.$UserOnboardingPayload<ExtArgs> | null
+      sentNotifications: Prisma.$NotificationPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
       adminSupportMessages: Prisma.$SupportTicketMessagePayload<ExtArgs>[]
       userSupportMessages: Prisma.$SupportTicketMessagePayload<ExtArgs>[]
       supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
@@ -34729,11 +35328,7 @@ export namespace Prisma {
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
       processedWithdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
       withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
-      processedLoans: Prisma.$LoanPayload<ExtArgs>[]
-      loans: Prisma.$LoanPayload<ExtArgs>[]
-      processedLoanRepayments: Prisma.$LoanRepaymentPayload<ExtArgs>[]
-      notifications: Prisma.$NotificationPayload<ExtArgs>[]
-      sentNotifications: Prisma.$NotificationPayload<ExtArgs>[]
+      referral_commissions: Prisma.$ReferralCommissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -35142,6 +35737,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    accountBalances<T extends User$accountBalancesArgs<ExtArgs> = {}>(args?: Subset<T, User$accountBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     arbitrageHostings<T extends User$arbitrageHostingsArgs<ExtArgs> = {}>(args?: Subset<T, User$arbitrageHostingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArbitrageHostingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assets<T extends User$assetsArgs<ExtArgs> = {}>(args?: Subset<T, User$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdCryptoAddresses<T extends User$createdCryptoAddressesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdCryptoAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CryptoAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -35150,8 +35746,14 @@ export namespace Prisma {
     deposits<T extends User$depositsArgs<ExtArgs> = {}>(args?: Subset<T, User$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     processedKycSubmissions<T extends User$processedKycSubmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$processedKycSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     kycSubmissions<T extends User$kycSubmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$kycSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    processedLoanRepayments<T extends User$processedLoanRepaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$processedLoanRepaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanRepaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    processedLoans<T extends User$processedLoansArgs<ExtArgs> = {}>(args?: Subset<T, User$processedLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    loans<T extends User$loansArgs<ExtArgs> = {}>(args?: Subset<T, User$loansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     miningHostings<T extends User$miningHostingsArgs<ExtArgs> = {}>(args?: Subset<T, User$miningHostingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MiningHostingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     profiles<T extends User$profilesArgs<ExtArgs> = {}>(args?: Subset<T, User$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userOnboarding<T extends User$userOnboardingArgs<ExtArgs> = {}>(args?: Subset<T, User$userOnboardingArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    sentNotifications<T extends User$sentNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     adminSupportMessages<T extends User$adminSupportMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$adminSupportMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userSupportMessages<T extends User$userSupportMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$userSupportMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     supportTickets<T extends User$supportTicketsArgs<ExtArgs> = {}>(args?: Subset<T, User$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -35160,11 +35762,7 @@ export namespace Prisma {
     transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     processedWithdrawals<T extends User$processedWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$processedWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     withdrawals<T extends User$withdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    processedLoans<T extends User$processedLoansArgs<ExtArgs> = {}>(args?: Subset<T, User$processedLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    loans<T extends User$loansArgs<ExtArgs> = {}>(args?: Subset<T, User$loansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    processedLoanRepayments<T extends User$processedLoanRepaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$processedLoanRepaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanRepaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sentNotifications<T extends User$sentNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referral_commissions<T extends User$referral_commissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$referral_commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35594,6 +36192,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.accountBalances
+   */
+  export type User$accountBalancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    where?: AccountBalanceWhereInput
+    orderBy?: AccountBalanceOrderByWithRelationInput | AccountBalanceOrderByWithRelationInput[]
+    cursor?: AccountBalanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountBalanceScalarFieldEnum | AccountBalanceScalarFieldEnum[]
+  }
+
+  /**
    * User.arbitrageHostings
    */
   export type User$arbitrageHostingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35786,6 +36408,78 @@ export namespace Prisma {
   }
 
   /**
+   * User.processedLoanRepayments
+   */
+  export type User$processedLoanRepaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoanRepayment
+     */
+    select?: LoanRepaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoanRepayment
+     */
+    omit?: LoanRepaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanRepaymentInclude<ExtArgs> | null
+    where?: LoanRepaymentWhereInput
+    orderBy?: LoanRepaymentOrderByWithRelationInput | LoanRepaymentOrderByWithRelationInput[]
+    cursor?: LoanRepaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoanRepaymentScalarFieldEnum | LoanRepaymentScalarFieldEnum[]
+  }
+
+  /**
+   * User.processedLoans
+   */
+  export type User$processedLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    where?: LoanWhereInput
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    cursor?: LoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
+   * User.loans
+   */
+  export type User$loansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    where?: LoanWhereInput
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    cursor?: LoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
    * User.miningHostings
    */
   export type User$miningHostingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35831,6 +36525,73 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+  }
+
+  /**
+   * User.userOnboarding
+   */
+  export type User$userOnboardingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    where?: UserOnboardingWhereInput
+  }
+
+  /**
+   * User.sentNotifications
+   */
+  export type User$sentNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
   }
 
   /**
@@ -36026,123 +36787,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.processedLoans
+   * User.referral_commissions
    */
-  export type User$processedLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$referral_commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Loan
+     * Select specific fields to fetch from the ReferralCommission
      */
-    select?: LoanSelect<ExtArgs> | null
+    select?: ReferralCommissionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Loan
+     * Omit specific fields from the ReferralCommission
      */
-    omit?: LoanOmit<ExtArgs> | null
+    omit?: ReferralCommissionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: LoanInclude<ExtArgs> | null
-    where?: LoanWhereInput
-    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
-    cursor?: LoanWhereUniqueInput
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    where?: ReferralCommissionWhereInput
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    cursor?: ReferralCommissionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
-  }
-
-  /**
-   * User.loans
-   */
-  export type User$loansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Loan
-     */
-    select?: LoanSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Loan
-     */
-    omit?: LoanOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LoanInclude<ExtArgs> | null
-    where?: LoanWhereInput
-    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
-    cursor?: LoanWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
-  }
-
-  /**
-   * User.processedLoanRepayments
-   */
-  export type User$processedLoanRepaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LoanRepayment
-     */
-    select?: LoanRepaymentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LoanRepayment
-     */
-    omit?: LoanRepaymentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LoanRepaymentInclude<ExtArgs> | null
-    where?: LoanRepaymentWhereInput
-    orderBy?: LoanRepaymentOrderByWithRelationInput | LoanRepaymentOrderByWithRelationInput[]
-    cursor?: LoanRepaymentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LoanRepaymentScalarFieldEnum | LoanRepaymentScalarFieldEnum[]
-  }
-
-  /**
-   * User.notifications
-   */
-  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Notification
-     */
-    select?: NotificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Notification
-     */
-    omit?: NotificationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationInclude<ExtArgs> | null
-    where?: NotificationWhereInput
-    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
-    cursor?: NotificationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
-  }
-
-  /**
-   * User.sentNotifications
-   */
-  export type User$sentNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Notification
-     */
-    select?: NotificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Notification
-     */
-    omit?: NotificationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationInclude<ExtArgs> | null
-    where?: NotificationWhereInput
-    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
-    cursor?: NotificationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
   }
 
   /**
@@ -37482,9 +38147,6 @@ export namespace Prisma {
     amount: Decimal | null
     currency: string | null
     status: $Enums.LoanStatus | null
-    document_type: string | null
-    front_image: string | null
-    back_image: string | null
     rejection_reason: string | null
     duration: number | null
     interest_rate: Decimal | null
@@ -37498,6 +38160,9 @@ export namespace Prisma {
     processed_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    back_image: string | null
+    document_type: string | null
+    front_image: string | null
   }
 
   export type LoanMaxAggregateOutputType = {
@@ -37506,9 +38171,6 @@ export namespace Prisma {
     amount: Decimal | null
     currency: string | null
     status: $Enums.LoanStatus | null
-    document_type: string | null
-    front_image: string | null
-    back_image: string | null
     rejection_reason: string | null
     duration: number | null
     interest_rate: Decimal | null
@@ -37522,6 +38184,9 @@ export namespace Prisma {
     processed_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    back_image: string | null
+    document_type: string | null
+    front_image: string | null
   }
 
   export type LoanCountAggregateOutputType = {
@@ -37530,9 +38195,6 @@ export namespace Prisma {
     amount: number
     currency: number
     status: number
-    document_type: number
-    front_image: number
-    back_image: number
     rejection_reason: number
     duration: number
     interest_rate: number
@@ -37546,6 +38208,9 @@ export namespace Prisma {
     processed_at: number
     created_at: number
     updated_at: number
+    back_image: number
+    document_type: number
+    front_image: number
     _all: number
   }
 
@@ -37578,9 +38243,6 @@ export namespace Prisma {
     amount?: true
     currency?: true
     status?: true
-    document_type?: true
-    front_image?: true
-    back_image?: true
     rejection_reason?: true
     duration?: true
     interest_rate?: true
@@ -37594,6 +38256,9 @@ export namespace Prisma {
     processed_at?: true
     created_at?: true
     updated_at?: true
+    back_image?: true
+    document_type?: true
+    front_image?: true
   }
 
   export type LoanMaxAggregateInputType = {
@@ -37602,9 +38267,6 @@ export namespace Prisma {
     amount?: true
     currency?: true
     status?: true
-    document_type?: true
-    front_image?: true
-    back_image?: true
     rejection_reason?: true
     duration?: true
     interest_rate?: true
@@ -37618,6 +38280,9 @@ export namespace Prisma {
     processed_at?: true
     created_at?: true
     updated_at?: true
+    back_image?: true
+    document_type?: true
+    front_image?: true
   }
 
   export type LoanCountAggregateInputType = {
@@ -37626,9 +38291,6 @@ export namespace Prisma {
     amount?: true
     currency?: true
     status?: true
-    document_type?: true
-    front_image?: true
-    back_image?: true
     rejection_reason?: true
     duration?: true
     interest_rate?: true
@@ -37642,6 +38304,9 @@ export namespace Prisma {
     processed_at?: true
     created_at?: true
     updated_at?: true
+    back_image?: true
+    document_type?: true
+    front_image?: true
     _all?: true
   }
 
@@ -37737,9 +38402,6 @@ export namespace Prisma {
     amount: Decimal
     currency: string
     status: $Enums.LoanStatus
-    document_type: string | null
-    front_image: string | null
-    back_image: string | null
     rejection_reason: string | null
     duration: number
     interest_rate: Decimal
@@ -37753,6 +38415,9 @@ export namespace Prisma {
     processed_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    back_image: string | null
+    document_type: string | null
+    front_image: string | null
     _count: LoanCountAggregateOutputType | null
     _avg: LoanAvgAggregateOutputType | null
     _sum: LoanSumAggregateOutputType | null
@@ -37780,9 +38445,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    document_type?: boolean
-    front_image?: boolean
-    back_image?: boolean
     rejection_reason?: boolean
     duration?: boolean
     interest_rate?: boolean
@@ -37796,9 +38458,12 @@ export namespace Prisma {
     processed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    back_image?: boolean
+    document_type?: boolean
+    front_image?: boolean
+    repayments?: boolean | Loan$repaymentsArgs<ExtArgs>
     processor?: boolean | Loan$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    repayments?: boolean | Loan$repaymentsArgs<ExtArgs>
     _count?: boolean | LoanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["loan"]>
 
@@ -37808,9 +38473,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    document_type?: boolean
-    front_image?: boolean
-    back_image?: boolean
     rejection_reason?: boolean
     duration?: boolean
     interest_rate?: boolean
@@ -37824,6 +38486,9 @@ export namespace Prisma {
     processed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    back_image?: boolean
+    document_type?: boolean
+    front_image?: boolean
     processor?: boolean | Loan$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["loan"]>
@@ -37834,9 +38499,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    document_type?: boolean
-    front_image?: boolean
-    back_image?: boolean
     rejection_reason?: boolean
     duration?: boolean
     interest_rate?: boolean
@@ -37850,6 +38512,9 @@ export namespace Prisma {
     processed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    back_image?: boolean
+    document_type?: boolean
+    front_image?: boolean
     processor?: boolean | Loan$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["loan"]>
@@ -37860,9 +38525,6 @@ export namespace Prisma {
     amount?: boolean
     currency?: boolean
     status?: boolean
-    document_type?: boolean
-    front_image?: boolean
-    back_image?: boolean
     rejection_reason?: boolean
     duration?: boolean
     interest_rate?: boolean
@@ -37876,13 +38538,16 @@ export namespace Prisma {
     processed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    back_image?: boolean
+    document_type?: boolean
+    front_image?: boolean
   }
 
-  export type LoanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "amount" | "currency" | "status" | "document_type" | "front_image" | "back_image" | "rejection_reason" | "duration" | "interest_rate" | "total_payable" | "accumulated_interest" | "last_interest_date" | "due_date" | "approved_at" | "repaid_at" | "processed_by" | "processed_at" | "created_at" | "updated_at", ExtArgs["result"]["loan"]>
+  export type LoanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "amount" | "currency" | "status" | "rejection_reason" | "duration" | "interest_rate" | "total_payable" | "accumulated_interest" | "last_interest_date" | "due_date" | "approved_at" | "repaid_at" | "processed_by" | "processed_at" | "created_at" | "updated_at" | "back_image" | "document_type" | "front_image", ExtArgs["result"]["loan"]>
   export type LoanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    repayments?: boolean | Loan$repaymentsArgs<ExtArgs>
     processor?: boolean | Loan$processorArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    repayments?: boolean | Loan$repaymentsArgs<ExtArgs>
     _count?: boolean | LoanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LoanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37897,9 +38562,9 @@ export namespace Prisma {
   export type $LoanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Loan"
     objects: {
+      repayments: Prisma.$LoanRepaymentPayload<ExtArgs>[]
       processor: Prisma.$UserPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs>
-      repayments: Prisma.$LoanRepaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -37907,9 +38572,6 @@ export namespace Prisma {
       amount: Prisma.Decimal
       currency: string
       status: $Enums.LoanStatus
-      document_type: string | null
-      front_image: string | null
-      back_image: string | null
       rejection_reason: string | null
       duration: number
       interest_rate: Prisma.Decimal
@@ -37923,6 +38585,9 @@ export namespace Prisma {
       processed_at: Date | null
       created_at: Date | null
       updated_at: Date | null
+      back_image: string | null
+      document_type: string | null
+      front_image: string | null
     }, ExtArgs["result"]["loan"]>
     composites: {}
   }
@@ -38317,9 +38982,9 @@ export namespace Prisma {
    */
   export interface Prisma__LoanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    repayments<T extends Loan$repaymentsArgs<ExtArgs> = {}>(args?: Subset<T, Loan$repaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanRepaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     processor<T extends Loan$processorArgs<ExtArgs> = {}>(args?: Subset<T, Loan$processorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    repayments<T extends Loan$repaymentsArgs<ExtArgs> = {}>(args?: Subset<T, Loan$repaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanRepaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -38354,9 +39019,6 @@ export namespace Prisma {
     readonly amount: FieldRef<"Loan", 'Decimal'>
     readonly currency: FieldRef<"Loan", 'String'>
     readonly status: FieldRef<"Loan", 'LoanStatus'>
-    readonly document_type: FieldRef<"Loan", 'String'>
-    readonly front_image: FieldRef<"Loan", 'String'>
-    readonly back_image: FieldRef<"Loan", 'String'>
     readonly rejection_reason: FieldRef<"Loan", 'String'>
     readonly duration: FieldRef<"Loan", 'Int'>
     readonly interest_rate: FieldRef<"Loan", 'Decimal'>
@@ -38370,6 +39032,9 @@ export namespace Prisma {
     readonly processed_at: FieldRef<"Loan", 'DateTime'>
     readonly created_at: FieldRef<"Loan", 'DateTime'>
     readonly updated_at: FieldRef<"Loan", 'DateTime'>
+    readonly back_image: FieldRef<"Loan", 'String'>
+    readonly document_type: FieldRef<"Loan", 'String'>
+    readonly front_image: FieldRef<"Loan", 'String'>
   }
     
 
@@ -38766,25 +39431,6 @@ export namespace Prisma {
   }
 
   /**
-   * Loan.processor
-   */
-  export type Loan$processorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Loan.repayments
    */
   export type Loan$repaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38806,6 +39452,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LoanRepaymentScalarFieldEnum | LoanRepaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Loan.processor
+   */
+  export type Loan$processorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -40024,6 +40689,4586 @@ export namespace Prisma {
 
 
   /**
+   * Model NewsArticle
+   */
+
+  export type AggregateNewsArticle = {
+    _count: NewsArticleCountAggregateOutputType | null
+    _avg: NewsArticleAvgAggregateOutputType | null
+    _sum: NewsArticleSumAggregateOutputType | null
+    _min: NewsArticleMinAggregateOutputType | null
+    _max: NewsArticleMaxAggregateOutputType | null
+  }
+
+  export type NewsArticleAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type NewsArticleSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type NewsArticleMinAggregateOutputType = {
+    id: bigint | null
+    title: string | null
+    slug: string | null
+    excerpt: string | null
+    content: string | null
+    image_url: string | null
+    author: string | null
+    source: string | null
+    source_url: string | null
+    is_published: boolean | null
+    published_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type NewsArticleMaxAggregateOutputType = {
+    id: bigint | null
+    title: string | null
+    slug: string | null
+    excerpt: string | null
+    content: string | null
+    image_url: string | null
+    author: string | null
+    source: string | null
+    source_url: string | null
+    is_published: boolean | null
+    published_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type NewsArticleCountAggregateOutputType = {
+    id: number
+    title: number
+    slug: number
+    excerpt: number
+    content: number
+    image_url: number
+    author: number
+    source: number
+    source_url: number
+    is_published: number
+    published_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type NewsArticleAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type NewsArticleSumAggregateInputType = {
+    id?: true
+  }
+
+  export type NewsArticleMinAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    excerpt?: true
+    content?: true
+    image_url?: true
+    author?: true
+    source?: true
+    source_url?: true
+    is_published?: true
+    published_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type NewsArticleMaxAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    excerpt?: true
+    content?: true
+    image_url?: true
+    author?: true
+    source?: true
+    source_url?: true
+    is_published?: true
+    published_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type NewsArticleCountAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    excerpt?: true
+    content?: true
+    image_url?: true
+    author?: true
+    source?: true
+    source_url?: true
+    is_published?: true
+    published_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type NewsArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NewsArticle to aggregate.
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewsArticles to fetch.
+     */
+    orderBy?: NewsArticleOrderByWithRelationInput | NewsArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NewsArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewsArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewsArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NewsArticles
+    **/
+    _count?: true | NewsArticleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NewsArticleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NewsArticleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NewsArticleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NewsArticleMaxAggregateInputType
+  }
+
+  export type GetNewsArticleAggregateType<T extends NewsArticleAggregateArgs> = {
+        [P in keyof T & keyof AggregateNewsArticle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNewsArticle[P]>
+      : GetScalarType<T[P], AggregateNewsArticle[P]>
+  }
+
+
+
+
+  export type NewsArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NewsArticleWhereInput
+    orderBy?: NewsArticleOrderByWithAggregationInput | NewsArticleOrderByWithAggregationInput[]
+    by: NewsArticleScalarFieldEnum[] | NewsArticleScalarFieldEnum
+    having?: NewsArticleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NewsArticleCountAggregateInputType | true
+    _avg?: NewsArticleAvgAggregateInputType
+    _sum?: NewsArticleSumAggregateInputType
+    _min?: NewsArticleMinAggregateInputType
+    _max?: NewsArticleMaxAggregateInputType
+  }
+
+  export type NewsArticleGroupByOutputType = {
+    id: bigint
+    title: string
+    slug: string
+    excerpt: string | null
+    content: string | null
+    image_url: string | null
+    author: string
+    source: string
+    source_url: string | null
+    is_published: boolean
+    published_at: Date
+    created_at: Date | null
+    updated_at: Date | null
+    _count: NewsArticleCountAggregateOutputType | null
+    _avg: NewsArticleAvgAggregateOutputType | null
+    _sum: NewsArticleSumAggregateOutputType | null
+    _min: NewsArticleMinAggregateOutputType | null
+    _max: NewsArticleMaxAggregateOutputType | null
+  }
+
+  type GetNewsArticleGroupByPayload<T extends NewsArticleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NewsArticleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NewsArticleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NewsArticleGroupByOutputType[P]>
+            : GetScalarType<T[P], NewsArticleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NewsArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    excerpt?: boolean
+    content?: boolean
+    image_url?: boolean
+    author?: boolean
+    source?: boolean
+    source_url?: boolean
+    is_published?: boolean
+    published_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["newsArticle"]>
+
+  export type NewsArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    excerpt?: boolean
+    content?: boolean
+    image_url?: boolean
+    author?: boolean
+    source?: boolean
+    source_url?: boolean
+    is_published?: boolean
+    published_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["newsArticle"]>
+
+  export type NewsArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    excerpt?: boolean
+    content?: boolean
+    image_url?: boolean
+    author?: boolean
+    source?: boolean
+    source_url?: boolean
+    is_published?: boolean
+    published_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["newsArticle"]>
+
+  export type NewsArticleSelectScalar = {
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    excerpt?: boolean
+    content?: boolean
+    image_url?: boolean
+    author?: boolean
+    source?: boolean
+    source_url?: boolean
+    is_published?: boolean
+    published_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type NewsArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "image_url" | "author" | "source" | "source_url" | "is_published" | "published_at" | "created_at" | "updated_at", ExtArgs["result"]["newsArticle"]>
+
+  export type $NewsArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NewsArticle"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      title: string
+      slug: string
+      excerpt: string | null
+      content: string | null
+      image_url: string | null
+      author: string
+      source: string
+      source_url: string | null
+      is_published: boolean
+      published_at: Date
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["newsArticle"]>
+    composites: {}
+  }
+
+  type NewsArticleGetPayload<S extends boolean | null | undefined | NewsArticleDefaultArgs> = $Result.GetResult<Prisma.$NewsArticlePayload, S>
+
+  type NewsArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NewsArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NewsArticleCountAggregateInputType | true
+    }
+
+  export interface NewsArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NewsArticle'], meta: { name: 'NewsArticle' } }
+    /**
+     * Find zero or one NewsArticle that matches the filter.
+     * @param {NewsArticleFindUniqueArgs} args - Arguments to find a NewsArticle
+     * @example
+     * // Get one NewsArticle
+     * const newsArticle = await prisma.newsArticle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NewsArticleFindUniqueArgs>(args: SelectSubset<T, NewsArticleFindUniqueArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NewsArticle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NewsArticleFindUniqueOrThrowArgs} args - Arguments to find a NewsArticle
+     * @example
+     * // Get one NewsArticle
+     * const newsArticle = await prisma.newsArticle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NewsArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, NewsArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NewsArticle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleFindFirstArgs} args - Arguments to find a NewsArticle
+     * @example
+     * // Get one NewsArticle
+     * const newsArticle = await prisma.newsArticle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NewsArticleFindFirstArgs>(args?: SelectSubset<T, NewsArticleFindFirstArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NewsArticle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleFindFirstOrThrowArgs} args - Arguments to find a NewsArticle
+     * @example
+     * // Get one NewsArticle
+     * const newsArticle = await prisma.newsArticle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NewsArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, NewsArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NewsArticles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NewsArticles
+     * const newsArticles = await prisma.newsArticle.findMany()
+     * 
+     * // Get first 10 NewsArticles
+     * const newsArticles = await prisma.newsArticle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const newsArticleWithIdOnly = await prisma.newsArticle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NewsArticleFindManyArgs>(args?: SelectSubset<T, NewsArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NewsArticle.
+     * @param {NewsArticleCreateArgs} args - Arguments to create a NewsArticle.
+     * @example
+     * // Create one NewsArticle
+     * const NewsArticle = await prisma.newsArticle.create({
+     *   data: {
+     *     // ... data to create a NewsArticle
+     *   }
+     * })
+     * 
+     */
+    create<T extends NewsArticleCreateArgs>(args: SelectSubset<T, NewsArticleCreateArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NewsArticles.
+     * @param {NewsArticleCreateManyArgs} args - Arguments to create many NewsArticles.
+     * @example
+     * // Create many NewsArticles
+     * const newsArticle = await prisma.newsArticle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NewsArticleCreateManyArgs>(args?: SelectSubset<T, NewsArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NewsArticles and returns the data saved in the database.
+     * @param {NewsArticleCreateManyAndReturnArgs} args - Arguments to create many NewsArticles.
+     * @example
+     * // Create many NewsArticles
+     * const newsArticle = await prisma.newsArticle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NewsArticles and only return the `id`
+     * const newsArticleWithIdOnly = await prisma.newsArticle.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NewsArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, NewsArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NewsArticle.
+     * @param {NewsArticleDeleteArgs} args - Arguments to delete one NewsArticle.
+     * @example
+     * // Delete one NewsArticle
+     * const NewsArticle = await prisma.newsArticle.delete({
+     *   where: {
+     *     // ... filter to delete one NewsArticle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NewsArticleDeleteArgs>(args: SelectSubset<T, NewsArticleDeleteArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NewsArticle.
+     * @param {NewsArticleUpdateArgs} args - Arguments to update one NewsArticle.
+     * @example
+     * // Update one NewsArticle
+     * const newsArticle = await prisma.newsArticle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NewsArticleUpdateArgs>(args: SelectSubset<T, NewsArticleUpdateArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NewsArticles.
+     * @param {NewsArticleDeleteManyArgs} args - Arguments to filter NewsArticles to delete.
+     * @example
+     * // Delete a few NewsArticles
+     * const { count } = await prisma.newsArticle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NewsArticleDeleteManyArgs>(args?: SelectSubset<T, NewsArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NewsArticles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NewsArticles
+     * const newsArticle = await prisma.newsArticle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NewsArticleUpdateManyArgs>(args: SelectSubset<T, NewsArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NewsArticles and returns the data updated in the database.
+     * @param {NewsArticleUpdateManyAndReturnArgs} args - Arguments to update many NewsArticles.
+     * @example
+     * // Update many NewsArticles
+     * const newsArticle = await prisma.newsArticle.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NewsArticles and only return the `id`
+     * const newsArticleWithIdOnly = await prisma.newsArticle.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NewsArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, NewsArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NewsArticle.
+     * @param {NewsArticleUpsertArgs} args - Arguments to update or create a NewsArticle.
+     * @example
+     * // Update or create a NewsArticle
+     * const newsArticle = await prisma.newsArticle.upsert({
+     *   create: {
+     *     // ... data to create a NewsArticle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NewsArticle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NewsArticleUpsertArgs>(args: SelectSubset<T, NewsArticleUpsertArgs<ExtArgs>>): Prisma__NewsArticleClient<$Result.GetResult<Prisma.$NewsArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NewsArticles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleCountArgs} args - Arguments to filter NewsArticles to count.
+     * @example
+     * // Count the number of NewsArticles
+     * const count = await prisma.newsArticle.count({
+     *   where: {
+     *     // ... the filter for the NewsArticles we want to count
+     *   }
+     * })
+    **/
+    count<T extends NewsArticleCountArgs>(
+      args?: Subset<T, NewsArticleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NewsArticleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NewsArticle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NewsArticleAggregateArgs>(args: Subset<T, NewsArticleAggregateArgs>): Prisma.PrismaPromise<GetNewsArticleAggregateType<T>>
+
+    /**
+     * Group by NewsArticle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewsArticleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NewsArticleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NewsArticleGroupByArgs['orderBy'] }
+        : { orderBy?: NewsArticleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NewsArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNewsArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NewsArticle model
+   */
+  readonly fields: NewsArticleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NewsArticle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NewsArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NewsArticle model
+   */
+  interface NewsArticleFieldRefs {
+    readonly id: FieldRef<"NewsArticle", 'BigInt'>
+    readonly title: FieldRef<"NewsArticle", 'String'>
+    readonly slug: FieldRef<"NewsArticle", 'String'>
+    readonly excerpt: FieldRef<"NewsArticle", 'String'>
+    readonly content: FieldRef<"NewsArticle", 'String'>
+    readonly image_url: FieldRef<"NewsArticle", 'String'>
+    readonly author: FieldRef<"NewsArticle", 'String'>
+    readonly source: FieldRef<"NewsArticle", 'String'>
+    readonly source_url: FieldRef<"NewsArticle", 'String'>
+    readonly is_published: FieldRef<"NewsArticle", 'Boolean'>
+    readonly published_at: FieldRef<"NewsArticle", 'DateTime'>
+    readonly created_at: FieldRef<"NewsArticle", 'DateTime'>
+    readonly updated_at: FieldRef<"NewsArticle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NewsArticle findUnique
+   */
+  export type NewsArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter, which NewsArticle to fetch.
+     */
+    where: NewsArticleWhereUniqueInput
+  }
+
+  /**
+   * NewsArticle findUniqueOrThrow
+   */
+  export type NewsArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter, which NewsArticle to fetch.
+     */
+    where: NewsArticleWhereUniqueInput
+  }
+
+  /**
+   * NewsArticle findFirst
+   */
+  export type NewsArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter, which NewsArticle to fetch.
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewsArticles to fetch.
+     */
+    orderBy?: NewsArticleOrderByWithRelationInput | NewsArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NewsArticles.
+     */
+    cursor?: NewsArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewsArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewsArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NewsArticles.
+     */
+    distinct?: NewsArticleScalarFieldEnum | NewsArticleScalarFieldEnum[]
+  }
+
+  /**
+   * NewsArticle findFirstOrThrow
+   */
+  export type NewsArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter, which NewsArticle to fetch.
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewsArticles to fetch.
+     */
+    orderBy?: NewsArticleOrderByWithRelationInput | NewsArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NewsArticles.
+     */
+    cursor?: NewsArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewsArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewsArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NewsArticles.
+     */
+    distinct?: NewsArticleScalarFieldEnum | NewsArticleScalarFieldEnum[]
+  }
+
+  /**
+   * NewsArticle findMany
+   */
+  export type NewsArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter, which NewsArticles to fetch.
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewsArticles to fetch.
+     */
+    orderBy?: NewsArticleOrderByWithRelationInput | NewsArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NewsArticles.
+     */
+    cursor?: NewsArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewsArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewsArticles.
+     */
+    skip?: number
+    distinct?: NewsArticleScalarFieldEnum | NewsArticleScalarFieldEnum[]
+  }
+
+  /**
+   * NewsArticle create
+   */
+  export type NewsArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * The data needed to create a NewsArticle.
+     */
+    data: XOR<NewsArticleCreateInput, NewsArticleUncheckedCreateInput>
+  }
+
+  /**
+   * NewsArticle createMany
+   */
+  export type NewsArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NewsArticles.
+     */
+    data: NewsArticleCreateManyInput | NewsArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NewsArticle createManyAndReturn
+   */
+  export type NewsArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * The data used to create many NewsArticles.
+     */
+    data: NewsArticleCreateManyInput | NewsArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NewsArticle update
+   */
+  export type NewsArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * The data needed to update a NewsArticle.
+     */
+    data: XOR<NewsArticleUpdateInput, NewsArticleUncheckedUpdateInput>
+    /**
+     * Choose, which NewsArticle to update.
+     */
+    where: NewsArticleWhereUniqueInput
+  }
+
+  /**
+   * NewsArticle updateMany
+   */
+  export type NewsArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NewsArticles.
+     */
+    data: XOR<NewsArticleUpdateManyMutationInput, NewsArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which NewsArticles to update
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * Limit how many NewsArticles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NewsArticle updateManyAndReturn
+   */
+  export type NewsArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * The data used to update NewsArticles.
+     */
+    data: XOR<NewsArticleUpdateManyMutationInput, NewsArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which NewsArticles to update
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * Limit how many NewsArticles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NewsArticle upsert
+   */
+  export type NewsArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * The filter to search for the NewsArticle to update in case it exists.
+     */
+    where: NewsArticleWhereUniqueInput
+    /**
+     * In case the NewsArticle found by the `where` argument doesn't exist, create a new NewsArticle with this data.
+     */
+    create: XOR<NewsArticleCreateInput, NewsArticleUncheckedCreateInput>
+    /**
+     * In case the NewsArticle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NewsArticleUpdateInput, NewsArticleUncheckedUpdateInput>
+  }
+
+  /**
+   * NewsArticle delete
+   */
+  export type NewsArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+    /**
+     * Filter which NewsArticle to delete.
+     */
+    where: NewsArticleWhereUniqueInput
+  }
+
+  /**
+   * NewsArticle deleteMany
+   */
+  export type NewsArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NewsArticles to delete
+     */
+    where?: NewsArticleWhereInput
+    /**
+     * Limit how many NewsArticles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NewsArticle without action
+   */
+  export type NewsArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewsArticle
+     */
+    select?: NewsArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewsArticle
+     */
+    omit?: NewsArticleOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AccountBalance
+   */
+
+  export type AggregateAccountBalance = {
+    _count: AccountBalanceCountAggregateOutputType | null
+    _avg: AccountBalanceAvgAggregateOutputType | null
+    _sum: AccountBalanceSumAggregateOutputType | null
+    _min: AccountBalanceMinAggregateOutputType | null
+    _max: AccountBalanceMaxAggregateOutputType | null
+  }
+
+  export type AccountBalanceAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    balance: Decimal | null
+  }
+
+  export type AccountBalanceSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    balance: Decimal | null
+  }
+
+  export type AccountBalanceMinAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    type: string | null
+    balance: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AccountBalanceMaxAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    type: string | null
+    balance: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AccountBalanceCountAggregateOutputType = {
+    id: number
+    user_id: number
+    type: number
+    balance: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AccountBalanceAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+    balance?: true
+  }
+
+  export type AccountBalanceSumAggregateInputType = {
+    id?: true
+    user_id?: true
+    balance?: true
+  }
+
+  export type AccountBalanceMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    type?: true
+    balance?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AccountBalanceMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    type?: true
+    balance?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AccountBalanceCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    type?: true
+    balance?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AccountBalanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountBalance to aggregate.
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBalances to fetch.
+     */
+    orderBy?: AccountBalanceOrderByWithRelationInput | AccountBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountBalances
+    **/
+    _count?: true | AccountBalanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AccountBalanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AccountBalanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountBalanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountBalanceMaxAggregateInputType
+  }
+
+  export type GetAccountBalanceAggregateType<T extends AccountBalanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountBalance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountBalance[P]>
+      : GetScalarType<T[P], AggregateAccountBalance[P]>
+  }
+
+
+
+
+  export type AccountBalanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountBalanceWhereInput
+    orderBy?: AccountBalanceOrderByWithAggregationInput | AccountBalanceOrderByWithAggregationInput[]
+    by: AccountBalanceScalarFieldEnum[] | AccountBalanceScalarFieldEnum
+    having?: AccountBalanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountBalanceCountAggregateInputType | true
+    _avg?: AccountBalanceAvgAggregateInputType
+    _sum?: AccountBalanceSumAggregateInputType
+    _min?: AccountBalanceMinAggregateInputType
+    _max?: AccountBalanceMaxAggregateInputType
+  }
+
+  export type AccountBalanceGroupByOutputType = {
+    id: bigint
+    user_id: bigint
+    type: string
+    balance: Decimal
+    created_at: Date | null
+    updated_at: Date | null
+    _count: AccountBalanceCountAggregateOutputType | null
+    _avg: AccountBalanceAvgAggregateOutputType | null
+    _sum: AccountBalanceSumAggregateOutputType | null
+    _min: AccountBalanceMinAggregateOutputType | null
+    _max: AccountBalanceMaxAggregateOutputType | null
+  }
+
+  type GetAccountBalanceGroupByPayload<T extends AccountBalanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountBalanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountBalanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountBalanceGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountBalanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountBalanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    type?: boolean
+    balance?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBalance"]>
+
+  export type AccountBalanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    type?: boolean
+    balance?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBalance"]>
+
+  export type AccountBalanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    type?: boolean
+    balance?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBalance"]>
+
+  export type AccountBalanceSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    type?: boolean
+    balance?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type AccountBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "balance" | "created_at" | "updated_at", ExtArgs["result"]["accountBalance"]>
+  export type AccountBalanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AccountBalanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AccountBalanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AccountBalancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountBalance"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      user_id: bigint
+      type: string
+      balance: Prisma.Decimal
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["accountBalance"]>
+    composites: {}
+  }
+
+  type AccountBalanceGetPayload<S extends boolean | null | undefined | AccountBalanceDefaultArgs> = $Result.GetResult<Prisma.$AccountBalancePayload, S>
+
+  type AccountBalanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccountBalanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AccountBalanceCountAggregateInputType | true
+    }
+
+  export interface AccountBalanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountBalance'], meta: { name: 'AccountBalance' } }
+    /**
+     * Find zero or one AccountBalance that matches the filter.
+     * @param {AccountBalanceFindUniqueArgs} args - Arguments to find a AccountBalance
+     * @example
+     * // Get one AccountBalance
+     * const accountBalance = await prisma.accountBalance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountBalanceFindUniqueArgs>(args: SelectSubset<T, AccountBalanceFindUniqueArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AccountBalance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccountBalanceFindUniqueOrThrowArgs} args - Arguments to find a AccountBalance
+     * @example
+     * // Get one AccountBalance
+     * const accountBalance = await prisma.accountBalance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountBalanceFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountBalanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountBalance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceFindFirstArgs} args - Arguments to find a AccountBalance
+     * @example
+     * // Get one AccountBalance
+     * const accountBalance = await prisma.accountBalance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountBalanceFindFirstArgs>(args?: SelectSubset<T, AccountBalanceFindFirstArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountBalance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceFindFirstOrThrowArgs} args - Arguments to find a AccountBalance
+     * @example
+     * // Get one AccountBalance
+     * const accountBalance = await prisma.accountBalance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountBalanceFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountBalanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AccountBalances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountBalances
+     * const accountBalances = await prisma.accountBalance.findMany()
+     * 
+     * // Get first 10 AccountBalances
+     * const accountBalances = await prisma.accountBalance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountBalanceWithIdOnly = await prisma.accountBalance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountBalanceFindManyArgs>(args?: SelectSubset<T, AccountBalanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AccountBalance.
+     * @param {AccountBalanceCreateArgs} args - Arguments to create a AccountBalance.
+     * @example
+     * // Create one AccountBalance
+     * const AccountBalance = await prisma.accountBalance.create({
+     *   data: {
+     *     // ... data to create a AccountBalance
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountBalanceCreateArgs>(args: SelectSubset<T, AccountBalanceCreateArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AccountBalances.
+     * @param {AccountBalanceCreateManyArgs} args - Arguments to create many AccountBalances.
+     * @example
+     * // Create many AccountBalances
+     * const accountBalance = await prisma.accountBalance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountBalanceCreateManyArgs>(args?: SelectSubset<T, AccountBalanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountBalances and returns the data saved in the database.
+     * @param {AccountBalanceCreateManyAndReturnArgs} args - Arguments to create many AccountBalances.
+     * @example
+     * // Create many AccountBalances
+     * const accountBalance = await prisma.accountBalance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountBalances and only return the `id`
+     * const accountBalanceWithIdOnly = await prisma.accountBalance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountBalanceCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountBalanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AccountBalance.
+     * @param {AccountBalanceDeleteArgs} args - Arguments to delete one AccountBalance.
+     * @example
+     * // Delete one AccountBalance
+     * const AccountBalance = await prisma.accountBalance.delete({
+     *   where: {
+     *     // ... filter to delete one AccountBalance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountBalanceDeleteArgs>(args: SelectSubset<T, AccountBalanceDeleteArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AccountBalance.
+     * @param {AccountBalanceUpdateArgs} args - Arguments to update one AccountBalance.
+     * @example
+     * // Update one AccountBalance
+     * const accountBalance = await prisma.accountBalance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountBalanceUpdateArgs>(args: SelectSubset<T, AccountBalanceUpdateArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AccountBalances.
+     * @param {AccountBalanceDeleteManyArgs} args - Arguments to filter AccountBalances to delete.
+     * @example
+     * // Delete a few AccountBalances
+     * const { count } = await prisma.accountBalance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountBalanceDeleteManyArgs>(args?: SelectSubset<T, AccountBalanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountBalances
+     * const accountBalance = await prisma.accountBalance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountBalanceUpdateManyArgs>(args: SelectSubset<T, AccountBalanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountBalances and returns the data updated in the database.
+     * @param {AccountBalanceUpdateManyAndReturnArgs} args - Arguments to update many AccountBalances.
+     * @example
+     * // Update many AccountBalances
+     * const accountBalance = await prisma.accountBalance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AccountBalances and only return the `id`
+     * const accountBalanceWithIdOnly = await prisma.accountBalance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AccountBalanceUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountBalanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AccountBalance.
+     * @param {AccountBalanceUpsertArgs} args - Arguments to update or create a AccountBalance.
+     * @example
+     * // Update or create a AccountBalance
+     * const accountBalance = await prisma.accountBalance.upsert({
+     *   create: {
+     *     // ... data to create a AccountBalance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountBalance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountBalanceUpsertArgs>(args: SelectSubset<T, AccountBalanceUpsertArgs<ExtArgs>>): Prisma__AccountBalanceClient<$Result.GetResult<Prisma.$AccountBalancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AccountBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceCountArgs} args - Arguments to filter AccountBalances to count.
+     * @example
+     * // Count the number of AccountBalances
+     * const count = await prisma.accountBalance.count({
+     *   where: {
+     *     // ... the filter for the AccountBalances we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountBalanceCountArgs>(
+      args?: Subset<T, AccountBalanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountBalanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountBalanceAggregateArgs>(args: Subset<T, AccountBalanceAggregateArgs>): Prisma.PrismaPromise<GetAccountBalanceAggregateType<T>>
+
+    /**
+     * Group by AccountBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBalanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountBalanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountBalanceGroupByArgs['orderBy'] }
+        : { orderBy?: AccountBalanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountBalanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountBalanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountBalance model
+   */
+  readonly fields: AccountBalanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountBalance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountBalanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountBalance model
+   */
+  interface AccountBalanceFieldRefs {
+    readonly id: FieldRef<"AccountBalance", 'BigInt'>
+    readonly user_id: FieldRef<"AccountBalance", 'BigInt'>
+    readonly type: FieldRef<"AccountBalance", 'String'>
+    readonly balance: FieldRef<"AccountBalance", 'Decimal'>
+    readonly created_at: FieldRef<"AccountBalance", 'DateTime'>
+    readonly updated_at: FieldRef<"AccountBalance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AccountBalance findUnique
+   */
+  export type AccountBalanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBalance to fetch.
+     */
+    where: AccountBalanceWhereUniqueInput
+  }
+
+  /**
+   * AccountBalance findUniqueOrThrow
+   */
+  export type AccountBalanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBalance to fetch.
+     */
+    where: AccountBalanceWhereUniqueInput
+  }
+
+  /**
+   * AccountBalance findFirst
+   */
+  export type AccountBalanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBalance to fetch.
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBalances to fetch.
+     */
+    orderBy?: AccountBalanceOrderByWithRelationInput | AccountBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountBalances.
+     */
+    cursor?: AccountBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountBalances.
+     */
+    distinct?: AccountBalanceScalarFieldEnum | AccountBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBalance findFirstOrThrow
+   */
+  export type AccountBalanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBalance to fetch.
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBalances to fetch.
+     */
+    orderBy?: AccountBalanceOrderByWithRelationInput | AccountBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountBalances.
+     */
+    cursor?: AccountBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountBalances.
+     */
+    distinct?: AccountBalanceScalarFieldEnum | AccountBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBalance findMany
+   */
+  export type AccountBalanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBalances to fetch.
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBalances to fetch.
+     */
+    orderBy?: AccountBalanceOrderByWithRelationInput | AccountBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AccountBalances.
+     */
+    cursor?: AccountBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBalances.
+     */
+    skip?: number
+    distinct?: AccountBalanceScalarFieldEnum | AccountBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBalance create
+   */
+  export type AccountBalanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountBalance.
+     */
+    data: XOR<AccountBalanceCreateInput, AccountBalanceUncheckedCreateInput>
+  }
+
+  /**
+   * AccountBalance createMany
+   */
+  export type AccountBalanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountBalances.
+     */
+    data: AccountBalanceCreateManyInput | AccountBalanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountBalance createManyAndReturn
+   */
+  export type AccountBalanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many AccountBalances.
+     */
+    data: AccountBalanceCreateManyInput | AccountBalanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountBalance update
+   */
+  export type AccountBalanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountBalance.
+     */
+    data: XOR<AccountBalanceUpdateInput, AccountBalanceUncheckedUpdateInput>
+    /**
+     * Choose, which AccountBalance to update.
+     */
+    where: AccountBalanceWhereUniqueInput
+  }
+
+  /**
+   * AccountBalance updateMany
+   */
+  export type AccountBalanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountBalances.
+     */
+    data: XOR<AccountBalanceUpdateManyMutationInput, AccountBalanceUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountBalances to update
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * Limit how many AccountBalances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountBalance updateManyAndReturn
+   */
+  export type AccountBalanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * The data used to update AccountBalances.
+     */
+    data: XOR<AccountBalanceUpdateManyMutationInput, AccountBalanceUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountBalances to update
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * Limit how many AccountBalances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountBalance upsert
+   */
+  export type AccountBalanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountBalance to update in case it exists.
+     */
+    where: AccountBalanceWhereUniqueInput
+    /**
+     * In case the AccountBalance found by the `where` argument doesn't exist, create a new AccountBalance with this data.
+     */
+    create: XOR<AccountBalanceCreateInput, AccountBalanceUncheckedCreateInput>
+    /**
+     * In case the AccountBalance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountBalanceUpdateInput, AccountBalanceUncheckedUpdateInput>
+  }
+
+  /**
+   * AccountBalance delete
+   */
+  export type AccountBalanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+    /**
+     * Filter which AccountBalance to delete.
+     */
+    where: AccountBalanceWhereUniqueInput
+  }
+
+  /**
+   * AccountBalance deleteMany
+   */
+  export type AccountBalanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountBalances to delete
+     */
+    where?: AccountBalanceWhereInput
+    /**
+     * Limit how many AccountBalances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountBalance without action
+   */
+  export type AccountBalanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBalance
+     */
+    select?: AccountBalanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBalance
+     */
+    omit?: AccountBalanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBalanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ReferralCommission
+   */
+
+  export type AggregateReferralCommission = {
+    _count: ReferralCommissionCountAggregateOutputType | null
+    _avg: ReferralCommissionAvgAggregateOutputType | null
+    _sum: ReferralCommissionSumAggregateOutputType | null
+    _min: ReferralCommissionMinAggregateOutputType | null
+    _max: ReferralCommissionMaxAggregateOutputType | null
+  }
+
+  export type ReferralCommissionAvgAggregateOutputType = {
+    id: number | null
+    referrer_profile_id: number | null
+    referred_user_id: number | null
+    deposit_id: number | null
+    deposit_amount: Decimal | null
+    commission_amount: Decimal | null
+  }
+
+  export type ReferralCommissionSumAggregateOutputType = {
+    id: bigint | null
+    referrer_profile_id: bigint | null
+    referred_user_id: bigint | null
+    deposit_id: bigint | null
+    deposit_amount: Decimal | null
+    commission_amount: Decimal | null
+  }
+
+  export type ReferralCommissionMinAggregateOutputType = {
+    id: bigint | null
+    referrer_profile_id: bigint | null
+    referred_user_id: bigint | null
+    deposit_id: bigint | null
+    deposit_amount: Decimal | null
+    commission_amount: Decimal | null
+    status: string | null
+    paid_at: Date | null
+    created_at: Date | null
+  }
+
+  export type ReferralCommissionMaxAggregateOutputType = {
+    id: bigint | null
+    referrer_profile_id: bigint | null
+    referred_user_id: bigint | null
+    deposit_id: bigint | null
+    deposit_amount: Decimal | null
+    commission_amount: Decimal | null
+    status: string | null
+    paid_at: Date | null
+    created_at: Date | null
+  }
+
+  export type ReferralCommissionCountAggregateOutputType = {
+    id: number
+    referrer_profile_id: number
+    referred_user_id: number
+    deposit_id: number
+    deposit_amount: number
+    commission_amount: number
+    status: number
+    paid_at: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type ReferralCommissionAvgAggregateInputType = {
+    id?: true
+    referrer_profile_id?: true
+    referred_user_id?: true
+    deposit_id?: true
+    deposit_amount?: true
+    commission_amount?: true
+  }
+
+  export type ReferralCommissionSumAggregateInputType = {
+    id?: true
+    referrer_profile_id?: true
+    referred_user_id?: true
+    deposit_id?: true
+    deposit_amount?: true
+    commission_amount?: true
+  }
+
+  export type ReferralCommissionMinAggregateInputType = {
+    id?: true
+    referrer_profile_id?: true
+    referred_user_id?: true
+    deposit_id?: true
+    deposit_amount?: true
+    commission_amount?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+  }
+
+  export type ReferralCommissionMaxAggregateInputType = {
+    id?: true
+    referrer_profile_id?: true
+    referred_user_id?: true
+    deposit_id?: true
+    deposit_amount?: true
+    commission_amount?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+  }
+
+  export type ReferralCommissionCountAggregateInputType = {
+    id?: true
+    referrer_profile_id?: true
+    referred_user_id?: true
+    deposit_id?: true
+    deposit_amount?: true
+    commission_amount?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type ReferralCommissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReferralCommission to aggregate.
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralCommissions to fetch.
+     */
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReferralCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReferralCommissions
+    **/
+    _count?: true | ReferralCommissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReferralCommissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReferralCommissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReferralCommissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReferralCommissionMaxAggregateInputType
+  }
+
+  export type GetReferralCommissionAggregateType<T extends ReferralCommissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateReferralCommission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReferralCommission[P]>
+      : GetScalarType<T[P], AggregateReferralCommission[P]>
+  }
+
+
+
+
+  export type ReferralCommissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralCommissionWhereInput
+    orderBy?: ReferralCommissionOrderByWithAggregationInput | ReferralCommissionOrderByWithAggregationInput[]
+    by: ReferralCommissionScalarFieldEnum[] | ReferralCommissionScalarFieldEnum
+    having?: ReferralCommissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReferralCommissionCountAggregateInputType | true
+    _avg?: ReferralCommissionAvgAggregateInputType
+    _sum?: ReferralCommissionSumAggregateInputType
+    _min?: ReferralCommissionMinAggregateInputType
+    _max?: ReferralCommissionMaxAggregateInputType
+  }
+
+  export type ReferralCommissionGroupByOutputType = {
+    id: bigint
+    referrer_profile_id: bigint
+    referred_user_id: bigint
+    deposit_id: bigint | null
+    deposit_amount: Decimal
+    commission_amount: Decimal
+    status: string
+    paid_at: Date | null
+    created_at: Date | null
+    _count: ReferralCommissionCountAggregateOutputType | null
+    _avg: ReferralCommissionAvgAggregateOutputType | null
+    _sum: ReferralCommissionSumAggregateOutputType | null
+    _min: ReferralCommissionMinAggregateOutputType | null
+    _max: ReferralCommissionMaxAggregateOutputType | null
+  }
+
+  type GetReferralCommissionGroupByPayload<T extends ReferralCommissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReferralCommissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReferralCommissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReferralCommissionGroupByOutputType[P]>
+            : GetScalarType<T[P], ReferralCommissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReferralCommissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    referrer_profile_id?: boolean
+    referred_user_id?: boolean
+    deposit_id?: boolean
+    deposit_amount?: boolean
+    commission_amount?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }, ExtArgs["result"]["referralCommission"]>
+
+  export type ReferralCommissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    referrer_profile_id?: boolean
+    referred_user_id?: boolean
+    deposit_id?: boolean
+    deposit_amount?: boolean
+    commission_amount?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }, ExtArgs["result"]["referralCommission"]>
+
+  export type ReferralCommissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    referrer_profile_id?: boolean
+    referred_user_id?: boolean
+    deposit_id?: boolean
+    deposit_amount?: boolean
+    commission_amount?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }, ExtArgs["result"]["referralCommission"]>
+
+  export type ReferralCommissionSelectScalar = {
+    id?: boolean
+    referrer_profile_id?: boolean
+    referred_user_id?: boolean
+    deposit_id?: boolean
+    deposit_amount?: boolean
+    commission_amount?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+  }
+
+  export type ReferralCommissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "referrer_profile_id" | "referred_user_id" | "deposit_id" | "deposit_amount" | "commission_amount" | "status" | "paid_at" | "created_at", ExtArgs["result"]["referralCommission"]>
+  export type ReferralCommissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }
+  export type ReferralCommissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }
+  export type ReferralCommissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referrer?: boolean | ProfileDefaultArgs<ExtArgs>
+    referred_user?: boolean | UserDefaultArgs<ExtArgs>
+    deposit?: boolean | ReferralCommission$depositArgs<ExtArgs>
+  }
+
+  export type $ReferralCommissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReferralCommission"
+    objects: {
+      referrer: Prisma.$ProfilePayload<ExtArgs>
+      referred_user: Prisma.$UserPayload<ExtArgs>
+      deposit: Prisma.$DepositPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      referrer_profile_id: bigint
+      referred_user_id: bigint
+      deposit_id: bigint | null
+      deposit_amount: Prisma.Decimal
+      commission_amount: Prisma.Decimal
+      status: string
+      paid_at: Date | null
+      created_at: Date | null
+    }, ExtArgs["result"]["referralCommission"]>
+    composites: {}
+  }
+
+  type ReferralCommissionGetPayload<S extends boolean | null | undefined | ReferralCommissionDefaultArgs> = $Result.GetResult<Prisma.$ReferralCommissionPayload, S>
+
+  type ReferralCommissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReferralCommissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReferralCommissionCountAggregateInputType | true
+    }
+
+  export interface ReferralCommissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReferralCommission'], meta: { name: 'ReferralCommission' } }
+    /**
+     * Find zero or one ReferralCommission that matches the filter.
+     * @param {ReferralCommissionFindUniqueArgs} args - Arguments to find a ReferralCommission
+     * @example
+     * // Get one ReferralCommission
+     * const referralCommission = await prisma.referralCommission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReferralCommissionFindUniqueArgs>(args: SelectSubset<T, ReferralCommissionFindUniqueArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ReferralCommission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReferralCommissionFindUniqueOrThrowArgs} args - Arguments to find a ReferralCommission
+     * @example
+     * // Get one ReferralCommission
+     * const referralCommission = await prisma.referralCommission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReferralCommissionFindUniqueOrThrowArgs>(args: SelectSubset<T, ReferralCommissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReferralCommission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionFindFirstArgs} args - Arguments to find a ReferralCommission
+     * @example
+     * // Get one ReferralCommission
+     * const referralCommission = await prisma.referralCommission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReferralCommissionFindFirstArgs>(args?: SelectSubset<T, ReferralCommissionFindFirstArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReferralCommission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionFindFirstOrThrowArgs} args - Arguments to find a ReferralCommission
+     * @example
+     * // Get one ReferralCommission
+     * const referralCommission = await prisma.referralCommission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReferralCommissionFindFirstOrThrowArgs>(args?: SelectSubset<T, ReferralCommissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ReferralCommissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReferralCommissions
+     * const referralCommissions = await prisma.referralCommission.findMany()
+     * 
+     * // Get first 10 ReferralCommissions
+     * const referralCommissions = await prisma.referralCommission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const referralCommissionWithIdOnly = await prisma.referralCommission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReferralCommissionFindManyArgs>(args?: SelectSubset<T, ReferralCommissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ReferralCommission.
+     * @param {ReferralCommissionCreateArgs} args - Arguments to create a ReferralCommission.
+     * @example
+     * // Create one ReferralCommission
+     * const ReferralCommission = await prisma.referralCommission.create({
+     *   data: {
+     *     // ... data to create a ReferralCommission
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReferralCommissionCreateArgs>(args: SelectSubset<T, ReferralCommissionCreateArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ReferralCommissions.
+     * @param {ReferralCommissionCreateManyArgs} args - Arguments to create many ReferralCommissions.
+     * @example
+     * // Create many ReferralCommissions
+     * const referralCommission = await prisma.referralCommission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReferralCommissionCreateManyArgs>(args?: SelectSubset<T, ReferralCommissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ReferralCommissions and returns the data saved in the database.
+     * @param {ReferralCommissionCreateManyAndReturnArgs} args - Arguments to create many ReferralCommissions.
+     * @example
+     * // Create many ReferralCommissions
+     * const referralCommission = await prisma.referralCommission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ReferralCommissions and only return the `id`
+     * const referralCommissionWithIdOnly = await prisma.referralCommission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReferralCommissionCreateManyAndReturnArgs>(args?: SelectSubset<T, ReferralCommissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ReferralCommission.
+     * @param {ReferralCommissionDeleteArgs} args - Arguments to delete one ReferralCommission.
+     * @example
+     * // Delete one ReferralCommission
+     * const ReferralCommission = await prisma.referralCommission.delete({
+     *   where: {
+     *     // ... filter to delete one ReferralCommission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReferralCommissionDeleteArgs>(args: SelectSubset<T, ReferralCommissionDeleteArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ReferralCommission.
+     * @param {ReferralCommissionUpdateArgs} args - Arguments to update one ReferralCommission.
+     * @example
+     * // Update one ReferralCommission
+     * const referralCommission = await prisma.referralCommission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReferralCommissionUpdateArgs>(args: SelectSubset<T, ReferralCommissionUpdateArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ReferralCommissions.
+     * @param {ReferralCommissionDeleteManyArgs} args - Arguments to filter ReferralCommissions to delete.
+     * @example
+     * // Delete a few ReferralCommissions
+     * const { count } = await prisma.referralCommission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReferralCommissionDeleteManyArgs>(args?: SelectSubset<T, ReferralCommissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReferralCommissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReferralCommissions
+     * const referralCommission = await prisma.referralCommission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReferralCommissionUpdateManyArgs>(args: SelectSubset<T, ReferralCommissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReferralCommissions and returns the data updated in the database.
+     * @param {ReferralCommissionUpdateManyAndReturnArgs} args - Arguments to update many ReferralCommissions.
+     * @example
+     * // Update many ReferralCommissions
+     * const referralCommission = await prisma.referralCommission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ReferralCommissions and only return the `id`
+     * const referralCommissionWithIdOnly = await prisma.referralCommission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReferralCommissionUpdateManyAndReturnArgs>(args: SelectSubset<T, ReferralCommissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ReferralCommission.
+     * @param {ReferralCommissionUpsertArgs} args - Arguments to update or create a ReferralCommission.
+     * @example
+     * // Update or create a ReferralCommission
+     * const referralCommission = await prisma.referralCommission.upsert({
+     *   create: {
+     *     // ... data to create a ReferralCommission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReferralCommission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReferralCommissionUpsertArgs>(args: SelectSubset<T, ReferralCommissionUpsertArgs<ExtArgs>>): Prisma__ReferralCommissionClient<$Result.GetResult<Prisma.$ReferralCommissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ReferralCommissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionCountArgs} args - Arguments to filter ReferralCommissions to count.
+     * @example
+     * // Count the number of ReferralCommissions
+     * const count = await prisma.referralCommission.count({
+     *   where: {
+     *     // ... the filter for the ReferralCommissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReferralCommissionCountArgs>(
+      args?: Subset<T, ReferralCommissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReferralCommissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReferralCommission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReferralCommissionAggregateArgs>(args: Subset<T, ReferralCommissionAggregateArgs>): Prisma.PrismaPromise<GetReferralCommissionAggregateType<T>>
+
+    /**
+     * Group by ReferralCommission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralCommissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReferralCommissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReferralCommissionGroupByArgs['orderBy'] }
+        : { orderBy?: ReferralCommissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReferralCommissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReferralCommissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ReferralCommission model
+   */
+  readonly fields: ReferralCommissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReferralCommission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReferralCommissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    referrer<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    referred_user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deposit<T extends ReferralCommission$depositArgs<ExtArgs> = {}>(args?: Subset<T, ReferralCommission$depositArgs<ExtArgs>>): Prisma__DepositClient<$Result.GetResult<Prisma.$DepositPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ReferralCommission model
+   */
+  interface ReferralCommissionFieldRefs {
+    readonly id: FieldRef<"ReferralCommission", 'BigInt'>
+    readonly referrer_profile_id: FieldRef<"ReferralCommission", 'BigInt'>
+    readonly referred_user_id: FieldRef<"ReferralCommission", 'BigInt'>
+    readonly deposit_id: FieldRef<"ReferralCommission", 'BigInt'>
+    readonly deposit_amount: FieldRef<"ReferralCommission", 'Decimal'>
+    readonly commission_amount: FieldRef<"ReferralCommission", 'Decimal'>
+    readonly status: FieldRef<"ReferralCommission", 'String'>
+    readonly paid_at: FieldRef<"ReferralCommission", 'DateTime'>
+    readonly created_at: FieldRef<"ReferralCommission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ReferralCommission findUnique
+   */
+  export type ReferralCommissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralCommission to fetch.
+     */
+    where: ReferralCommissionWhereUniqueInput
+  }
+
+  /**
+   * ReferralCommission findUniqueOrThrow
+   */
+  export type ReferralCommissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralCommission to fetch.
+     */
+    where: ReferralCommissionWhereUniqueInput
+  }
+
+  /**
+   * ReferralCommission findFirst
+   */
+  export type ReferralCommissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralCommission to fetch.
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralCommissions to fetch.
+     */
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReferralCommissions.
+     */
+    cursor?: ReferralCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReferralCommissions.
+     */
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralCommission findFirstOrThrow
+   */
+  export type ReferralCommissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralCommission to fetch.
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralCommissions to fetch.
+     */
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReferralCommissions.
+     */
+    cursor?: ReferralCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReferralCommissions.
+     */
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralCommission findMany
+   */
+  export type ReferralCommissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralCommissions to fetch.
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralCommissions to fetch.
+     */
+    orderBy?: ReferralCommissionOrderByWithRelationInput | ReferralCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReferralCommissions.
+     */
+    cursor?: ReferralCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralCommissions.
+     */
+    skip?: number
+    distinct?: ReferralCommissionScalarFieldEnum | ReferralCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralCommission create
+   */
+  export type ReferralCommissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ReferralCommission.
+     */
+    data: XOR<ReferralCommissionCreateInput, ReferralCommissionUncheckedCreateInput>
+  }
+
+  /**
+   * ReferralCommission createMany
+   */
+  export type ReferralCommissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ReferralCommissions.
+     */
+    data: ReferralCommissionCreateManyInput | ReferralCommissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReferralCommission createManyAndReturn
+   */
+  export type ReferralCommissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many ReferralCommissions.
+     */
+    data: ReferralCommissionCreateManyInput | ReferralCommissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReferralCommission update
+   */
+  export type ReferralCommissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ReferralCommission.
+     */
+    data: XOR<ReferralCommissionUpdateInput, ReferralCommissionUncheckedUpdateInput>
+    /**
+     * Choose, which ReferralCommission to update.
+     */
+    where: ReferralCommissionWhereUniqueInput
+  }
+
+  /**
+   * ReferralCommission updateMany
+   */
+  export type ReferralCommissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ReferralCommissions.
+     */
+    data: XOR<ReferralCommissionUpdateManyMutationInput, ReferralCommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which ReferralCommissions to update
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * Limit how many ReferralCommissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReferralCommission updateManyAndReturn
+   */
+  export type ReferralCommissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * The data used to update ReferralCommissions.
+     */
+    data: XOR<ReferralCommissionUpdateManyMutationInput, ReferralCommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which ReferralCommissions to update
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * Limit how many ReferralCommissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReferralCommission upsert
+   */
+  export type ReferralCommissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ReferralCommission to update in case it exists.
+     */
+    where: ReferralCommissionWhereUniqueInput
+    /**
+     * In case the ReferralCommission found by the `where` argument doesn't exist, create a new ReferralCommission with this data.
+     */
+    create: XOR<ReferralCommissionCreateInput, ReferralCommissionUncheckedCreateInput>
+    /**
+     * In case the ReferralCommission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReferralCommissionUpdateInput, ReferralCommissionUncheckedUpdateInput>
+  }
+
+  /**
+   * ReferralCommission delete
+   */
+  export type ReferralCommissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+    /**
+     * Filter which ReferralCommission to delete.
+     */
+    where: ReferralCommissionWhereUniqueInput
+  }
+
+  /**
+   * ReferralCommission deleteMany
+   */
+  export type ReferralCommissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReferralCommissions to delete
+     */
+    where?: ReferralCommissionWhereInput
+    /**
+     * Limit how many ReferralCommissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReferralCommission.deposit
+   */
+  export type ReferralCommission$depositArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deposit
+     */
+    select?: DepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deposit
+     */
+    omit?: DepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepositInclude<ExtArgs> | null
+    where?: DepositWhereInput
+  }
+
+  /**
+   * ReferralCommission without action
+   */
+  export type ReferralCommissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralCommission
+     */
+    select?: ReferralCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReferralCommission
+     */
+    omit?: ReferralCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralCommissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserOnboarding
+   */
+
+  export type AggregateUserOnboarding = {
+    _count: UserOnboardingCountAggregateOutputType | null
+    _avg: UserOnboardingAvgAggregateOutputType | null
+    _sum: UserOnboardingSumAggregateOutputType | null
+    _min: UserOnboardingMinAggregateOutputType | null
+    _max: UserOnboardingMaxAggregateOutputType | null
+  }
+
+  export type UserOnboardingAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type UserOnboardingSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+  }
+
+  export type UserOnboardingMinAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    income_source: string | null
+    annual_income: string | null
+    employment_status: string | null
+    investment_goal: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserOnboardingMaxAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    income_source: string | null
+    annual_income: string | null
+    employment_status: string | null
+    investment_goal: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserOnboardingCountAggregateOutputType = {
+    id: number
+    user_id: number
+    income_source: number
+    annual_income: number
+    employment_status: number
+    investment_goal: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type UserOnboardingAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type UserOnboardingSumAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type UserOnboardingMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    income_source?: true
+    annual_income?: true
+    employment_status?: true
+    investment_goal?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserOnboardingMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    income_source?: true
+    annual_income?: true
+    employment_status?: true
+    investment_goal?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserOnboardingCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    income_source?: true
+    annual_income?: true
+    employment_status?: true
+    investment_goal?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type UserOnboardingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOnboarding to aggregate.
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnboardings to fetch.
+     */
+    orderBy?: UserOnboardingOrderByWithRelationInput | UserOnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserOnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserOnboardings
+    **/
+    _count?: true | UserOnboardingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserOnboardingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserOnboardingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserOnboardingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserOnboardingMaxAggregateInputType
+  }
+
+  export type GetUserOnboardingAggregateType<T extends UserOnboardingAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserOnboarding]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserOnboarding[P]>
+      : GetScalarType<T[P], AggregateUserOnboarding[P]>
+  }
+
+
+
+
+  export type UserOnboardingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOnboardingWhereInput
+    orderBy?: UserOnboardingOrderByWithAggregationInput | UserOnboardingOrderByWithAggregationInput[]
+    by: UserOnboardingScalarFieldEnum[] | UserOnboardingScalarFieldEnum
+    having?: UserOnboardingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserOnboardingCountAggregateInputType | true
+    _avg?: UserOnboardingAvgAggregateInputType
+    _sum?: UserOnboardingSumAggregateInputType
+    _min?: UserOnboardingMinAggregateInputType
+    _max?: UserOnboardingMaxAggregateInputType
+  }
+
+  export type UserOnboardingGroupByOutputType = {
+    id: bigint
+    user_id: bigint
+    income_source: string | null
+    annual_income: string | null
+    employment_status: string | null
+    investment_goal: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    _count: UserOnboardingCountAggregateOutputType | null
+    _avg: UserOnboardingAvgAggregateOutputType | null
+    _sum: UserOnboardingSumAggregateOutputType | null
+    _min: UserOnboardingMinAggregateOutputType | null
+    _max: UserOnboardingMaxAggregateOutputType | null
+  }
+
+  type GetUserOnboardingGroupByPayload<T extends UserOnboardingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserOnboardingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserOnboardingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserOnboardingGroupByOutputType[P]>
+            : GetScalarType<T[P], UserOnboardingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserOnboardingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    income_source?: boolean
+    annual_income?: boolean
+    employment_status?: boolean
+    investment_goal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnboarding"]>
+
+  export type UserOnboardingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    income_source?: boolean
+    annual_income?: boolean
+    employment_status?: boolean
+    investment_goal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnboarding"]>
+
+  export type UserOnboardingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    income_source?: boolean
+    annual_income?: boolean
+    employment_status?: boolean
+    investment_goal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnboarding"]>
+
+  export type UserOnboardingSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    income_source?: boolean
+    annual_income?: boolean
+    employment_status?: boolean
+    investment_goal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type UserOnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "income_source" | "annual_income" | "employment_status" | "investment_goal" | "created_at" | "updated_at", ExtArgs["result"]["userOnboarding"]>
+  export type UserOnboardingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserOnboardingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserOnboardingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserOnboardingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserOnboarding"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      user_id: bigint
+      income_source: string | null
+      annual_income: string | null
+      employment_status: string | null
+      investment_goal: string | null
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["userOnboarding"]>
+    composites: {}
+  }
+
+  type UserOnboardingGetPayload<S extends boolean | null | undefined | UserOnboardingDefaultArgs> = $Result.GetResult<Prisma.$UserOnboardingPayload, S>
+
+  type UserOnboardingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserOnboardingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserOnboardingCountAggregateInputType | true
+    }
+
+  export interface UserOnboardingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserOnboarding'], meta: { name: 'UserOnboarding' } }
+    /**
+     * Find zero or one UserOnboarding that matches the filter.
+     * @param {UserOnboardingFindUniqueArgs} args - Arguments to find a UserOnboarding
+     * @example
+     * // Get one UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserOnboardingFindUniqueArgs>(args: SelectSubset<T, UserOnboardingFindUniqueArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserOnboarding that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserOnboardingFindUniqueOrThrowArgs} args - Arguments to find a UserOnboarding
+     * @example
+     * // Get one UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserOnboardingFindUniqueOrThrowArgs>(args: SelectSubset<T, UserOnboardingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOnboarding that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingFindFirstArgs} args - Arguments to find a UserOnboarding
+     * @example
+     * // Get one UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserOnboardingFindFirstArgs>(args?: SelectSubset<T, UserOnboardingFindFirstArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOnboarding that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingFindFirstOrThrowArgs} args - Arguments to find a UserOnboarding
+     * @example
+     * // Get one UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserOnboardingFindFirstOrThrowArgs>(args?: SelectSubset<T, UserOnboardingFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserOnboardings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserOnboardings
+     * const userOnboardings = await prisma.userOnboarding.findMany()
+     * 
+     * // Get first 10 UserOnboardings
+     * const userOnboardings = await prisma.userOnboarding.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userOnboardingWithIdOnly = await prisma.userOnboarding.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserOnboardingFindManyArgs>(args?: SelectSubset<T, UserOnboardingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserOnboarding.
+     * @param {UserOnboardingCreateArgs} args - Arguments to create a UserOnboarding.
+     * @example
+     * // Create one UserOnboarding
+     * const UserOnboarding = await prisma.userOnboarding.create({
+     *   data: {
+     *     // ... data to create a UserOnboarding
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserOnboardingCreateArgs>(args: SelectSubset<T, UserOnboardingCreateArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserOnboardings.
+     * @param {UserOnboardingCreateManyArgs} args - Arguments to create many UserOnboardings.
+     * @example
+     * // Create many UserOnboardings
+     * const userOnboarding = await prisma.userOnboarding.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserOnboardingCreateManyArgs>(args?: SelectSubset<T, UserOnboardingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserOnboardings and returns the data saved in the database.
+     * @param {UserOnboardingCreateManyAndReturnArgs} args - Arguments to create many UserOnboardings.
+     * @example
+     * // Create many UserOnboardings
+     * const userOnboarding = await prisma.userOnboarding.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserOnboardings and only return the `id`
+     * const userOnboardingWithIdOnly = await prisma.userOnboarding.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserOnboardingCreateManyAndReturnArgs>(args?: SelectSubset<T, UserOnboardingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserOnboarding.
+     * @param {UserOnboardingDeleteArgs} args - Arguments to delete one UserOnboarding.
+     * @example
+     * // Delete one UserOnboarding
+     * const UserOnboarding = await prisma.userOnboarding.delete({
+     *   where: {
+     *     // ... filter to delete one UserOnboarding
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserOnboardingDeleteArgs>(args: SelectSubset<T, UserOnboardingDeleteArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserOnboarding.
+     * @param {UserOnboardingUpdateArgs} args - Arguments to update one UserOnboarding.
+     * @example
+     * // Update one UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserOnboardingUpdateArgs>(args: SelectSubset<T, UserOnboardingUpdateArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserOnboardings.
+     * @param {UserOnboardingDeleteManyArgs} args - Arguments to filter UserOnboardings to delete.
+     * @example
+     * // Delete a few UserOnboardings
+     * const { count } = await prisma.userOnboarding.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserOnboardingDeleteManyArgs>(args?: SelectSubset<T, UserOnboardingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOnboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserOnboardings
+     * const userOnboarding = await prisma.userOnboarding.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserOnboardingUpdateManyArgs>(args: SelectSubset<T, UserOnboardingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOnboardings and returns the data updated in the database.
+     * @param {UserOnboardingUpdateManyAndReturnArgs} args - Arguments to update many UserOnboardings.
+     * @example
+     * // Update many UserOnboardings
+     * const userOnboarding = await prisma.userOnboarding.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserOnboardings and only return the `id`
+     * const userOnboardingWithIdOnly = await prisma.userOnboarding.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserOnboardingUpdateManyAndReturnArgs>(args: SelectSubset<T, UserOnboardingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserOnboarding.
+     * @param {UserOnboardingUpsertArgs} args - Arguments to update or create a UserOnboarding.
+     * @example
+     * // Update or create a UserOnboarding
+     * const userOnboarding = await prisma.userOnboarding.upsert({
+     *   create: {
+     *     // ... data to create a UserOnboarding
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserOnboarding we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserOnboardingUpsertArgs>(args: SelectSubset<T, UserOnboardingUpsertArgs<ExtArgs>>): Prisma__UserOnboardingClient<$Result.GetResult<Prisma.$UserOnboardingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserOnboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingCountArgs} args - Arguments to filter UserOnboardings to count.
+     * @example
+     * // Count the number of UserOnboardings
+     * const count = await prisma.userOnboarding.count({
+     *   where: {
+     *     // ... the filter for the UserOnboardings we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserOnboardingCountArgs>(
+      args?: Subset<T, UserOnboardingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserOnboardingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserOnboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserOnboardingAggregateArgs>(args: Subset<T, UserOnboardingAggregateArgs>): Prisma.PrismaPromise<GetUserOnboardingAggregateType<T>>
+
+    /**
+     * Group by UserOnboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnboardingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserOnboardingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserOnboardingGroupByArgs['orderBy'] }
+        : { orderBy?: UserOnboardingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserOnboardingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserOnboardingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserOnboarding model
+   */
+  readonly fields: UserOnboardingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserOnboarding.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserOnboardingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserOnboarding model
+   */
+  interface UserOnboardingFieldRefs {
+    readonly id: FieldRef<"UserOnboarding", 'BigInt'>
+    readonly user_id: FieldRef<"UserOnboarding", 'BigInt'>
+    readonly income_source: FieldRef<"UserOnboarding", 'String'>
+    readonly annual_income: FieldRef<"UserOnboarding", 'String'>
+    readonly employment_status: FieldRef<"UserOnboarding", 'String'>
+    readonly investment_goal: FieldRef<"UserOnboarding", 'String'>
+    readonly created_at: FieldRef<"UserOnboarding", 'DateTime'>
+    readonly updated_at: FieldRef<"UserOnboarding", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserOnboarding findUnique
+   */
+  export type UserOnboardingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnboarding to fetch.
+     */
+    where: UserOnboardingWhereUniqueInput
+  }
+
+  /**
+   * UserOnboarding findUniqueOrThrow
+   */
+  export type UserOnboardingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnboarding to fetch.
+     */
+    where: UserOnboardingWhereUniqueInput
+  }
+
+  /**
+   * UserOnboarding findFirst
+   */
+  export type UserOnboardingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnboarding to fetch.
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnboardings to fetch.
+     */
+    orderBy?: UserOnboardingOrderByWithRelationInput | UserOnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOnboardings.
+     */
+    cursor?: UserOnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOnboardings.
+     */
+    distinct?: UserOnboardingScalarFieldEnum | UserOnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnboarding findFirstOrThrow
+   */
+  export type UserOnboardingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnboarding to fetch.
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnboardings to fetch.
+     */
+    orderBy?: UserOnboardingOrderByWithRelationInput | UserOnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOnboardings.
+     */
+    cursor?: UserOnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOnboardings.
+     */
+    distinct?: UserOnboardingScalarFieldEnum | UserOnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnboarding findMany
+   */
+  export type UserOnboardingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnboardings to fetch.
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnboardings to fetch.
+     */
+    orderBy?: UserOnboardingOrderByWithRelationInput | UserOnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserOnboardings.
+     */
+    cursor?: UserOnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnboardings.
+     */
+    skip?: number
+    distinct?: UserOnboardingScalarFieldEnum | UserOnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnboarding create
+   */
+  export type UserOnboardingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserOnboarding.
+     */
+    data: XOR<UserOnboardingCreateInput, UserOnboardingUncheckedCreateInput>
+  }
+
+  /**
+   * UserOnboarding createMany
+   */
+  export type UserOnboardingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserOnboardings.
+     */
+    data: UserOnboardingCreateManyInput | UserOnboardingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserOnboarding createManyAndReturn
+   */
+  export type UserOnboardingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserOnboardings.
+     */
+    data: UserOnboardingCreateManyInput | UserOnboardingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOnboarding update
+   */
+  export type UserOnboardingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserOnboarding.
+     */
+    data: XOR<UserOnboardingUpdateInput, UserOnboardingUncheckedUpdateInput>
+    /**
+     * Choose, which UserOnboarding to update.
+     */
+    where: UserOnboardingWhereUniqueInput
+  }
+
+  /**
+   * UserOnboarding updateMany
+   */
+  export type UserOnboardingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserOnboardings.
+     */
+    data: XOR<UserOnboardingUpdateManyMutationInput, UserOnboardingUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOnboardings to update
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * Limit how many UserOnboardings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOnboarding updateManyAndReturn
+   */
+  export type UserOnboardingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * The data used to update UserOnboardings.
+     */
+    data: XOR<UserOnboardingUpdateManyMutationInput, UserOnboardingUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOnboardings to update
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * Limit how many UserOnboardings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOnboarding upsert
+   */
+  export type UserOnboardingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserOnboarding to update in case it exists.
+     */
+    where: UserOnboardingWhereUniqueInput
+    /**
+     * In case the UserOnboarding found by the `where` argument doesn't exist, create a new UserOnboarding with this data.
+     */
+    create: XOR<UserOnboardingCreateInput, UserOnboardingUncheckedCreateInput>
+    /**
+     * In case the UserOnboarding was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserOnboardingUpdateInput, UserOnboardingUncheckedUpdateInput>
+  }
+
+  /**
+   * UserOnboarding delete
+   */
+  export type UserOnboardingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+    /**
+     * Filter which UserOnboarding to delete.
+     */
+    where: UserOnboardingWhereUniqueInput
+  }
+
+  /**
+   * UserOnboarding deleteMany
+   */
+  export type UserOnboardingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOnboardings to delete
+     */
+    where?: UserOnboardingWhereInput
+    /**
+     * Limit how many UserOnboardings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOnboarding without action
+   */
+  export type UserOnboardingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnboarding
+     */
+    select?: UserOnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnboarding
+     */
+    omit?: UserOnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnboardingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -40276,11 +45521,11 @@ export namespace Prisma {
     admin_id: 'admin_id',
     title: 'title',
     message: 'message',
-    image_url: 'image_url',
     is_read: 'is_read',
     read_at: 'read_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    image_url: 'image_url'
   };
 
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -40323,7 +45568,8 @@ export namespace Prisma {
     invite_code: 'invite_code',
     referral_count: 'referral_count',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    referred_by_id: 'referred_by_id'
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -40503,9 +45749,6 @@ export namespace Prisma {
     amount: 'amount',
     currency: 'currency',
     status: 'status',
-    document_type: 'document_type',
-    front_image: 'front_image',
-    back_image: 'back_image',
     rejection_reason: 'rejection_reason',
     duration: 'duration',
     interest_rate: 'interest_rate',
@@ -40518,7 +45761,10 @@ export namespace Prisma {
     processed_by: 'processed_by',
     processed_at: 'processed_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    back_image: 'back_image',
+    document_type: 'document_type',
+    front_image: 'front_image'
   };
 
   export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
@@ -40538,6 +45784,66 @@ export namespace Prisma {
   };
 
   export type LoanRepaymentScalarFieldEnum = (typeof LoanRepaymentScalarFieldEnum)[keyof typeof LoanRepaymentScalarFieldEnum]
+
+
+  export const NewsArticleScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    slug: 'slug',
+    excerpt: 'excerpt',
+    content: 'content',
+    image_url: 'image_url',
+    author: 'author',
+    source: 'source',
+    source_url: 'source_url',
+    is_published: 'is_published',
+    published_at: 'published_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type NewsArticleScalarFieldEnum = (typeof NewsArticleScalarFieldEnum)[keyof typeof NewsArticleScalarFieldEnum]
+
+
+  export const AccountBalanceScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    type: 'type',
+    balance: 'balance',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AccountBalanceScalarFieldEnum = (typeof AccountBalanceScalarFieldEnum)[keyof typeof AccountBalanceScalarFieldEnum]
+
+
+  export const ReferralCommissionScalarFieldEnum: {
+    id: 'id',
+    referrer_profile_id: 'referrer_profile_id',
+    referred_user_id: 'referred_user_id',
+    deposit_id: 'deposit_id',
+    deposit_amount: 'deposit_amount',
+    commission_amount: 'commission_amount',
+    status: 'status',
+    paid_at: 'paid_at',
+    created_at: 'created_at'
+  };
+
+  export type ReferralCommissionScalarFieldEnum = (typeof ReferralCommissionScalarFieldEnum)[keyof typeof ReferralCommissionScalarFieldEnum]
+
+
+  export const UserOnboardingScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    income_source: 'income_source',
+    annual_income: 'annual_income',
+    employment_status: 'employment_status',
+    investment_goal: 'investment_goal',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type UserOnboardingScalarFieldEnum = (typeof UserOnboardingScalarFieldEnum)[keyof typeof UserOnboardingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -41320,6 +46626,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"Deposit"> | Date | string | null
     processor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referral_commissions?: ReferralCommissionListRelationFilter
   }
 
   export type DepositOrderByWithRelationInput = {
@@ -41340,6 +46647,7 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     processor?: UserOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    referral_commissions?: ReferralCommissionOrderByRelationAggregateInput
   }
 
   export type DepositWhereUniqueInput = Prisma.AtLeast<{
@@ -41363,6 +46671,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"Deposit"> | Date | string | null
     processor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referral_commissions?: ReferralCommissionListRelationFilter
   }, "id">
 
   export type DepositOrderByWithAggregationInput = {
@@ -42043,11 +47352,11 @@ export namespace Prisma {
     admin_id?: BigIntNullableFilter<"Notification"> | bigint | number | null
     title?: StringFilter<"Notification"> | string
     message?: StringFilter<"Notification"> | string
-    image_url?: StringNullableFilter<"Notification"> | string | null
     is_read?: BoolFilter<"Notification"> | boolean
     read_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
     created_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
+    image_url?: StringNullableFilter<"Notification"> | string | null
     admin?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -42058,11 +47367,11 @@ export namespace Prisma {
     admin_id?: SortOrderInput | SortOrder
     title?: SortOrder
     message?: SortOrder
-    image_url?: SortOrderInput | SortOrder
     is_read?: SortOrder
     read_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    image_url?: SortOrderInput | SortOrder
     admin?: UserOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -42076,11 +47385,11 @@ export namespace Prisma {
     admin_id?: BigIntNullableFilter<"Notification"> | bigint | number | null
     title?: StringFilter<"Notification"> | string
     message?: StringFilter<"Notification"> | string
-    image_url?: StringNullableFilter<"Notification"> | string | null
     is_read?: BoolFilter<"Notification"> | boolean
     read_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
     created_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
+    image_url?: StringNullableFilter<"Notification"> | string | null
     admin?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -42091,11 +47400,11 @@ export namespace Prisma {
     admin_id?: SortOrderInput | SortOrder
     title?: SortOrder
     message?: SortOrder
-    image_url?: SortOrderInput | SortOrder
     is_read?: SortOrder
     read_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    image_url?: SortOrderInput | SortOrder
     _count?: NotificationCountOrderByAggregateInput
     _avg?: NotificationAvgOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
@@ -42112,11 +47421,11 @@ export namespace Prisma {
     admin_id?: BigIntNullableWithAggregatesFilter<"Notification"> | bigint | number | null
     title?: StringWithAggregatesFilter<"Notification"> | string
     message?: StringWithAggregatesFilter<"Notification"> | string
-    image_url?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     is_read?: BoolWithAggregatesFilter<"Notification"> | boolean
     read_at?: DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
+    image_url?: StringNullableWithAggregatesFilter<"Notification"> | string | null
   }
 
   export type PersonalAccessTokenWhereInput = {
@@ -42223,7 +47532,11 @@ export namespace Prisma {
     referral_count?: IntFilter<"Profile"> | number
     created_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
+    referred_by_id?: BigIntNullableFilter<"Profile"> | bigint | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referred_by?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    referred_profiles?: ProfileListRelationFilter
+    referral_commissions?: ReferralCommissionListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -42248,7 +47561,11 @@ export namespace Prisma {
     referral_count?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    referred_by_id?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
+    referred_by?: ProfileOrderByWithRelationInput
+    referred_profiles?: ProfileOrderByRelationAggregateInput
+    referral_commissions?: ReferralCommissionOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -42276,7 +47593,11 @@ export namespace Prisma {
     referral_count?: IntFilter<"Profile"> | number
     created_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
+    referred_by_id?: BigIntNullableFilter<"Profile"> | bigint | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referred_by?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    referred_profiles?: ProfileListRelationFilter
+    referral_commissions?: ReferralCommissionListRelationFilter
   }, "id" | "uuid" | "invite_code">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -42301,6 +47622,7 @@ export namespace Prisma {
     referral_count?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    referred_by_id?: SortOrderInput | SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
@@ -42333,6 +47655,7 @@ export namespace Prisma {
     referral_count?: IntWithAggregatesFilter<"Profile"> | number
     created_at?: DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
+    referred_by_id?: BigIntNullableWithAggregatesFilter<"Profile"> | bigint | number | null
   }
 
   export type SessionWhereInput = {
@@ -43031,6 +48354,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     balance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceListRelationFilter
     arbitrageHostings?: ArbitrageHostingListRelationFilter
     assets?: AssetListRelationFilter
     createdCryptoAddresses?: CryptoAddressListRelationFilter
@@ -43039,8 +48363,14 @@ export namespace Prisma {
     deposits?: DepositListRelationFilter
     processedKycSubmissions?: KycSubmissionListRelationFilter
     kycSubmissions?: KycSubmissionListRelationFilter
+    processedLoanRepayments?: LoanRepaymentListRelationFilter
+    processedLoans?: LoanListRelationFilter
+    loans?: LoanListRelationFilter
     miningHostings?: MiningHostingListRelationFilter
     profiles?: ProfileListRelationFilter
+    userOnboarding?: XOR<UserOnboardingNullableScalarRelationFilter, UserOnboardingWhereInput> | null
+    sentNotifications?: NotificationListRelationFilter
+    notifications?: NotificationListRelationFilter
     adminSupportMessages?: SupportTicketMessageListRelationFilter
     userSupportMessages?: SupportTicketMessageListRelationFilter
     supportTickets?: SupportTicketListRelationFilter
@@ -43049,11 +48379,7 @@ export namespace Prisma {
     transactions?: TransactionListRelationFilter
     processedWithdrawals?: WithdrawalListRelationFilter
     withdrawals?: WithdrawalListRelationFilter
-    processedLoans?: LoanListRelationFilter
-    loans?: LoanListRelationFilter
-    processedLoanRepayments?: LoanRepaymentListRelationFilter
-    notifications?: NotificationListRelationFilter
-    sentNotifications?: NotificationListRelationFilter
+    referral_commissions?: ReferralCommissionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -43069,6 +48395,7 @@ export namespace Prisma {
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     balance?: SortOrder
+    accountBalances?: AccountBalanceOrderByRelationAggregateInput
     arbitrageHostings?: ArbitrageHostingOrderByRelationAggregateInput
     assets?: AssetOrderByRelationAggregateInput
     createdCryptoAddresses?: CryptoAddressOrderByRelationAggregateInput
@@ -43077,8 +48404,14 @@ export namespace Prisma {
     deposits?: DepositOrderByRelationAggregateInput
     processedKycSubmissions?: KycSubmissionOrderByRelationAggregateInput
     kycSubmissions?: KycSubmissionOrderByRelationAggregateInput
+    processedLoanRepayments?: LoanRepaymentOrderByRelationAggregateInput
+    processedLoans?: LoanOrderByRelationAggregateInput
+    loans?: LoanOrderByRelationAggregateInput
     miningHostings?: MiningHostingOrderByRelationAggregateInput
     profiles?: ProfileOrderByRelationAggregateInput
+    userOnboarding?: UserOnboardingOrderByWithRelationInput
+    sentNotifications?: NotificationOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
     adminSupportMessages?: SupportTicketMessageOrderByRelationAggregateInput
     userSupportMessages?: SupportTicketMessageOrderByRelationAggregateInput
     supportTickets?: SupportTicketOrderByRelationAggregateInput
@@ -43087,11 +48420,7 @@ export namespace Prisma {
     transactions?: TransactionOrderByRelationAggregateInput
     processedWithdrawals?: WithdrawalOrderByRelationAggregateInput
     withdrawals?: WithdrawalOrderByRelationAggregateInput
-    processedLoans?: LoanOrderByRelationAggregateInput
-    loans?: LoanOrderByRelationAggregateInput
-    processedLoanRepayments?: LoanRepaymentOrderByRelationAggregateInput
-    notifications?: NotificationOrderByRelationAggregateInput
-    sentNotifications?: NotificationOrderByRelationAggregateInput
+    referral_commissions?: ReferralCommissionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -43110,6 +48439,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     balance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceListRelationFilter
     arbitrageHostings?: ArbitrageHostingListRelationFilter
     assets?: AssetListRelationFilter
     createdCryptoAddresses?: CryptoAddressListRelationFilter
@@ -43118,8 +48448,14 @@ export namespace Prisma {
     deposits?: DepositListRelationFilter
     processedKycSubmissions?: KycSubmissionListRelationFilter
     kycSubmissions?: KycSubmissionListRelationFilter
+    processedLoanRepayments?: LoanRepaymentListRelationFilter
+    processedLoans?: LoanListRelationFilter
+    loans?: LoanListRelationFilter
     miningHostings?: MiningHostingListRelationFilter
     profiles?: ProfileListRelationFilter
+    userOnboarding?: XOR<UserOnboardingNullableScalarRelationFilter, UserOnboardingWhereInput> | null
+    sentNotifications?: NotificationListRelationFilter
+    notifications?: NotificationListRelationFilter
     adminSupportMessages?: SupportTicketMessageListRelationFilter
     userSupportMessages?: SupportTicketMessageListRelationFilter
     supportTickets?: SupportTicketListRelationFilter
@@ -43128,11 +48464,7 @@ export namespace Prisma {
     transactions?: TransactionListRelationFilter
     processedWithdrawals?: WithdrawalListRelationFilter
     withdrawals?: WithdrawalListRelationFilter
-    processedLoans?: LoanListRelationFilter
-    loans?: LoanListRelationFilter
-    processedLoanRepayments?: LoanRepaymentListRelationFilter
-    notifications?: NotificationListRelationFilter
-    sentNotifications?: NotificationListRelationFilter
+    referral_commissions?: ReferralCommissionListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -43297,9 +48629,6 @@ export namespace Prisma {
     amount?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"Loan"> | string
     status?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
-    document_type?: StringNullableFilter<"Loan"> | string | null
-    front_image?: StringNullableFilter<"Loan"> | string | null
-    back_image?: StringNullableFilter<"Loan"> | string | null
     rejection_reason?: StringNullableFilter<"Loan"> | string | null
     duration?: IntFilter<"Loan"> | number
     interest_rate?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
@@ -43313,9 +48642,12 @@ export namespace Prisma {
     processed_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
     created_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    back_image?: StringNullableFilter<"Loan"> | string | null
+    document_type?: StringNullableFilter<"Loan"> | string | null
+    front_image?: StringNullableFilter<"Loan"> | string | null
+    repayments?: LoanRepaymentListRelationFilter
     processor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    repayments?: LoanRepaymentListRelationFilter
   }
 
   export type LoanOrderByWithRelationInput = {
@@ -43324,9 +48656,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    document_type?: SortOrderInput | SortOrder
-    front_image?: SortOrderInput | SortOrder
-    back_image?: SortOrderInput | SortOrder
     rejection_reason?: SortOrderInput | SortOrder
     duration?: SortOrder
     interest_rate?: SortOrder
@@ -43340,9 +48669,12 @@ export namespace Prisma {
     processed_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    back_image?: SortOrderInput | SortOrder
+    document_type?: SortOrderInput | SortOrder
+    front_image?: SortOrderInput | SortOrder
+    repayments?: LoanRepaymentOrderByRelationAggregateInput
     processor?: UserOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    repayments?: LoanRepaymentOrderByRelationAggregateInput
   }
 
   export type LoanWhereUniqueInput = Prisma.AtLeast<{
@@ -43354,9 +48686,6 @@ export namespace Prisma {
     amount?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"Loan"> | string
     status?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
-    document_type?: StringNullableFilter<"Loan"> | string | null
-    front_image?: StringNullableFilter<"Loan"> | string | null
-    back_image?: StringNullableFilter<"Loan"> | string | null
     rejection_reason?: StringNullableFilter<"Loan"> | string | null
     duration?: IntFilter<"Loan"> | number
     interest_rate?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
@@ -43370,9 +48699,12 @@ export namespace Prisma {
     processed_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
     created_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    back_image?: StringNullableFilter<"Loan"> | string | null
+    document_type?: StringNullableFilter<"Loan"> | string | null
+    front_image?: StringNullableFilter<"Loan"> | string | null
+    repayments?: LoanRepaymentListRelationFilter
     processor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    repayments?: LoanRepaymentListRelationFilter
   }, "id">
 
   export type LoanOrderByWithAggregationInput = {
@@ -43381,9 +48713,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    document_type?: SortOrderInput | SortOrder
-    front_image?: SortOrderInput | SortOrder
-    back_image?: SortOrderInput | SortOrder
     rejection_reason?: SortOrderInput | SortOrder
     duration?: SortOrder
     interest_rate?: SortOrder
@@ -43397,6 +48726,9 @@ export namespace Prisma {
     processed_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    back_image?: SortOrderInput | SortOrder
+    document_type?: SortOrderInput | SortOrder
+    front_image?: SortOrderInput | SortOrder
     _count?: LoanCountOrderByAggregateInput
     _avg?: LoanAvgOrderByAggregateInput
     _max?: LoanMaxOrderByAggregateInput
@@ -43413,9 +48745,6 @@ export namespace Prisma {
     amount?: DecimalWithAggregatesFilter<"Loan"> | Decimal | DecimalJsLike | number | string
     currency?: StringWithAggregatesFilter<"Loan"> | string
     status?: EnumLoanStatusWithAggregatesFilter<"Loan"> | $Enums.LoanStatus
-    document_type?: StringNullableWithAggregatesFilter<"Loan"> | string | null
-    front_image?: StringNullableWithAggregatesFilter<"Loan"> | string | null
-    back_image?: StringNullableWithAggregatesFilter<"Loan"> | string | null
     rejection_reason?: StringNullableWithAggregatesFilter<"Loan"> | string | null
     duration?: IntWithAggregatesFilter<"Loan"> | number
     interest_rate?: DecimalWithAggregatesFilter<"Loan"> | Decimal | DecimalJsLike | number | string
@@ -43429,6 +48758,9 @@ export namespace Prisma {
     processed_at?: DateTimeNullableWithAggregatesFilter<"Loan"> | Date | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"Loan"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"Loan"> | Date | string | null
+    back_image?: StringNullableWithAggregatesFilter<"Loan"> | string | null
+    document_type?: StringNullableWithAggregatesFilter<"Loan"> | string | null
+    front_image?: StringNullableWithAggregatesFilter<"Loan"> | string | null
   }
 
   export type LoanRepaymentWhereInput = {
@@ -43514,6 +48846,318 @@ export namespace Prisma {
     processed_at?: DateTimeNullableWithAggregatesFilter<"LoanRepayment"> | Date | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"LoanRepayment"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"LoanRepayment"> | Date | string | null
+  }
+
+  export type NewsArticleWhereInput = {
+    AND?: NewsArticleWhereInput | NewsArticleWhereInput[]
+    OR?: NewsArticleWhereInput[]
+    NOT?: NewsArticleWhereInput | NewsArticleWhereInput[]
+    id?: BigIntFilter<"NewsArticle"> | bigint | number
+    title?: StringFilter<"NewsArticle"> | string
+    slug?: StringFilter<"NewsArticle"> | string
+    excerpt?: StringNullableFilter<"NewsArticle"> | string | null
+    content?: StringNullableFilter<"NewsArticle"> | string | null
+    image_url?: StringNullableFilter<"NewsArticle"> | string | null
+    author?: StringFilter<"NewsArticle"> | string
+    source?: StringFilter<"NewsArticle"> | string
+    source_url?: StringNullableFilter<"NewsArticle"> | string | null
+    is_published?: BoolFilter<"NewsArticle"> | boolean
+    published_at?: DateTimeFilter<"NewsArticle"> | Date | string
+    created_at?: DateTimeNullableFilter<"NewsArticle"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"NewsArticle"> | Date | string | null
+  }
+
+  export type NewsArticleOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    excerpt?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    image_url?: SortOrderInput | SortOrder
+    author?: SortOrder
+    source?: SortOrder
+    source_url?: SortOrderInput | SortOrder
+    is_published?: SortOrder
+    published_at?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+  }
+
+  export type NewsArticleWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    slug?: string
+    AND?: NewsArticleWhereInput | NewsArticleWhereInput[]
+    OR?: NewsArticleWhereInput[]
+    NOT?: NewsArticleWhereInput | NewsArticleWhereInput[]
+    title?: StringFilter<"NewsArticle"> | string
+    excerpt?: StringNullableFilter<"NewsArticle"> | string | null
+    content?: StringNullableFilter<"NewsArticle"> | string | null
+    image_url?: StringNullableFilter<"NewsArticle"> | string | null
+    author?: StringFilter<"NewsArticle"> | string
+    source?: StringFilter<"NewsArticle"> | string
+    source_url?: StringNullableFilter<"NewsArticle"> | string | null
+    is_published?: BoolFilter<"NewsArticle"> | boolean
+    published_at?: DateTimeFilter<"NewsArticle"> | Date | string
+    created_at?: DateTimeNullableFilter<"NewsArticle"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"NewsArticle"> | Date | string | null
+  }, "id" | "slug">
+
+  export type NewsArticleOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    excerpt?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    image_url?: SortOrderInput | SortOrder
+    author?: SortOrder
+    source?: SortOrder
+    source_url?: SortOrderInput | SortOrder
+    is_published?: SortOrder
+    published_at?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: NewsArticleCountOrderByAggregateInput
+    _avg?: NewsArticleAvgOrderByAggregateInput
+    _max?: NewsArticleMaxOrderByAggregateInput
+    _min?: NewsArticleMinOrderByAggregateInput
+    _sum?: NewsArticleSumOrderByAggregateInput
+  }
+
+  export type NewsArticleScalarWhereWithAggregatesInput = {
+    AND?: NewsArticleScalarWhereWithAggregatesInput | NewsArticleScalarWhereWithAggregatesInput[]
+    OR?: NewsArticleScalarWhereWithAggregatesInput[]
+    NOT?: NewsArticleScalarWhereWithAggregatesInput | NewsArticleScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"NewsArticle"> | bigint | number
+    title?: StringWithAggregatesFilter<"NewsArticle"> | string
+    slug?: StringWithAggregatesFilter<"NewsArticle"> | string
+    excerpt?: StringNullableWithAggregatesFilter<"NewsArticle"> | string | null
+    content?: StringNullableWithAggregatesFilter<"NewsArticle"> | string | null
+    image_url?: StringNullableWithAggregatesFilter<"NewsArticle"> | string | null
+    author?: StringWithAggregatesFilter<"NewsArticle"> | string
+    source?: StringWithAggregatesFilter<"NewsArticle"> | string
+    source_url?: StringNullableWithAggregatesFilter<"NewsArticle"> | string | null
+    is_published?: BoolWithAggregatesFilter<"NewsArticle"> | boolean
+    published_at?: DateTimeWithAggregatesFilter<"NewsArticle"> | Date | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"NewsArticle"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"NewsArticle"> | Date | string | null
+  }
+
+  export type AccountBalanceWhereInput = {
+    AND?: AccountBalanceWhereInput | AccountBalanceWhereInput[]
+    OR?: AccountBalanceWhereInput[]
+    NOT?: AccountBalanceWhereInput | AccountBalanceWhereInput[]
+    id?: BigIntFilter<"AccountBalance"> | bigint | number
+    user_id?: BigIntFilter<"AccountBalance"> | bigint | number
+    type?: StringFilter<"AccountBalance"> | string
+    balance?: DecimalFilter<"AccountBalance"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AccountBalanceOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    type?: SortOrder
+    balance?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AccountBalanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    user_id_type?: AccountBalanceUser_idTypeCompoundUniqueInput
+    AND?: AccountBalanceWhereInput | AccountBalanceWhereInput[]
+    OR?: AccountBalanceWhereInput[]
+    NOT?: AccountBalanceWhereInput | AccountBalanceWhereInput[]
+    user_id?: BigIntFilter<"AccountBalance"> | bigint | number
+    type?: StringFilter<"AccountBalance"> | string
+    balance?: DecimalFilter<"AccountBalance"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "user_id_type">
+
+  export type AccountBalanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    type?: SortOrder
+    balance?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: AccountBalanceCountOrderByAggregateInput
+    _avg?: AccountBalanceAvgOrderByAggregateInput
+    _max?: AccountBalanceMaxOrderByAggregateInput
+    _min?: AccountBalanceMinOrderByAggregateInput
+    _sum?: AccountBalanceSumOrderByAggregateInput
+  }
+
+  export type AccountBalanceScalarWhereWithAggregatesInput = {
+    AND?: AccountBalanceScalarWhereWithAggregatesInput | AccountBalanceScalarWhereWithAggregatesInput[]
+    OR?: AccountBalanceScalarWhereWithAggregatesInput[]
+    NOT?: AccountBalanceScalarWhereWithAggregatesInput | AccountBalanceScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"AccountBalance"> | bigint | number
+    user_id?: BigIntWithAggregatesFilter<"AccountBalance"> | bigint | number
+    type?: StringWithAggregatesFilter<"AccountBalance"> | string
+    balance?: DecimalWithAggregatesFilter<"AccountBalance"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"AccountBalance"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"AccountBalance"> | Date | string | null
+  }
+
+  export type ReferralCommissionWhereInput = {
+    AND?: ReferralCommissionWhereInput | ReferralCommissionWhereInput[]
+    OR?: ReferralCommissionWhereInput[]
+    NOT?: ReferralCommissionWhereInput | ReferralCommissionWhereInput[]
+    id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    referrer_profile_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    referred_user_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    deposit_id?: BigIntNullableFilter<"ReferralCommission"> | bigint | number | null
+    deposit_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"ReferralCommission"> | string
+    paid_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
+    referrer?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    referred_user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deposit?: XOR<DepositNullableScalarRelationFilter, DepositWhereInput> | null
+  }
+
+  export type ReferralCommissionOrderByWithRelationInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrderInput | SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    referrer?: ProfileOrderByWithRelationInput
+    referred_user?: UserOrderByWithRelationInput
+    deposit?: DepositOrderByWithRelationInput
+  }
+
+  export type ReferralCommissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: ReferralCommissionWhereInput | ReferralCommissionWhereInput[]
+    OR?: ReferralCommissionWhereInput[]
+    NOT?: ReferralCommissionWhereInput | ReferralCommissionWhereInput[]
+    referrer_profile_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    referred_user_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    deposit_id?: BigIntNullableFilter<"ReferralCommission"> | bigint | number | null
+    deposit_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"ReferralCommission"> | string
+    paid_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
+    referrer?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    referred_user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deposit?: XOR<DepositNullableScalarRelationFilter, DepositWhereInput> | null
+  }, "id">
+
+  export type ReferralCommissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrderInput | SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: ReferralCommissionCountOrderByAggregateInput
+    _avg?: ReferralCommissionAvgOrderByAggregateInput
+    _max?: ReferralCommissionMaxOrderByAggregateInput
+    _min?: ReferralCommissionMinOrderByAggregateInput
+    _sum?: ReferralCommissionSumOrderByAggregateInput
+  }
+
+  export type ReferralCommissionScalarWhereWithAggregatesInput = {
+    AND?: ReferralCommissionScalarWhereWithAggregatesInput | ReferralCommissionScalarWhereWithAggregatesInput[]
+    OR?: ReferralCommissionScalarWhereWithAggregatesInput[]
+    NOT?: ReferralCommissionScalarWhereWithAggregatesInput | ReferralCommissionScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"ReferralCommission"> | bigint | number
+    referrer_profile_id?: BigIntWithAggregatesFilter<"ReferralCommission"> | bigint | number
+    referred_user_id?: BigIntWithAggregatesFilter<"ReferralCommission"> | bigint | number
+    deposit_id?: BigIntNullableWithAggregatesFilter<"ReferralCommission"> | bigint | number | null
+    deposit_amount?: DecimalWithAggregatesFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalWithAggregatesFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    status?: StringWithAggregatesFilter<"ReferralCommission"> | string
+    paid_at?: DateTimeNullableWithAggregatesFilter<"ReferralCommission"> | Date | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"ReferralCommission"> | Date | string | null
+  }
+
+  export type UserOnboardingWhereInput = {
+    AND?: UserOnboardingWhereInput | UserOnboardingWhereInput[]
+    OR?: UserOnboardingWhereInput[]
+    NOT?: UserOnboardingWhereInput | UserOnboardingWhereInput[]
+    id?: BigIntFilter<"UserOnboarding"> | bigint | number
+    user_id?: BigIntFilter<"UserOnboarding"> | bigint | number
+    income_source?: StringNullableFilter<"UserOnboarding"> | string | null
+    annual_income?: StringNullableFilter<"UserOnboarding"> | string | null
+    employment_status?: StringNullableFilter<"UserOnboarding"> | string | null
+    investment_goal?: StringNullableFilter<"UserOnboarding"> | string | null
+    created_at?: DateTimeNullableFilter<"UserOnboarding"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"UserOnboarding"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserOnboardingOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    income_source?: SortOrderInput | SortOrder
+    annual_income?: SortOrderInput | SortOrder
+    employment_status?: SortOrderInput | SortOrder
+    investment_goal?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserOnboardingWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    user_id?: bigint | number
+    AND?: UserOnboardingWhereInput | UserOnboardingWhereInput[]
+    OR?: UserOnboardingWhereInput[]
+    NOT?: UserOnboardingWhereInput | UserOnboardingWhereInput[]
+    income_source?: StringNullableFilter<"UserOnboarding"> | string | null
+    annual_income?: StringNullableFilter<"UserOnboarding"> | string | null
+    employment_status?: StringNullableFilter<"UserOnboarding"> | string | null
+    investment_goal?: StringNullableFilter<"UserOnboarding"> | string | null
+    created_at?: DateTimeNullableFilter<"UserOnboarding"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"UserOnboarding"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "user_id">
+
+  export type UserOnboardingOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    income_source?: SortOrderInput | SortOrder
+    annual_income?: SortOrderInput | SortOrder
+    employment_status?: SortOrderInput | SortOrder
+    investment_goal?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: UserOnboardingCountOrderByAggregateInput
+    _avg?: UserOnboardingAvgOrderByAggregateInput
+    _max?: UserOnboardingMaxOrderByAggregateInput
+    _min?: UserOnboardingMinOrderByAggregateInput
+    _sum?: UserOnboardingSumOrderByAggregateInput
+  }
+
+  export type UserOnboardingScalarWhereWithAggregatesInput = {
+    AND?: UserOnboardingScalarWhereWithAggregatesInput | UserOnboardingScalarWhereWithAggregatesInput[]
+    OR?: UserOnboardingScalarWhereWithAggregatesInput[]
+    NOT?: UserOnboardingScalarWhereWithAggregatesInput | UserOnboardingScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"UserOnboarding"> | bigint | number
+    user_id?: BigIntWithAggregatesFilter<"UserOnboarding"> | bigint | number
+    income_source?: StringNullableWithAggregatesFilter<"UserOnboarding"> | string | null
+    annual_income?: StringNullableWithAggregatesFilter<"UserOnboarding"> | string | null
+    employment_status?: StringNullableWithAggregatesFilter<"UserOnboarding"> | string | null
+    investment_goal?: StringNullableWithAggregatesFilter<"UserOnboarding"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"UserOnboarding"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"UserOnboarding"> | Date | string | null
   }
 
   export type ArbitrageHostingCreateInput = {
@@ -44021,6 +49665,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     processor?: UserCreateNestedOneWithoutProcessedDepositsInput
     user: UserCreateNestedOneWithoutDepositsInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutDepositInput
   }
 
   export type DepositUncheckedCreateInput = {
@@ -44039,6 +49684,7 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutDepositInput
   }
 
   export type DepositUpdateInput = {
@@ -44057,6 +49703,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     processor?: UserUpdateOneWithoutProcessedDepositsNestedInput
     user?: UserUpdateOneRequiredWithoutDepositsNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositUncheckedUpdateInput = {
@@ -44075,6 +49722,7 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositCreateManyInput = {
@@ -44830,11 +50478,11 @@ export namespace Prisma {
     id?: bigint | number
     title: string
     message: string
-    image_url?: string | null
     is_read?: boolean
     read_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    image_url?: string | null
     admin?: UserCreateNestedOneWithoutSentNotificationsInput
     user: UserCreateNestedOneWithoutNotificationsInput
   }
@@ -44845,22 +50493,22 @@ export namespace Prisma {
     admin_id?: bigint | number | null
     title: string
     message: string
-    image_url?: string | null
     is_read?: boolean
     read_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    image_url?: string | null
   }
 
   export type NotificationUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: UserUpdateOneWithoutSentNotificationsNestedInput
     user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
   }
@@ -44871,11 +50519,11 @@ export namespace Prisma {
     admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationCreateManyInput = {
@@ -44884,22 +50532,22 @@ export namespace Prisma {
     admin_id?: bigint | number | null
     title: string
     message: string
-    image_url?: string | null
     is_read?: boolean
     read_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    image_url?: string | null
   }
 
   export type NotificationUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationUncheckedUpdateManyInput = {
@@ -44908,11 +50556,11 @@ export namespace Prisma {
     admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PersonalAccessTokenCreateInput = {
@@ -45028,6 +50676,9 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     user: UserCreateNestedOneWithoutProfilesInput
+    referred_by?: ProfileCreateNestedOneWithoutReferred_profilesInput
+    referred_profiles?: ProfileCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferrerInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -45052,6 +50703,9 @@ export namespace Prisma {
     referral_count?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
+    referred_profiles?: ProfileUncheckedCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferrerInput
   }
 
   export type ProfileUpdateInput = {
@@ -45076,6 +50730,9 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutProfilesNestedInput
+    referred_by?: ProfileUpdateOneWithoutReferred_profilesNestedInput
+    referred_profiles?: ProfileUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferrerNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -45100,6 +50757,9 @@ export namespace Prisma {
     referral_count?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    referred_profiles?: ProfileUncheckedUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferrerNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -45124,6 +50784,7 @@ export namespace Prisma {
     referral_count?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
   }
 
   export type ProfileUpdateManyMutationInput = {
@@ -45171,6 +50832,7 @@ export namespace Prisma {
     referral_count?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   }
 
   export type SessionCreateInput = {
@@ -45923,6 +51585,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -45931,8 +51594,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -45941,11 +51610,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -45961,6 +51626,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -45969,8 +51635,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -45979,11 +51651,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUpdateInput = {
@@ -45999,6 +51667,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -46007,8 +51676,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -46017,11 +51692,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -46037,6 +51708,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -46045,8 +51717,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -46055,11 +51733,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -46243,9 +51917,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
     status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
     rejection_reason?: string | null
     duration?: number
     interest_rate?: Decimal | DecimalJsLike | number | string
@@ -46258,9 +51929,12 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
     processor?: UserCreateNestedOneWithoutProcessedLoansInput
     user: UserCreateNestedOneWithoutLoansInput
-    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
   }
 
   export type LoanUncheckedCreateInput = {
@@ -46269,9 +51943,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
     status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
     rejection_reason?: string | null
     duration?: number
     interest_rate?: Decimal | DecimalJsLike | number | string
@@ -46285,6 +51956,9 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
     repayments?: LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput
   }
 
@@ -46293,9 +51967,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46308,9 +51979,12 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
     processor?: UserUpdateOneWithoutProcessedLoansNestedInput
     user?: UserUpdateOneRequiredWithoutLoansNestedInput
-    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
   }
 
   export type LoanUncheckedUpdateInput = {
@@ -46319,9 +51993,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46335,6 +52006,9 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
     repayments?: LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput
   }
 
@@ -46344,9 +52018,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
     status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
     rejection_reason?: string | null
     duration?: number
     interest_rate?: Decimal | DecimalJsLike | number | string
@@ -46360,6 +52031,9 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
   }
 
   export type LoanUpdateManyMutationInput = {
@@ -46367,9 +52041,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46382,6 +52053,9 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LoanUncheckedUpdateManyInput = {
@@ -46390,9 +52064,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46406,6 +52077,9 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LoanRepaymentCreateInput = {
@@ -46493,6 +52167,337 @@ export namespace Prisma {
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NewsArticleCreateInput = {
+    id?: bigint | number
+    title: string
+    slug: string
+    excerpt?: string | null
+    content?: string | null
+    image_url?: string | null
+    author?: string
+    source?: string
+    source_url?: string | null
+    is_published?: boolean
+    published_at?: Date | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type NewsArticleUncheckedCreateInput = {
+    id?: bigint | number
+    title: string
+    slug: string
+    excerpt?: string | null
+    content?: string | null
+    image_url?: string | null
+    author?: string
+    source?: string
+    source_url?: string | null
+    is_published?: boolean
+    published_at?: Date | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type NewsArticleUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_published?: BoolFieldUpdateOperationsInput | boolean
+    published_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NewsArticleUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_published?: BoolFieldUpdateOperationsInput | boolean
+    published_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NewsArticleCreateManyInput = {
+    id?: bigint | number
+    title: string
+    slug: string
+    excerpt?: string | null
+    content?: string | null
+    image_url?: string | null
+    author?: string
+    source?: string
+    source_url?: string | null
+    is_published?: boolean
+    published_at?: Date | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type NewsArticleUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_published?: BoolFieldUpdateOperationsInput | boolean
+    published_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NewsArticleUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_published?: BoolFieldUpdateOperationsInput | boolean
+    published_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AccountBalanceCreateInput = {
+    id?: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: UserCreateNestedOneWithoutAccountBalancesInput
+  }
+
+  export type AccountBalanceUncheckedCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type AccountBalanceUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutAccountBalancesNestedInput
+  }
+
+  export type AccountBalanceUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AccountBalanceCreateManyInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type AccountBalanceUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AccountBalanceUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionCreateInput = {
+    id?: bigint | number
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+    referrer: ProfileCreateNestedOneWithoutReferral_commissionsInput
+    referred_user: UserCreateNestedOneWithoutReferral_commissionsInput
+    deposit?: DepositCreateNestedOneWithoutReferral_commissionsInput
+  }
+
+  export type ReferralCommissionUncheckedCreateInput = {
+    id?: bigint | number
+    referrer_profile_id: bigint | number
+    referred_user_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ReferralCommissionUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referrer?: ProfileUpdateOneRequiredWithoutReferral_commissionsNestedInput
+    referred_user?: UserUpdateOneRequiredWithoutReferral_commissionsNestedInput
+    deposit?: DepositUpdateOneWithoutReferral_commissionsNestedInput
+  }
+
+  export type ReferralCommissionUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionCreateManyInput = {
+    id?: bigint | number
+    referrer_profile_id: bigint | number
+    referred_user_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ReferralCommissionUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserOnboardingCreateInput = {
+    id?: bigint | number
+    income_source?: string | null
+    annual_income?: string | null
+    employment_status?: string | null
+    investment_goal?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: UserCreateNestedOneWithoutUserOnboardingInput
+  }
+
+  export type UserOnboardingUncheckedCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    income_source?: string | null
+    annual_income?: string | null
+    employment_status?: string | null
+    investment_goal?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type UserOnboardingUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutUserOnboardingNestedInput
+  }
+
+  export type UserOnboardingUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserOnboardingCreateManyInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    income_source?: string | null
+    annual_income?: string | null
+    employment_status?: string | null
+    investment_goal?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type UserOnboardingUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserOnboardingUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -47114,6 +53119,16 @@ export namespace Prisma {
     not?: NestedEnumDepositStatusFilter<$PrismaModel> | $Enums.DepositStatus
   }
 
+  export type ReferralCommissionListRelationFilter = {
+    every?: ReferralCommissionWhereInput
+    some?: ReferralCommissionWhereInput
+    none?: ReferralCommissionWhereInput
+  }
+
+  export type ReferralCommissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DepositCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
@@ -47672,11 +53687,11 @@ export namespace Prisma {
     admin_id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    image_url?: SortOrder
     is_read?: SortOrder
     read_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_url?: SortOrder
   }
 
   export type NotificationAvgOrderByAggregateInput = {
@@ -47691,11 +53706,11 @@ export namespace Prisma {
     admin_id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    image_url?: SortOrder
     is_read?: SortOrder
     read_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_url?: SortOrder
   }
 
   export type NotificationMinOrderByAggregateInput = {
@@ -47704,11 +53719,11 @@ export namespace Prisma {
     admin_id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    image_url?: SortOrder
     is_read?: SortOrder
     read_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_url?: SortOrder
   }
 
   export type NotificationSumOrderByAggregateInput = {
@@ -47780,6 +53795,21 @@ export namespace Prisma {
     not?: NestedEnumProfileTradeStatusNullableFilter<$PrismaModel> | $Enums.ProfileTradeStatus | null
   }
 
+  export type ProfileNullableScalarRelationFilter = {
+    is?: ProfileWhereInput | null
+    isNot?: ProfileWhereInput | null
+  }
+
+  export type ProfileListRelationFilter = {
+    every?: ProfileWhereInput
+    some?: ProfileWhereInput
+    none?: ProfileWhereInput
+  }
+
+  export type ProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
@@ -47802,6 +53832,7 @@ export namespace Prisma {
     referral_count?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    referred_by_id?: SortOrder
   }
 
   export type ProfileAvgOrderByAggregateInput = {
@@ -47810,6 +53841,7 @@ export namespace Prisma {
     level?: SortOrder
     total_assets?: SortOrder
     referral_count?: SortOrder
+    referred_by_id?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -47834,6 +53866,7 @@ export namespace Prisma {
     referral_count?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    referred_by_id?: SortOrder
   }
 
   export type ProfileMinOrderByAggregateInput = {
@@ -47858,6 +53891,7 @@ export namespace Prisma {
     referral_count?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    referred_by_id?: SortOrder
   }
 
   export type ProfileSumOrderByAggregateInput = {
@@ -47866,6 +53900,7 @@ export namespace Prisma {
     level?: SortOrder
     total_assets?: SortOrder
     referral_count?: SortOrder
+    referred_by_id?: SortOrder
   }
 
   export type EnumProfileKycStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -48439,6 +54474,12 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
+  export type AccountBalanceListRelationFilter = {
+    every?: AccountBalanceWhereInput
+    some?: AccountBalanceWhereInput
+    none?: AccountBalanceWhereInput
+  }
+
   export type AssetListRelationFilter = {
     every?: AssetWhereInput
     some?: AssetWhereInput
@@ -48463,10 +54504,27 @@ export namespace Prisma {
     none?: KycSubmissionWhereInput
   }
 
-  export type ProfileListRelationFilter = {
-    every?: ProfileWhereInput
-    some?: ProfileWhereInput
-    none?: ProfileWhereInput
+  export type LoanRepaymentListRelationFilter = {
+    every?: LoanRepaymentWhereInput
+    some?: LoanRepaymentWhereInput
+    none?: LoanRepaymentWhereInput
+  }
+
+  export type LoanListRelationFilter = {
+    every?: LoanWhereInput
+    some?: LoanWhereInput
+    none?: LoanWhereInput
+  }
+
+  export type UserOnboardingNullableScalarRelationFilter = {
+    is?: UserOnboardingWhereInput | null
+    isNot?: UserOnboardingWhereInput | null
+  }
+
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
   }
 
   export type SupportTicketListRelationFilter = {
@@ -48487,22 +54545,8 @@ export namespace Prisma {
     none?: WithdrawalWhereInput
   }
 
-  export type LoanListRelationFilter = {
-    every?: LoanWhereInput
-    some?: LoanWhereInput
-    none?: LoanWhereInput
-  }
-
-  export type LoanRepaymentListRelationFilter = {
-    every?: LoanRepaymentWhereInput
-    some?: LoanRepaymentWhereInput
-    none?: LoanRepaymentWhereInput
-  }
-
-  export type NotificationListRelationFilter = {
-    every?: NotificationWhereInput
-    some?: NotificationWhereInput
-    none?: NotificationWhereInput
+  export type AccountBalanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type AssetOrderByRelationAggregateInput = {
@@ -48521,7 +54565,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ProfileOrderByRelationAggregateInput = {
+  export type LoanRepaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LoanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -48534,18 +54586,6 @@ export namespace Prisma {
   }
 
   export type WithdrawalOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type LoanOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type LoanRepaymentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -48727,9 +54767,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    document_type?: SortOrder
-    front_image?: SortOrder
-    back_image?: SortOrder
     rejection_reason?: SortOrder
     duration?: SortOrder
     interest_rate?: SortOrder
@@ -48743,6 +54780,9 @@ export namespace Prisma {
     processed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    back_image?: SortOrder
+    document_type?: SortOrder
+    front_image?: SortOrder
   }
 
   export type LoanAvgOrderByAggregateInput = {
@@ -48762,9 +54802,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    document_type?: SortOrder
-    front_image?: SortOrder
-    back_image?: SortOrder
     rejection_reason?: SortOrder
     duration?: SortOrder
     interest_rate?: SortOrder
@@ -48778,6 +54815,9 @@ export namespace Prisma {
     processed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    back_image?: SortOrder
+    document_type?: SortOrder
+    front_image?: SortOrder
   }
 
   export type LoanMinOrderByAggregateInput = {
@@ -48786,9 +54826,6 @@ export namespace Prisma {
     amount?: SortOrder
     currency?: SortOrder
     status?: SortOrder
-    document_type?: SortOrder
-    front_image?: SortOrder
-    back_image?: SortOrder
     rejection_reason?: SortOrder
     duration?: SortOrder
     interest_rate?: SortOrder
@@ -48802,6 +54839,9 @@ export namespace Prisma {
     processed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    back_image?: SortOrder
+    document_type?: SortOrder
+    front_image?: SortOrder
   }
 
   export type LoanSumOrderByAggregateInput = {
@@ -48898,6 +54938,213 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLoanRepaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumLoanRepaymentStatusFilter<$PrismaModel>
+  }
+
+  export type NewsArticleCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    excerpt?: SortOrder
+    content?: SortOrder
+    image_url?: SortOrder
+    author?: SortOrder
+    source?: SortOrder
+    source_url?: SortOrder
+    is_published?: SortOrder
+    published_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type NewsArticleAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type NewsArticleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    excerpt?: SortOrder
+    content?: SortOrder
+    image_url?: SortOrder
+    author?: SortOrder
+    source?: SortOrder
+    source_url?: SortOrder
+    is_published?: SortOrder
+    published_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type NewsArticleMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    excerpt?: SortOrder
+    content?: SortOrder
+    image_url?: SortOrder
+    author?: SortOrder
+    source?: SortOrder
+    source_url?: SortOrder
+    is_published?: SortOrder
+    published_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type NewsArticleSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type AccountBalanceUser_idTypeCompoundUniqueInput = {
+    user_id: bigint | number
+    type: string
+  }
+
+  export type AccountBalanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    type?: SortOrder
+    balance?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AccountBalanceAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    balance?: SortOrder
+  }
+
+  export type AccountBalanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    type?: SortOrder
+    balance?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AccountBalanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    type?: SortOrder
+    balance?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AccountBalanceSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    balance?: SortOrder
+  }
+
+  export type ProfileScalarRelationFilter = {
+    is?: ProfileWhereInput
+    isNot?: ProfileWhereInput
+  }
+
+  export type DepositNullableScalarRelationFilter = {
+    is?: DepositWhereInput | null
+    isNot?: DepositWhereInput | null
+  }
+
+  export type ReferralCommissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ReferralCommissionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+  }
+
+  export type ReferralCommissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ReferralCommissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ReferralCommissionSumOrderByAggregateInput = {
+    id?: SortOrder
+    referrer_profile_id?: SortOrder
+    referred_user_id?: SortOrder
+    deposit_id?: SortOrder
+    deposit_amount?: SortOrder
+    commission_amount?: SortOrder
+  }
+
+  export type UserOnboardingCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    income_source?: SortOrder
+    annual_income?: SortOrder
+    employment_status?: SortOrder
+    investment_goal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserOnboardingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type UserOnboardingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    income_source?: SortOrder
+    annual_income?: SortOrder
+    employment_status?: SortOrder
+    investment_goal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserOnboardingMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    income_source?: SortOrder
+    annual_income?: SortOrder
+    employment_status?: SortOrder
+    investment_goal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserOnboardingSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
   }
 
   export type ArbitrageProductCreateNestedOneWithoutHostingsInput = {
@@ -49092,6 +55339,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ReferralCommissionCreateNestedManyWithoutDepositInput = {
+    create?: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput> | ReferralCommissionCreateWithoutDepositInput[] | ReferralCommissionUncheckedCreateWithoutDepositInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutDepositInput | ReferralCommissionCreateOrConnectWithoutDepositInput[]
+    createMany?: ReferralCommissionCreateManyDepositInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+  }
+
+  export type ReferralCommissionUncheckedCreateNestedManyWithoutDepositInput = {
+    create?: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput> | ReferralCommissionCreateWithoutDepositInput[] | ReferralCommissionUncheckedCreateWithoutDepositInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutDepositInput | ReferralCommissionCreateOrConnectWithoutDepositInput[]
+    createMany?: ReferralCommissionCreateManyDepositInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+  }
+
   export type EnumDepositStatusFieldUpdateOperationsInput = {
     set?: $Enums.DepositStatus
   }
@@ -49112,6 +55373,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDepositsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDepositsInput, UserUpdateWithoutDepositsInput>, UserUncheckedUpdateWithoutDepositsInput>
+  }
+
+  export type ReferralCommissionUpdateManyWithoutDepositNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput> | ReferralCommissionCreateWithoutDepositInput[] | ReferralCommissionUncheckedCreateWithoutDepositInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutDepositInput | ReferralCommissionCreateOrConnectWithoutDepositInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutDepositInput | ReferralCommissionUpsertWithWhereUniqueWithoutDepositInput[]
+    createMany?: ReferralCommissionCreateManyDepositInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutDepositInput | ReferralCommissionUpdateWithWhereUniqueWithoutDepositInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutDepositInput | ReferralCommissionUpdateManyWithWhereWithoutDepositInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
+  }
+
+  export type ReferralCommissionUncheckedUpdateManyWithoutDepositNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput> | ReferralCommissionCreateWithoutDepositInput[] | ReferralCommissionUncheckedCreateWithoutDepositInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutDepositInput | ReferralCommissionCreateOrConnectWithoutDepositInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutDepositInput | ReferralCommissionUpsertWithWhereUniqueWithoutDepositInput[]
+    createMany?: ReferralCommissionCreateManyDepositInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutDepositInput | ReferralCommissionUpdateWithWhereUniqueWithoutDepositInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutDepositInput | ReferralCommissionUpdateManyWithWhereWithoutDepositInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -49266,6 +55555,40 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ProfileCreateNestedOneWithoutReferred_profilesInput = {
+    create?: XOR<ProfileCreateWithoutReferred_profilesInput, ProfileUncheckedCreateWithoutReferred_profilesInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_profilesInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type ProfileCreateNestedManyWithoutReferred_byInput = {
+    create?: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput> | ProfileCreateWithoutReferred_byInput[] | ProfileUncheckedCreateWithoutReferred_byInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_byInput | ProfileCreateOrConnectWithoutReferred_byInput[]
+    createMany?: ProfileCreateManyReferred_byInputEnvelope
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
+  export type ReferralCommissionCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput> | ReferralCommissionCreateWithoutReferrerInput[] | ReferralCommissionUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferrerInput | ReferralCommissionCreateOrConnectWithoutReferrerInput[]
+    createMany?: ReferralCommissionCreateManyReferrerInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+  }
+
+  export type ProfileUncheckedCreateNestedManyWithoutReferred_byInput = {
+    create?: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput> | ProfileCreateWithoutReferred_byInput[] | ProfileUncheckedCreateWithoutReferred_byInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_byInput | ProfileCreateOrConnectWithoutReferred_byInput[]
+    createMany?: ProfileCreateManyReferred_byInputEnvelope
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
+  export type ReferralCommissionUncheckedCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput> | ReferralCommissionCreateWithoutReferrerInput[] | ReferralCommissionUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferrerInput | ReferralCommissionCreateOrConnectWithoutReferrerInput[]
+    createMany?: ReferralCommissionCreateManyReferrerInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+  }
+
   export type EnumProfileKycStatusFieldUpdateOperationsInput = {
     set?: $Enums.ProfileKycStatus
   }
@@ -49280,6 +55603,72 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutProfilesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfilesInput, UserUpdateWithoutProfilesInput>, UserUncheckedUpdateWithoutProfilesInput>
+  }
+
+  export type ProfileUpdateOneWithoutReferred_profilesNestedInput = {
+    create?: XOR<ProfileCreateWithoutReferred_profilesInput, ProfileUncheckedCreateWithoutReferred_profilesInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_profilesInput
+    upsert?: ProfileUpsertWithoutReferred_profilesInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutReferred_profilesInput, ProfileUpdateWithoutReferred_profilesInput>, ProfileUncheckedUpdateWithoutReferred_profilesInput>
+  }
+
+  export type ProfileUpdateManyWithoutReferred_byNestedInput = {
+    create?: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput> | ProfileCreateWithoutReferred_byInput[] | ProfileUncheckedCreateWithoutReferred_byInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_byInput | ProfileCreateOrConnectWithoutReferred_byInput[]
+    upsert?: ProfileUpsertWithWhereUniqueWithoutReferred_byInput | ProfileUpsertWithWhereUniqueWithoutReferred_byInput[]
+    createMany?: ProfileCreateManyReferred_byInputEnvelope
+    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    update?: ProfileUpdateWithWhereUniqueWithoutReferred_byInput | ProfileUpdateWithWhereUniqueWithoutReferred_byInput[]
+    updateMany?: ProfileUpdateManyWithWhereWithoutReferred_byInput | ProfileUpdateManyWithWhereWithoutReferred_byInput[]
+    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type ReferralCommissionUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput> | ReferralCommissionCreateWithoutReferrerInput[] | ReferralCommissionUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferrerInput | ReferralCommissionCreateOrConnectWithoutReferrerInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutReferrerInput | ReferralCommissionUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: ReferralCommissionCreateManyReferrerInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutReferrerInput | ReferralCommissionUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutReferrerInput | ReferralCommissionUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
+  }
+
+  export type ProfileUncheckedUpdateManyWithoutReferred_byNestedInput = {
+    create?: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput> | ProfileCreateWithoutReferred_byInput[] | ProfileUncheckedCreateWithoutReferred_byInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferred_byInput | ProfileCreateOrConnectWithoutReferred_byInput[]
+    upsert?: ProfileUpsertWithWhereUniqueWithoutReferred_byInput | ProfileUpsertWithWhereUniqueWithoutReferred_byInput[]
+    createMany?: ProfileCreateManyReferred_byInputEnvelope
+    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    update?: ProfileUpdateWithWhereUniqueWithoutReferred_byInput | ProfileUpdateWithWhereUniqueWithoutReferred_byInput[]
+    updateMany?: ProfileUpdateManyWithWhereWithoutReferred_byInput | ProfileUpdateManyWithWhereWithoutReferred_byInput[]
+    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type ReferralCommissionUncheckedUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput> | ReferralCommissionCreateWithoutReferrerInput[] | ReferralCommissionUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferrerInput | ReferralCommissionCreateOrConnectWithoutReferrerInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutReferrerInput | ReferralCommissionUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: ReferralCommissionCreateManyReferrerInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutReferrerInput | ReferralCommissionUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutReferrerInput | ReferralCommissionUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAdminSupportMessagesInput = {
@@ -49662,6 +56051,13 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsInput, UserUpdateWithoutTransactionsInput>, UserUncheckedUpdateWithoutTransactionsInput>
   }
 
+  export type AccountBalanceCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput> | AccountBalanceCreateWithoutUserInput[] | AccountBalanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountBalanceCreateOrConnectWithoutUserInput | AccountBalanceCreateOrConnectWithoutUserInput[]
+    createMany?: AccountBalanceCreateManyUserInputEnvelope
+    connect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+  }
+
   export type ArbitrageHostingCreateNestedManyWithoutUserInput = {
     create?: XOR<ArbitrageHostingCreateWithoutUserInput, ArbitrageHostingUncheckedCreateWithoutUserInput> | ArbitrageHostingCreateWithoutUserInput[] | ArbitrageHostingUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ArbitrageHostingCreateOrConnectWithoutUserInput | ArbitrageHostingCreateOrConnectWithoutUserInput[]
@@ -49718,6 +56114,27 @@ export namespace Prisma {
     connect?: KycSubmissionWhereUniqueInput | KycSubmissionWhereUniqueInput[]
   }
 
+  export type LoanRepaymentCreateNestedManyWithoutProcessorInput = {
+    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
+    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+  }
+
+  export type LoanCreateNestedManyWithoutProcessorInput = {
+    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
+    createMany?: LoanCreateManyProcessorInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
+  export type LoanCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
   export type MiningHostingCreateNestedManyWithoutUserInput = {
     create?: XOR<MiningHostingCreateWithoutUserInput, MiningHostingUncheckedCreateWithoutUserInput> | MiningHostingCreateWithoutUserInput[] | MiningHostingUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MiningHostingCreateOrConnectWithoutUserInput | MiningHostingCreateOrConnectWithoutUserInput[]
@@ -49730,6 +56147,26 @@ export namespace Prisma {
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
     createMany?: ProfileCreateManyUserInputEnvelope
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
+  export type UserOnboardingCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserOnboardingCreateOrConnectWithoutUserInput
+    connect?: UserOnboardingWhereUniqueInput
+  }
+
+  export type NotificationCreateNestedManyWithoutAdminInput = {
+    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
+    createMany?: NotificationCreateManyAdminInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type SupportTicketMessageCreateNestedManyWithoutAdminInput = {
@@ -49788,39 +56225,18 @@ export namespace Prisma {
     connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
   }
 
-  export type LoanCreateNestedManyWithoutProcessorInput = {
-    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
-    createMany?: LoanCreateManyProcessorInputEnvelope
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  export type ReferralCommissionCreateNestedManyWithoutReferred_userInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput> | ReferralCommissionCreateWithoutReferred_userInput[] | ReferralCommissionUncheckedCreateWithoutReferred_userInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferred_userInput | ReferralCommissionCreateOrConnectWithoutReferred_userInput[]
+    createMany?: ReferralCommissionCreateManyReferred_userInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
   }
 
-  export type LoanCreateNestedManyWithoutUserInput = {
-    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
-    createMany?: LoanCreateManyUserInputEnvelope
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-  }
-
-  export type LoanRepaymentCreateNestedManyWithoutProcessorInput = {
-    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
-    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-  }
-
-  export type NotificationCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-  }
-
-  export type NotificationCreateNestedManyWithoutAdminInput = {
-    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
-    createMany?: NotificationCreateManyAdminInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  export type AccountBalanceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput> | AccountBalanceCreateWithoutUserInput[] | AccountBalanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountBalanceCreateOrConnectWithoutUserInput | AccountBalanceCreateOrConnectWithoutUserInput[]
+    createMany?: AccountBalanceCreateManyUserInputEnvelope
+    connect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
   }
 
   export type ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput = {
@@ -49879,6 +56295,27 @@ export namespace Prisma {
     connect?: KycSubmissionWhereUniqueInput | KycSubmissionWhereUniqueInput[]
   }
 
+  export type LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput = {
+    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
+    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+  }
+
+  export type LoanUncheckedCreateNestedManyWithoutProcessorInput = {
+    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
+    createMany?: LoanCreateManyProcessorInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
+  export type LoanUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
   export type MiningHostingUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<MiningHostingCreateWithoutUserInput, MiningHostingUncheckedCreateWithoutUserInput> | MiningHostingCreateWithoutUserInput[] | MiningHostingUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MiningHostingCreateOrConnectWithoutUserInput | MiningHostingCreateOrConnectWithoutUserInput[]
@@ -49891,6 +56328,26 @@ export namespace Prisma {
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
     createMany?: ProfileCreateManyUserInputEnvelope
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
+  export type UserOnboardingUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserOnboardingCreateOrConnectWithoutUserInput
+    connect?: UserOnboardingWhereUniqueInput
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
+    createMany?: NotificationCreateManyAdminInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput = {
@@ -49949,39 +56406,11 @@ export namespace Prisma {
     connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
   }
 
-  export type LoanUncheckedCreateNestedManyWithoutProcessorInput = {
-    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
-    createMany?: LoanCreateManyProcessorInputEnvelope
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-  }
-
-  export type LoanUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
-    createMany?: LoanCreateManyUserInputEnvelope
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-  }
-
-  export type LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput = {
-    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
-    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-  }
-
-  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-  }
-
-  export type NotificationUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
-    createMany?: NotificationCreateManyAdminInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  export type ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput> | ReferralCommissionCreateWithoutReferred_userInput[] | ReferralCommissionUncheckedCreateWithoutReferred_userInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferred_userInput | ReferralCommissionCreateOrConnectWithoutReferred_userInput[]
+    createMany?: ReferralCommissionCreateManyReferred_userInputEnvelope
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -49990,6 +56419,20 @@ export namespace Prisma {
 
   export type EnumUserStatusFieldUpdateOperationsInput = {
     set?: $Enums.UserStatus
+  }
+
+  export type AccountBalanceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput> | AccountBalanceCreateWithoutUserInput[] | AccountBalanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountBalanceCreateOrConnectWithoutUserInput | AccountBalanceCreateOrConnectWithoutUserInput[]
+    upsert?: AccountBalanceUpsertWithWhereUniqueWithoutUserInput | AccountBalanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountBalanceCreateManyUserInputEnvelope
+    set?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    disconnect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    delete?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    connect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    update?: AccountBalanceUpdateWithWhereUniqueWithoutUserInput | AccountBalanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountBalanceUpdateManyWithWhereWithoutUserInput | AccountBalanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountBalanceScalarWhereInput | AccountBalanceScalarWhereInput[]
   }
 
   export type ArbitrageHostingUpdateManyWithoutUserNestedInput = {
@@ -50104,6 +56547,48 @@ export namespace Prisma {
     deleteMany?: KycSubmissionScalarWhereInput | KycSubmissionScalarWhereInput[]
   }
 
+  export type LoanRepaymentUpdateManyWithoutProcessorNestedInput = {
+    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
+    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput[]
+    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
+    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    update?: LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput[]
+    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutProcessorInput | LoanRepaymentUpdateManyWithWhereWithoutProcessorInput[]
+    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
+  }
+
+  export type LoanUpdateManyWithoutProcessorNestedInput = {
+    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutProcessorInput | LoanUpsertWithWhereUniqueWithoutProcessorInput[]
+    createMany?: LoanCreateManyProcessorInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutProcessorInput | LoanUpdateWithWhereUniqueWithoutProcessorInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutProcessorInput | LoanUpdateManyWithWhereWithoutProcessorInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
+  export type LoanUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
   export type MiningHostingUpdateManyWithoutUserNestedInput = {
     create?: XOR<MiningHostingCreateWithoutUserInput, MiningHostingUncheckedCreateWithoutUserInput> | MiningHostingCreateWithoutUserInput[] | MiningHostingUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MiningHostingCreateOrConnectWithoutUserInput | MiningHostingCreateOrConnectWithoutUserInput[]
@@ -50130,6 +56615,44 @@ export namespace Prisma {
     update?: ProfileUpdateWithWhereUniqueWithoutUserInput | ProfileUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProfileUpdateManyWithWhereWithoutUserInput | ProfileUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type UserOnboardingUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserOnboardingCreateOrConnectWithoutUserInput
+    upsert?: UserOnboardingUpsertWithoutUserInput
+    disconnect?: UserOnboardingWhereInput | boolean
+    delete?: UserOnboardingWhereInput | boolean
+    connect?: UserOnboardingWhereUniqueInput
+    update?: XOR<XOR<UserOnboardingUpdateToOneWithWhereWithoutUserInput, UserOnboardingUpdateWithoutUserInput>, UserOnboardingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutAdminInput | NotificationUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: NotificationCreateManyAdminInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutAdminInput | NotificationUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutAdminInput | NotificationUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
   export type SupportTicketMessageUpdateManyWithoutAdminNestedInput = {
@@ -50244,74 +56767,32 @@ export namespace Prisma {
     deleteMany?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
   }
 
-  export type LoanUpdateManyWithoutProcessorNestedInput = {
-    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
-    upsert?: LoanUpsertWithWhereUniqueWithoutProcessorInput | LoanUpsertWithWhereUniqueWithoutProcessorInput[]
-    createMany?: LoanCreateManyProcessorInputEnvelope
-    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    update?: LoanUpdateWithWhereUniqueWithoutProcessorInput | LoanUpdateWithWhereUniqueWithoutProcessorInput[]
-    updateMany?: LoanUpdateManyWithWhereWithoutProcessorInput | LoanUpdateManyWithWhereWithoutProcessorInput[]
-    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  export type ReferralCommissionUpdateManyWithoutReferred_userNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput> | ReferralCommissionCreateWithoutReferred_userInput[] | ReferralCommissionUncheckedCreateWithoutReferred_userInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferred_userInput | ReferralCommissionCreateOrConnectWithoutReferred_userInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutReferred_userInput | ReferralCommissionUpsertWithWhereUniqueWithoutReferred_userInput[]
+    createMany?: ReferralCommissionCreateManyReferred_userInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutReferred_userInput | ReferralCommissionUpdateWithWhereUniqueWithoutReferred_userInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutReferred_userInput | ReferralCommissionUpdateManyWithWhereWithoutReferred_userInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
   }
 
-  export type LoanUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
-    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LoanCreateManyUserInputEnvelope
-    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
-  }
-
-  export type LoanRepaymentUpdateManyWithoutProcessorNestedInput = {
-    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
-    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput[]
-    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
-    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    update?: LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput[]
-    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutProcessorInput | LoanRepaymentUpdateManyWithWhereWithoutProcessorInput[]
-    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
-  }
-
-  export type NotificationUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-  }
-
-  export type NotificationUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutAdminInput | NotificationUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: NotificationCreateManyAdminInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutAdminInput | NotificationUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutAdminInput | NotificationUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  export type AccountBalanceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput> | AccountBalanceCreateWithoutUserInput[] | AccountBalanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountBalanceCreateOrConnectWithoutUserInput | AccountBalanceCreateOrConnectWithoutUserInput[]
+    upsert?: AccountBalanceUpsertWithWhereUniqueWithoutUserInput | AccountBalanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountBalanceCreateManyUserInputEnvelope
+    set?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    disconnect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    delete?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    connect?: AccountBalanceWhereUniqueInput | AccountBalanceWhereUniqueInput[]
+    update?: AccountBalanceUpdateWithWhereUniqueWithoutUserInput | AccountBalanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountBalanceUpdateManyWithWhereWithoutUserInput | AccountBalanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountBalanceScalarWhereInput | AccountBalanceScalarWhereInput[]
   }
 
   export type ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput = {
@@ -50426,6 +56907,48 @@ export namespace Prisma {
     deleteMany?: KycSubmissionScalarWhereInput | KycSubmissionScalarWhereInput[]
   }
 
+  export type LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput = {
+    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
+    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput[]
+    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
+    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    update?: LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput[]
+    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutProcessorInput | LoanRepaymentUpdateManyWithWhereWithoutProcessorInput[]
+    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
+  }
+
+  export type LoanUncheckedUpdateManyWithoutProcessorNestedInput = {
+    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutProcessorInput | LoanUpsertWithWhereUniqueWithoutProcessorInput[]
+    createMany?: LoanCreateManyProcessorInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutProcessorInput | LoanUpdateWithWhereUniqueWithoutProcessorInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutProcessorInput | LoanUpdateManyWithWhereWithoutProcessorInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
+  export type LoanUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
   export type MiningHostingUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<MiningHostingCreateWithoutUserInput, MiningHostingUncheckedCreateWithoutUserInput> | MiningHostingCreateWithoutUserInput[] | MiningHostingUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MiningHostingCreateOrConnectWithoutUserInput | MiningHostingCreateOrConnectWithoutUserInput[]
@@ -50452,6 +56975,44 @@ export namespace Prisma {
     update?: ProfileUpdateWithWhereUniqueWithoutUserInput | ProfileUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProfileUpdateManyWithWhereWithoutUserInput | ProfileUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type UserOnboardingUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserOnboardingCreateOrConnectWithoutUserInput
+    upsert?: UserOnboardingUpsertWithoutUserInput
+    disconnect?: UserOnboardingWhereInput | boolean
+    delete?: UserOnboardingWhereInput | boolean
+    connect?: UserOnboardingWhereUniqueInput
+    update?: XOR<XOR<UserOnboardingUpdateToOneWithWhereWithoutUserInput, UserOnboardingUpdateWithoutUserInput>, UserOnboardingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutAdminInput | NotificationUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: NotificationCreateManyAdminInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutAdminInput | NotificationUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutAdminInput | NotificationUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
   export type SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput = {
@@ -50566,74 +57127,18 @@ export namespace Prisma {
     deleteMany?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
   }
 
-  export type LoanUncheckedUpdateManyWithoutProcessorNestedInput = {
-    create?: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput> | LoanCreateWithoutProcessorInput[] | LoanUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutProcessorInput | LoanCreateOrConnectWithoutProcessorInput[]
-    upsert?: LoanUpsertWithWhereUniqueWithoutProcessorInput | LoanUpsertWithWhereUniqueWithoutProcessorInput[]
-    createMany?: LoanCreateManyProcessorInputEnvelope
-    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    update?: LoanUpdateWithWhereUniqueWithoutProcessorInput | LoanUpdateWithWhereUniqueWithoutProcessorInput[]
-    updateMany?: LoanUpdateManyWithWhereWithoutProcessorInput | LoanUpdateManyWithWhereWithoutProcessorInput[]
-    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
-  }
-
-  export type LoanUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
-    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LoanCreateManyUserInputEnvelope
-    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
-    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
-  }
-
-  export type LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput = {
-    create?: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput> | LoanRepaymentCreateWithoutProcessorInput[] | LoanRepaymentUncheckedCreateWithoutProcessorInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutProcessorInput | LoanRepaymentCreateOrConnectWithoutProcessorInput[]
-    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput[]
-    createMany?: LoanRepaymentCreateManyProcessorInputEnvelope
-    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    update?: LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput | LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput[]
-    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutProcessorInput | LoanRepaymentUpdateManyWithWhereWithoutProcessorInput[]
-    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput> | NotificationCreateWithoutAdminInput[] | NotificationUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutAdminInput | NotificationCreateOrConnectWithoutAdminInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutAdminInput | NotificationUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: NotificationCreateManyAdminInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutAdminInput | NotificationUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutAdminInput | NotificationUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  export type ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput = {
+    create?: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput> | ReferralCommissionCreateWithoutReferred_userInput[] | ReferralCommissionUncheckedCreateWithoutReferred_userInput[]
+    connectOrCreate?: ReferralCommissionCreateOrConnectWithoutReferred_userInput | ReferralCommissionCreateOrConnectWithoutReferred_userInput[]
+    upsert?: ReferralCommissionUpsertWithWhereUniqueWithoutReferred_userInput | ReferralCommissionUpsertWithWhereUniqueWithoutReferred_userInput[]
+    createMany?: ReferralCommissionCreateManyReferred_userInputEnvelope
+    set?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    disconnect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    delete?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    connect?: ReferralCommissionWhereUniqueInput | ReferralCommissionWhereUniqueInput[]
+    update?: ReferralCommissionUpdateWithWhereUniqueWithoutReferred_userInput | ReferralCommissionUpdateWithWhereUniqueWithoutReferred_userInput[]
+    updateMany?: ReferralCommissionUpdateManyWithWhereWithoutReferred_userInput | ReferralCommissionUpdateManyWithWhereWithoutReferred_userInput[]
+    deleteMany?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProcessedWithdrawalsInput = {
@@ -50670,6 +57175,13 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWithdrawalsInput, UserUpdateWithoutWithdrawalsInput>, UserUncheckedUpdateWithoutWithdrawalsInput>
   }
 
+  export type LoanRepaymentCreateNestedManyWithoutLoanInput = {
+    create?: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput> | LoanRepaymentCreateWithoutLoanInput[] | LoanRepaymentUncheckedCreateWithoutLoanInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutLoanInput | LoanRepaymentCreateOrConnectWithoutLoanInput[]
+    createMany?: LoanRepaymentCreateManyLoanInputEnvelope
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutProcessedLoansInput = {
     create?: XOR<UserCreateWithoutProcessedLoansInput, UserUncheckedCreateWithoutProcessedLoansInput>
     connectOrCreate?: UserCreateOrConnectWithoutProcessedLoansInput
@@ -50682,13 +57194,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type LoanRepaymentCreateNestedManyWithoutLoanInput = {
-    create?: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput> | LoanRepaymentCreateWithoutLoanInput[] | LoanRepaymentUncheckedCreateWithoutLoanInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutLoanInput | LoanRepaymentCreateOrConnectWithoutLoanInput[]
-    createMany?: LoanRepaymentCreateManyLoanInputEnvelope
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-  }
-
   export type LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput = {
     create?: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput> | LoanRepaymentCreateWithoutLoanInput[] | LoanRepaymentUncheckedCreateWithoutLoanInput[]
     connectOrCreate?: LoanRepaymentCreateOrConnectWithoutLoanInput | LoanRepaymentCreateOrConnectWithoutLoanInput[]
@@ -50698,6 +57203,20 @@ export namespace Prisma {
 
   export type EnumLoanStatusFieldUpdateOperationsInput = {
     set?: $Enums.LoanStatus
+  }
+
+  export type LoanRepaymentUpdateManyWithoutLoanNestedInput = {
+    create?: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput> | LoanRepaymentCreateWithoutLoanInput[] | LoanRepaymentUncheckedCreateWithoutLoanInput[]
+    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutLoanInput | LoanRepaymentCreateOrConnectWithoutLoanInput[]
+    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput | LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput[]
+    createMany?: LoanRepaymentCreateManyLoanInputEnvelope
+    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
+    update?: LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput | LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput[]
+    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutLoanInput | LoanRepaymentUpdateManyWithWhereWithoutLoanInput[]
+    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
   }
 
   export type UserUpdateOneWithoutProcessedLoansNestedInput = {
@@ -50716,20 +57235,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLoansInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLoansInput, UserUpdateWithoutLoansInput>, UserUncheckedUpdateWithoutLoansInput>
-  }
-
-  export type LoanRepaymentUpdateManyWithoutLoanNestedInput = {
-    create?: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput> | LoanRepaymentCreateWithoutLoanInput[] | LoanRepaymentUncheckedCreateWithoutLoanInput[]
-    connectOrCreate?: LoanRepaymentCreateOrConnectWithoutLoanInput | LoanRepaymentCreateOrConnectWithoutLoanInput[]
-    upsert?: LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput | LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput[]
-    createMany?: LoanRepaymentCreateManyLoanInputEnvelope
-    set?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    disconnect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    delete?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    connect?: LoanRepaymentWhereUniqueInput | LoanRepaymentWhereUniqueInput[]
-    update?: LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput | LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput[]
-    updateMany?: LoanRepaymentUpdateManyWithWhereWithoutLoanInput | LoanRepaymentUpdateManyWithWhereWithoutLoanInput[]
-    deleteMany?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
   }
 
   export type LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput = {
@@ -50778,6 +57283,78 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProcessedLoanRepaymentsInput, UserUpdateWithoutProcessedLoanRepaymentsInput>, UserUncheckedUpdateWithoutProcessedLoanRepaymentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAccountBalancesInput = {
+    create?: XOR<UserCreateWithoutAccountBalancesInput, UserUncheckedCreateWithoutAccountBalancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountBalancesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAccountBalancesNestedInput = {
+    create?: XOR<UserCreateWithoutAccountBalancesInput, UserUncheckedCreateWithoutAccountBalancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountBalancesInput
+    upsert?: UserUpsertWithoutAccountBalancesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountBalancesInput, UserUpdateWithoutAccountBalancesInput>, UserUncheckedUpdateWithoutAccountBalancesInput>
+  }
+
+  export type ProfileCreateNestedOneWithoutReferral_commissionsInput = {
+    create?: XOR<ProfileCreateWithoutReferral_commissionsInput, ProfileUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferral_commissionsInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReferral_commissionsInput = {
+    create?: XOR<UserCreateWithoutReferral_commissionsInput, UserUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferral_commissionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DepositCreateNestedOneWithoutReferral_commissionsInput = {
+    create?: XOR<DepositCreateWithoutReferral_commissionsInput, DepositUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: DepositCreateOrConnectWithoutReferral_commissionsInput
+    connect?: DepositWhereUniqueInput
+  }
+
+  export type ProfileUpdateOneRequiredWithoutReferral_commissionsNestedInput = {
+    create?: XOR<ProfileCreateWithoutReferral_commissionsInput, ProfileUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReferral_commissionsInput
+    upsert?: ProfileUpsertWithoutReferral_commissionsInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutReferral_commissionsInput, ProfileUpdateWithoutReferral_commissionsInput>, ProfileUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReferral_commissionsNestedInput = {
+    create?: XOR<UserCreateWithoutReferral_commissionsInput, UserUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferral_commissionsInput
+    upsert?: UserUpsertWithoutReferral_commissionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferral_commissionsInput, UserUpdateWithoutReferral_commissionsInput>, UserUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type DepositUpdateOneWithoutReferral_commissionsNestedInput = {
+    create?: XOR<DepositCreateWithoutReferral_commissionsInput, DepositUncheckedCreateWithoutReferral_commissionsInput>
+    connectOrCreate?: DepositCreateOrConnectWithoutReferral_commissionsInput
+    upsert?: DepositUpsertWithoutReferral_commissionsInput
+    disconnect?: DepositWhereInput | boolean
+    delete?: DepositWhereInput | boolean
+    connect?: DepositWhereUniqueInput
+    update?: XOR<XOR<DepositUpdateToOneWithWhereWithoutReferral_commissionsInput, DepositUpdateWithoutReferral_commissionsInput>, DepositUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserOnboardingInput = {
+    create?: XOR<UserCreateWithoutUserOnboardingInput, UserUncheckedCreateWithoutUserOnboardingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserOnboardingInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserOnboardingNestedInput = {
+    create?: XOR<UserCreateWithoutUserOnboardingInput, UserUncheckedCreateWithoutUserOnboardingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserOnboardingInput
+    upsert?: UserUpsertWithoutUserOnboardingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserOnboardingInput, UserUpdateWithoutUserOnboardingInput>, UserUncheckedUpdateWithoutUserOnboardingInput>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -51356,6 +57933,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
     updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
@@ -51363,8 +57941,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -51373,11 +57957,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutArbitrageHostingsInput = {
@@ -51393,6 +57973,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
     updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
@@ -51400,8 +57981,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -51410,11 +57997,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutArbitrageHostingsInput = {
@@ -51485,6 +58068,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
     updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
@@ -51492,8 +58076,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -51502,11 +58092,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutArbitrageHostingsInput = {
@@ -51522,6 +58108,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
     updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
@@ -51529,8 +58116,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -51539,11 +58132,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type ArbitrageHostingCreateWithoutProductInput = {
@@ -51631,6 +58220,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
     updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
@@ -51638,8 +58228,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -51648,11 +58244,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutAssetsInput = {
@@ -51668,6 +58260,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
     updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
@@ -51675,8 +58268,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -51685,11 +58284,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutAssetsInput = {
@@ -51721,6 +58316,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
     updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
@@ -51728,8 +58324,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -51738,11 +58340,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssetsInput = {
@@ -51758,6 +58356,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
     updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
@@ -51765,8 +58364,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -51775,11 +58380,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserCreateWithoutCreatedCryptoAddressesInput = {
@@ -51795,6 +58396,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
@@ -51802,8 +58404,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -51812,11 +58420,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutCreatedCryptoAddressesInput = {
@@ -51832,6 +58436,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
@@ -51839,8 +58444,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -51849,11 +58460,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutCreatedCryptoAddressesInput = {
@@ -51874,6 +58481,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -51881,8 +58489,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -51891,11 +58505,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutUpdatedCryptoAddressesInput = {
@@ -51911,6 +58521,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -51918,8 +58529,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -51928,11 +58545,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutUpdatedCryptoAddressesInput = {
@@ -51964,6 +58577,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
@@ -51971,8 +58585,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -51981,11 +58601,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedCryptoAddressesInput = {
@@ -52001,6 +58617,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
@@ -52008,8 +58625,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52018,11 +58641,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutUpdatedCryptoAddressesInput = {
@@ -52049,6 +58668,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52056,8 +58676,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52066,11 +58692,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUpdatedCryptoAddressesInput = {
@@ -52086,6 +58708,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52093,8 +58716,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52103,11 +58732,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserCreateWithoutProcessedDepositsInput = {
@@ -52123,6 +58748,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -52130,8 +58756,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -52140,11 +58772,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutProcessedDepositsInput = {
@@ -52160,6 +58788,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -52167,8 +58796,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -52177,11 +58812,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutProcessedDepositsInput = {
@@ -52202,6 +58833,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -52209,8 +58841,14 @@ export namespace Prisma {
     processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -52219,11 +58857,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutDepositsInput = {
@@ -52239,6 +58873,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -52246,8 +58881,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -52256,16 +58897,44 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutDepositsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDepositsInput, UserUncheckedCreateWithoutDepositsInput>
+  }
+
+  export type ReferralCommissionCreateWithoutDepositInput = {
+    id?: bigint | number
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+    referrer: ProfileCreateNestedOneWithoutReferral_commissionsInput
+    referred_user: UserCreateNestedOneWithoutReferral_commissionsInput
+  }
+
+  export type ReferralCommissionUncheckedCreateWithoutDepositInput = {
+    id?: bigint | number
+    referrer_profile_id: bigint | number
+    referred_user_id: bigint | number
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ReferralCommissionCreateOrConnectWithoutDepositInput = {
+    where: ReferralCommissionWhereUniqueInput
+    create: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput>
+  }
+
+  export type ReferralCommissionCreateManyDepositInputEnvelope = {
+    data: ReferralCommissionCreateManyDepositInput | ReferralCommissionCreateManyDepositInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutProcessedDepositsInput = {
@@ -52292,6 +58961,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52299,8 +58969,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52309,11 +58985,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProcessedDepositsInput = {
@@ -52329,6 +59001,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52336,8 +59009,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52346,11 +59025,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutDepositsInput = {
@@ -52377,6 +59052,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52384,8 +59060,14 @@ export namespace Prisma {
     processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52394,11 +59076,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDepositsInput = {
@@ -52414,6 +59092,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52421,8 +59100,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52431,11 +59116,38 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type ReferralCommissionUpsertWithWhereUniqueWithoutDepositInput = {
+    where: ReferralCommissionWhereUniqueInput
+    update: XOR<ReferralCommissionUpdateWithoutDepositInput, ReferralCommissionUncheckedUpdateWithoutDepositInput>
+    create: XOR<ReferralCommissionCreateWithoutDepositInput, ReferralCommissionUncheckedCreateWithoutDepositInput>
+  }
+
+  export type ReferralCommissionUpdateWithWhereUniqueWithoutDepositInput = {
+    where: ReferralCommissionWhereUniqueInput
+    data: XOR<ReferralCommissionUpdateWithoutDepositInput, ReferralCommissionUncheckedUpdateWithoutDepositInput>
+  }
+
+  export type ReferralCommissionUpdateManyWithWhereWithoutDepositInput = {
+    where: ReferralCommissionScalarWhereInput
+    data: XOR<ReferralCommissionUpdateManyMutationInput, ReferralCommissionUncheckedUpdateManyWithoutDepositInput>
+  }
+
+  export type ReferralCommissionScalarWhereInput = {
+    AND?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
+    OR?: ReferralCommissionScalarWhereInput[]
+    NOT?: ReferralCommissionScalarWhereInput | ReferralCommissionScalarWhereInput[]
+    id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    referrer_profile_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    referred_user_id?: BigIntFilter<"ReferralCommission"> | bigint | number
+    deposit_id?: BigIntNullableFilter<"ReferralCommission"> | bigint | number | null
+    deposit_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFilter<"ReferralCommission"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"ReferralCommission"> | string
+    paid_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"ReferralCommission"> | Date | string | null
   }
 
   export type UserCreateWithoutProcessedKycSubmissionsInput = {
@@ -52451,6 +59163,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -52458,8 +59171,14 @@ export namespace Prisma {
     processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
     deposits?: DepositCreateNestedManyWithoutUserInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -52468,11 +59187,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutProcessedKycSubmissionsInput = {
@@ -52488,6 +59203,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -52495,8 +59211,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -52505,11 +59227,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutProcessedKycSubmissionsInput = {
@@ -52530,6 +59248,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -52537,8 +59256,14 @@ export namespace Prisma {
     processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -52547,11 +59272,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutKycSubmissionsInput = {
@@ -52567,6 +59288,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -52574,8 +59296,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -52584,11 +59312,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutKycSubmissionsInput = {
@@ -52620,6 +59344,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52627,8 +59352,14 @@ export namespace Prisma {
     processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
     deposits?: DepositUpdateManyWithoutUserNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52637,11 +59368,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProcessedKycSubmissionsInput = {
@@ -52657,6 +59384,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52664,8 +59392,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52674,11 +59408,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutKycSubmissionsInput = {
@@ -52705,6 +59435,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52712,8 +59443,14 @@ export namespace Prisma {
     processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52722,11 +59459,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKycSubmissionsInput = {
@@ -52742,6 +59475,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52749,8 +59483,14 @@ export namespace Prisma {
     processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -52759,11 +59499,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type MiningProductCreateWithoutHostingsInput = {
@@ -52828,6 +59564,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -52836,7 +59573,13 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -52845,11 +59588,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutMiningHostingsInput = {
@@ -52865,6 +59604,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -52873,7 +59613,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -52882,11 +59628,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutMiningHostingsInput = {
@@ -52973,6 +59715,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -52981,7 +59724,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -52990,11 +59739,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMiningHostingsInput = {
@@ -53010,6 +59755,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53018,7 +59764,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -53027,11 +59779,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type MiningHostingCreateWithoutProductInput = {
@@ -53119,6 +59867,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -53127,8 +59876,13 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -53137,10 +59891,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutSentNotificationsInput = {
@@ -53156,6 +59907,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -53164,8 +59916,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -53174,10 +59931,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutSentNotificationsInput = {
@@ -53198,6 +59952,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -53206,8 +59961,13 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -53216,10 +59976,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -53235,6 +59992,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -53243,8 +60001,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -53253,10 +60016,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -53288,6 +60048,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -53296,8 +60057,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -53306,10 +60072,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentNotificationsInput = {
@@ -53325,6 +60088,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53333,8 +60097,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -53343,10 +60112,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -53373,6 +60139,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -53381,8 +60148,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -53391,10 +60163,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -53410,6 +60179,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53418,8 +60188,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -53428,10 +60203,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserCreateWithoutProfilesInput = {
@@ -53447,6 +60219,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -53455,7 +60228,13 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -53464,11 +60243,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutProfilesInput = {
@@ -53484,6 +60259,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -53492,7 +60268,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -53501,16 +60283,163 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutProfilesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
+  }
+
+  export type ProfileCreateWithoutReferred_profilesInput = {
+    id?: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: UserCreateNestedOneWithoutProfilesInput
+    referred_by?: ProfileCreateNestedOneWithoutReferred_profilesInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferrerInput
+  }
+
+  export type ProfileUncheckedCreateWithoutReferred_profilesInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferrerInput
+  }
+
+  export type ProfileCreateOrConnectWithoutReferred_profilesInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutReferred_profilesInput, ProfileUncheckedCreateWithoutReferred_profilesInput>
+  }
+
+  export type ProfileCreateWithoutReferred_byInput = {
+    id?: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: UserCreateNestedOneWithoutProfilesInput
+    referred_profiles?: ProfileCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferrerInput
+  }
+
+  export type ProfileUncheckedCreateWithoutReferred_byInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    referred_profiles?: ProfileUncheckedCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferrerInput
+  }
+
+  export type ProfileCreateOrConnectWithoutReferred_byInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput>
+  }
+
+  export type ProfileCreateManyReferred_byInputEnvelope = {
+    data: ProfileCreateManyReferred_byInput | ProfileCreateManyReferred_byInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReferralCommissionCreateWithoutReferrerInput = {
+    id?: bigint | number
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+    referred_user: UserCreateNestedOneWithoutReferral_commissionsInput
+    deposit?: DepositCreateNestedOneWithoutReferral_commissionsInput
+  }
+
+  export type ReferralCommissionUncheckedCreateWithoutReferrerInput = {
+    id?: bigint | number
+    referred_user_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ReferralCommissionCreateOrConnectWithoutReferrerInput = {
+    where: ReferralCommissionWhereUniqueInput
+    create: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput>
+  }
+
+  export type ReferralCommissionCreateManyReferrerInputEnvelope = {
+    data: ReferralCommissionCreateManyReferrerInput | ReferralCommissionCreateManyReferrerInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutProfilesInput = {
@@ -53537,6 +60466,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -53545,7 +60475,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -53554,11 +60490,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfilesInput = {
@@ -53574,6 +60506,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53582,7 +60515,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -53591,11 +60530,130 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type ProfileUpsertWithoutReferred_profilesInput = {
+    update: XOR<ProfileUpdateWithoutReferred_profilesInput, ProfileUncheckedUpdateWithoutReferred_profilesInput>
+    create: XOR<ProfileCreateWithoutReferred_profilesInput, ProfileUncheckedCreateWithoutReferred_profilesInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutReferred_profilesInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutReferred_profilesInput, ProfileUncheckedUpdateWithoutReferred_profilesInput>
+  }
+
+  export type ProfileUpdateWithoutReferred_profilesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutProfilesNestedInput
+    referred_by?: ProfileUpdateOneWithoutReferred_profilesNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutReferred_profilesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type ProfileUpsertWithWhereUniqueWithoutReferred_byInput = {
+    where: ProfileWhereUniqueInput
+    update: XOR<ProfileUpdateWithoutReferred_byInput, ProfileUncheckedUpdateWithoutReferred_byInput>
+    create: XOR<ProfileCreateWithoutReferred_byInput, ProfileUncheckedCreateWithoutReferred_byInput>
+  }
+
+  export type ProfileUpdateWithWhereUniqueWithoutReferred_byInput = {
+    where: ProfileWhereUniqueInput
+    data: XOR<ProfileUpdateWithoutReferred_byInput, ProfileUncheckedUpdateWithoutReferred_byInput>
+  }
+
+  export type ProfileUpdateManyWithWhereWithoutReferred_byInput = {
+    where: ProfileScalarWhereInput
+    data: XOR<ProfileUpdateManyMutationInput, ProfileUncheckedUpdateManyWithoutReferred_byInput>
+  }
+
+  export type ProfileScalarWhereInput = {
+    AND?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+    OR?: ProfileScalarWhereInput[]
+    NOT?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+    id?: BigIntFilter<"Profile"> | bigint | number
+    user_id?: BigIntFilter<"Profile"> | bigint | number
+    uuid?: StringFilter<"Profile"> | string
+    kyc_status?: EnumProfileKycStatusFilter<"Profile"> | $Enums.ProfileKycStatus
+    level?: IntFilter<"Profile"> | number
+    kyc_documents?: StringNullableFilter<"Profile"> | string | null
+    bank_account?: StringNullableFilter<"Profile"> | string | null
+    blockchain_addresses?: StringNullableFilter<"Profile"> | string | null
+    google_auth_enabled?: BoolFilter<"Profile"> | boolean
+    google_auth_secret?: StringNullableFilter<"Profile"> | string | null
+    withdrawal_password_enabled?: BoolFilter<"Profile"> | boolean
+    withdrawal_password?: StringNullableFilter<"Profile"> | string | null
+    trade_status?: EnumProfileTradeStatusNullableFilter<"Profile"> | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFilter<"Profile"> | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFilter<"Profile"> | string
+    notification_settings?: StringNullableFilter<"Profile"> | string | null
+    sim_trade_enabled?: BoolFilter<"Profile"> | boolean
+    invite_code?: StringNullableFilter<"Profile"> | string | null
+    referral_count?: IntFilter<"Profile"> | number
+    created_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
+    referred_by_id?: BigIntNullableFilter<"Profile"> | bigint | number | null
+  }
+
+  export type ReferralCommissionUpsertWithWhereUniqueWithoutReferrerInput = {
+    where: ReferralCommissionWhereUniqueInput
+    update: XOR<ReferralCommissionUpdateWithoutReferrerInput, ReferralCommissionUncheckedUpdateWithoutReferrerInput>
+    create: XOR<ReferralCommissionCreateWithoutReferrerInput, ReferralCommissionUncheckedCreateWithoutReferrerInput>
+  }
+
+  export type ReferralCommissionUpdateWithWhereUniqueWithoutReferrerInput = {
+    where: ReferralCommissionWhereUniqueInput
+    data: XOR<ReferralCommissionUpdateWithoutReferrerInput, ReferralCommissionUncheckedUpdateWithoutReferrerInput>
+  }
+
+  export type ReferralCommissionUpdateManyWithWhereWithoutReferrerInput = {
+    where: ReferralCommissionScalarWhereInput
+    data: XOR<ReferralCommissionUpdateManyMutationInput, ReferralCommissionUncheckedUpdateManyWithoutReferrerInput>
   }
 
   export type UserCreateWithoutAdminSupportMessagesInput = {
@@ -53611,6 +60669,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -53619,8 +60678,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
     closedTrades?: TradeCreateNestedManyWithoutCloserInput
@@ -53628,11 +60693,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutAdminSupportMessagesInput = {
@@ -53648,6 +60709,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -53656,8 +60718,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
@@ -53665,11 +60733,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutAdminSupportMessagesInput = {
@@ -53721,6 +60785,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -53729,8 +60794,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
     closedTrades?: TradeCreateNestedManyWithoutCloserInput
@@ -53738,11 +60809,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutUserSupportMessagesInput = {
@@ -53758,6 +60825,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -53766,8 +60834,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
@@ -53775,11 +60849,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutUserSupportMessagesInput = {
@@ -53811,6 +60881,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -53819,8 +60890,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUpdateManyWithoutCloserNestedInput
@@ -53828,11 +60905,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdminSupportMessagesInput = {
@@ -53848,6 +60921,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53856,8 +60930,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
@@ -53865,11 +60945,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type SupportTicketUpsertWithoutMessagesInput = {
@@ -53933,6 +61009,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -53941,8 +61018,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUpdateManyWithoutCloserNestedInput
@@ -53950,11 +61033,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserSupportMessagesInput = {
@@ -53970,6 +61049,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53978,8 +61058,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
@@ -53987,11 +61073,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type SupportTicketMessageCreateWithoutTicketInput = {
@@ -54039,6 +61121,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -54047,8 +61130,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     closedTrades?: TradeCreateNestedManyWithoutCloserInput
@@ -54056,11 +61145,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -54076,6 +61161,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -54084,8 +61170,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
@@ -54093,11 +61185,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -54160,6 +61248,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -54168,8 +61257,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUpdateManyWithoutCloserNestedInput
@@ -54177,11 +61272,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -54197,6 +61288,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -54205,8 +61297,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
@@ -54214,11 +61312,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type TradeCreateWithoutContractsInput = {
@@ -54686,6 +61780,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -54694,8 +61789,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -54703,11 +61804,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutClosedTradesInput = {
@@ -54723,6 +61820,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -54731,8 +61829,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -54740,11 +61844,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutClosedTradesInput = {
@@ -54765,6 +61865,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -54773,8 +61874,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -54782,11 +61889,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutTradesInput = {
@@ -54802,6 +61905,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -54810,8 +61914,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -54819,11 +61929,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutTradesInput = {
@@ -54980,6 +62086,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -54988,8 +62095,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -54997,11 +62110,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClosedTradesInput = {
@@ -55017,6 +62126,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -55025,8 +62135,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -55034,11 +62150,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutTradesInput = {
@@ -55065,6 +62177,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -55073,8 +62186,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -55082,11 +62201,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTradesInput = {
@@ -55102,6 +62217,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -55110,8 +62226,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -55119,11 +62241,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutTradeInput = {
@@ -55228,6 +62346,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -55236,8 +62355,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -55245,11 +62370,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -55265,6 +62386,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -55273,8 +62395,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -55282,11 +62410,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -55381,6 +62505,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -55389,8 +62514,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -55398,11 +62529,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -55418,6 +62545,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -55426,8 +62554,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -55435,11 +62569,33 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type AccountBalanceCreateWithoutUserInput = {
+    id?: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type AccountBalanceUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type AccountBalanceCreateOrConnectWithoutUserInput = {
+    where: AccountBalanceWhereUniqueInput
+    create: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountBalanceCreateManyUserInputEnvelope = {
+    data: AccountBalanceCreateManyUserInput | AccountBalanceCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type ArbitrageHostingCreateWithoutUserInput = {
@@ -55607,6 +62763,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     user: UserCreateNestedOneWithoutDepositsInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutDepositInput
   }
 
   export type DepositUncheckedCreateWithoutProcessorInput = {
@@ -55624,6 +62781,7 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutDepositInput
   }
 
   export type DepositCreateOrConnectWithoutProcessorInput = {
@@ -55651,6 +62809,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     processor?: UserCreateNestedOneWithoutProcessedDepositsInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutDepositInput
   }
 
   export type DepositUncheckedCreateWithoutUserInput = {
@@ -55668,6 +62827,7 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutDepositInput
   }
 
   export type DepositCreateOrConnectWithoutUserInput = {
@@ -55768,6 +62928,156 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LoanRepaymentCreateWithoutProcessorInput = {
+    id?: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    proof_image: string
+    status?: $Enums.LoanRepaymentStatus
+    rejection_reason?: string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    loan: LoanCreateNestedOneWithoutRepaymentsInput
+  }
+
+  export type LoanRepaymentUncheckedCreateWithoutProcessorInput = {
+    id?: bigint | number
+    loan_id: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    proof_image: string
+    status?: $Enums.LoanRepaymentStatus
+    rejection_reason?: string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type LoanRepaymentCreateOrConnectWithoutProcessorInput = {
+    where: LoanRepaymentWhereUniqueInput
+    create: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput>
+  }
+
+  export type LoanRepaymentCreateManyProcessorInputEnvelope = {
+    data: LoanRepaymentCreateManyProcessorInput | LoanRepaymentCreateManyProcessorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LoanCreateWithoutProcessorInput = {
+    id?: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
+    user: UserCreateNestedOneWithoutLoansInput
+  }
+
+  export type LoanUncheckedCreateWithoutProcessorInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+    repayments?: LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput
+  }
+
+  export type LoanCreateOrConnectWithoutProcessorInput = {
+    where: LoanWhereUniqueInput
+    create: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput>
+  }
+
+  export type LoanCreateManyProcessorInputEnvelope = {
+    data: LoanCreateManyProcessorInput | LoanCreateManyProcessorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LoanCreateWithoutUserInput = {
+    id?: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
+    processor?: UserCreateNestedOneWithoutProcessedLoansInput
+  }
+
+  export type LoanUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_by?: bigint | number | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+    repayments?: LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput
+  }
+
+  export type LoanCreateOrConnectWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
+  }
+
+  export type LoanCreateManyUserInputEnvelope = {
+    data: LoanCreateManyUserInput | LoanCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MiningHostingCreateWithoutUserInput = {
     id?: bigint | number
     amount: Decimal | DecimalJsLike | number | string
@@ -55827,6 +63137,9 @@ export namespace Prisma {
     referral_count?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referred_by?: ProfileCreateNestedOneWithoutReferred_profilesInput
+    referred_profiles?: ProfileCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferrerInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -55850,6 +63163,9 @@ export namespace Prisma {
     referral_count?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
+    referred_profiles?: ProfileUncheckedCreateNestedManyWithoutReferred_byInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferrerInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -55859,6 +63175,99 @@ export namespace Prisma {
 
   export type ProfileCreateManyUserInputEnvelope = {
     data: ProfileCreateManyUserInput | ProfileCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserOnboardingCreateWithoutUserInput = {
+    id?: bigint | number
+    income_source?: string | null
+    annual_income?: string | null
+    employment_status?: string | null
+    investment_goal?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type UserOnboardingUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    income_source?: string | null
+    annual_income?: string | null
+    employment_status?: string | null
+    investment_goal?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type UserOnboardingCreateOrConnectWithoutUserInput = {
+    where: UserOnboardingWhereUniqueInput
+    create: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateWithoutAdminInput = {
+    id?: bigint | number
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutAdminInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
+  }
+
+  export type NotificationCreateOrConnectWithoutAdminInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput>
+  }
+
+  export type NotificationCreateManyAdminInputEnvelope = {
+    data: NotificationCreateManyAdminInput | NotificationCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutUserInput = {
+    id?: bigint | number
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
+    admin?: UserCreateNestedOneWithoutSentNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    admin_id?: bigint | number | null
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -56212,222 +63621,64 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type LoanCreateWithoutProcessorInput = {
+  export type ReferralCommissionCreateWithoutReferred_userInput = {
     id?: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_at?: Date | string | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
     created_at?: Date | string | null
-    updated_at?: Date | string | null
-    user: UserCreateNestedOneWithoutLoansInput
-    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
+    referrer: ProfileCreateNestedOneWithoutReferral_commissionsInput
+    deposit?: DepositCreateNestedOneWithoutReferral_commissionsInput
   }
 
-  export type LoanUncheckedCreateWithoutProcessorInput = {
+  export type ReferralCommissionUncheckedCreateWithoutReferred_userInput = {
     id?: bigint | number
-    user_id: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_at?: Date | string | null
+    referrer_profile_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
     created_at?: Date | string | null
-    updated_at?: Date | string | null
-    repayments?: LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput
   }
 
-  export type LoanCreateOrConnectWithoutProcessorInput = {
-    where: LoanWhereUniqueInput
-    create: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput>
+  export type ReferralCommissionCreateOrConnectWithoutReferred_userInput = {
+    where: ReferralCommissionWhereUniqueInput
+    create: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput>
   }
 
-  export type LoanCreateManyProcessorInputEnvelope = {
-    data: LoanCreateManyProcessorInput | LoanCreateManyProcessorInput[]
+  export type ReferralCommissionCreateManyReferred_userInputEnvelope = {
+    data: ReferralCommissionCreateManyReferred_userInput | ReferralCommissionCreateManyReferred_userInput[]
     skipDuplicates?: boolean
   }
 
-  export type LoanCreateWithoutUserInput = {
-    id?: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    processor?: UserCreateNestedOneWithoutProcessedLoansInput
-    repayments?: LoanRepaymentCreateNestedManyWithoutLoanInput
+  export type AccountBalanceUpsertWithWhereUniqueWithoutUserInput = {
+    where: AccountBalanceWhereUniqueInput
+    update: XOR<AccountBalanceUpdateWithoutUserInput, AccountBalanceUncheckedUpdateWithoutUserInput>
+    create: XOR<AccountBalanceCreateWithoutUserInput, AccountBalanceUncheckedCreateWithoutUserInput>
   }
 
-  export type LoanUncheckedCreateWithoutUserInput = {
-    id?: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_by?: bigint | number | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    repayments?: LoanRepaymentUncheckedCreateNestedManyWithoutLoanInput
+  export type AccountBalanceUpdateWithWhereUniqueWithoutUserInput = {
+    where: AccountBalanceWhereUniqueInput
+    data: XOR<AccountBalanceUpdateWithoutUserInput, AccountBalanceUncheckedUpdateWithoutUserInput>
   }
 
-  export type LoanCreateOrConnectWithoutUserInput = {
-    where: LoanWhereUniqueInput
-    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
+  export type AccountBalanceUpdateManyWithWhereWithoutUserInput = {
+    where: AccountBalanceScalarWhereInput
+    data: XOR<AccountBalanceUpdateManyMutationInput, AccountBalanceUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type LoanCreateManyUserInputEnvelope = {
-    data: LoanCreateManyUserInput | LoanCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type LoanRepaymentCreateWithoutProcessorInput = {
-    id?: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    proof_image: string
-    status?: $Enums.LoanRepaymentStatus
-    rejection_reason?: string | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    loan: LoanCreateNestedOneWithoutRepaymentsInput
-  }
-
-  export type LoanRepaymentUncheckedCreateWithoutProcessorInput = {
-    id?: bigint | number
-    loan_id: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    proof_image: string
-    status?: $Enums.LoanRepaymentStatus
-    rejection_reason?: string | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type LoanRepaymentCreateOrConnectWithoutProcessorInput = {
-    where: LoanRepaymentWhereUniqueInput
-    create: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput>
-  }
-
-  export type LoanRepaymentCreateManyProcessorInputEnvelope = {
-    data: LoanRepaymentCreateManyProcessorInput | LoanRepaymentCreateManyProcessorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NotificationCreateWithoutUserInput = {
-    id?: bigint | number
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    admin?: UserCreateNestedOneWithoutSentNotificationsInput
-  }
-
-  export type NotificationUncheckedCreateWithoutUserInput = {
-    id?: bigint | number
-    admin_id?: bigint | number | null
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type NotificationCreateOrConnectWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationCreateManyUserInputEnvelope = {
-    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NotificationCreateWithoutAdminInput = {
-    id?: bigint | number
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    user: UserCreateNestedOneWithoutNotificationsInput
-  }
-
-  export type NotificationUncheckedCreateWithoutAdminInput = {
-    id?: bigint | number
-    user_id: bigint | number
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type NotificationCreateOrConnectWithoutAdminInput = {
-    where: NotificationWhereUniqueInput
-    create: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput>
-  }
-
-  export type NotificationCreateManyAdminInputEnvelope = {
-    data: NotificationCreateManyAdminInput | NotificationCreateManyAdminInput[]
-    skipDuplicates?: boolean
+  export type AccountBalanceScalarWhereInput = {
+    AND?: AccountBalanceScalarWhereInput | AccountBalanceScalarWhereInput[]
+    OR?: AccountBalanceScalarWhereInput[]
+    NOT?: AccountBalanceScalarWhereInput | AccountBalanceScalarWhereInput[]
+    id?: BigIntFilter<"AccountBalance"> | bigint | number
+    user_id?: BigIntFilter<"AccountBalance"> | bigint | number
+    type?: StringFilter<"AccountBalance"> | string
+    balance?: DecimalFilter<"AccountBalance"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"AccountBalance"> | Date | string | null
   }
 
   export type ArbitrageHostingUpsertWithWhereUniqueWithoutUserInput = {
@@ -56635,6 +63886,97 @@ export namespace Prisma {
     data: XOR<KycSubmissionUpdateManyMutationInput, KycSubmissionUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput = {
+    where: LoanRepaymentWhereUniqueInput
+    update: XOR<LoanRepaymentUpdateWithoutProcessorInput, LoanRepaymentUncheckedUpdateWithoutProcessorInput>
+    create: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput>
+  }
+
+  export type LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput = {
+    where: LoanRepaymentWhereUniqueInput
+    data: XOR<LoanRepaymentUpdateWithoutProcessorInput, LoanRepaymentUncheckedUpdateWithoutProcessorInput>
+  }
+
+  export type LoanRepaymentUpdateManyWithWhereWithoutProcessorInput = {
+    where: LoanRepaymentScalarWhereInput
+    data: XOR<LoanRepaymentUpdateManyMutationInput, LoanRepaymentUncheckedUpdateManyWithoutProcessorInput>
+  }
+
+  export type LoanRepaymentScalarWhereInput = {
+    AND?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
+    OR?: LoanRepaymentScalarWhereInput[]
+    NOT?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
+    id?: BigIntFilter<"LoanRepayment"> | bigint | number
+    loan_id?: BigIntFilter<"LoanRepayment"> | bigint | number
+    amount?: DecimalFilter<"LoanRepayment"> | Decimal | DecimalJsLike | number | string
+    proof_image?: StringFilter<"LoanRepayment"> | string
+    status?: EnumLoanRepaymentStatusFilter<"LoanRepayment"> | $Enums.LoanRepaymentStatus
+    rejection_reason?: StringNullableFilter<"LoanRepayment"> | string | null
+    processed_by?: BigIntNullableFilter<"LoanRepayment"> | bigint | number | null
+    processed_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
+  }
+
+  export type LoanUpsertWithWhereUniqueWithoutProcessorInput = {
+    where: LoanWhereUniqueInput
+    update: XOR<LoanUpdateWithoutProcessorInput, LoanUncheckedUpdateWithoutProcessorInput>
+    create: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput>
+  }
+
+  export type LoanUpdateWithWhereUniqueWithoutProcessorInput = {
+    where: LoanWhereUniqueInput
+    data: XOR<LoanUpdateWithoutProcessorInput, LoanUncheckedUpdateWithoutProcessorInput>
+  }
+
+  export type LoanUpdateManyWithWhereWithoutProcessorInput = {
+    where: LoanScalarWhereInput
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutProcessorInput>
+  }
+
+  export type LoanScalarWhereInput = {
+    AND?: LoanScalarWhereInput | LoanScalarWhereInput[]
+    OR?: LoanScalarWhereInput[]
+    NOT?: LoanScalarWhereInput | LoanScalarWhereInput[]
+    id?: BigIntFilter<"Loan"> | bigint | number
+    user_id?: BigIntFilter<"Loan"> | bigint | number
+    amount?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Loan"> | string
+    status?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
+    rejection_reason?: StringNullableFilter<"Loan"> | string | null
+    duration?: IntFilter<"Loan"> | number
+    interest_rate?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
+    last_interest_date?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    due_date?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    approved_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    repaid_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    processed_by?: BigIntNullableFilter<"Loan"> | bigint | number | null
+    processed_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    back_image?: StringNullableFilter<"Loan"> | string | null
+    document_type?: StringNullableFilter<"Loan"> | string | null
+    front_image?: StringNullableFilter<"Loan"> | string | null
+  }
+
+  export type LoanUpsertWithWhereUniqueWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    update: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
+    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
+  }
+
+  export type LoanUpdateWithWhereUniqueWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    data: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LoanUpdateManyWithWhereWithoutUserInput = {
+    where: LoanScalarWhereInput
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type MiningHostingUpsertWithWhereUniqueWithoutUserInput = {
     where: MiningHostingWhereUniqueInput
     update: XOR<MiningHostingUpdateWithoutUserInput, MiningHostingUncheckedUpdateWithoutUserInput>
@@ -56667,31 +64009,83 @@ export namespace Prisma {
     data: XOR<ProfileUpdateManyMutationInput, ProfileUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ProfileScalarWhereInput = {
-    AND?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
-    OR?: ProfileScalarWhereInput[]
-    NOT?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
-    id?: BigIntFilter<"Profile"> | bigint | number
-    user_id?: BigIntFilter<"Profile"> | bigint | number
-    uuid?: StringFilter<"Profile"> | string
-    kyc_status?: EnumProfileKycStatusFilter<"Profile"> | $Enums.ProfileKycStatus
-    level?: IntFilter<"Profile"> | number
-    kyc_documents?: StringNullableFilter<"Profile"> | string | null
-    bank_account?: StringNullableFilter<"Profile"> | string | null
-    blockchain_addresses?: StringNullableFilter<"Profile"> | string | null
-    google_auth_enabled?: BoolFilter<"Profile"> | boolean
-    google_auth_secret?: StringNullableFilter<"Profile"> | string | null
-    withdrawal_password_enabled?: BoolFilter<"Profile"> | boolean
-    withdrawal_password?: StringNullableFilter<"Profile"> | string | null
-    trade_status?: EnumProfileTradeStatusNullableFilter<"Profile"> | $Enums.ProfileTradeStatus | null
-    total_assets?: DecimalFilter<"Profile"> | Decimal | DecimalJsLike | number | string
-    preferred_language?: StringFilter<"Profile"> | string
-    notification_settings?: StringNullableFilter<"Profile"> | string | null
-    sim_trade_enabled?: BoolFilter<"Profile"> | boolean
-    invite_code?: StringNullableFilter<"Profile"> | string | null
-    referral_count?: IntFilter<"Profile"> | number
-    created_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"Profile"> | Date | string | null
+  export type UserOnboardingUpsertWithoutUserInput = {
+    update: XOR<UserOnboardingUpdateWithoutUserInput, UserOnboardingUncheckedUpdateWithoutUserInput>
+    create: XOR<UserOnboardingCreateWithoutUserInput, UserOnboardingUncheckedCreateWithoutUserInput>
+    where?: UserOnboardingWhereInput
+  }
+
+  export type UserOnboardingUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserOnboardingWhereInput
+    data: XOR<UserOnboardingUpdateWithoutUserInput, UserOnboardingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserOnboardingUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserOnboardingUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    income_source?: NullableStringFieldUpdateOperationsInput | string | null
+    annual_income?: NullableStringFieldUpdateOperationsInput | string | null
+    employment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    investment_goal?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutAdminInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutAdminInput, NotificationUncheckedUpdateWithoutAdminInput>
+    create: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutAdminInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutAdminInput, NotificationUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutAdminInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: BigIntFilter<"Notification"> | bigint | number
+    user_id?: BigIntFilter<"Notification"> | bigint | number
+    admin_id?: BigIntNullableFilter<"Notification"> | bigint | number | null
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    is_read?: BoolFilter<"Notification"> | boolean
+    read_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
+    image_url?: StringNullableFilter<"Notification"> | string | null
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
   }
 
   export type SupportTicketMessageUpsertWithWhereUniqueWithoutAdminInput = {
@@ -56886,143 +64280,20 @@ export namespace Prisma {
     data: XOR<WithdrawalUpdateManyMutationInput, WithdrawalUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type LoanUpsertWithWhereUniqueWithoutProcessorInput = {
-    where: LoanWhereUniqueInput
-    update: XOR<LoanUpdateWithoutProcessorInput, LoanUncheckedUpdateWithoutProcessorInput>
-    create: XOR<LoanCreateWithoutProcessorInput, LoanUncheckedCreateWithoutProcessorInput>
+  export type ReferralCommissionUpsertWithWhereUniqueWithoutReferred_userInput = {
+    where: ReferralCommissionWhereUniqueInput
+    update: XOR<ReferralCommissionUpdateWithoutReferred_userInput, ReferralCommissionUncheckedUpdateWithoutReferred_userInput>
+    create: XOR<ReferralCommissionCreateWithoutReferred_userInput, ReferralCommissionUncheckedCreateWithoutReferred_userInput>
   }
 
-  export type LoanUpdateWithWhereUniqueWithoutProcessorInput = {
-    where: LoanWhereUniqueInput
-    data: XOR<LoanUpdateWithoutProcessorInput, LoanUncheckedUpdateWithoutProcessorInput>
+  export type ReferralCommissionUpdateWithWhereUniqueWithoutReferred_userInput = {
+    where: ReferralCommissionWhereUniqueInput
+    data: XOR<ReferralCommissionUpdateWithoutReferred_userInput, ReferralCommissionUncheckedUpdateWithoutReferred_userInput>
   }
 
-  export type LoanUpdateManyWithWhereWithoutProcessorInput = {
-    where: LoanScalarWhereInput
-    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutProcessorInput>
-  }
-
-  export type LoanScalarWhereInput = {
-    AND?: LoanScalarWhereInput | LoanScalarWhereInput[]
-    OR?: LoanScalarWhereInput[]
-    NOT?: LoanScalarWhereInput | LoanScalarWhereInput[]
-    id?: BigIntFilter<"Loan"> | bigint | number
-    user_id?: BigIntFilter<"Loan"> | bigint | number
-    amount?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
-    currency?: StringFilter<"Loan"> | string
-    status?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
-    document_type?: StringNullableFilter<"Loan"> | string | null
-    front_image?: StringNullableFilter<"Loan"> | string | null
-    back_image?: StringNullableFilter<"Loan"> | string | null
-    rejection_reason?: StringNullableFilter<"Loan"> | string | null
-    duration?: IntFilter<"Loan"> | number
-    interest_rate?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFilter<"Loan"> | Decimal | DecimalJsLike | number | string
-    last_interest_date?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    due_date?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    approved_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    repaid_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    processed_by?: BigIntNullableFilter<"Loan"> | bigint | number | null
-    processed_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    created_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"Loan"> | Date | string | null
-  }
-
-  export type LoanUpsertWithWhereUniqueWithoutUserInput = {
-    where: LoanWhereUniqueInput
-    update: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
-    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
-  }
-
-  export type LoanUpdateWithWhereUniqueWithoutUserInput = {
-    where: LoanWhereUniqueInput
-    data: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
-  }
-
-  export type LoanUpdateManyWithWhereWithoutUserInput = {
-    where: LoanScalarWhereInput
-    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type LoanRepaymentUpsertWithWhereUniqueWithoutProcessorInput = {
-    where: LoanRepaymentWhereUniqueInput
-    update: XOR<LoanRepaymentUpdateWithoutProcessorInput, LoanRepaymentUncheckedUpdateWithoutProcessorInput>
-    create: XOR<LoanRepaymentCreateWithoutProcessorInput, LoanRepaymentUncheckedCreateWithoutProcessorInput>
-  }
-
-  export type LoanRepaymentUpdateWithWhereUniqueWithoutProcessorInput = {
-    where: LoanRepaymentWhereUniqueInput
-    data: XOR<LoanRepaymentUpdateWithoutProcessorInput, LoanRepaymentUncheckedUpdateWithoutProcessorInput>
-  }
-
-  export type LoanRepaymentUpdateManyWithWhereWithoutProcessorInput = {
-    where: LoanRepaymentScalarWhereInput
-    data: XOR<LoanRepaymentUpdateManyMutationInput, LoanRepaymentUncheckedUpdateManyWithoutProcessorInput>
-  }
-
-  export type LoanRepaymentScalarWhereInput = {
-    AND?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
-    OR?: LoanRepaymentScalarWhereInput[]
-    NOT?: LoanRepaymentScalarWhereInput | LoanRepaymentScalarWhereInput[]
-    id?: BigIntFilter<"LoanRepayment"> | bigint | number
-    loan_id?: BigIntFilter<"LoanRepayment"> | bigint | number
-    amount?: DecimalFilter<"LoanRepayment"> | Decimal | DecimalJsLike | number | string
-    proof_image?: StringFilter<"LoanRepayment"> | string
-    status?: EnumLoanRepaymentStatusFilter<"LoanRepayment"> | $Enums.LoanRepaymentStatus
-    rejection_reason?: StringNullableFilter<"LoanRepayment"> | string | null
-    processed_by?: BigIntNullableFilter<"LoanRepayment"> | bigint | number | null
-    processed_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
-    created_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"LoanRepayment"> | Date | string | null
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: BigIntFilter<"Notification"> | bigint | number
-    user_id?: BigIntFilter<"Notification"> | bigint | number
-    admin_id?: BigIntNullableFilter<"Notification"> | bigint | number | null
-    title?: StringFilter<"Notification"> | string
-    message?: StringFilter<"Notification"> | string
-    image_url?: StringNullableFilter<"Notification"> | string | null
-    is_read?: BoolFilter<"Notification"> | boolean
-    read_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
-    created_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"Notification"> | Date | string | null
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutAdminInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutAdminInput, NotificationUncheckedUpdateWithoutAdminInput>
-    create: XOR<NotificationCreateWithoutAdminInput, NotificationUncheckedCreateWithoutAdminInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutAdminInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutAdminInput, NotificationUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutAdminInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutAdminInput>
+  export type ReferralCommissionUpdateManyWithWhereWithoutReferred_userInput = {
+    where: ReferralCommissionScalarWhereInput
+    data: XOR<ReferralCommissionUpdateManyMutationInput, ReferralCommissionUncheckedUpdateManyWithoutReferred_userInput>
   }
 
   export type UserCreateWithoutProcessedWithdrawalsInput = {
@@ -57038,6 +64309,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -57046,8 +64318,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -57055,11 +64333,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutProcessedWithdrawalsInput = {
@@ -57075,6 +64349,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -57083,8 +64358,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -57092,11 +64373,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutProcessedWithdrawalsInput = {
@@ -57117,6 +64394,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -57125,8 +64403,14 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -57134,11 +64418,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -57154,6 +64434,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -57162,8 +64443,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -57171,11 +64458,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -57207,6 +64490,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -57215,8 +64499,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -57224,11 +64514,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProcessedWithdrawalsInput = {
@@ -57244,6 +64530,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57252,8 +64539,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -57261,11 +64554,7 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutWithdrawalsInput = {
@@ -57292,6 +64581,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -57300,8 +64590,14 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -57309,11 +64605,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -57329,6 +64621,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57337,8 +64630,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -57346,169 +64645,7 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
-  }
-
-  export type UserCreateWithoutProcessedLoansInput = {
-    id?: bigint | number
-    name: string
-    email?: string | null
-    phone?: string | null
-    email_verified_at?: Date | string | null
-    password: string
-    role?: $Enums.UserRole
-    status?: $Enums.UserStatus
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    balance?: Decimal | DecimalJsLike | number | string
-    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
-    assets?: AssetCreateNestedManyWithoutUserInput
-    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
-    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
-    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
-    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
-    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
-    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
-    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
-    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
-    closedTrades?: TradeCreateNestedManyWithoutCloserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutUserInput
-    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
-  }
-
-  export type UserUncheckedCreateWithoutProcessedLoansInput = {
-    id?: bigint | number
-    name: string
-    email?: string | null
-    phone?: string | null
-    email_verified_at?: Date | string | null
-    password: string
-    role?: $Enums.UserRole
-    status?: $Enums.UserStatus
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    balance?: Decimal | DecimalJsLike | number | string
-    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
-    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
-    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
-    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
-    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
-    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
-    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
-    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
-    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
-    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
-    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
-  }
-
-  export type UserCreateOrConnectWithoutProcessedLoansInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutProcessedLoansInput, UserUncheckedCreateWithoutProcessedLoansInput>
-  }
-
-  export type UserCreateWithoutLoansInput = {
-    id?: bigint | number
-    name: string
-    email?: string | null
-    phone?: string | null
-    email_verified_at?: Date | string | null
-    password: string
-    role?: $Enums.UserRole
-    status?: $Enums.UserStatus
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    balance?: Decimal | DecimalJsLike | number | string
-    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
-    assets?: AssetCreateNestedManyWithoutUserInput
-    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
-    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
-    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
-    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
-    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
-    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
-    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
-    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
-    closedTrades?: TradeCreateNestedManyWithoutCloserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutUserInput
-    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
-  }
-
-  export type UserUncheckedCreateWithoutLoansInput = {
-    id?: bigint | number
-    name: string
-    email?: string | null
-    phone?: string | null
-    email_verified_at?: Date | string | null
-    password: string
-    role?: $Enums.UserRole
-    status?: $Enums.UserStatus
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    balance?: Decimal | DecimalJsLike | number | string
-    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
-    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
-    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
-    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
-    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
-    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
-    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
-    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
-    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
-    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
-    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
-  }
-
-  export type UserCreateOrConnectWithoutLoansInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type LoanRepaymentCreateWithoutLoanInput = {
@@ -57545,6 +64682,192 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserCreateWithoutProcessedLoansInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
+    assets?: AssetCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    closedTrades?: TradeCreateNestedManyWithoutCloserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserUncheckedCreateWithoutProcessedLoansInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
+    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserCreateOrConnectWithoutProcessedLoansInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProcessedLoansInput, UserUncheckedCreateWithoutProcessedLoansInput>
+  }
+
+  export type UserCreateWithoutLoansInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
+    assets?: AssetCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    closedTrades?: TradeCreateNestedManyWithoutCloserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserUncheckedCreateWithoutLoansInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
+    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserCreateOrConnectWithoutLoansInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+  }
+
+  export type LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput = {
+    where: LoanRepaymentWhereUniqueInput
+    update: XOR<LoanRepaymentUpdateWithoutLoanInput, LoanRepaymentUncheckedUpdateWithoutLoanInput>
+    create: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput>
+  }
+
+  export type LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput = {
+    where: LoanRepaymentWhereUniqueInput
+    data: XOR<LoanRepaymentUpdateWithoutLoanInput, LoanRepaymentUncheckedUpdateWithoutLoanInput>
+  }
+
+  export type LoanRepaymentUpdateManyWithWhereWithoutLoanInput = {
+    where: LoanRepaymentScalarWhereInput
+    data: XOR<LoanRepaymentUpdateManyMutationInput, LoanRepaymentUncheckedUpdateManyWithoutLoanInput>
+  }
+
   export type UserUpsertWithoutProcessedLoansInput = {
     update: XOR<UserUpdateWithoutProcessedLoansInput, UserUncheckedUpdateWithoutProcessedLoansInput>
     create: XOR<UserCreateWithoutProcessedLoansInput, UserUncheckedCreateWithoutProcessedLoansInput>
@@ -57569,6 +64892,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -57577,8 +64901,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -57587,10 +64916,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProcessedLoansInput = {
@@ -57606,6 +64932,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57614,8 +64941,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -57624,10 +64956,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUpsertWithoutLoansInput = {
@@ -57654,6 +64983,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -57662,8 +64992,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -57672,10 +65007,7 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLoansInput = {
@@ -57691,6 +65023,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
     assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57699,8 +65032,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -57709,26 +65047,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
-    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
-  }
-
-  export type LoanRepaymentUpsertWithWhereUniqueWithoutLoanInput = {
-    where: LoanRepaymentWhereUniqueInput
-    update: XOR<LoanRepaymentUpdateWithoutLoanInput, LoanRepaymentUncheckedUpdateWithoutLoanInput>
-    create: XOR<LoanRepaymentCreateWithoutLoanInput, LoanRepaymentUncheckedCreateWithoutLoanInput>
-  }
-
-  export type LoanRepaymentUpdateWithWhereUniqueWithoutLoanInput = {
-    where: LoanRepaymentWhereUniqueInput
-    data: XOR<LoanRepaymentUpdateWithoutLoanInput, LoanRepaymentUncheckedUpdateWithoutLoanInput>
-  }
-
-  export type LoanRepaymentUpdateManyWithWhereWithoutLoanInput = {
-    where: LoanRepaymentScalarWhereInput
-    data: XOR<LoanRepaymentUpdateManyMutationInput, LoanRepaymentUncheckedUpdateManyWithoutLoanInput>
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type LoanCreateWithoutRepaymentsInput = {
@@ -57736,9 +65055,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
     status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
     rejection_reason?: string | null
     duration?: number
     interest_rate?: Decimal | DecimalJsLike | number | string
@@ -57751,6 +65067,9 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
     processor?: UserCreateNestedOneWithoutProcessedLoansInput
     user: UserCreateNestedOneWithoutLoansInput
   }
@@ -57761,9 +65080,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
     status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
     rejection_reason?: string | null
     duration?: number
     interest_rate?: Decimal | DecimalJsLike | number | string
@@ -57777,6 +65093,9 @@ export namespace Prisma {
     processed_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
   }
 
   export type LoanCreateOrConnectWithoutRepaymentsInput = {
@@ -57797,6 +65116,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
     assets?: AssetCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
@@ -57805,8 +65125,13 @@ export namespace Prisma {
     deposits?: DepositCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
@@ -57815,10 +65140,7 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
-    loans?: LoanCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserUncheckedCreateWithoutProcessedLoanRepaymentsInput = {
@@ -57834,6 +65156,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
     arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
     assets?: AssetUncheckedCreateNestedManyWithoutUserInput
     createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
@@ -57842,8 +65165,13 @@ export namespace Prisma {
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
     kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
     miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
     userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
@@ -57852,10 +65180,7 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
-    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
   }
 
   export type UserCreateOrConnectWithoutProcessedLoanRepaymentsInput = {
@@ -57879,9 +65204,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -57894,6 +65216,9 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
     processor?: UserUpdateOneWithoutProcessedLoansNestedInput
     user?: UserUpdateOneRequiredWithoutLoansNestedInput
   }
@@ -57904,9 +65229,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
     rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
     interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -57920,6 +65242,9 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUpsertWithoutProcessedLoanRepaymentsInput = {
@@ -57946,6 +65271,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
     arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
     assets?: AssetUpdateManyWithoutUserNestedInput
     createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
@@ -57954,8 +65280,13 @@ export namespace Prisma {
     deposits?: DepositUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
@@ -57964,13 +65295,186 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
-    loans?: LoanUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProcessedLoanRepaymentsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
+    arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type UserCreateWithoutAccountBalancesInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
+    assets?: AssetCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    closedTrades?: TradeCreateNestedManyWithoutCloserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserUncheckedCreateWithoutAccountBalancesInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
+    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserCreateOrConnectWithoutAccountBalancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAccountBalancesInput, UserUncheckedCreateWithoutAccountBalancesInput>
+  }
+
+  export type UserUpsertWithoutAccountBalancesInput = {
+    update: XOR<UserUpdateWithoutAccountBalancesInput, UserUncheckedUpdateWithoutAccountBalancesInput>
+    create: XOR<UserCreateWithoutAccountBalancesInput, UserUncheckedCreateWithoutAccountBalancesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAccountBalancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAccountBalancesInput, UserUncheckedUpdateWithoutAccountBalancesInput>
+  }
+
+  export type UserUpdateWithoutAccountBalancesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
+    assets?: AssetUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUpdateManyWithoutCloserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAccountBalancesInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57991,8 +65495,14 @@ export namespace Prisma {
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
     kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
     miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
     userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
@@ -58001,10 +65511,567 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type ProfileCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: UserCreateNestedOneWithoutProfilesInput
+    referred_by?: ProfileCreateNestedOneWithoutReferred_profilesInput
+    referred_profiles?: ProfileCreateNestedManyWithoutReferred_byInput
+  }
+
+  export type ProfileUncheckedCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
+    referred_profiles?: ProfileUncheckedCreateNestedManyWithoutReferred_byInput
+  }
+
+  export type ProfileCreateOrConnectWithoutReferral_commissionsInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutReferral_commissionsInput, ProfileUncheckedCreateWithoutReferral_commissionsInput>
+  }
+
+  export type UserCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
+    assets?: AssetCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    closedTrades?: TradeCreateNestedManyWithoutCloserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
+    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    userOnboarding?: UserOnboardingUncheckedCreateNestedOneWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReferral_commissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReferral_commissionsInput, UserUncheckedCreateWithoutReferral_commissionsInput>
+  }
+
+  export type DepositCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    currency?: string
+    amount: Decimal | DecimalJsLike | number | string
+    transaction_id?: string | null
+    payment_method: string
+    payment_details?: string | null
+    description?: string | null
+    proof_image?: string | null
+    status?: $Enums.DepositStatus
+    rejection_reason?: string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    processor?: UserCreateNestedOneWithoutProcessedDepositsInput
+    user: UserCreateNestedOneWithoutDepositsInput
+  }
+
+  export type DepositUncheckedCreateWithoutReferral_commissionsInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    currency?: string
+    amount: Decimal | DecimalJsLike | number | string
+    transaction_id?: string | null
+    payment_method: string
+    payment_details?: string | null
+    description?: string | null
+    proof_image?: string | null
+    status?: $Enums.DepositStatus
+    rejection_reason?: string | null
+    processed_by?: bigint | number | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type DepositCreateOrConnectWithoutReferral_commissionsInput = {
+    where: DepositWhereUniqueInput
+    create: XOR<DepositCreateWithoutReferral_commissionsInput, DepositUncheckedCreateWithoutReferral_commissionsInput>
+  }
+
+  export type ProfileUpsertWithoutReferral_commissionsInput = {
+    update: XOR<ProfileUpdateWithoutReferral_commissionsInput, ProfileUncheckedUpdateWithoutReferral_commissionsInput>
+    create: XOR<ProfileCreateWithoutReferral_commissionsInput, ProfileUncheckedCreateWithoutReferral_commissionsInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutReferral_commissionsInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutReferral_commissionsInput, ProfileUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type ProfileUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutProfilesNestedInput
+    referred_by?: ProfileUpdateOneWithoutReferred_profilesNestedInput
+    referred_profiles?: ProfileUpdateManyWithoutReferred_byNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    referred_profiles?: ProfileUncheckedUpdateManyWithoutReferred_byNestedInput
+  }
+
+  export type UserUpsertWithoutReferral_commissionsInput = {
+    update: XOR<UserUpdateWithoutReferral_commissionsInput, UserUncheckedUpdateWithoutReferral_commissionsInput>
+    create: XOR<UserCreateWithoutReferral_commissionsInput, UserUncheckedCreateWithoutReferral_commissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReferral_commissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReferral_commissionsInput, UserUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type UserUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
+    arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
+    assets?: AssetUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUpdateOneWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUpdateManyWithoutCloserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
+    arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
     processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
     loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    userOnboarding?: UserOnboardingUncheckedUpdateOneWithoutUserNestedInput
     sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DepositUpsertWithoutReferral_commissionsInput = {
+    update: XOR<DepositUpdateWithoutReferral_commissionsInput, DepositUncheckedUpdateWithoutReferral_commissionsInput>
+    create: XOR<DepositCreateWithoutReferral_commissionsInput, DepositUncheckedCreateWithoutReferral_commissionsInput>
+    where?: DepositWhereInput
+  }
+
+  export type DepositUpdateToOneWithWhereWithoutReferral_commissionsInput = {
+    where?: DepositWhereInput
+    data: XOR<DepositUpdateWithoutReferral_commissionsInput, DepositUncheckedUpdateWithoutReferral_commissionsInput>
+  }
+
+  export type DepositUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    currency?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_method?: StringFieldUpdateOperationsInput | string
+    payment_details?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDepositStatusFieldUpdateOperationsInput | $Enums.DepositStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processor?: UserUpdateOneWithoutProcessedDepositsNestedInput
+    user?: UserUpdateOneRequiredWithoutDepositsNestedInput
+  }
+
+  export type DepositUncheckedUpdateWithoutReferral_commissionsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    currency?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_method?: StringFieldUpdateOperationsInput | string
+    payment_details?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDepositStatusFieldUpdateOperationsInput | $Enums.DepositStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserCreateWithoutUserOnboardingInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingCreateNestedManyWithoutUserInput
+    assets?: AssetCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositCreateNestedManyWithoutProcessorInput
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanCreateNestedManyWithoutProcessorInput
+    loans?: LoanCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    sentNotifications?: NotificationCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    closedTrades?: TradeCreateNestedManyWithoutCloserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserUncheckedCreateWithoutUserOnboardingInput = {
+    id?: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    email_verified_at?: Date | string | null
+    password: string
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    remember_token?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedCreateNestedManyWithoutUserInput
+    arbitrageHostings?: ArbitrageHostingUncheckedCreateNestedManyWithoutUserInput
+    assets?: AssetUncheckedCreateNestedManyWithoutUserInput
+    createdCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutCreatorInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedCreateNestedManyWithoutUpdaterInput
+    processedDeposits?: DepositUncheckedCreateNestedManyWithoutProcessorInput
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    processedKycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutProcessorInput
+    kycSubmissions?: KycSubmissionUncheckedCreateNestedManyWithoutUserInput
+    processedLoanRepayments?: LoanRepaymentUncheckedCreateNestedManyWithoutProcessorInput
+    processedLoans?: LoanUncheckedCreateNestedManyWithoutProcessorInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
+    miningHostings?: MiningHostingUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    sentNotifications?: NotificationUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    adminSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutAdminInput
+    userSupportMessages?: SupportTicketMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    closedTrades?: TradeUncheckedCreateNestedManyWithoutCloserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    processedWithdrawals?: WithdrawalUncheckedCreateNestedManyWithoutProcessorInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+    referral_commissions?: ReferralCommissionUncheckedCreateNestedManyWithoutReferred_userInput
+  }
+
+  export type UserCreateOrConnectWithoutUserOnboardingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserOnboardingInput, UserUncheckedCreateWithoutUserOnboardingInput>
+  }
+
+  export type UserUpsertWithoutUserOnboardingInput = {
+    update: XOR<UserUpdateWithoutUserOnboardingInput, UserUncheckedUpdateWithoutUserOnboardingInput>
+    create: XOR<UserCreateWithoutUserOnboardingInput, UserUncheckedCreateWithoutUserOnboardingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserOnboardingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserOnboardingInput, UserUncheckedUpdateWithoutUserOnboardingInput>
+  }
+
+  export type UserUpdateWithoutUserOnboardingInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUpdateManyWithoutUserNestedInput
+    arbitrageHostings?: ArbitrageHostingUpdateManyWithoutUserNestedInput
+    assets?: AssetUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    sentNotifications?: NotificationUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUpdateManyWithoutCloserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferred_userNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserOnboardingInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accountBalances?: AccountBalanceUncheckedUpdateManyWithoutUserNestedInput
+    arbitrageHostings?: ArbitrageHostingUncheckedUpdateManyWithoutUserNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutUserNestedInput
+    createdCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutCreatorNestedInput
+    updatedCryptoAddresses?: CryptoAddressUncheckedUpdateManyWithoutUpdaterNestedInput
+    processedDeposits?: DepositUncheckedUpdateManyWithoutProcessorNestedInput
+    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
+    processedKycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutProcessorNestedInput
+    kycSubmissions?: KycSubmissionUncheckedUpdateManyWithoutUserNestedInput
+    processedLoanRepayments?: LoanRepaymentUncheckedUpdateManyWithoutProcessorNestedInput
+    processedLoans?: LoanUncheckedUpdateManyWithoutProcessorNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
+    miningHostings?: MiningHostingUncheckedUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    sentNotifications?: NotificationUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    adminSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutAdminNestedInput
+    userSupportMessages?: SupportTicketMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    closedTrades?: TradeUncheckedUpdateManyWithoutCloserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    processedWithdrawals?: WithdrawalUncheckedUpdateManyWithoutProcessorNestedInput
+    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferred_userNestedInput
   }
 
   export type ArbitrageHostingCreateManyProductInput = {
@@ -58063,6 +66130,50 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type ReferralCommissionCreateManyDepositInput = {
+    id?: bigint | number
+    referrer_profile_id: bigint | number
+    referred_user_id: bigint | number
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ReferralCommissionUpdateWithoutDepositInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referrer?: ProfileUpdateOneRequiredWithoutReferral_commissionsNestedInput
+    referred_user?: UserUpdateOneRequiredWithoutReferral_commissionsNestedInput
+  }
+
+  export type ReferralCommissionUncheckedUpdateWithoutDepositInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionUncheckedUpdateManyWithoutDepositInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type MiningHostingCreateManyProductInput = {
     id?: bigint | number
     user_id: bigint | number
@@ -58117,6 +66228,150 @@ export namespace Prisma {
     total_earned?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ProfileCreateManyReferred_byInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    uuid: string
+    kyc_status?: $Enums.ProfileKycStatus
+    level?: number
+    kyc_documents?: string | null
+    bank_account?: string | null
+    blockchain_addresses?: string | null
+    google_auth_enabled?: boolean
+    google_auth_secret?: string | null
+    withdrawal_password_enabled?: boolean
+    withdrawal_password?: string | null
+    trade_status?: $Enums.ProfileTradeStatus | null
+    total_assets?: Decimal | DecimalJsLike | number | string
+    preferred_language?: string
+    notification_settings?: string | null
+    sim_trade_enabled?: boolean
+    invite_code?: string | null
+    referral_count?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type ReferralCommissionCreateManyReferrerInput = {
+    id?: bigint | number
+    referred_user_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type ProfileUpdateWithoutReferred_byInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutProfilesNestedInput
+    referred_profiles?: ProfileUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutReferred_byInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_profiles?: ProfileUncheckedUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type ProfileUncheckedUpdateManyWithoutReferred_byInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    kyc_status?: EnumProfileKycStatusFieldUpdateOperationsInput | $Enums.ProfileKycStatus
+    level?: IntFieldUpdateOperationsInput | number
+    kyc_documents?: NullableStringFieldUpdateOperationsInput | string | null
+    bank_account?: NullableStringFieldUpdateOperationsInput | string | null
+    blockchain_addresses?: NullableStringFieldUpdateOperationsInput | string | null
+    google_auth_enabled?: BoolFieldUpdateOperationsInput | boolean
+    google_auth_secret?: NullableStringFieldUpdateOperationsInput | string | null
+    withdrawal_password_enabled?: BoolFieldUpdateOperationsInput | boolean
+    withdrawal_password?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_status?: NullableEnumProfileTradeStatusFieldUpdateOperationsInput | $Enums.ProfileTradeStatus | null
+    total_assets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preferred_language?: StringFieldUpdateOperationsInput | string
+    notification_settings?: NullableStringFieldUpdateOperationsInput | string | null
+    sim_trade_enabled?: BoolFieldUpdateOperationsInput | boolean
+    invite_code?: NullableStringFieldUpdateOperationsInput | string | null
+    referral_count?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionUpdateWithoutReferrerInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_user?: UserUpdateOneRequiredWithoutReferral_commissionsNestedInput
+    deposit?: DepositUpdateOneWithoutReferral_commissionsNestedInput
+  }
+
+  export type ReferralCommissionUncheckedUpdateWithoutReferrerInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReferralCommissionUncheckedUpdateManyWithoutReferrerInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    referred_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SupportTicketMessageCreateManyTicketInput = {
@@ -58335,6 +66590,14 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type AccountBalanceCreateManyUserInput = {
+    id?: bigint | number
+    type: string
+    balance?: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
   export type ArbitrageHostingCreateManyUserInput = {
     id?: bigint | number
     product_id: bigint | number
@@ -58458,6 +66721,64 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type LoanRepaymentCreateManyProcessorInput = {
+    id?: bigint | number
+    loan_id: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    proof_image: string
+    status?: $Enums.LoanRepaymentStatus
+    rejection_reason?: string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type LoanCreateManyProcessorInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+  }
+
+  export type LoanCreateManyUserInput = {
+    id?: bigint | number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.LoanStatus
+    rejection_reason?: string | null
+    duration?: number
+    interest_rate?: Decimal | DecimalJsLike | number | string
+    total_payable?: Decimal | DecimalJsLike | number | string
+    accumulated_interest?: Decimal | DecimalJsLike | number | string
+    last_interest_date?: Date | string | null
+    due_date?: Date | string | null
+    approved_at?: Date | string | null
+    repaid_at?: Date | string | null
+    processed_by?: bigint | number | null
+    processed_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    back_image?: string | null
+    document_type?: string | null
+    front_image?: string | null
+  }
+
   export type MiningHostingCreateManyUserInput = {
     id?: bigint | number
     product_id: bigint | number
@@ -58493,6 +66814,31 @@ export namespace Prisma {
     referral_count?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    referred_by_id?: bigint | number | null
+  }
+
+  export type NotificationCreateManyAdminInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
+  }
+
+  export type NotificationCreateManyUserInput = {
+    id?: bigint | number
+    admin_id?: bigint | number | null
+    title: string
+    message: string
+    is_read?: boolean
+    read_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    image_url?: string | null
   }
 
   export type SupportTicketMessageCreateManyAdminInput = {
@@ -58621,86 +66967,39 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
-  export type LoanCreateManyProcessorInput = {
+  export type ReferralCommissionCreateManyReferred_userInput = {
     id?: bigint | number
-    user_id: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_at?: Date | string | null
+    referrer_profile_id: bigint | number
+    deposit_id?: bigint | number | null
+    deposit_amount?: Decimal | DecimalJsLike | number | string
+    commission_amount?: Decimal | DecimalJsLike | number | string
+    status?: string
+    paid_at?: Date | string | null
     created_at?: Date | string | null
-    updated_at?: Date | string | null
   }
 
-  export type LoanCreateManyUserInput = {
-    id?: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    currency?: string
-    status?: $Enums.LoanStatus
-    document_type?: string | null
-    front_image?: string | null
-    back_image?: string | null
-    rejection_reason?: string | null
-    duration?: number
-    interest_rate?: Decimal | DecimalJsLike | number | string
-    total_payable?: Decimal | DecimalJsLike | number | string
-    accumulated_interest?: Decimal | DecimalJsLike | number | string
-    last_interest_date?: Date | string | null
-    due_date?: Date | string | null
-    approved_at?: Date | string | null
-    repaid_at?: Date | string | null
-    processed_by?: bigint | number | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
+  export type AccountBalanceUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type LoanRepaymentCreateManyProcessorInput = {
-    id?: bigint | number
-    loan_id: bigint | number
-    amount: Decimal | DecimalJsLike | number | string
-    proof_image: string
-    status?: $Enums.LoanRepaymentStatus
-    rejection_reason?: string | null
-    processed_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
+  export type AccountBalanceUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type NotificationCreateManyUserInput = {
-    id?: bigint | number
-    admin_id?: bigint | number | null
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type NotificationCreateManyAdminInput = {
-    id?: bigint | number
-    user_id: bigint | number
-    title: string
-    message: string
-    image_url?: string | null
-    is_read?: boolean
-    read_at?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
+  export type AccountBalanceUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ArbitrageHostingUpdateWithoutUserInput = {
@@ -58883,6 +67182,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutDepositsNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositUncheckedUpdateWithoutProcessorInput = {
@@ -58900,6 +67200,7 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositUncheckedUpdateManyWithoutProcessorInput = {
@@ -58934,6 +67235,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     processor?: UserUpdateOneWithoutProcessedDepositsNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositUncheckedUpdateWithoutUserInput = {
@@ -58951,6 +67253,7 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutDepositNestedInput
   }
 
   export type DepositUncheckedUpdateManyWithoutUserInput = {
@@ -59072,6 +67375,184 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type LoanRepaymentUpdateWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    proof_image?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loan?: LoanUpdateOneRequiredWithoutRepaymentsNestedInput
+  }
+
+  export type LoanRepaymentUncheckedUpdateWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    loan_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    proof_image?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type LoanRepaymentUncheckedUpdateManyWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    loan_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    proof_image?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type LoanUpdateWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
+    user?: UserUpdateOneRequiredWithoutLoansNestedInput
+  }
+
+  export type LoanUncheckedUpdateWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    repayments?: LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput
+  }
+
+  export type LoanUncheckedUpdateManyWithoutProcessorInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LoanUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
+    processor?: UserUpdateOneWithoutProcessedLoansNestedInput
+  }
+
+  export type LoanUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    repayments?: LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput
+  }
+
+  export type LoanUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    document_type?: NullableStringFieldUpdateOperationsInput | string | null
+    front_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type MiningHostingUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59135,6 +67616,9 @@ export namespace Prisma {
     referral_count?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by?: ProfileUpdateOneWithoutReferred_profilesNestedInput
+    referred_profiles?: ProfileUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUpdateManyWithoutReferrerNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -59158,6 +67642,9 @@ export namespace Prisma {
     referral_count?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    referred_profiles?: ProfileUncheckedUpdateManyWithoutReferred_byNestedInput
+    referral_commissions?: ReferralCommissionUncheckedUpdateManyWithoutReferrerNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutUserInput = {
@@ -59181,6 +67668,79 @@ export namespace Prisma {
     referral_count?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referred_by_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  }
+
+  export type NotificationUpdateWithoutAdminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutAdminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutAdminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NotificationUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: UserUpdateOneWithoutSentNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SupportTicketMessageUpdateWithoutAdminInput = {
@@ -59579,254 +68139,37 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type LoanUpdateWithoutProcessorInput = {
+  export type ReferralCommissionUpdateWithoutReferred_userInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutLoansNestedInput
-    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
+    referrer?: ProfileUpdateOneRequiredWithoutReferral_commissionsNestedInput
+    deposit?: DepositUpdateOneWithoutReferral_commissionsNestedInput
   }
 
-  export type LoanUncheckedUpdateWithoutProcessorInput = {
+  export type ReferralCommissionUncheckedUpdateWithoutReferred_userInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repayments?: LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput
   }
 
-  export type LoanUncheckedUpdateManyWithoutProcessorInput = {
+  export type ReferralCommissionUncheckedUpdateManyWithoutReferred_userInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    referrer_profile_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    deposit_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deposit_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type LoanUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processor?: UserUpdateOneWithoutProcessedLoansNestedInput
-    repayments?: LoanRepaymentUpdateManyWithoutLoanNestedInput
-  }
-
-  export type LoanUncheckedUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repayments?: LoanRepaymentUncheckedUpdateManyWithoutLoanNestedInput
-  }
-
-  export type LoanUncheckedUpdateManyWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
-    document_type?: NullableStringFieldUpdateOperationsInput | string | null
-    front_image?: NullableStringFieldUpdateOperationsInput | string | null
-    back_image?: NullableStringFieldUpdateOperationsInput | string | null
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    interest_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_payable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    accumulated_interest?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    last_interest_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    repaid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    processed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type LoanRepaymentUpdateWithoutProcessorInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    proof_image?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    loan?: LoanUpdateOneRequiredWithoutRepaymentsNestedInput
-  }
-
-  export type LoanRepaymentUncheckedUpdateWithoutProcessorInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    loan_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    proof_image?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type LoanRepaymentUncheckedUpdateManyWithoutProcessorInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    loan_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    proof_image?: StringFieldUpdateOperationsInput | string
-    status?: EnumLoanRepaymentStatusFieldUpdateOperationsInput | $Enums.LoanRepaymentStatus
-    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type NotificationUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    admin?: UserUpdateOneWithoutSentNotificationsNestedInput
-  }
-
-  export type NotificationUncheckedUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    admin_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type NotificationUpdateWithoutAdminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
-  }
-
-  export type NotificationUncheckedUpdateWithoutAdminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutAdminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    is_read?: BoolFieldUpdateOperationsInput | boolean
-    read_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type LoanRepaymentCreateManyLoanInput = {

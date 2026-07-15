@@ -1,0 +1,1 @@
+﻿require('dotenv').config(); const axios = require('axios'); async function test() { try { const res = await axios.get('https://stock-metal-api.cloud/api/metal/latest', {headers: {'X-CLIENT-API-KEY': process.env.CLIENT_API_KEY}}); console.log('METALS:', res.data); } catch (e) { console.error('ERR:', e.message); } } test();

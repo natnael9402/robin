@@ -4,18 +4,14 @@ generator client {
 }
 
 datasource db {
-  // provider = "postgresql"
-  // url      = env("DATABASE_URL")
-
   provider = "postgresql"
   url      = env("DIRECT_URL")
-  // directUrl = env("DIRECT_URL")
 }
 
 model ArbitrageHosting {
-  id               BigInt                 @id @default(autoincrement()) @db.BigInt
-  user_id          BigInt                 @db.BigInt
-  product_id       BigInt                 @db.BigInt
+  id               BigInt                 @id @default(autoincrement())
+  user_id          BigInt
+  product_id       BigInt
   amount           Decimal                @db.Decimal(14, 2)
   status           ArbitrageHostingStatus @default(running)
   currency         String                 @default("USDT") @db.VarChar(255)
@@ -34,7 +30,7 @@ model ArbitrageHosting {
 }
 
 model ArbitrageProduct {
-  id                   BigInt             @id @default(autoincrement()) @db.BigInt
+  id                   BigInt             @id @default(autoincrement())
   name                 String             @db.VarChar(255)
   days                 Int
   daily_rate           Decimal            @db.Decimal(10, 2)
@@ -42,7 +38,7 @@ model ArbitrageProduct {
   max_amount           Decimal            @db.Decimal(14, 2)
   image                String?            @db.VarChar(255)
   is_active            Boolean            @default(true)
-  supported_currencies String?            @db.Text
+  supported_currencies String?
   created_at           DateTime?          @default(now()) @db.Timestamp(0)
   updated_at           DateTime?          @updatedAt @db.Timestamp(0)
   hostings             ArbitrageHosting[]
@@ -51,8 +47,8 @@ model ArbitrageProduct {
 }
 
 model Asset {
-  id                 BigInt    @id @default(autoincrement()) @db.BigInt
-  user_id            BigInt    @db.BigInt
+  id                 BigInt    @id @default(autoincrement())
+  user_id            BigInt
   symbol             String    @db.VarChar(20)
   name               String?   @db.VarChar(100)
   amount             Decimal   @db.Decimal(20, 8)
@@ -71,7 +67,7 @@ model Asset {
 
 model Cache {
   key        String @id @db.VarChar(255)
-  value      String @db.Text
+  value      String
   expiration Int
 
   @@map("cache")
@@ -86,15 +82,15 @@ model CacheLock {
 }
 
 model CryptoAddress {
-  id           BigInt    @id @default(autoincrement()) @db.BigInt
+  id           BigInt    @id @default(autoincrement())
   currency     String    @db.VarChar(10)
   network      String    @db.VarChar(20)
   address      String    @db.VarChar(255)
-  qr_code      String?   @db.Text
+  qr_code      String?
   is_active    Boolean   @default(true)
-  notes        String?   @db.Text
-  created_by   BigInt?   @db.BigInt
-  updated_by   BigInt?   @db.BigInt
+  notes        String?
+  created_by   BigInt?
+  updated_by   BigInt?
   last_updated DateTime? @db.Timestamp(0)
   created_at   DateTime? @default(now()) @db.Timestamp(0)
   updated_at   DateTime? @updatedAt @db.Timestamp(0)
@@ -108,23 +104,24 @@ model CryptoAddress {
 }
 
 model Deposit {
-  id               BigInt        @id @default(autoincrement()) @db.BigInt
-  user_id          BigInt        @db.BigInt
-  currency         String        @default("USDT") @db.VarChar(255)
-  amount           Decimal       @db.Decimal(15, 2)
-  transaction_id   String?       @db.VarChar(255)
-  payment_method   String        @db.VarChar(255)
-  payment_details  String?       @db.VarChar(255)
-  description      String?       @db.Text
-  proof_image      String?       @db.VarChar(255)
-  status           DepositStatus @default(pending)
-  rejection_reason String?       @db.Text
-  processed_by     BigInt?       @db.BigInt
-  processed_at     DateTime?     @db.Timestamp(0)
-  created_at       DateTime?     @default(now()) @db.Timestamp(0)
-  updated_at       DateTime?     @updatedAt @db.Timestamp(0)
-  processor        User?         @relation("DepositsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
-  user             User          @relation("UserDeposits", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  id                   BigInt               @id @default(autoincrement())
+  user_id              BigInt
+  currency             String               @default("USDT") @db.VarChar(255)
+  amount               Decimal              @db.Decimal(15, 2)
+  transaction_id       String?              @db.VarChar(255)
+  payment_method       String               @db.VarChar(255)
+  payment_details      String?              @db.VarChar(255)
+  description          String?
+  proof_image          String?              @db.VarChar(255)
+  status               DepositStatus        @default(pending)
+  rejection_reason     String?
+  processed_by         BigInt?
+  processed_at         DateTime?            @db.Timestamp(0)
+  created_at           DateTime?            @default(now()) @db.Timestamp(0)
+  updated_at           DateTime?            @updatedAt @db.Timestamp(0)
+  processor            User?                @relation("DepositsProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
+  user                 User                 @relation("UserDeposits", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  referral_commissions ReferralCommission[]
 
   @@index([processed_by])
   @@index([user_id])
@@ -132,12 +129,12 @@ model Deposit {
 }
 
 model FailedJob {
-  id         BigInt   @id @default(autoincrement()) @db.BigInt
+  id         BigInt   @id @default(autoincrement())
   uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
-  connection String   @db.Text
-  queue      String   @db.Text
-  payload    String   @db.Text
-  exception  String   @db.Text
+  connection String
+  queue      String
+  payload    String
+  exception  String
   failed_at  DateTime @default(now()) @db.Timestamp(0)
 
   @@map("failed_jobs")
@@ -149,8 +146,8 @@ model JobBatch {
   total_jobs     Int
   pending_jobs   Int
   failed_jobs    Int
-  failed_job_ids String  @db.Text
-  options        String? @db.Text
+  failed_job_ids String
+  options        String?
   cancelled_at   Int?
   created_at     Int
   finished_at    Int?
@@ -159,31 +156,31 @@ model JobBatch {
 }
 
 model Job {
-  id           BigInt @id @default(autoincrement()) @db.BigInt
+  id           BigInt @id @default(autoincrement())
   queue        String @db.VarChar(255)
-  payload      String @db.Text
+  payload      String
   attempts     Int    @db.SmallInt
-  reserved_at  Int?   @db.Integer
-  available_at Int    @db.Integer
-  created_at   Int    @db.Integer
+  reserved_at  Int?
+  available_at Int
+  created_at   Int
 
   @@index([queue])
   @@map("jobs")
 }
 
 model KycSubmission {
-  id               BigInt              @id @default(autoincrement()) @db.BigInt
-  user_id          BigInt              @db.BigInt
+  id               BigInt              @id @default(autoincrement())
+  user_id          BigInt
   document_type    String              @db.VarChar(255)
   document_number  String?             @db.VarChar(255)
   front_image_url  String?             @db.VarChar(255)
   back_image_url   String?             @db.VarChar(255)
   selfie_image_url String?             @db.VarChar(255)
   status           KycSubmissionStatus @default(pending)
-  rejection_reason String?             @db.Text
+  rejection_reason String?
   approved_at      DateTime?           @db.Timestamp(0)
   rejected_at      DateTime?           @db.Timestamp(0)
-  processed_by     BigInt?             @db.BigInt
+  processed_by     BigInt?
   processed_at     DateTime?           @db.Timestamp(0)
   created_at       DateTime?           @default(now()) @db.Timestamp(0)
   updated_at       DateTime?           @updatedAt @db.Timestamp(0)
@@ -196,7 +193,7 @@ model KycSubmission {
 }
 
 model Migration {
-  id        Int    @id @default(autoincrement()) @db.Integer
+  id        Int    @id @default(autoincrement())
   migration String @db.VarChar(255)
   batch     Int
 
@@ -204,9 +201,9 @@ model Migration {
 }
 
 model MiningHosting {
-  id               BigInt              @id @default(autoincrement()) @db.BigInt
-  user_id          BigInt              @db.BigInt
-  product_id       BigInt              @db.BigInt
+  id               BigInt              @id @default(autoincrement())
+  user_id          BigInt
+  product_id       BigInt
   amount           Decimal             @db.Decimal(14, 2)
   status           MiningHostingStatus @default(running)
   currency         String              @default("USDT") @db.VarChar(255)
@@ -225,7 +222,7 @@ model MiningHosting {
 }
 
 model MiningProduct {
-  id           BigInt          @id @default(autoincrement()) @db.BigInt
+  id           BigInt          @id @default(autoincrement())
   name         String          @db.VarChar(255)
   days         Int
   daily_rate   Decimal         @db.Decimal(10, 2)
@@ -258,16 +255,16 @@ model PasswordResetToken {
 }
 
 model Notification {
-  id         BigInt    @id @default(autoincrement()) @db.BigInt
-  user_id    BigInt    @db.BigInt
-  admin_id   BigInt?   @db.BigInt
+  id         BigInt    @id @default(autoincrement())
+  user_id    BigInt
+  admin_id   BigInt?
   title      String    @db.VarChar(255)
-  message    String    @db.Text
-  image_url  String?   @db.Text
+  message    String
   is_read    Boolean   @default(false)
   read_at    DateTime? @db.Timestamp(0)
   created_at DateTime? @default(now()) @db.Timestamp(0)
   updated_at DateTime? @updatedAt @db.Timestamp(0)
+  image_url  String?
   admin      User?     @relation("AdminSentNotifications", fields: [admin_id], references: [id], onUpdate: Restrict)
   user       User      @relation("UserNotifications", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
 
@@ -278,12 +275,12 @@ model Notification {
 }
 
 model PersonalAccessToken {
-  id             BigInt    @id @default(autoincrement()) @db.BigInt
+  id             BigInt    @id @default(autoincrement())
   tokenable_type String    @db.VarChar(255)
-  tokenable_id   BigInt    @db.BigInt
+  tokenable_id   BigInt
   name           String    @db.VarChar(255)
   token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
-  abilities      String?   @db.Text
+  abilities      String?
   last_used_at   DateTime? @db.Timestamp(0)
   expires_at     DateTime? @db.Timestamp(0)
   created_at     DateTime? @default(now()) @db.Timestamp(0)
@@ -294,28 +291,32 @@ model PersonalAccessToken {
 }
 
 model Profile {
-  id                          BigInt              @id @default(autoincrement()) @db.BigInt
-  user_id                     BigInt              @db.BigInt
-  uuid                        String              @unique(map: "profiles_uuid_unique") @db.Char(36)
-  kyc_status                  ProfileKycStatus    @default(unverified)
-  level                       Int                 @default(1) @db.SmallInt
-  kyc_documents               String?             @db.Text
-  bank_account                String?             @db.VarChar(255)
-  blockchain_addresses        String?             @db.Text
-  google_auth_enabled         Boolean             @default(false)
-  google_auth_secret          String?             @db.VarChar(255)
-  withdrawal_password_enabled Boolean             @default(false)
-  withdrawal_password         String?             @db.VarChar(255)
+  id                          BigInt               @id @default(autoincrement())
+  user_id                     BigInt
+  uuid                        String               @unique(map: "profiles_uuid_unique") @db.Char(36)
+  kyc_status                  ProfileKycStatus     @default(unverified)
+  level                       Int                  @default(1) @db.SmallInt
+  kyc_documents               String?
+  bank_account                String?              @db.VarChar(255)
+  blockchain_addresses        String?
+  google_auth_enabled         Boolean              @default(false)
+  google_auth_secret          String?              @db.VarChar(255)
+  withdrawal_password_enabled Boolean              @default(false)
+  withdrawal_password         String?              @db.VarChar(255)
   trade_status                ProfileTradeStatus?
-  total_assets                Decimal             @default(0.00000000) @db.Decimal(20, 8)
-  preferred_language          String              @default("en") @db.VarChar(255)
-  notification_settings       String?             @db.Text
-  sim_trade_enabled           Boolean             @default(false)
-  invite_code                 String?             @unique(map: "profiles_invite_code_unique") @db.VarChar(255)
-  referral_count              Int                 @default(0)
-  created_at                  DateTime?           @default(now()) @db.Timestamp(0)
-  updated_at                  DateTime?           @updatedAt @db.Timestamp(0)
-  user                        User                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  total_assets                Decimal              @default(0.00000000) @db.Decimal(20, 8)
+  preferred_language          String               @default("en") @db.VarChar(255)
+  notification_settings       String?
+  sim_trade_enabled           Boolean              @default(false)
+  invite_code                 String?              @unique(map: "profiles_invite_code_unique") @db.VarChar(255)
+  referral_count              Int                  @default(0)
+  created_at                  DateTime?            @default(now()) @db.Timestamp(0)
+  updated_at                  DateTime?            @updatedAt @db.Timestamp(0)
+  user                        User                 @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  referred_by_id              BigInt?
+  referred_by                 Profile?             @relation("ProfileToProfile", fields: [referred_by_id], references: [id], onDelete: SetNull)
+  referred_profiles           Profile[]            @relation("ProfileToProfile")
+  referral_commissions        ReferralCommission[] @relation("ReferrerCommissions")
 
   @@index([user_id])
   @@map("profiles")
@@ -323,10 +324,10 @@ model Profile {
 
 model Session {
   id            String  @id @db.VarChar(255)
-  user_id       BigInt? @db.BigInt
+  user_id       BigInt?
   ip_address    String? @db.VarChar(45)
-  user_agent    String? @db.Text
-  payload       String  @db.Text
+  user_agent    String?
+  payload       String
   last_activity Int
 
   @@index([last_activity])
@@ -335,13 +336,13 @@ model Session {
 }
 
 model SupportTicketMessage {
-  id          BigInt        @id @default(autoincrement()) @db.BigInt
-  ticket_id   BigInt        @db.BigInt
-  user_id     BigInt?       @db.BigInt
-  admin_id    BigInt?       @db.BigInt
-  message     String        @db.Text
+  id          BigInt        @id @default(autoincrement())
+  ticket_id   BigInt
+  user_id     BigInt?
+  admin_id    BigInt?
+  message     String
   is_read     Boolean       @default(false)
-  attachments String?       @db.Text
+  attachments String?
   created_at  DateTime?     @default(now()) @db.Timestamp(0)
   updated_at  DateTime?     @updatedAt @db.Timestamp(0)
   admin       User?         @relation("SupportTicketMessageAdmin", fields: [admin_id], references: [id], onUpdate: Restrict)
@@ -355,8 +356,8 @@ model SupportTicketMessage {
 }
 
 model SupportTicket {
-  id            BigInt                 @id @default(autoincrement()) @db.BigInt
-  user_id       BigInt                 @db.BigInt
+  id            BigInt                 @id @default(autoincrement())
+  user_id       BigInt
   subject       String                 @db.VarChar(255)
   status        SupportTicketStatus    @default(open)
   priority      SupportTicketPriority  @default(medium)
@@ -373,8 +374,8 @@ model SupportTicket {
 }
 
 model TradeContract {
-  id                BigInt    @id @default(autoincrement()) @db.BigInt
-  trade_id          BigInt    @db.BigInt
+  id                BigInt    @id @default(autoincrement())
+  trade_id          BigInt
   quantity          Decimal   @db.Decimal(15, 8)
   leverage          Int
   liquidation_price Decimal   @db.Decimal(15, 8)
@@ -389,8 +390,8 @@ model TradeContract {
 }
 
 model TradeOption {
-  id              BigInt    @id @default(autoincrement()) @db.BigInt
-  trade_id        BigInt    @db.BigInt
+  id              BigInt    @id @default(autoincrement())
+  trade_id        BigInt
   duration        Int
   return_rate     Decimal   @db.Decimal(5, 2)
   expected_return Decimal   @db.Decimal(15, 2)
@@ -403,8 +404,8 @@ model TradeOption {
 }
 
 model TradeSpot {
-  id            BigInt    @id @default(autoincrement()) @db.BigInt
-  trade_id      BigInt    @db.BigInt
+  id            BigInt    @id @default(autoincrement())
+  trade_id      BigInt
   quantity      Decimal   @db.Decimal(15, 8)
   market_price  Decimal   @db.Decimal(15, 8)
   exchange_rate Decimal?  @db.Decimal(20, 12)
@@ -419,8 +420,8 @@ model TradeSpot {
 }
 
 model Trade {
-  id            BigInt          @id @default(autoincrement()) @db.BigInt
-  user_id       BigInt          @db.BigInt
+  id            BigInt          @id @default(autoincrement())
+  user_id       BigInt
   symbol        String          @db.VarChar(255)
   type          String          @db.VarChar(255)
   direction     String          @db.VarChar(255)
@@ -436,7 +437,7 @@ model Trade {
   fee           Decimal         @default(0.00) @db.Decimal(15, 2)
   opened_at     DateTime        @default(now()) @db.Timestamp(0)
   closed_at     DateTime?       @db.Timestamp(0)
-  closed_by     BigInt?         @db.BigInt
+  closed_by     BigInt?
   created_at    DateTime?       @default(now()) @db.Timestamp(0)
   updated_at    DateTime?       @updatedAt @db.Timestamp(0)
   contracts     TradeContract[]
@@ -452,14 +453,14 @@ model Trade {
 }
 
 model Transaction {
-  id          BigInt    @id @default(autoincrement()) @db.BigInt
-  user_id     BigInt    @db.BigInt
-  trade_id    BigInt?   @db.BigInt
+  id          BigInt    @id @default(autoincrement())
+  user_id     BigInt
+  trade_id    BigInt?
   type        String    @db.VarChar(255)
   amount      Decimal   @db.Decimal(15, 2)
   currency    String    @default("USDT") @db.VarChar(255)
   balance     Decimal   @db.Decimal(15, 2)
-  description String?   @db.Text
+  description String?
   created_at  DateTime? @default(now()) @db.Timestamp(0)
   updated_at  DateTime? @updatedAt @db.Timestamp(0)
   trade       Trade?    @relation(fields: [trade_id], references: [id], onUpdate: Restrict)
@@ -471,7 +472,7 @@ model Transaction {
 }
 
 model User {
-  id                      BigInt                 @id @default(autoincrement()) @db.BigInt
+  id                      BigInt                 @id @default(autoincrement())
   name                    String                 @db.VarChar(255)
   email                   String?                @unique(map: "users_email_unique") @db.VarChar(255)
   phone                   String?                @unique(map: "users_phone_unique") @db.VarChar(255)
@@ -483,6 +484,7 @@ model User {
   created_at              DateTime?              @default(now()) @db.Timestamp(0)
   updated_at              DateTime?              @updatedAt @db.Timestamp(0)
   balance                 Decimal                @default(0.00) @db.Decimal(15, 2)
+  accountBalances         AccountBalance[]
   arbitrageHostings       ArbitrageHosting[]
   assets                  Asset[]
   createdCryptoAddresses  CryptoAddress[]        @relation("CryptoAddressCreator")
@@ -491,8 +493,14 @@ model User {
   deposits                Deposit[]              @relation("UserDeposits")
   processedKycSubmissions KycSubmission[]        @relation("KycSubmissionsProcessedBy")
   kycSubmissions          KycSubmission[]        @relation("UserKycSubmissions")
+  processedLoanRepayments LoanRepayment[]        @relation("LoanRepaymentsProcessedBy")
+  processedLoans          Loan[]                 @relation("LoansProcessedBy")
+  loans                   Loan[]                 @relation("UserLoans")
   miningHostings          MiningHosting[]
   profiles                Profile[]
+  userOnboarding          UserOnboarding?
+  sentNotifications       Notification[]         @relation("AdminSentNotifications")
+  notifications           Notification[]         @relation("UserNotifications")
   adminSupportMessages    SupportTicketMessage[] @relation("SupportTicketMessageAdmin")
   userSupportMessages     SupportTicketMessage[] @relation("SupportTicketMessageUser")
   supportTickets          SupportTicket[]
@@ -501,18 +509,14 @@ model User {
   transactions            Transaction[]
   processedWithdrawals    Withdrawal[]           @relation("WithdrawalsProcessedBy")
   withdrawals             Withdrawal[]           @relation("UserWithdrawals")
-  processedLoans          Loan[]                 @relation("LoansProcessedBy")
-  loans                   Loan[]                 @relation("UserLoans")
-  processedLoanRepayments LoanRepayment[]        @relation("LoanRepaymentsProcessedBy")
-  notifications           Notification[]         @relation("UserNotifications")
-  sentNotifications       Notification[]         @relation("AdminSentNotifications")
+  referral_commissions    ReferralCommission[]   @relation("ReferredUserCommissions")
 
   @@map("users")
 }
 
 model Withdrawal {
-  id               BigInt           @id @default(autoincrement()) @db.BigInt
-  user_id          BigInt           @db.BigInt
+  id               BigInt           @id @default(autoincrement())
+  user_id          BigInt
   currency         String           @default("USDT") @db.VarChar(255)
   amount           Decimal          @db.Decimal(15, 2)
   fee              Decimal          @default(0.00000000) @db.Decimal(15, 8)
@@ -520,10 +524,10 @@ model Withdrawal {
   wallet_address   String?          @db.VarChar(255)
   network          String           @default("TRC20") @db.VarChar(20)
   bank_details     String?          @db.VarChar(255)
-  description      String?          @db.Text
+  description      String?
   status           WithdrawalStatus @default(pending)
-  rejection_reason String?          @db.Text
-  processed_by     BigInt?          @db.BigInt
+  rejection_reason String?
+  processed_by     BigInt?
   processed_at     DateTime?        @db.Timestamp(0)
   created_at       DateTime?        @default(now()) @db.Timestamp(0)
   updated_at       DateTime?        @updatedAt @db.Timestamp(0)
@@ -536,15 +540,12 @@ model Withdrawal {
 }
 
 model Loan {
-  id                   BigInt          @id @default(autoincrement()) @db.BigInt
-  user_id              BigInt          @db.BigInt
+  id                   BigInt          @id @default(autoincrement())
+  user_id              BigInt
   amount               Decimal         @db.Decimal(15, 2)
   currency             String          @default("USDT") @db.VarChar(255)
   status               LoanStatus      @default(pending)
-  document_type        String?         @db.VarChar(255)
-  front_image          String?         @db.VarChar(255)
-  back_image           String?         @db.VarChar(255)
-  rejection_reason     String?         @db.Text
+  rejection_reason     String?
   duration             Int             @default(30)
   interest_rate        Decimal         @default(0.00) @db.Decimal(5, 2)
   total_payable        Decimal         @default(0.00) @db.Decimal(15, 2)
@@ -553,13 +554,16 @@ model Loan {
   due_date             DateTime?       @db.Timestamp(0)
   approved_at          DateTime?       @db.Timestamp(0)
   repaid_at            DateTime?       @db.Timestamp(0)
-  processed_by         BigInt?         @db.BigInt
+  processed_by         BigInt?
   processed_at         DateTime?       @db.Timestamp(0)
   created_at           DateTime?       @default(now()) @db.Timestamp(0)
   updated_at           DateTime?       @updatedAt @db.Timestamp(0)
+  back_image           String?         @db.VarChar(255)
+  document_type        String?         @db.VarChar(255)
+  front_image          String?         @db.VarChar(255)
+  repayments           LoanRepayment[]
   processor            User?           @relation("LoansProcessedBy", fields: [processed_by], references: [id], onUpdate: Restrict)
   user                 User            @relation("UserLoans", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
-  repayments           LoanRepayment[]
 
   @@index([processed_by])
   @@index([user_id])
@@ -567,13 +571,13 @@ model Loan {
 }
 
 model LoanRepayment {
-  id               BigInt              @id @default(autoincrement()) @db.BigInt
-  loan_id          BigInt              @db.BigInt
+  id               BigInt              @id @default(autoincrement())
+  loan_id          BigInt
   amount           Decimal             @db.Decimal(15, 2)
   proof_image      String              @db.VarChar(255)
   status           LoanRepaymentStatus @default(pending)
-  rejection_reason String?             @db.Text
-  processed_by     BigInt?             @db.BigInt
+  rejection_reason String?
+  processed_by     BigInt?
   processed_at     DateTime?           @db.Timestamp(0)
   created_at       DateTime?           @default(now()) @db.Timestamp(0)
   updated_at       DateTime?           @updatedAt @db.Timestamp(0)
@@ -583,6 +587,59 @@ model LoanRepayment {
   @@index([loan_id])
   @@index([processed_by])
   @@map("loan_repayments")
+}
+
+model NewsArticle {
+  id           BigInt    @id @default(autoincrement())
+  title        String    @db.VarChar(500)
+  slug         String    @unique @db.VarChar(500)
+  excerpt      String?
+  content      String?
+  image_url    String?   @db.VarChar(500)
+  author       String    @default("Robin Trade") @db.VarChar(255)
+  source       String    @default("manual") @db.VarChar(50)
+  source_url   String?   @db.VarChar(500)
+  is_published Boolean   @default(false)
+  published_at DateTime  @default(now()) @db.Timestamp(0)
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
+  updated_at   DateTime? @updatedAt @db.Timestamp(0)
+
+  @@index([source])
+  @@index([is_published, published_at])
+  @@map("news_articles")
+}
+
+model AccountBalance {
+  id         BigInt    @id @default(autoincrement())
+  user_id    BigInt
+  type       String    @db.VarChar(50)
+  balance    Decimal   @default(0.00) @db.Decimal(15, 2)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, type], map: "user_id_type")
+  @@map("account_balances")
+}
+
+model ReferralCommission {
+  id                  BigInt    @id @default(autoincrement())
+  referrer_profile_id BigInt
+  referred_user_id    BigInt
+  deposit_id          BigInt?
+  deposit_amount      Decimal   @default(0.00) @db.Decimal(15, 2)
+  commission_amount   Decimal   @default(0.00) @db.Decimal(15, 2)
+  status              String    @default("pending") @db.VarChar(50)
+  paid_at             DateTime? @db.Timestamp(0)
+  created_at          DateTime? @default(now()) @db.Timestamp(0)
+
+  referrer      Profile  @relation("ReferrerCommissions", fields: [referrer_profile_id], references: [id], onDelete: Cascade)
+  referred_user User     @relation("ReferredUserCommissions", fields: [referred_user_id], references: [id], onDelete: Cascade)
+  deposit       Deposit? @relation(fields: [deposit_id], references: [id], onDelete: SetNull)
+
+  @@index([referrer_profile_id])
+  @@index([referred_user_id])
+  @@map("referral_commissions")
 }
 
 enum ProfileKycStatus {
@@ -613,6 +670,7 @@ enum ArbitrageHostingStatus {
 
 enum MiningHostingStatus {
   running
+  paused
   ended
   cancelled
 
@@ -692,4 +750,18 @@ enum ProfileTradeStatus {
   normal
 
   @@map("profiles_trade_status")
+}
+
+model UserOnboarding {
+  id                BigInt    @id @default(autoincrement())
+  user_id           BigInt    @unique
+  income_source     String?   @db.VarChar(255)
+  annual_income     String?   @db.VarChar(255)
+  employment_status String?   @db.VarChar(255)
+  investment_goal   String?   @db.VarChar(255)
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  updated_at        DateTime? @updatedAt @db.Timestamp(0)
+  user              User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@map("user_onboarding")
 }

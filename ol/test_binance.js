@@ -1,0 +1,1 @@
+﻿const binance = require('node-binance-api')().options({}); binance.candlesticks('BTCUSDT', '1h', (error, ticks, symbol) => { console.log(JSON.stringify(ticks ? ticks.slice(0,2) : error)) }, {limit: 2});

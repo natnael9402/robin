@@ -315,11 +315,11 @@ exports.Prisma.NotificationScalarFieldEnum = {
   admin_id: 'admin_id',
   title: 'title',
   message: 'message',
-  image_url: 'image_url',
   is_read: 'is_read',
   read_at: 'read_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  image_url: 'image_url'
 };
 
 exports.Prisma.PersonalAccessTokenScalarFieldEnum = {
@@ -356,7 +356,8 @@ exports.Prisma.ProfileScalarFieldEnum = {
   invite_code: 'invite_code',
   referral_count: 'referral_count',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  referred_by_id: 'referred_by_id'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -503,9 +504,6 @@ exports.Prisma.LoanScalarFieldEnum = {
   amount: 'amount',
   currency: 'currency',
   status: 'status',
-  document_type: 'document_type',
-  front_image: 'front_image',
-  back_image: 'back_image',
   rejection_reason: 'rejection_reason',
   duration: 'duration',
   interest_rate: 'interest_rate',
@@ -518,7 +516,10 @@ exports.Prisma.LoanScalarFieldEnum = {
   processed_by: 'processed_by',
   processed_at: 'processed_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  back_image: 'back_image',
+  document_type: 'document_type',
+  front_image: 'front_image'
 };
 
 exports.Prisma.LoanRepaymentScalarFieldEnum = {
@@ -530,6 +531,54 @@ exports.Prisma.LoanRepaymentScalarFieldEnum = {
   rejection_reason: 'rejection_reason',
   processed_by: 'processed_by',
   processed_at: 'processed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.NewsArticleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  content: 'content',
+  image_url: 'image_url',
+  author: 'author',
+  source: 'source',
+  source_url: 'source_url',
+  is_published: 'is_published',
+  published_at: 'published_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.AccountBalanceScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  type: 'type',
+  balance: 'balance',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ReferralCommissionScalarFieldEnum = {
+  id: 'id',
+  referrer_profile_id: 'referrer_profile_id',
+  referred_user_id: 'referred_user_id',
+  deposit_id: 'deposit_id',
+  deposit_amount: 'deposit_amount',
+  commission_amount: 'commission_amount',
+  status: 'status',
+  paid_at: 'paid_at',
+  created_at: 'created_at'
+};
+
+exports.Prisma.UserOnboardingScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  income_source: 'income_source',
+  annual_income: 'annual_income',
+  employment_status: 'employment_status',
+  investment_goal: 'investment_goal',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -568,6 +617,7 @@ exports.KycSubmissionStatus = exports.$Enums.KycSubmissionStatus = {
 
 exports.MiningHostingStatus = exports.$Enums.MiningHostingStatus = {
   running: 'running',
+  paused: 'paused',
   ended: 'ended',
   cancelled: 'cancelled'
 };
@@ -661,7 +711,11 @@ exports.Prisma.ModelName = {
   User: 'User',
   Withdrawal: 'Withdrawal',
   Loan: 'Loan',
-  LoanRepayment: 'LoanRepayment'
+  LoanRepayment: 'LoanRepayment',
+  NewsArticle: 'NewsArticle',
+  AccountBalance: 'AccountBalance',
+  ReferralCommission: 'ReferralCommission',
+  UserOnboarding: 'UserOnboarding'
 };
 
 /**
