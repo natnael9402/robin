@@ -6,20 +6,12 @@ FROM base AS deps
 COPY ol/package.json ol/package-lock.json ./
 RUN npm ci --omit=dev
 
-FROM base AS builder
-COPY ol/package.json ol/package-lock.json ./
-RUN npm ci
-COPY ol/tsconfig.json ./
-COPY ol/src ./src
-COPY ol/prisma ./prisma
-RUN npx prisma generate
-RUN npx tsc
-
 FROM base AS runner
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src/generated ./src/generated
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY ol/dist ./dist
+COPY ol/prisma ./prisma
+RUN npx prisma generate
+COPY ol/src/generated ./src/generated
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
