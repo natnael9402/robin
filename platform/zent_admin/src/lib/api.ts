@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.premiumpaxoracapital.com/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.paxorapremiumlab.com/api';
 
 function getAuthHeader(): Record<string, string> {
   if (typeof window !== 'undefined') {

@@ -17,12 +17,11 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     origin: [
-      'https://zent-admin-one.vercel.app',
-      'https://sami-platform.vercel.app',
+      'https://paxorapremiumlab.com',
+      'https://admin.paxorapremiumlab.com',
+      'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:3002',
-      'https://zent-alpha.vercel.app',
-      /\.vercel\.app$/,
     ],
     credentials: true,
   });
