@@ -1,5 +1,5 @@
 export const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.premiumpaxoracapital.com/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.paxorapremiumlab.com/api';
 
 export interface MarketCoin {
     id: string;

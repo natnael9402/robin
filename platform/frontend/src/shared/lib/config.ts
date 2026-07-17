@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.premiumpaxoracapital.com/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.paxorapremiumlab.com/api';
 const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 const HUBSPOT_API_KEY = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY || '';
