@@ -6,7 +6,7 @@ import { useToast } from '../../shared/contexts/ToastContext';
 import { authApi, verificationApi } from '../../shared/api';
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { LogOut, Lock, User, Shield, Moon, Sun, ChevronRight, Eye, EyeOff, BarChart3, RefreshCw, Scale, FileText, Gavel, Trash2 } from 'lucide-react';
+import { LogOut, Lock, User, Shield, Moon, Sun, ChevronRight, Eye, EyeOff, BarChart3, RefreshCw, Scale, FileText, Gavel, Trash2, Info } from 'lucide-react';
 import { Modal } from '../../shared/components/ui/Modal';
 import { Input } from '../../shared/components/ui/Input';
 import { Button } from '../../shared/components/ui/Button';
@@ -192,6 +192,7 @@ export function ProfilePage() {
           <div className="flex-1 h-px bg-white/5" />
         </div>
         <div className="rounded-2xl bg-surface/40 border border-white/5 overflow-hidden backdrop-blur-xl shadow-lg divide-y divide-white/5">
+          <ProfileLink href="/profile/about" icon={Info} label="About Us" badge="2.0" badgeColor="primary" />
           <ProfileLink href="/legal/terms" icon={FileText} label="Terms of Service" />
           <ProfileLink href="/legal/privacy" icon={Shield} label="Privacy Policy" />
           <ProfileLink href="/legal/aml" icon={Gavel} label="Anti-Money Laundering Policy" />
