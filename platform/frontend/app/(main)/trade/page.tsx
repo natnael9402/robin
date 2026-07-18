@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import { TradePage } from '../../../src/features/trade/TradePage';
 
 export default function Page() {
-  redirect('/trade/option');
+  return <TradePage />;
 }
