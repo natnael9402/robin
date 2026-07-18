@@ -19,8 +19,6 @@ import { TradeSuccessModal } from './components/TradeSuccessModal';
 import { DepositModal } from '../../shared/components/DepositModal';
 import { ChartSkeleton } from '../../shared/components/ui/ChartSkeleton';
 import { cn, formatCurrency } from '../../shared/lib/utils';
-import { walletApi } from '../../shared/api/wallet.api';
-import { TradeModeNav } from './components/TradeModeNav';
 import { OPTION_TRADE_RULES, TIME_INTERVALS, type AssetOption, type TradeDirection, type TradeDuration } from './logic/tradeMath';
 
 export function TradeOptionPage() {
@@ -172,10 +170,6 @@ export function TradeOptionPage() {
             />
           ) : undefined}
         />
-      </div>
-
-      <div className="px-3 sm:px-6 mb-1 sm:mb-3 shrink-0 relative z-20 md:px-10 xl:px-16">
-        <TradeModeNav active="option" />
       </div>
 
       <div className="flex flex-col md:flex-row md:gap-8 flex-1 min-h-0 overflow-y-auto hide-scrollbar w-full px-3 sm:px-6 md:px-10 xl:px-16 pb-80 md:pb-10">

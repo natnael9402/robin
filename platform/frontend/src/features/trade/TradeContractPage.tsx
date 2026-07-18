@@ -15,7 +15,6 @@ import { AssetPickerModal } from './components/AssetPickerModal';
 import { TradeSuccessModal } from './components/TradeSuccessModal';
 import { ChartSkeleton } from '../../shared/components/ui/ChartSkeleton';
 import { cn } from '../../shared/lib/utils';
-import { TradeModeNav } from './components/TradeModeNav';
 import { TIME_INTERVALS, type AssetOption, type TradeDirection } from './logic/tradeMath';
 
 export function TradeContractPage() {
@@ -95,10 +94,6 @@ export function TradeContractPage() {
             />
           }
         />
-      </div>
-
-      <div className="px-3 sm:px-6 mb-1 sm:mb-3 shrink-0 relative z-20 md:px-10 xl:px-16">
-        <TradeModeNav active="contract" />
       </div>
 
       <div className="flex flex-col md:flex-row md:gap-8 flex-1 min-h-0 overflow-y-auto hide-scrollbar w-full px-3 sm:px-6 md:px-10 xl:px-16 pb-80 md:pb-10">
