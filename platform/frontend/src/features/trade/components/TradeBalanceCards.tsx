@@ -1,7 +1,6 @@
 'use client';
 
 import { memo, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Zap, ArrowLeftRight, FileText, Eye, EyeOff } from 'lucide-react';
 import { formatCurrency, cn } from '../../../shared/lib/utils';
 
@@ -13,15 +12,14 @@ interface Props {
 }
 
 const ACCOUNTS = [
-  { key: 'fast_trade' as const, label: 'Fast Trade', sub: 'Options', icon: Zap, href: '/trade/option', glow: 'bg-primary/20', accent: 'from-primary to-primary-hover' },
-  { key: 'spot' as const, label: 'Spot', sub: 'Swaps', icon: ArrowLeftRight, href: '/trade/spot', glow: 'bg-blue-500/20', accent: 'from-blue-500 to-blue-600' },
-  { key: 'trading' as const, label: 'Contract', sub: 'Leverage', icon: FileText, href: '/trade/contract', glow: 'bg-purple-500/20', accent: 'from-purple-500 to-purple-600' },
+  { key: 'fast_trade' as const, label: 'Fast Trade', sub: 'Options', icon: Zap, glow: 'bg-primary/20', accent: 'from-primary to-primary-hover' },
+  { key: 'spot' as const, label: 'Spot', sub: 'Swaps', icon: ArrowLeftRight, glow: 'bg-blue-500/20', accent: 'from-blue-500 to-blue-600' },
+  { key: 'trading' as const, label: 'Contract', sub: 'Leverage', icon: FileText, glow: 'bg-purple-500/20', accent: 'from-purple-500 to-purple-600' },
 ] as const;
 
 const BALANCE_MAP = { fast_trade: 'fast_trade', spot: 'spot', trading: 'trading' } as const;
 
 function TradeBalanceCardsBase({ fastTrade, spot, trading, loading }: Props) {
-  const router = useRouter();
   const [hidden, setHidden] = useState(true);
   const values = { fast_trade: fastTrade, spot, trading };
 
@@ -42,18 +40,15 @@ function TradeBalanceCardsBase({ fastTrade, spot, trading, loading }: Props) {
           const val = values[acc.key];
           const Icon = acc.icon;
           return (
-            <button
+            <div
               key={acc.key}
-              onClick={() => router.push(acc.href)}
               className={cn(
-                'group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left transition-all duration-300',
-                'bg-surface/60 backdrop-blur-xl',
-                'hover:border-white/20 hover:bg-surface/80 hover:shadow-lg hover:-translate-y-0.5',
-                'active:scale-[0.97]'
+                'relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left transition-all duration-300',
+                'bg-surface/60 backdrop-blur-xl'
               )}
             >
               {/* glow orb */}
-              <div className={cn('pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500', acc.glow)} />
+              <div className={cn('pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full blur-[40px] opacity-40', acc.glow)} />
               <div className="relative z-10">
                 <div className={cn('w-8 h-8 rounded-xl flex items-center justify-center mb-3 bg-gradient-to-b shadow-lg text-black', acc.accent)}>
                   <Icon className="w-4 h-4" strokeWidth={2.5} />
@@ -68,7 +63,7 @@ function TradeBalanceCardsBase({ fastTrade, spot, trading, loading }: Props) {
                 )}
                 <p className="text-[10px] font-medium text-muted-foreground mt-1">{acc.sub}</p>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>
