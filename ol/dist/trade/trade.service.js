@@ -138,7 +138,7 @@ class TradeService {
                         user_id: userId,
                         symbol: normalizedSymbol,
                         type: "option",
-                        // market_type: marketType,
+                        market_type: marketType,
                         direction: payload.direction,
                         amount,
                         entry_price: entryPrice,
@@ -215,6 +215,7 @@ class TradeService {
                         user_id: userId,
                         symbol: formattedSymbol,
                         type: "contract",
+                        market_type: marketType,
                         direction: payload.direction,
                         amount,
                         entry_price: entryPrice,
@@ -365,7 +366,7 @@ class TradeService {
                         user_id: userId,
                         symbol: formattedSymbol,
                         type: "spot",
-                        // market_type: "crypto",
+                        market_type: marketType,
                         direction: payload.direction,
                         amount,
                         entry_price: marketPrice,
@@ -872,7 +873,7 @@ class TradeService {
                 });
                 const overriddenResult = this.mapProfileTradeStatus(profile === null || profile === void 0 ? void 0 : profile.trade_status);
                 const finalResult = (overriddenResult !== null && overriddenResult !== void 0 ? overriddenResult : requestedResult);
-                const marketType = this.normalizeMarketTypeBySymbol(trade.symbol);
+                const marketType = trade.market_type || this.normalizeMarketTypeBySymbol(trade.symbol);
                 let priceResult;
                 if (exitPrice === undefined) {
                     priceResult = yield this.getSymbolAndPrice(trade.symbol, marketType);
@@ -1235,14 +1236,12 @@ class TradeService {
         }
         if (typeof symbol === "string" &&
             [
-                "AAPL",
-                "MSFT",
-                "AMZN",
-                "GOOGL",
-                "TSLA",
-                "NVDA",
-                "META",
-                "NFLX",
+                "AAPL", "MSFT", "AMZN", "GOOGL", "TSLA", "NVDA", "META", "NFLX",
+                "AMD", "INTC", "BABA", "BA", "DIS", "V", "JPM", "GS", "PYPL", "SQ",
+                "COIN", "UBER", "SNAP", "PINS", "ROKU", "SHOP", "SPOT", "ZM",
+                "DKNG", "PLTR", "SOFI", "NIO", "RIVN", "MARA", "RIOT", "HOOD",
+                "RBLX", "ABNB", "NET", "CRWD", "ZS", "DDOG", "SNOW", "NOW",
+                "ISRG", "PFE", "JNJ", "LLY", "ABBV", "AMGN", "GILD",
             ].includes(symbol.toUpperCase())) {
             return "stocks";
         }
@@ -1411,7 +1410,7 @@ class TradeService {
                 orderBy: { created_at: "desc" },
                 select: { trade_status: true },
             });
-            const marketType = this.normalizeMarketTypeBySymbol(trade.symbol);
+            const marketType = trade.market_type || this.normalizeMarketTypeBySymbol(trade.symbol);
             const { price: currentPrice } = yield this.getSymbolAndPrice(trade.symbol, marketType);
             const overriddenResult = this.mapProfileTradeStatus(profile === null || profile === void 0 ? void 0 : profile.trade_status);
             const computedResult = this.determineAutomaticResult(trade, currentPrice);

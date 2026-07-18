@@ -437,6 +437,7 @@ model Trade {
   result        String?         @db.VarChar(255)
   pnl           Decimal         @default(0.00) @db.Decimal(15, 2)
   fee           Decimal         @default(0.00) @db.Decimal(15, 2)
+  market_type   String?         @db.VarChar(50)
   opened_at     DateTime        @default(now()) @db.Timestamp(0)
   closed_at     DateTime?       @db.Timestamp(0)
   closed_by     BigInt?
