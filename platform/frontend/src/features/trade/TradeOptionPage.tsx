@@ -22,7 +22,7 @@ import { cn, formatCurrency } from '../../shared/lib/utils';
 import { OPTION_TRADE_RULES, TIME_INTERVALS, type AssetOption, type TradeDirection, type TradeDuration } from './logic/tradeMath';
 
 export function TradeOptionPage() {
-  useDocumentTitle('Options · Fast Trade · Paxora Capital');
+  useDocumentTitle('Binary Option · Paxora Premium');
   const toast = useToast();
   const queryClient = useQueryClient();
   const balances = useTradeBalances();
@@ -161,7 +161,7 @@ export function TradeOptionPage() {
 
       <div className="px-3 sm:px-6 mb-1 sm:mb-2 shrink-0 relative z-20 md:px-10 xl:px-16">
         <PageHeader
-          title="Fast Trade"
+          title="Binary Option"
           backHref="/trade"
           action={!trade.active ? (
             <TradeAssetSelector
@@ -224,7 +224,7 @@ export function TradeOptionPage() {
               duration={duration}
               placingDirection={trade.placingDirection}
               balance={balances.data?.fastTradeBalance ?? 0}
-              accountLabel="Fast Trade"
+              accountLabel="Binary Option"
               onAmountChange={setAmount}
               onDurationChange={handleDurationChange}
               onTrade={handleTrade}

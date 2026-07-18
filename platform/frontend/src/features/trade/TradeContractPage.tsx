@@ -18,7 +18,7 @@ import { cn } from '../../shared/lib/utils';
 import { TIME_INTERVALS, type AssetOption, type TradeDirection } from './logic/tradeMath';
 
 export function TradeContractPage() {
-  useDocumentTitle('Contract · Fast Trade · Paxora Capital');
+  useDocumentTitle('Contract · Paxora Premium');
   const queryClient = useQueryClient();
   const balances = useTradeBalances();
   const crypto = useCryptoMarket();

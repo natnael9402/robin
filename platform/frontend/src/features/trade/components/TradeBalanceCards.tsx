@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ACCOUNTS = [
-  { key: 'fast_trade' as const, label: 'Fast Trade', sub: 'Options', icon: Zap, glow: 'bg-primary/20', accent: 'from-primary to-primary-hover' },
+  { key: 'fast_trade' as const, label: 'Binary Option', sub: 'Options', icon: Zap, glow: 'bg-primary/20', accent: 'from-primary to-primary-hover' },
   { key: 'spot' as const, label: 'Spot', sub: 'Swaps', icon: ArrowLeftRight, glow: 'bg-blue-500/20', accent: 'from-blue-500 to-blue-600' },
   { key: 'trading' as const, label: 'Contract', sub: 'Leverage', icon: FileText, glow: 'bg-purple-500/20', accent: 'from-purple-500 to-purple-600' },
 ] as const;

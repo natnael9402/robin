@@ -19,7 +19,7 @@ const MODES = [
   {
     id: 'option',
     label: 'Options',
-    sub: 'Fast Trade',
+    sub: 'Binary Option',
     desc: 'Predict direction, earn 15–40% return',
     href: '/trade/option',
     icon: Zap,

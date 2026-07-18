@@ -21,7 +21,7 @@ interface Props {
 const ACCOUNT_LABELS: Record<string, string> = {
   trading: 'Trading',
   spot: 'Spot',
-  fast_trade: 'Fast Trade',
+  fast_trade: 'Binary Option',
 };
 
 function getSourceAccount(target: string, balances?: { spot: number; trading: number; fast_trade: number; total: number }): string {

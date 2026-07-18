@@ -12,7 +12,7 @@ import { formatCurrency } from '../../../shared/lib/utils';
 const ACCOUNT_LABELS: Record<string, string> = {
   spot: 'Spot',
   trading: 'Trading',
-  fast_trade: 'Fast Trade',
+  fast_trade: 'Binary Option',
 };
 
 const ACCOUNT_ICONS: Record<string, string> = {
