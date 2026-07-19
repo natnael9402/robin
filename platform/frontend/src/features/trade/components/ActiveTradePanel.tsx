@@ -71,17 +71,6 @@ function ActiveTradePanelBase({ timeLeft, payout, stake, entryPrice, currentPric
           <div className="text-sm font-black text-foreground font-mono">{totalDuration}s</div>
         </div>
       </div>
-
-      {/* Payout card */}
-      <div className={cn(
-        'relative overflow-hidden border rounded-2xl p-5 text-center backdrop-blur-2xl transition-all duration-500',
-        positive ? 'bg-primary/10 border-primary/30 shadow-[0_0_30px_rgba(16,185,129,0.15)]' : 'bg-destructive/10 border-destructive/30 shadow-[0_0_30px_rgba(239,68,68,0.15)]'
-      )}>
-        <div className="text-muted-foreground text-[10px] tracking-widest font-black uppercase mb-1">Live Payout</div>
-        <div className={cn('text-3xl font-black font-mono drop-shadow-md', positive ? 'text-[#10b981]' : 'text-[#ef4444]')}>
-          {positive ? '+' : ''}${formatCurrency(payout || -stake)}
-        </div>
-      </div>
     </div>
   );
 }
