@@ -273,11 +273,11 @@ export default function AMLPage() {
                 <h2 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-outfit)' }}>16. Contact & Reporting</h2>
                 <p>For inquiries regarding this AML Policy or to report suspicious activity, please contact our AML Compliance Officer:</p>
                 <p className="mt-2 text-foreground">
-                  Email: <span className="text-primary font-bold">aml@paxorapremium.com</span><br />
+                  Email: <span className="text-primary font-bold">Info@paxorapremiumlab.com</span><br />
                   Address: Paxora Capital Ltd., Gibraltar<br />
                   Attention: AML Compliance Officer
                 </p>
-                <p className="mt-2">Whistleblower reports may be submitted anonymously through our dedicated channel at <span className="text-primary font-bold">compliance@paxorapremium.com</span>.</p>
+                <p className="mt-2">Whistleblower reports may be submitted anonymously through our dedicated channel at <span className="text-primary font-bold">Info@paxorapremiumlab.com</span>.</p>
               </section>
             </div>
 

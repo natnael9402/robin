@@ -139,7 +139,7 @@ export default function TermsPage() {
                   For questions about these Terms, please contact us:
                 </p>
                 <p className="mt-2 text-foreground">
-                  Email: <span className="text-primary font-bold">support@paxoracapital.com</span><br />
+                  Email: <span className="text-primary font-bold">Info@paxorapremiumlab.com</span><br />
                   Address: Paxora Capital Ltd., Gibraltar
                 </p>
               </section>
