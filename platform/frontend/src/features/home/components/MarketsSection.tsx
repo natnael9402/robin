@@ -45,7 +45,7 @@ export function MarketsSection() {
     } else if (filter === 'loss') {
       sorted.sort((a, b) => a.changePercent - b.changePercent);
     }
-    return sorted.slice(0, 6);
+    return sorted;
   }, [marketType, filter, crypto.data, stocks.data, metals.data, forex.data]);
 
   function handleClick(item: NormalizedAsset) {
