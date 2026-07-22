@@ -144,8 +144,8 @@ export function WithdrawModal({
         value={newPin}
         onChange={(e) => setNewPin(e.target.value)}
         rightAdornment={
-          <button type="button" onClick={() => setShowNewPin((v) => !v)} className="text-muted-foreground hover:text-foreground">
-            {showNewPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <button type="button" onClick={() => setShowNewPin(!showNewPin)} className="text-muted-foreground hover:text-foreground transition-colors">
+            {showNewPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         }
       />
@@ -156,8 +156,8 @@ export function WithdrawModal({
         value={confirmPin}
         onChange={(e) => setConfirmPin(e.target.value)}
         rightAdornment={
-          <button type="button" onClick={() => setShowConfirmPin((v) => !v)} className="text-muted-foreground hover:text-foreground">
-            {showConfirmPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <button type="button" onClick={() => setShowConfirmPin(!showConfirmPin)} className="text-muted-foreground hover:text-foreground transition-colors">
+            {showConfirmPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         }
       />
@@ -251,8 +251,8 @@ export function WithdrawModal({
           value={pin}
           onChange={(e) => setPin(e.target.value)}
           rightAdornment={
-            <button type="button" onClick={() => setShowPin((v) => !v)} className="text-muted-foreground hover:text-foreground">
-              {showPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <button type="button" onClick={() => setShowPin(!showPin)} className="text-muted-foreground hover:text-foreground transition-colors">
+              {showPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           }
         />
@@ -291,8 +291,8 @@ export function WithdrawModal({
         value={accountPassword}
         onChange={(e) => setAccountPassword(e.target.value)}
         rightAdornment={
-          <button type="button" onClick={() => setShowAccountPw((v) => !v)} className="text-muted-foreground hover:text-foreground">
-            {showAccountPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <button type="button" onClick={() => setShowAccountPw(!showAccountPw)} className="text-muted-foreground hover:text-foreground transition-colors">
+            {showAccountPw ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         }
       />
@@ -303,8 +303,8 @@ export function WithdrawModal({
         value={newPin}
         onChange={(e) => setNewPin(e.target.value)}
         rightAdornment={
-          <button type="button" onClick={() => setShowNewPin((v) => !v)} className="text-muted-foreground hover:text-foreground">
-            {showNewPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <button type="button" onClick={() => setShowNewPin(!showNewPin)} className="text-muted-foreground hover:text-foreground transition-colors">
+            {showNewPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         }
       />
@@ -315,8 +315,8 @@ export function WithdrawModal({
         value={confirmPin}
         onChange={(e) => setConfirmPin(e.target.value)}
         rightAdornment={
-          <button type="button" onClick={() => setShowConfirmPin((v) => !v)} className="text-muted-foreground hover:text-foreground">
-            {showConfirmPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <button type="button" onClick={() => setShowConfirmPin(!showConfirmPin)} className="text-muted-foreground hover:text-foreground transition-colors">
+            {showConfirmPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         }
       />
