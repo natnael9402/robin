@@ -25,7 +25,7 @@ function ActiveTradePanelBase({ timeLeft, payout, stake, entryPrice, currentPric
       {/* Countdown Ring */}
       <div className="flex justify-center mb-6">
         <div className="relative w-44 h-44 flex items-center justify-center">
-          <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+          <div className="absolute inset-0 bg-primary/10 rounded-full" />
           <svg className="absolute inset-0 w-full h-full -rotate-90">
             <circle cx="88" cy="88" r="80" className="stroke-white/10 fill-none" strokeWidth="6" />
             <circle
@@ -38,7 +38,7 @@ function ActiveTradePanelBase({ timeLeft, payout, stake, entryPrice, currentPric
             />
           </svg>
           <div className="relative z-10 flex flex-col items-center">
-            <div className="text-5xl font-black text-foreground font-mono tabular-nums tracking-tighter drop-shadow-lg">{timeLeft}</div>
+            <div className="text-5xl font-black text-foreground font-mono tabular-nums tracking-tighter">{timeLeft}</div>
             <div className="text-primary font-bold uppercase tracking-widest text-[10px] mt-0.5">Seconds</div>
           </div>
         </div>
