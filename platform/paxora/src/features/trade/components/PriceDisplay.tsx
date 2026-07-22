@@ -18,12 +18,8 @@ function PriceDisplayBase({ price, displayPrice, points, strikePrice, intervalSe
   return (
     <div>
       <div className="mb-1 sm:mb-2 text-center">
-        <div className="text-2xl sm:text-5xl font-black font-mono tracking-tighter text-foreground drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+        <div className="text-2xl sm:text-5xl font-black font-mono tracking-tighter text-foreground">
           ${formatCurrency(showPrice)}
-        </div>
-        <div className="hidden sm:flex justify-center items-center gap-2 mt-1">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-[10px] font-bold text-primary tracking-widest uppercase">Real-Time Exchange Feed</span>
         </div>
       </div>
       <div className="w-full mb-1 sm:mb-4 flex items-center justify-center">

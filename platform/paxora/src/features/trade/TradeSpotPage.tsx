@@ -85,11 +85,7 @@ export function TradeSpotPage() {
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-background pt-12 sm:pt-20 relative overflow-hidden md:max-w-[1600px] md:mx-auto w-full">
-      <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
-      />
+    <div className="flex flex-col h-[100dvh] bg-background pt-12 sm:pt-20 md:max-w-[1600px] md:mx-auto w-full">
 
       <div className="px-3 sm:px-6 mb-1 sm:mb-2 shrink-0 relative z-20 md:px-10 xl:px-16">
         <PageHeader
@@ -118,16 +114,16 @@ export function TradeSpotPage() {
           )}
 
           <div className="flex justify-center z-20">
-            <div className="bg-surface/60 p-1 rounded-[20px] flex gap-1 border border-white/10 backdrop-blur-xl shadow-md w-full max-w-sm mx-auto justify-between">
+            <div className="bg-surface p-1 rounded-xl flex gap-1 border border-border w-full max-w-sm mx-auto justify-between">
               {TIME_INTERVALS.map((opt) => (
                 <button
                   key={opt.value}
                   onClick={() => setIntervalSec(opt.value)}
                   className={cn(
-                    'flex-1 py-1 sm:py-2 rounded-2xl text-[9px] sm:text-xs font-black transition-all duration-300',
+                    'flex-1 py-1 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold transition-all',
                     intervalSec === opt.value
-                      ? 'bg-gradient-to-b from-primary to-primary-hover text-black shadow-[0_0_15px_rgba(16,185,129,0.3)]'
-                      : 'text-muted-foreground hover:bg-white/10 hover:text-foreground'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
                   {opt.label}
@@ -137,7 +133,7 @@ export function TradeSpotPage() {
           </div>
         </div>
 
-        <div className="fixed inset-x-4 bottom-[84px] z-50 md:static md:inset-auto md:bottom-auto md:w-[400px] bg-surface/90 md:bg-surface/50 border border-white/10 md:border-border-light rounded-[32px] md:rounded-3xl p-4 md:p-6 backdrop-blur-3xl md:backdrop-blur-sm shadow-[0_16px_40px_-12px rgba(0,0,0,0.5)] md:shadow-none transition-all flex-none shrink-0 md:mt-4 mx-auto max-w-lg md:max-w-none w-auto">
+        <div className="fixed inset-x-4 bottom-[84px] z-50 md:static md:inset-auto md:bottom-auto md:w-[400px] bg-surface border border-border rounded-2xl p-4 md:p-6 transition-all flex-none shrink-0 md:mt-4 mx-auto max-w-lg md:max-w-none w-auto">
           <SpotControls
             asset={currentAsset}
             balance={balances.data?.spotBalance ?? 0}
