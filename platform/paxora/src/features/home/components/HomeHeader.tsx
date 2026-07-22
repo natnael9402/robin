@@ -2,8 +2,8 @@
 
 import { memo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { ArrowUpRight, ArrowDownLeft, Eye, EyeOff } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { ArrowUpRight, ArrowDownLeft, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { formatCurrency, displayName } from '../../../shared/lib/utils';
 import { useAuth } from '../../../shared/contexts/AuthContext';
 import { Button } from '../../../shared/components/ui/Button';
@@ -45,13 +45,30 @@ function GuestHeader() {
 function HomeHeaderBase() {
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
+  const qc = useQueryClient();
   const { data: balances } = useQuery({
     queryKey: ['trades', 'balances'],
     queryFn: () => walletApi.getBalances(),
     staleTime: 30_000,
   });
   const [hidden, setHidden] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const toggleHidden = () => setHidden((h) => !h);
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    const start = Date.now();
+    try {
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ['trades', 'balances'] }),
+        qc.invalidateQueries({ queryKey: ['profile'] }),
+      ]);
+    } finally {
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
+    }
+  };
 
   if (!isAuthenticated) return <GuestHeader />;
 
@@ -69,6 +86,15 @@ function HomeHeaderBase() {
             <h2 className="text-lg font-bold leading-tight text-foreground">{name} 👋</h2>
           </div>
         </div>
+        <button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          aria-label="Refresh"
+          className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-muted-foreground transition-all hover:bg-surface/80 hover:text-foreground disabled:pointer-events-none"
+        >
+          <style>{`@keyframes spin-refresh{0%{transform:rotate(0deg) scale(1)}30%{transform:rotate(180deg) scale(1.3)}60%{transform:rotate(360deg) scale(1)}80%{transform:rotate(400deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}.spin-refresh{animation:spin-refresh .8s cubic-bezier(.34,1.56,.64,1) forwards}`}</style>
+          <RefreshCw className={`h-4 w-4 transition-transform ${refreshing ? 'spin-refresh' : ''}`} />
+        </button>
       </div>
 
       {/* Balance */}

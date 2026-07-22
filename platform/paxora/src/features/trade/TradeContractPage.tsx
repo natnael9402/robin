@@ -15,10 +15,13 @@ import { AssetPickerModal } from './components/AssetPickerModal';
 import { TradeSuccessModal } from './components/TradeSuccessModal';
 import { ChartSkeleton } from '../../shared/components/ui/ChartSkeleton';
 import { cn } from '../../shared/lib/utils';
+import { RefreshCw } from 'lucide-react';
+import { useToast } from '../../shared/contexts/ToastContext';
 import { TIME_INTERVALS, type AssetOption, type TradeDirection } from './logic/tradeMath';
 
 export function TradeContractPage() {
   useDocumentTitle('Contract · PAXORA');
+  const toast = useToast();
   const queryClient = useQueryClient();
   const balances = useTradeBalances();
   const crypto = useCryptoMarket();
@@ -34,6 +37,7 @@ export function TradeContractPage() {
     amount: '',
     profit: 0,
   });
+  const [refreshing, setRefreshing] = useState(false);
   const initialPriceRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -76,6 +80,19 @@ export function TradeContractPage() {
     stream.reset(asset.current_price);
   };
 
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    const start = Date.now();
+    try {
+      await queryClient.invalidateQueries({ queryKey: ['trades', 'balances'] });
+      toast.success('Balance updated');
+    } finally {
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
+    }
+  };
+
   return (
     <div className="flex flex-col h-[100dvh] bg-background pt-12 sm:pt-20 md:max-w-[1600px] md:mx-auto w-full">
 
@@ -84,10 +101,21 @@ export function TradeContractPage() {
           title="Contract Trade"
           backHref="/trade"
           action={
-            <TradeAssetSelector
-              asset={currentAsset}
-              onClick={() => setPickerOpen(true)}
-            />
+            <div className="flex items-center gap-2">
+              <TradeAssetSelector
+                asset={currentAsset}
+                onClick={() => setPickerOpen(true)}
+              />
+              <button
+                onClick={handleRefresh}
+                disabled={refreshing}
+                aria-label="Refresh"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-muted-foreground transition-all hover:bg-surface/80 hover:text-foreground disabled:pointer-events-none"
+              >
+                <style>{`@keyframes spin-refresh{0%{transform:rotate(0deg) scale(1)}30%{transform:rotate(180deg) scale(1.3)}60%{transform:rotate(360deg) scale(1)}80%{transform:rotate(400deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}.spin-refresh{animation:spin-refresh .8s cubic-bezier(.34,1.56,.64,1) forwards}`}</style>
+                <RefreshCw className={`h-4 w-4 transition-transform ${refreshing ? 'spin-refresh' : ''}`} />
+              </button>
+            </div>
           }
         />
       </div>

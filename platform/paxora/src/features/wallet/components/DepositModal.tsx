@@ -201,43 +201,6 @@ export function DepositModal({
             onChange={(e) => setAmount(e.target.value)}
           />
 
-          {/* Bonus banner */}
-          {(() => {
-            const num = Number(amount);
-            if (num >= 5000) {
-              const bonus = num * 0.1;
-              return (
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#60A5FA] via-[#3B82F6] to-[#2563EB] p-[2px] shadow-[0_0_40px_-4px_var(--primary-glow)]">
-                  <div className="rounded-[calc(1rem-2px)] bg-gradient-to-br from-[#3B82F6]/[0.15] via-[#60A5FA]/[0.08] to-[#2563EB]/[0.15] px-4 py-3.5 ring-1 ring-inset ring-[#3B82F6]/20">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#3B82F6]/30 to-[#60A5FA]/20 ring-1 ring-[#3B82F6]/40 shadow-[0_0_12px_var(--primary-glow)]">
-                        <Gift size={18} className="text-primary drop-shadow-[0_0_8px_var(--primary-glow)]" />
-                      </div>
-                      <div>
-                        <p className="text-base font-black text-foreground drop-shadow-[0_0_12px_var(--primary-glow)]">+${bonus.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} bonus</p>
-                        <p className="text-[11px] font-semibold text-[#3B82F6]">10% on your deposit — on us</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-            if (num > 0) {
-              const needed = 5000 - num;
-              return (
-                <div className="flex items-center gap-2.5 rounded-2xl border border-[#3B82F6]/30 bg-gradient-to-r from-[#3B82F6]/[0.05] to-transparent px-4 py-2.5">
-                  <Gift size={14} className="shrink-0 text-[#3B82F6]/60" />
-                  <p className="text-[11px] font-medium text-[#3B82F6]/70">Add ${needed.toLocaleString('en-US', { minimumFractionDigits: 2 })} more to unlock 10% bonus</p>
-                </div>
-              );
-            }
-            return (
-              <div className="flex items-center gap-2.5 rounded-2xl border border-[#3B82F6]/30 bg-gradient-to-r from-[#3B82F6]/[0.05] to-transparent px-4 py-2.5">
-                <Gift size={14} className="shrink-0 text-[#3B82F6]/60" />
-                <p className="text-[11px] font-medium text-[#3B82F6]/70">Drop $5k+ · Get 10% back</p>
-              </div>
-            );
-          })()}
 
           <FileUpload label="Proof of Deposit" value={proofImage} onChange={setProofImage} />
           
