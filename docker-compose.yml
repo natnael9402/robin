@@ -16,6 +16,7 @@ services:
       - proxy
     depends_on:
       - frontend
+      - paxora
       - admin
       - ol
 
@@ -79,6 +80,23 @@ services:
         NEXT_PUBLIC_API_URL: https://api.paxorapremiumlab.com/api
         NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-1x00000000000000000000AA}
     container_name: robin-admin
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: https://api.paxorapremiumlab.com/api
+    networks:
+      - proxy
+    depends_on:
+      - ol
+
+  paxora:
+    build:
+      context: .
+      dockerfile: Dockerfile.paxora
+      args:
+        NEXT_PUBLIC_API_URL: https://api.paxorapremiumlab.com/api
+        NEXT_PUBLIC_HUBSPOT_API_KEY: ${NEXT_PUBLIC_HUBSPOT_API_KEY:-}
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-1x00000000000000000000AA}
+    container_name: robin-paxora
     restart: unless-stopped
     environment:
       NEXT_PUBLIC_API_URL: https://api.paxorapremiumlab.com/api
