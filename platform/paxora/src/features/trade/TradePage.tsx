@@ -42,7 +42,7 @@ export function TradePage() {
     staleTime: 30_000,
   });
 
-  const totalTrades = stats?.totalTrades ?? stats?.total ?? 0;
+  const totalTrades = stats?.overview?.total_trades ?? 0;
 
   return (
     <div className="min-h-screen bg-background pt-14 sm:pt-20 md:max-w-2xl md:mx-auto w-full">
