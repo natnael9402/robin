@@ -97,7 +97,7 @@ async function fetchWithTimeout(url: string, ms = 8000): Promise<Response> {
 async function fetchCryptoFallback(): Promise<NormalizedAsset[]> {
   try {
     const res = await fetchWithTimeout(
-      `${config.coingeckoUrl}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true`,
+      `${config.coingeckoUrl}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true`,
       15000,
     );
     if (!res.ok) return getHardcodedCrypto();
@@ -155,6 +155,11 @@ function getHardcodedCrypto(): NormalizedAsset[] {
     { id: 'chainlink', symbol: 'LINK', name: 'Chainlink', price: 15 },
     { id: 'polkadot', symbol: 'DOT', name: 'Polkadot', price: 7 },
     { id: 'matic-network', symbol: 'MATIC', name: 'Polygon', price: 0.55 },
+    { id: 'shiba-inu', symbol: 'SHIB', name: 'Shiba Inu', price: 0.000015 },
+    { id: 'pepe', symbol: 'PEPE', name: 'Pepe', price: 0.000009 },
+    { id: 'dogwifcoin', symbol: 'WIF', name: 'dogwifhat', price: 2.1 },
+    { id: 'bonk', symbol: 'BONK', name: 'Bonk', price: 0.00002 },
+    { id: 'floki', symbol: 'FLOKI', name: 'FLOKI', price: 0.00015 },
   ];
   return coins.map((c) =>
     normalizeAsset({ id: c.id, symbol: c.symbol, name: c.name, price: c.price, changePercent: 0 }, 'crypto'),
