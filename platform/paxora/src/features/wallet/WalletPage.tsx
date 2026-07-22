@@ -52,17 +52,13 @@ export function WalletPage() {
   return (
     <div className="fixed inset-0 pt-24 md:pl-64 flex flex-col overflow-hidden z-30 bg-background">
       <div className="flex flex-col flex-1 min-h-0 md:max-w-3xl md:mx-auto w-full">
-      {/* Fixed top section */}
-      <div className="shrink-0 px-6">
+      {/* Scrollable wallet content */}
+      <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
         <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => setWithdrawOpen(true)} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} />
         
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[17px] font-black tracking-tight text-foreground">Recent Transactions</h2>
         </div>
-      </div>
-      
-      {/* Scrollable transaction list */}
-      <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
         <div className="flex flex-col gap-1">
           {isLoading ? (
             <SkeletonList rows={3} />
