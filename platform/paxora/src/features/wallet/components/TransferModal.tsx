@@ -13,13 +13,13 @@ import type { BalancesResponse } from '../hooks/useWallet';
 const ACCOUNT_LABELS: Record<string, string> = {
   spot: 'Spot',
   trading: 'Trading',
-  fast_trade: 'Fast Trade',
+  fast_trade: 'Options',
 };
 
 const ACCOUNT_ICONS: Record<string, string> = {
   spot: 'S',
   trading: 'T',
-  fast_trade: 'F',
+  fast_trade: 'O',
 };
 
 interface Props {
