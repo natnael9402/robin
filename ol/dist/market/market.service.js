@@ -633,7 +633,7 @@ class MarketService {
                             page: 1,
                             sparkline: true
                         },
-                        timeout: 15000,
+                        timeout: 3000,
                     });
                     return response.data;
                 } catch (error) {
@@ -726,20 +726,28 @@ class MarketService {
                 { id: "GOOGL", symbol: "GOOGL", name: "GOOGL", price: 357.00, changePercent: 0, image: "https://s3-symbol-logo.tradingview.com/alphabet--big.svg" },
                 { id: "META", symbol: "META", name: "META", price: 669.00, changePercent: 0, image: "https://s3-symbol-logo.tradingview.com/meta-platforms--big.svg" },
             ];
-            const getDefaultCrypto = () => [
-                { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', price: 118000, changePercent: 0 },
-                { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', price: 3200, changePercent: 0 },
-                { id: 'tether', symbol: 'USDT', name: 'Tether', price: 1, changePercent: 0 },
-                { id: 'binancecoin', symbol: 'BNB', name: 'BNB', price: 680, changePercent: 0 },
-                { id: 'solana', symbol: 'SOL', name: 'Solana', price: 170, changePercent: 0 },
-                { id: 'ripple', symbol: 'XRP', name: 'XRP', price: 2.4, changePercent: 0 },
-                { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', price: 0.24, changePercent: 0 },
-                { id: 'shiba-inu', symbol: 'SHIB', name: 'Shiba Inu', price: 0.000015, changePercent: 0 },
-                { id: 'pepe', symbol: 'PEPE', name: 'Pepe', price: 0.000009, changePercent: 0 },
-                { id: 'dogwifcoin', symbol: 'WIF', name: 'dogwifhat', price: 2.1, changePercent: 0 },
-                { id: 'bonk', symbol: 'BONK', name: 'Bonk', price: 0.00002, changePercent: 0 },
-                { id: 'floki', symbol: 'FLOKI', name: 'FLOKI', price: 0.00015, changePercent: 0 },
-            ];
+            const getDefaultCrypto = () => {
+                try {
+                    const fallbackPath = path.join(__dirname, 'crypto_fallback.json');
+                    if (fs.existsSync(fallbackPath)) {
+                        return JSON.parse(fs.readFileSync(fallbackPath, 'utf8'));
+                    }
+                } catch(e) {}
+                return [
+                    { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', price: 118000, changePercent: 0 },
+                    { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', price: 3200, changePercent: 0 },
+                    { id: 'tether', symbol: 'USDT', name: 'Tether', price: 1, changePercent: 0 },
+                    { id: 'binancecoin', symbol: 'BNB', name: 'BNB', price: 680, changePercent: 0 },
+                    { id: 'solana', symbol: 'SOL', name: 'Solana', price: 170, changePercent: 0 },
+                    { id: 'ripple', symbol: 'XRP', name: 'XRP', price: 2.4, changePercent: 0 },
+                    { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', price: 0.24, changePercent: 0 },
+                    { id: 'shiba-inu', symbol: 'SHIB', name: 'Shiba Inu', price: 0.000015, changePercent: 0 },
+                    { id: 'pepe', symbol: 'PEPE', name: 'Pepe', price: 0.000009, changePercent: 0 },
+                    { id: 'dogwifcoin', symbol: 'WIF', name: 'dogwifhat', price: 2.1, changePercent: 0 },
+                    { id: 'bonk', symbol: 'BONK', name: 'Bonk', price: 0.00002, changePercent: 0 },
+                    { id: 'floki', symbol: 'FLOKI', name: 'FLOKI', price: 0.00015, changePercent: 0 },
+                ];
+            };
 
             const [cryptoResult, stocksResult, metalsResult] = yield Promise.allSettled([
                 fetchCryptoList(),
@@ -766,9 +774,9 @@ class MarketService {
             // Merge with previous cache: fresh data wins, stale data fills gaps
             const prevData = this.listCache.data || {};
             const data = {
-                crypto: crypto.length > 0 ? crypto : (prevData.crypto || getDefaultCrypto()),
-                stocks: stocks.length > 0 ? stocks : (prevData.stocks || getDefaultStocks()),
-                metals: metals.length > 0 ? metals : (prevData.metals || getDefaultMetals())
+                crypto: crypto.length > 0 ? crypto : (prevData.crypto && prevData.crypto.length > 0 ? prevData.crypto : getDefaultCrypto()),
+                stocks: stocks.length > 0 ? stocks : (prevData.stocks && prevData.stocks.length > 0 ? prevData.stocks : getDefaultStocks()),
+                metals: metals.length > 0 ? metals : (prevData.metals && prevData.metals.length > 0 ? prevData.metals : getDefaultMetals())
             };
             
             this.listCache = { timestamp: Date.now(), data };

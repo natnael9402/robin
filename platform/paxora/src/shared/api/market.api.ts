@@ -98,7 +98,7 @@ async function fetchCryptoFallback(): Promise<NormalizedAsset[]> {
   try {
     const res = await fetchWithTimeout(
       `${config.coingeckoUrl}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true`,
-      15000,
+      3000,
     );
     if (!res.ok) return getHardcodedCrypto();
     const data = await res.json();
