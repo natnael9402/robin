@@ -151,6 +151,7 @@ const swaggerOptions = {
 };
 const swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
+app.use("/uploads", express_1.default.static(require("path").join(process.cwd(), "uploads")));
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });

@@ -42,13 +42,20 @@ const uploadBufferToBlob = (buffer_1, contentType_1, originalName_1, ...args_1) 
     var _a;
     const token = getBlobToken(false);
     if (!token) {
-        logger_1.logger.info("BLOB_READ_WRITE_TOKEN not set — storing attachment as inline data URI");
-        const b64 = buffer.toString("base64");
-        const dataUrl = `data:${contentType};base64,${b64}`;
+        logger_1.logger.info("BLOB_READ_WRITE_TOKEN not set — storing attachment locally");
+        const pathname = buildPathname(originalName, options);
+        const fs = require("fs");
+        const path = require("path");
+        const uploadsDir = path.join(process.cwd(), "uploads");
+        const fullPath = path.join(uploadsDir, pathname);
+        
+        fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+        fs.writeFileSync(fullPath, buffer);
+        
         return {
-            url: dataUrl,
-            downloadUrl: dataUrl,
-            pathname: `inline/${originalName || "file"}`,
+            url: `/uploads/${pathname}`,
+            downloadUrl: `/uploads/${pathname}`,
+            pathname: pathname,
             size: buffer.byteLength,
             contentType,
         };

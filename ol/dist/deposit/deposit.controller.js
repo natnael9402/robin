@@ -66,7 +66,7 @@ const getDeposits = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const perPage = (0, pagination_1.getNumericQueryValue)((_a = query.per_page) !== null && _a !== void 0 ? _a : query.perPage, 15, { min: 1, max: 100 });
         const status = extractStatusFilter(query.status);
         const result = yield depositService.getDeposits({
-            userId: req.user.id,
+            userId: BigInt(req.user.id),
             isAdmin,
             status: isAdmin ? status : undefined,
             page,
@@ -91,7 +91,7 @@ const getDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const depositId = BigInt(req.params.id);
         const isAdmin = req.user.role === "admin";
-        const deposit = yield depositService.getDepositById(depositId, req.user.id, isAdmin);
+        const deposit = yield depositService.getDepositById(depositId, BigInt(req.user.id), isAdmin);
         if (!deposit) {
             return (0, http_response_1.errorResponse)(res, "Deposit not found", 404);
         }
@@ -124,7 +124,7 @@ const createDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             const uploadResult = yield (0, blob_storage_1.uploadBufferToBlob)(file.buffer, file.mimetype || "application/octet-stream", file.originalname, { folder: "deposit-proofs", filenamePrefix: `${req.user.id}-proof` });
             proofReference = uploadResult.url;
         }
-        const deposit = yield depositService.createDeposit(req.user.id, {
+        const deposit = yield depositService.createDeposit(BigInt(req.user.id), {
             currency,
             amount,
             paymentMethod,
@@ -157,7 +157,7 @@ const updateDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (statusInput !== "approved" && statusInput !== "rejected") {
             return (0, http_response_1.errorResponse)(res, "Validation error", 422, { status: ["The selected status is invalid."] });
         }
-        const deposit = yield depositService.updateDepositStatus(depositId, req.user.id, statusInput, rejectionReason);
+        const deposit = yield depositService.updateDepositStatus(depositId, BigInt(req.user.id), statusInput, rejectionReason);
         return (0, http_response_1.successResponse)(res, { deposit }, `Deposit ${statusInput} successfully`);
     }
     catch (error) {
@@ -176,7 +176,7 @@ const deleteDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const depositId = BigInt(req.params.id);
         const isAdmin = req.user.role === "admin";
-        yield depositService.deleteDeposit(depositId, req.user.id, isAdmin);
+        yield depositService.deleteDeposit(depositId, BigInt(req.user.id), isAdmin);
         return (0, http_response_1.successResponse)(res, [], "Deposit deleted successfully");
     }
     catch (error) {
