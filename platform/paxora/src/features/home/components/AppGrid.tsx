@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Cpu, Server, Landmark, BarChart3,
-  PieChart, Gift, Newspaper, Info
+  PieChart, Gift, Zap, Info
 } from 'lucide-react';
 import { useAuth } from '../../../shared/contexts/AuthContext';
 
@@ -21,7 +21,7 @@ const APPS: AppItem[] = [
   { name: 'Loans', icon: Landmark, href: '/loans' },
   { name: 'Futures', icon: BarChart3, href: '/options' },
   { name: 'Assets', icon: PieChart, href: '/assets' },
-  { name: 'News', icon: Newspaper, href: '/news' },
+  { name: 'Trade', icon: Zap, href: '/trade' },
   { name: 'Info', icon: Info, href: '/info' },
 ];
 
