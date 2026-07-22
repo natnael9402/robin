@@ -165,14 +165,14 @@ function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete
         </div>
       </div>
 
-      <div className="flex gap-1 bg-surface/60 p-1 rounded-[12px] border border-white/5">
+      <div className="flex gap-1 bg-surface p-1 rounded-[12px] border border-border">
         <div className="flex-1 py-1.5 rounded-[10px] text-[10px] font-black text-center text-foreground bg-white/5">
           SWAP
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <div className="relative bg-surface/80 border border-white/10 rounded-[14px] p-2 backdrop-blur-2xl shadow-sm">
+        <div className="relative bg-surface border border-border rounded-[14px] p-2">
           <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">From</label>
           <div className="flex items-center gap-2">
             <button
@@ -201,13 +201,13 @@ function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete
         <div className="flex justify-center -my-1 z-10">
           <button
             onClick={swapCoins}
-            className="bg-surface border border-white/10 rounded-full p-1.5 hover:bg-white/10 transition-colors shadow-md"
+            className="bg-surface border border-border rounded-full p-1.5 hover:bg-white/10 transition-colors"
           >
             <ArrowLeftRight className="w-4 h-4 text-muted-foreground" />
           </button>
         </div>
 
-        <div className="relative bg-surface/80 border border-white/10 rounded-[14px] p-2 backdrop-blur-2xl shadow-sm">
+        <div className="relative bg-surface border border-border rounded-[14px] p-2">
           <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">To</label>
           <div className="flex items-center gap-2">
             <button
@@ -218,7 +218,7 @@ function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete
               <ChevronDown className="w-3 h-3 text-muted-foreground" />
             </button>
             <div className="flex-1 text-right">
-              <span className="text-lg font-mono font-black text-primary drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+              <span className="text-lg font-mono font-black text-primary">
                 {quantity > 0 ? quantity.toFixed(6) : '0'}
               </span>
             </div>
@@ -234,14 +234,13 @@ function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete
       <button
         disabled={loading}
         onClick={handleSubmit}
-        className="relative overflow-hidden group rounded-[14px] px-4 py-2.5 shadow-[0_5px_15px_rgba(16,185,129,0.3)] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none bg-gradient-to-b from-primary to-primary-hover"
+        className="relative group rounded-[14px] px-4 py-2.5 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none bg-primary text-black"
       >
-        <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="relative z-10 flex items-center justify-center gap-1.5 text-black">
+        <div className="relative z-10 flex items-center justify-center gap-1.5">
           {loading ? (
             <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} />
           ) : (
-            <span className="text-[13px] font-black tracking-wider drop-shadow-sm text-black">
+            <span className="text-[13px] font-black tracking-wider text-black">
               {loading ? 'Swapping...' : `Swap ${fromCoin} → ${toCoin}`}
             </span>
           )}

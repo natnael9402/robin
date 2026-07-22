@@ -137,10 +137,10 @@ export function AssetPickerModal({ open, onClose, assets, selectedId, onSelect }
                   onSelect(asset);
                   onClose();
                 }}
-                className={`w-full flex items-center justify-between p-3 rounded-2xl border transition-all active:scale-95 ${
+                className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${
                   active
                     ? 'bg-primary/10 border-primary/40'
-                    : 'bg-surface border-border hover:border-primary/50'
+                    : 'bg-surface border-border hover:border-foreground/30'
                 }`}
               >
                 <div className="flex items-center gap-3">

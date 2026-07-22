@@ -199,11 +199,11 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         </div>
 
         <div className={cn(
-          'relative overflow-hidden border rounded-2xl p-5 text-center backdrop-blur-2xl transition-all duration-500',
-          isPositive ? 'bg-primary/10 border-primary/30 shadow-[0_0_30px_rgba(16,185,129,0.15)]' : 'bg-destructive/10 border-destructive/30 shadow-[0_0_30px_rgba(239,68,68,0.15)]'
+          'relative border rounded-2xl p-5 text-center transition-all duration-500',
+          isPositive ? 'bg-primary/10 border-primary/30' : 'bg-destructive/10 border-destructive/30'
         )}>
           <div className="text-muted-foreground text-[10px] tracking-widest font-black uppercase mb-1">Unrealized PnL</div>
-          <div className={cn('text-3xl font-black font-mono drop-shadow-md', isPositive ? 'text-[#10b981]' : 'text-[#ef4444]')}>
+          <div className={cn('text-3xl font-black font-mono', isPositive ? 'text-[#10b981]' : 'text-[#ef4444]')}>
             {isPositive ? '+' : '-'}${formatCurrency(Math.abs(pnl))}
           </div>
           <div className={cn('text-xs font-bold mt-1', isPositive ? 'text-[#10b981]' : 'text-[#ef4444]')}>
@@ -241,7 +241,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         </div>
       </div>
 
-      <div className="relative bg-surface/80 border border-white/10 rounded-[14px] p-2 backdrop-blur-2xl shadow-sm">
+      <div className="relative bg-surface border border-border rounded-[14px] p-2">
         <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Amount (Margin)</label>
         <div className="flex items-center">
           <span className="text-sm font-black text-muted-foreground mr-1">$</span>
@@ -261,7 +261,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         <span>Margin: <span className="text-foreground">${formatCurrency(Number(amount))}</span></span>
       </div>
 
-      <div className="flex gap-1 bg-surface/60 p-1 rounded-[12px] border border-white/5">
+      <div className="flex gap-1 bg-surface p-1 rounded-[12px] border border-border">
         {LEVERAGE_OPTIONS.map((lev) => (
           <button
             key={lev}
@@ -269,7 +269,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
             className={cn(
               'flex-1 py-1.5 rounded-[10px] text-[10px] font-black transition-all duration-300',
               leverage === lev
-                ? 'bg-gradient-to-b from-primary to-primary-hover text-black shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                ? 'bg-primary text-black'
                 : 'text-muted-foreground hover:bg-white/10 hover:text-foreground'
             )}
           >
@@ -279,7 +279,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
       </div>
 
       <div className="flex gap-2">
-        <div className="flex-1 relative bg-surface/80 border border-white/10 rounded-[14px] p-2 backdrop-blur-2xl shadow-sm">
+        <div className="flex-1 relative bg-surface border border-border rounded-[14px] p-2">
           <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Take Profit</label>
           <input
             type="number"
@@ -290,7 +290,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
             placeholder="Optional"
           />
         </div>
-        <div className="flex-1 relative bg-surface/80 border border-white/10 rounded-[14px] p-2 backdrop-blur-2xl shadow-sm">
+        <div className="flex-1 relative bg-surface border border-border rounded-[14px] p-2">
           <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Stop Loss</label>
           <input
             type="number"
@@ -307,23 +307,21 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         <button
           disabled={placingDirection !== null}
           onClick={() => handleSubmit('buy')}
-          className="relative overflow-hidden group rounded-[14px] bg-gradient-to-b from-[#10b981] to-[#059669] px-4 py-2.5 shadow-[0_5px_15px_rgba(16,185,129,0.3)] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          className="relative group rounded-[14px] bg-emerald-600 px-4 py-2.5 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
         >
-          <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative z-10 flex items-center justify-center gap-1.5 text-black">
-            {placingDirection === 'buy' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingUp className="w-4 h-4 drop-shadow-sm" strokeWidth={4} />}
-            <span className="text-[13px] font-black tracking-wider drop-shadow-sm">{placingDirection === 'buy' ? 'Placing...' : 'LONG'}</span>
+          <div className="relative z-10 flex items-center justify-center gap-1.5 text-white">
+            {placingDirection === 'buy' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingUp className="w-4 h-4" strokeWidth={4} />}
+            <span className="text-[13px] font-black tracking-wider">{placingDirection === 'buy' ? 'Placing...' : 'LONG'}</span>
           </div>
         </button>
         <button
           disabled={placingDirection !== null}
           onClick={() => handleSubmit('sell')}
-          className="relative overflow-hidden group rounded-[14px] bg-gradient-to-b from-[#ef4444] to-[#dc2626] px-4 py-2.5 shadow-[0_5px_15px_rgba(239,68,68,0.3)] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          className="relative group rounded-[14px] bg-red-600 px-4 py-2.5 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
         >
-          <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="relative z-10 flex items-center justify-center gap-1.5 text-white">
-            {placingDirection === 'sell' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingDown className="w-4 h-4 drop-shadow-sm" strokeWidth={4} />}
-            <span className="text-[13px] font-black tracking-wider drop-shadow-sm">{placingDirection === 'sell' ? 'Placing...' : 'SHORT'}</span>
+            {placingDirection === 'sell' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingDown className="w-4 h-4" strokeWidth={4} />}
+            <span className="text-[13px] font-black tracking-wider">{placingDirection === 'sell' ? 'Placing...' : 'SHORT'}</span>
           </div>
         </button>
       </div>

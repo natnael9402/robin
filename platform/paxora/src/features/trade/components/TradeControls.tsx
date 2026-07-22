@@ -62,7 +62,7 @@ function TradeControlsBase({ amount, duration, placingDirection, balance, accoun
       </div>
 
       {/* Amount Input */}
-      <div className="relative bg-surface/80 border border-white/10 rounded-[14px] p-3 backdrop-blur-2xl shadow-sm">
+      <div className="relative bg-surface border border-border rounded-[14px] p-3">
         <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-1">Investment Amount</label>
         <div className="flex items-center">
           <span className="text-sm font-black text-muted-foreground mr-1">$</span>
@@ -119,7 +119,7 @@ function TradeControlsBase({ amount, duration, placingDirection, balance, accoun
 
         {/* Dropdown — opens upward */}
         {open && (
-          <div className="absolute inset-x-0 z-50 mb-1.5 bottom-full flex flex-col gap-0.5 rounded-xl border border-border bg-surface/95 p-1 shadow-[0_-8px_30px_-8px_rgba(0,0,0,0.3)] backdrop-blur-2xl">
+          <div className="absolute inset-x-0 z-50 mb-1.5 bottom-full flex flex-col gap-0.5 rounded-xl border border-border bg-surface p-1">
             {DURATIONS.map((d) => {
               const r = OPTION_TRADE_RULES[d];
               const valid = r && amount >= r.minCapital && amount <= r.maxCapital;
@@ -173,24 +173,22 @@ function TradeControlsBase({ amount, duration, placingDirection, balance, accoun
         <button
           disabled={placingDirection !== null}
           onClick={() => onTrade('buy')}
-          className="relative overflow-hidden group rounded-[14px] bg-gradient-to-b from-[#10b981] to-[#059669] px-4 py-3 shadow-[0_5px_20px_rgba(16,185,129,0.3)] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          className="relative group rounded-[14px] bg-emerald-600 px-4 py-3 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
         >
-          <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative z-10 flex items-center justify-center gap-1.5 text-black">
-            {placingDirection === 'buy' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingUp className="w-4 h-4 drop-shadow-sm" strokeWidth={4} />}
-            <span className="text-[13px] font-black tracking-wider drop-shadow-sm">{placingDirection === 'buy' ? 'Placing...' : 'LONG'}</span>
+          <div className="relative z-10 flex items-center justify-center gap-1.5 text-white">
+            {placingDirection === 'buy' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingUp className="w-4 h-4" strokeWidth={4} />}
+            <span className="text-[13px] font-black tracking-wider">{placingDirection === 'buy' ? 'Placing...' : 'LONG'}</span>
           </div>
         </button>
         
         <button
           disabled={placingDirection !== null}
           onClick={() => onTrade('sell')}
-          className="relative overflow-hidden group rounded-[14px] bg-gradient-to-b from-[#ef4444] to-[#dc2626] px-4 py-3 shadow-[0_5px_20px_rgba(239,68,68,0.3)] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          className="relative group rounded-[14px] bg-red-600 px-4 py-3 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
         >
-          <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="relative z-10 flex items-center justify-center gap-1.5 text-white">
-            {placingDirection === 'sell' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingDown className="w-4 h-4 drop-shadow-sm" strokeWidth={4} />}
-            <span className="text-[13px] font-black tracking-wider drop-shadow-sm">{placingDirection === 'sell' ? 'Placing...' : 'SHORT'}</span>
+            {placingDirection === 'sell' ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} /> : <TrendingDown className="w-4 h-4" strokeWidth={4} />}
+            <span className="text-[13px] font-black tracking-wider">{placingDirection === 'sell' ? 'Placing...' : 'SHORT'}</span>
           </div>
         </button>
       </div>
