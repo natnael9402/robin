@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -136,4 +145,44 @@ router.post("/upgrade-level", (req, res) => profile_controller_1.default.upgrade
  *         description: KYC submission created
  */
 router.post("/kyc", kyc_submission_validation_1.createKycSubmissionValidator, validation_middleware_1.validationMiddleware, (req, res) => profile_controller_1.default.createKycSubmissionAlias(req, res));
+router.post("/delete-account", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = (() => { try { return BigInt(req.user.id); } catch { return null; } })();
+    if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+    }
+    try {
+        const bcryptjs_1 = require("bcryptjs");
+        const prisma_1 = require("../prisma");
+        const { password } = req.body;
+        if (!password) {
+            return res.status(400).json({ message: "Password is required to delete account" });
+        }
+        const user = yield prisma_1.default.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const isValid = yield bcryptjs_1.compare(password, user.password);
+        if (!isValid) {
+            return res.status(401).json({ message: "Incorrect password" });
+        }
+        yield prisma_1.default.deletedAccount.create({
+            data: {
+                user_id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                balance: user.balance || 0,
+                role: user.role,
+                reason: req.body.reason || null,
+                deletedAt: new Date(),
+                deletedByIp: req.ip || null,
+            },
+        }).catch(() => {});
+        yield prisma_1.default.user.delete({ where: { id: userId } });
+        return res.json({ message: "Account deleted successfully" });
+    }
+    catch (error) {
+        return res.status(500).json({ message: "Failed to delete account" });
+    }
+}));
 exports.default = router;

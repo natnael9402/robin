@@ -37,7 +37,7 @@ class UserService {
     }
     findAllUsers(queryParams) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, role, kyc_status } = queryParams;
+            const { name, email, role, kyc_status, date_from, date_to } = queryParams;
             const where = {};
             if (name) {
                 where.name = { contains: name };
@@ -54,6 +54,17 @@ class UserService {
                         status: kyc_status,
                     },
                 };
+            }
+            if (date_from || date_to) {
+                where.created_at = {};
+                if (date_from) {
+                    where.created_at.gte = new Date(date_from);
+                }
+                if (date_to) {
+                    const endDate = new Date(date_to);
+                    endDate.setHours(23, 59, 59, 999);
+                    where.created_at.lte = endDate;
+                }
             }
             return prisma_1.default.user.findMany({
                 where,

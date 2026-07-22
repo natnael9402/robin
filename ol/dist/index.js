@@ -159,7 +159,7 @@ const kycRateLimiter = rateLimit({ windowMs: 60 * 1000, max: 5, standardHeaders:
 app.use("/api/register", authRateLimiter);
 app.use("/api/login", authRateLimiter);
 app.use("/api/forgot-password", authRateLimiter);
-app.use("/api/kyc-submissions", kycRateLimiter);
+app.use("/api/kyc-submissions", (req, res, next) => { if (req.method === "POST") return kycRateLimiter(req, res, next); next(); });
 app.use("/api", auth_routes_1.default);
 app.use("/api/users", user_routes_1.default);
 app.use("/api/arbitrage", arbitrage_routes_1.default);

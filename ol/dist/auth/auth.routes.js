@@ -1,10 +1,20 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const auth_validation_1 = require("./auth.validation");
 const auth_middleware_1 = require("../middleware/auth.middleware");
+const http_response_1 = require("../utils/http-response");
 const router = (0, express_1.Router)();
 const authService = new auth_service_1.AuthService();
 const authController = new auth_controller_1.AuthController(authService);
@@ -136,6 +146,55 @@ router.post("/change-password", auth_middleware_1.authenticateJWT, auth_validati
  *         description: Profile not found
  */
 router.post("/withdrawal-password/set", auth_middleware_1.authenticateJWT, auth_validation_1.withdrawalPasswordValidator, (req, res) => authController.setWithdrawalPassword(req, res));
+router.get("/withdrawal-password/status", auth_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = BigInt(req.user.id);
+        const prisma_1 = require("../prisma");
+        const profile = yield prisma_1.default.profile.findFirst({ where: { user_id: userId } });
+        if (!profile) {
+            return res.json({ hasPin: false });
+        }
+        return res.json({ hasPin: !!profile.withdrawal_password_enabled });
+    }
+    catch (error) {
+        return res.json({ hasPin: false });
+    }
+}));
+router.post("/withdrawal-password/reset", auth_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = (() => { try { return BigInt(req.user.id); } catch { return null; } })();
+    if (!userId) {
+        return (0, http_response_1.errorResponse)(res, "Authentication required", 401);
+    }
+    try {
+        const bcryptjs_1 = require("bcryptjs");
+        const prisma_1 = require("../prisma");
+        const { password, new_password } = req.body;
+        if (!password || !new_password) {
+            return (0, http_response_1.errorResponse)(res, "Current account password and new withdrawal password are required", 400);
+        }
+        const user = yield prisma_1.default.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            return (0, http_response_1.errorResponse)(res, "User not found", 404);
+        }
+        const isValid = yield bcryptjs_1.compare(password, user.password);
+        if (!isValid) {
+            return (0, http_response_1.errorResponse)(res, "Account password is incorrect", 401);
+        }
+        const profile = yield prisma_1.default.profile.findFirst({ where: { user_id: userId } });
+        if (!profile) {
+            return (0, http_response_1.errorResponse)(res, "Profile not found", 404);
+        }
+        const hashed = yield bcryptjs_1.hash(new_password, 10);
+        yield prisma_1.default.profile.update({
+            where: { id: profile.id },
+            data: { withdrawal_password: hashed, withdrawal_password_enabled: true },
+        });
+        return (0, http_response_1.successResponse)(res, [], "Withdrawal password reset successfully");
+    }
+    catch (error) {
+        return (0, http_response_1.errorResponse)(res, "Failed to reset withdrawal password", 500, error.message);
+    }
+}));
 /**
  * @swagger
  * /api/forgot-password:

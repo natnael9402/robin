@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, Lock, User, Phone, Eye, EyeOff, Gift } from 'lucide-react';
+import { Mail, Lock, User, Phone, Eye, EyeOff } from 'lucide-react';
 import PhoneInput from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
 import 'react-phone-number-input/style.css';
@@ -33,7 +33,6 @@ export function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [referralCode, setReferralCode] = useState('');
 
   const getPasswordErrors = (pw: string): string[] => {
     const errors: string[] = [];
@@ -58,7 +57,7 @@ export function SignupPage() {
     if (!captchaToken) return toast.error('Please complete the captcha');
     setLoading(true);
     try {
-      await signup(email, password, name, captchaToken, phone || undefined, referralCode || undefined);
+      await signup(email, password, name, captchaToken, phone || undefined);
       toast.success('Account created');
       router.push('/onboard');
     } catch (err) {
@@ -205,14 +204,6 @@ export function SignupPage() {
               required
             />
           </div>
-
-          <Input
-            label="Referral Code (optional)"
-            value={referralCode}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReferralCode(e.target.value)}
-            leftAdornment={<Gift className="w-5 h-5" />}
-            placeholder="Enter referral code"
-          />
 
           <Captcha onVerify={setCaptchaToken} />
 

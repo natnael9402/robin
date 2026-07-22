@@ -13,6 +13,9 @@ const admin_accounts_routes_1 = __importDefault(require("./admin.accounts.routes
 const admin_notification_routes_1 = __importDefault(require("./admin.notification.routes"));
 const news_admin_routes_1 = __importDefault(require("../news/news.admin.routes"));
 const admin_user_accounts_routes_1 = __importDefault(require("./admin.user-accounts.routes"));
+const admin_deleted_accounts_controller_1 = require("./admin.deleted-accounts.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const admin_middleware_1 = require("../middleware/admin.middleware");
 const router = express_1.default.Router();
 router.use(admin_dashboard_routes_1.default);
 router.use(admin_profile_routes_1.default);
@@ -23,4 +26,6 @@ router.use("/mining", admin_mining_routes_1.default);
 router.use("/arbitrage", admin_arbitrage_routes_1.default);
 router.use("/news", news_admin_routes_1.default);
 router.use(admin_user_accounts_routes_1.default);
+router.get("/deleted-accounts", auth_middleware_1.authenticateJWT, admin_middleware_1.authorizeAdmin, admin_deleted_accounts_controller_1.listDeletedAccounts);
+router.get("/deleted-accounts/:id", auth_middleware_1.authenticateJWT, admin_middleware_1.authorizeAdmin, admin_deleted_accounts_controller_1.getDeletedAccount);
 exports.default = router;
