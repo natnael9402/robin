@@ -250,6 +250,7 @@ export function WithdrawModal({
           placeholder="Enter your PIN"
           value={pin}
           onChange={(e) => setPin(e.target.value)}
+          wrapperClassName="mr-10"
           rightAdornment={
             <button type="button" onClick={() => setShowPin(!showPin)} className="text-muted-foreground hover:text-foreground transition-colors">
               {showPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
