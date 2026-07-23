@@ -1,28 +1,32 @@
-const CACHE_NAME = 'paxora-onboarding-v1';
-const URLS_TO_CACHE = [
-    'https://images.unsplash.com/photo-1642790106117-e829e14a795f?q=80&w=3000&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=3000&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?q=80&w=3000&auto=format&fit=crop'
-];
+const CACHE_NAME = 'paxora-v2';
 
 self.addEventListener('install', (event) => {
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('Opened cache');
-                return cache.addAll(URLS_TO_CACHE);
-            })
+        caches.keys().then((keys) =>
+            Promise.all(
+                keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+            )
+        ).then(() => self.clients.claim())
     );
 });
 
 self.addEventListener('fetch', (event) => {
+    const { request } = event;
+    if (request.method !== 'GET') return;
+
     event.respondWith(
-        caches.match(event.request)
+        fetch(request)
             .then((response) => {
-                if (response) {
-                    return response;
+                if (response && response.status === 200) {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
                 }
-                return fetch(event.request);
+                return response;
             })
+            .catch(() => caches.match(request))
     );
 });
