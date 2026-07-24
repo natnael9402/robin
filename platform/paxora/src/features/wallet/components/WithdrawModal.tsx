@@ -100,7 +100,6 @@ export function WithdrawModal({
     } catch (err) {
       const msg = (err as Error).message;
       if (msg.includes('pending withdrawal')) {
-        toast.error('You already have a pending withdrawal request. Please wait for it to be processed.');
         onClose();
         return;
       }

@@ -6,11 +6,12 @@ import { SkeletonList } from '../../shared/components/ui/Skeleton';
 import { EmptyState } from '../../shared/components/ui/EmptyState';
 import { useWalletData } from './hooks/useWallet';
 import { useToast } from '../../shared/contexts/ToastContext';
-import { BalanceHeader, TransactionRow, PendingWithdrawalCard } from './components/WalletBits';
+import { BalanceHeader, TransactionRow } from './components/WalletBits';
 import { DepositModal } from './components/DepositModal';
 import { WithdrawModal } from './components/WithdrawModal';
 import { TransferModal } from './components/TransferModal';
 import { WalletSuccessModal } from './components/WalletSuccessModal';
+import { PendingWithdrawalModal } from './components/PendingWithdrawalModal';
 import { TransactionDetailsModal } from './components/TransactionDetailsModal';
 import type { Transaction } from '../../shared/types';
 
@@ -22,6 +23,7 @@ export function WalletPage() {
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [transferOpen, setTransferOpen] = useState(false);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
+  const [pendingModalOpen, setPendingModalOpen] = useState(false);
   const [success, setSuccess] = useState<{ open: boolean; type: 'deposit' | 'withdraw'; amount: number }>({
     open: false,
     type: 'deposit',
@@ -60,17 +62,11 @@ export function WalletPage() {
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
         <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => {
           if (hasPendingWithdrawal) {
-            setSelectedTx(pendingWithdrawal);
+            setPendingModalOpen(true);
             return;
           }
           setWithdrawOpen(true);
         }} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} pendingWithdrawal={hasPendingWithdrawal} />
-        
-        {pendingWithdrawal && (
-          <div className="mb-4">
-            <PendingWithdrawalCard tx={pendingWithdrawal} onClick={setSelectedTx} />
-          </div>
-        )}
         
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[17px] font-black tracking-tight text-foreground">Recent Transactions</h2>
@@ -121,6 +117,11 @@ export function WalletPage() {
         tx={selectedTx}
         open={!!selectedTx}
         onClose={() => setSelectedTx(null)}
+      />
+      <PendingWithdrawalModal
+        open={pendingModalOpen}
+        onClose={() => setPendingModalOpen(false)}
+        tx={pendingWithdrawal}
       />
     </div>
   );
