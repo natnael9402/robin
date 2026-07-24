@@ -12,6 +12,7 @@ interface Props {
   onWithdraw: () => void;
   onTransfer?: () => void;
   onRefresh?: () => Promise<unknown>;
+  pendingWithdrawal?: boolean;
 }
 
 function formatCompact(n: number): string {
@@ -29,7 +30,7 @@ const accountCards = [
   { key: 'fast_trade' as const, label: 'Options' },
 ];
 
-function BalanceHeaderBase({ balance, balances, onDeposit, onWithdraw, onTransfer, onRefresh }: Props) {
+function BalanceHeaderBase({ balance, balances, onDeposit, onWithdraw, onTransfer, onRefresh, pendingWithdrawal }: Props) {
   const [refreshing, setRefreshing] = useState(false);
   const [hideBalances, setHideBalances] = useState(() => {
     if (typeof window === 'undefined') return true;
@@ -123,10 +124,15 @@ function BalanceHeaderBase({ balance, balances, onDeposit, onWithdraw, onTransfe
             </button>
             <button
               onClick={onWithdraw}
-              className="flex items-center justify-center gap-2 py-2.5 sm:py-2.5 rounded-xl bg-white/10 text-white font-bold border border-white/20 backdrop-blur-md text-sm transition-all active:scale-[0.98] hover:bg-white/20"
+              disabled={pendingWithdrawal}
+              className={`flex items-center justify-center gap-2 py-2.5 sm:py-2.5 rounded-xl font-bold border backdrop-blur-md text-sm transition-all active:scale-[0.98] ${
+                pendingWithdrawal
+                  ? 'bg-white/5 text-white/40 border-white/10 cursor-not-allowed'
+                  : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
+              }`}
             >
               <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
-              Withdraw
+              {pendingWithdrawal ? 'Withdraw (Pending)' : 'Withdraw'}
             </button>
           </div>
           <button

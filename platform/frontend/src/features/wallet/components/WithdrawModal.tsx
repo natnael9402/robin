@@ -99,6 +99,11 @@ export function WithdrawModal({
       else onClose();
     } catch (err) {
       const msg = (err as Error).message;
+      if (msg.includes('pending withdrawal')) {
+        toast.error('You already have a pending withdrawal request. Please wait for it to be processed.');
+        onClose();
+        return;
+      }
       if (msg.includes('not set')) {
         setScreen('create-pin');
         authApi.getWithdrawalPinStatus().then(({ hasPin }) => {

@@ -30,6 +30,9 @@ export function WalletPage() {
 
   const balance = data?.balances?.total ?? 0;
   const balances = data?.balances ? { spot: data.balances.spot, trading: data.balances.trading, fast_trade: data.balances.fast_trade, total: data.balances.total } : undefined;
+  const hasPendingWithdrawal = (data?.transactions as Transaction[] | undefined)?.some(
+    (tx) => tx.type === 'withdrawal' && tx.status === 'pending'
+  ) ?? false;
 
   const handleRefresh = useCallback(async () => {
     const result = await refetch();
@@ -54,7 +57,13 @@ export function WalletPage() {
       <div className="flex flex-col flex-1 min-h-0 md:max-w-3xl md:mx-auto w-full">
       {/* Scrollable wallet content */}
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
-        <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => setWithdrawOpen(true)} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} />
+        <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => {
+          if (hasPendingWithdrawal) {
+            toast.error('You already have a pending withdrawal request. Please wait for it to be processed.');
+            return;
+          }
+          setWithdrawOpen(true);
+        }} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} pendingWithdrawal={hasPendingWithdrawal} />
         
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[17px] font-black tracking-tight text-foreground">Recent Transactions</h2>

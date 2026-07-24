@@ -142,6 +142,12 @@ const createWithdrawal = (userId, input) => __awaiter(void 0, void 0, void 0, fu
     if (!passwordMatches) {
         throw new WithdrawalError("Invalid withdrawal password", 401, "INVALID_WITHDRAWAL_PASSWORD");
     }
+    const existingPending = yield prisma_1.default.withdrawal.findFirst({
+        where: { user_id: userId, status: "pending" },
+    });
+    if (existingPending) {
+        throw new WithdrawalError("You already have a pending withdrawal request", 400, "PENDING_WITHDRAWAL_EXISTS");
+    }
     const normalizedCurrency = normalizeSymbol(input.currency);
     const normalizedNetwork = normalizeSymbol(input.network);
     const amountDecimal = new library_1.Decimal(input.amount);
