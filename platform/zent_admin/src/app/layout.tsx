@@ -15,6 +15,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Zent Admin — Control Center",
   description: "Administration dashboard for the Zent platform.",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+    other: [
+      { rel: 'apple-touch-icon-precomposed', url: '/apple-touch-icon.png' },
+    ],
+  },
 };
 
 import { AuthGuard } from "@/components/auth-guard";

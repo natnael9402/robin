@@ -28,6 +28,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Paxora Capital',
   description: 'Your Smart Trading Companion',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+    other: [
+      { rel: 'apple-touch-icon-precomposed', url: '/apple-touch-icon.png' },
+    ],
+  },
 };
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t!=='light';document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
