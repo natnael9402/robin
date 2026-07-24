@@ -17,10 +17,12 @@ export function WithdrawModal({
   open,
   onClose,
   onSuccess,
+  onPendingWithdrawal,
 }: {
   open: boolean;
   onClose: () => void;
   onSuccess?: (amount: number) => void;
+  onPendingWithdrawal?: (amount: number) => void;
 }) {
   const [screen, setScreen] = useState<Screen>('create-pin');
   const [screenLoaded, setScreenLoaded] = useState(false);
@@ -101,6 +103,7 @@ export function WithdrawModal({
       const msg = (err as Error).message;
       if (msg.includes('pending withdrawal')) {
         onClose();
+        if (onPendingWithdrawal) onPendingWithdrawal(num);
         return;
       }
       if (msg.includes('not set')) {

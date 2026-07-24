@@ -93,6 +93,9 @@ export function WalletPage() {
           setWithdrawOpen(false);
           setSuccess({ open: true, type: 'withdraw', amount });
         }}
+        onPendingWithdrawal={(amount) => {
+          setSuccess({ open: true, type: 'withdraw', amount, pending: true });
+        }}
       />
       <TransferModal
         open={transferOpen}
