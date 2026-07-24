@@ -117,9 +117,9 @@ function TradeControlsBase({ amount, duration, placingDirection, balance, accoun
           </div>
         </button>
 
-        {/* Dropdown — opens upward */}
+        {/* Dropdown — opens upward on mobile, downward on desktop */}
         {open && (
-          <div className="absolute inset-x-0 z-50 mb-1.5 bottom-full flex flex-col gap-0.5 rounded-xl border border-border bg-surface/95 p-1 shadow-[0_-8px_30px_-8px_rgba(0,0,0,0.3)] backdrop-blur-2xl">
+          <div className="absolute inset-x-0 z-50 mb-1.5 bottom-full md:mb-0 md:top-full md:bottom-auto flex flex-col gap-0.5 rounded-xl border border-border bg-surface/95 p-1 shadow-[0_-8px_30px_-8px_rgba(0,0,0,0.3)] md:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.3)] backdrop-blur-2xl max-h-[320px] overflow-y-auto">
             {DURATIONS.map((d) => {
               const r = OPTION_TRADE_RULES[d];
               const valid = r && amount >= r.minCapital && amount <= r.maxCapital;
