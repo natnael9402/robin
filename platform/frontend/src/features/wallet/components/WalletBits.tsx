@@ -124,15 +124,10 @@ function BalanceHeaderBase({ balance, balances, onDeposit, onWithdraw, onTransfe
             </button>
             <button
               onClick={onWithdraw}
-              disabled={pendingWithdrawal}
-              className={`flex items-center justify-center gap-2 py-2.5 sm:py-2.5 rounded-xl font-bold border backdrop-blur-md text-sm transition-all active:scale-[0.98] ${
-                pendingWithdrawal
-                  ? 'bg-white/5 text-white/40 border-white/10 cursor-not-allowed'
-                  : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
-              }`}
+              className="flex items-center justify-center gap-2 py-2.5 sm:py-2.5 rounded-xl bg-white/10 text-white font-bold border border-white/20 backdrop-blur-md text-sm transition-all active:scale-[0.98] hover:bg-white/20"
             >
               <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
-              {pendingWithdrawal ? 'Withdraw (Pending)' : 'Withdraw'}
+              Withdraw
             </button>
           </div>
           <button

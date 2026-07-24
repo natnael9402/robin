@@ -44,7 +44,7 @@ export function WalletPage() {
   }, [refetch, toast]);
 
   // Hide bottom nav & support widget when any modal is open
-  const anyModalOpen = depositOpen || withdrawOpen || transferOpen || success.open || !!selectedTx;
+  const anyModalOpen = depositOpen || withdrawOpen || transferOpen || success.open || !!selectedTx || pendingModalOpen;
 
   useEffect(() => {
     if (anyModalOpen) {
