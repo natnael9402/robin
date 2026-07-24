@@ -47,7 +47,7 @@ function AssetIcon({ asset }: { asset: AssetOption }) {
 const FILTERS: { key: string; label: string; icon: string }[] = [
   { key: 'crypto', label: 'Crypto', icon: '₿' },
   { key: 'stock', label: 'Stocks', icon: '📈' },
-  { key: 'metal', label: 'Metals', icon: '🥇' },
+  { key: 'metal', label: 'Commodities', icon: '🛢️' },
 ];
 
 const FILTER_COLORS: Record<string, string> = {
@@ -84,7 +84,7 @@ export function AssetPickerModal({ open, onClose, assets, selectedId, onSelect }
     'Search',
     typeFilter === 'crypto' ? 'BTC, ETH, SOL...' : '',
     typeFilter === 'stock' ? 'AAPL, TSLA, MSFT...' : '',
-    typeFilter === 'metal' ? 'XAU, XAG, XPT...' : ''
+    typeFilter === 'metal' ? 'XAU, XAG, CRUDE_OIL...' : ''
   );
 
   return (

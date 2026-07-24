@@ -39,7 +39,7 @@ export function MarketPage() {
   const [query, setQuery] = useState('');
   const crypto = useQuery({ queryKey: ['market', 'crypto'], queryFn: () => marketApi.getCrypto(), staleTime: config.staleTime });
   const stocks = useQuery({ queryKey: ['market', 'stocks'], queryFn: () => marketApi.getStocks(), staleTime: config.staleTime });
-  const metals = useQuery({ queryKey: ['market', 'metals'], queryFn: () => marketApi.getMetals(), staleTime: config.staleTime });
+  const metals = useQuery({ queryKey: ['market', 'metals'], queryFn: () => marketApi.getCommodities(), staleTime: config.staleTime });
   const forex = useQuery({ queryKey: ['market', 'forex'], queryFn: () => marketApi.getForex(), staleTime: config.staleTime });
 
   const q = query.trim().toLowerCase();
@@ -75,7 +75,7 @@ export function MarketPage() {
             { value: 'all', label: 'All' },
             { value: 'crypto', label: 'Crypto' },
             { value: 'stocks', label: 'Stocks' },
-            { value: 'metals', label: 'Metals' },
+            { value: 'metals', label: 'Commodities' },
             { value: 'forex', label: 'Forex' },
           ]}
           onChange={setTab}
@@ -102,7 +102,7 @@ export function MarketPage() {
         )}
         {showMetals && (
           <div>
-            <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">Precious Metals</h2>
+            <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">Commodities</h2>
             {metals.isLoading ? <SkeletonList rows={2} /> : <MarketList items={metalItems} type="metal" />}
           </div>
         )}

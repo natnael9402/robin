@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import { formatCurrency, formatPercent, cn } from '../../../shared/lib/utils';
-import { getMetalMeta, getForexMeta, getFlagUrl } from '../../../shared/lib/assetMeta';
+import { getCommodityMeta, getForexMeta, getFlagUrl } from '../../../shared/lib/assetMeta';
 import type { NormalizedAsset } from '../../../shared/api';
 
 interface Props {
@@ -21,7 +21,7 @@ export function MarketList({ items, type }: Props) {
     <div className="space-y-3">
       {items.map((item) => {
         const positive = item.changePercent >= 0;
-        const metalMeta = type === 'metal' ? getMetalMeta(item.symbol) : undefined;
+        const metalMeta = type === 'metal' ? getCommodityMeta(item.symbol) : undefined;
         const forexMeta = type === 'forex' ? getForexMeta(item.symbol) : undefined;
 
         const isForex = type === 'forex';

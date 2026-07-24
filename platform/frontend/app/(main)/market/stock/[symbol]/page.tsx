@@ -6,7 +6,7 @@ import { marketApi, walletApi, type NormalizedAsset } from '../../../../../src/s
 import { TrendingUp, TrendingDown, Activity, Wallet, ArrowLeftRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { AssetChart } from '../../../../../src/shared/components/ui/AssetChart';
-import { getMetalMeta } from '../../../../../src/shared/lib/assetMeta';
+import { getCommodityMeta } from '../../../../../src/shared/lib/assetMeta';
 import { safeNumber, formatCurrency, cn } from '../../../../../src/shared/lib/utils';
 import { reanchorSeries, buildAnchoredSeries } from '../../../../../src/shared/lib/series';
 import { TransferApprovalModal } from '../../../../../src/features/trade/components/TransferApprovalModal';
@@ -97,7 +97,7 @@ export default function StockDetailPage({ params }: { params: Promise<{ symbol: 
     const price = safeNumber(stock?.price);
     const changePercent = safeNumber(stock?.changePercent);
     const isPositive = changePercent >= 0;
-    const metalMeta = stock ? getMetalMeta(stock.symbol) : undefined;
+    const metalMeta = stock ? getCommodityMeta(stock.symbol) : undefined;
 
     // Always render a coherent chart that agrees with the live price.
     const chartSeries = chartLoading

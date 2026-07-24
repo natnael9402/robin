@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle';
-import { useCryptoMarket, useStockMarket, useMetalsMarket } from '../market/hooks/useMarket';
+import { useCryptoMarket, useStockMarket, useCommoditiesMarket } from '../market/hooks/useMarket';
 import { useTradeBalances } from './hooks/useTradeBalances';
 import { usePriceStream } from './hooks/usePriceStream';
 import { PageHeader } from '../../shared/components/ui/PageHeader';
@@ -26,7 +26,7 @@ export function TradeContractPage() {
   const balances = useTradeBalances();
   const crypto = useCryptoMarket();
   const stocks = useStockMarket();
-  const metals = useMetalsMarket();
+  const metals = useCommoditiesMarket();
   const [selectedAsset, setSelectedAsset] = useState<AssetOption | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [intervalSec, setIntervalSec] = useState(3600);

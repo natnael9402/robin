@@ -16,11 +16,12 @@ const STOCK_LOGOS: Record<string, string> = {
   GOOGL: 'https://s3-symbol-logo.tradingview.com/alphabet--big.svg',
   META: 'https://s3-symbol-logo.tradingview.com/meta-platforms--big.svg',
 };
-const METAL_CODES = [
+const COMMODITY_CODES = [
   { code: 'XAU', id: 'XAUUSD', name: 'Gold' },
   { code: 'XAG', id: 'XAGUSD', name: 'Silver' },
   { code: 'XPT', id: 'XPTUSD', name: 'Platinum' },
   { code: 'XPD', id: 'XPDUSD', name: 'Palladium' },
+  { code: 'CRUDE_OIL', id: 'CRUDE_OIL', name: 'Crude Oil' },
 ];
 const FOREX_PAIRS = [
   { symbol: 'EUR/USD', name: 'Euro / US Dollar', base: 'EUR', quote: 'USD' },
@@ -178,31 +179,41 @@ function getHardcodedStocks(): NormalizedAsset[] {
   );
 }
 
-async function fetchMetalsFallback(): Promise<NormalizedAsset[]> {
+async function fetchCommoditiesFallback(): Promise<NormalizedAsset[]> {
   try {
     const results = await Promise.allSettled(
-      METAL_CODES.map((m) =>
+      COMMODITY_CODES.filter(m => m.code !== 'CRUDE_OIL').map((m) =>
         fetchWithTimeout(`https://api.gold-api.com/price/${m.code}`, 10000)
           .then((r) => (r.ok ? r.json() : Promise.reject()))
           .then((d) => ({ id: m.id, symbol: m.id, name: m.name, price: d.price, changePercent: 0 })),
       ),
     );
+    try {
+      const oilRes = await fetchWithTimeout('https://api.gold-api.com/price/CRUDE_OIL', 10000);
+      if (oilRes.ok) {
+        const oilData = await oilRes.json();
+        if (oilData.price > 0) {
+          results.push(Promise.resolve({ value: { id: 'CRUDE_OIL', symbol: 'CRUDE_OIL', name: 'Crude Oil', price: oilData.price, changePercent: 0 } }));
+        }
+      }
+    } catch {}
     const valid = results
       .filter((r): r is PromiseFulfilledResult<any> => r.status === 'fulfilled' && r.value?.price > 0)
       .map((r) => normalizeAsset(r.value, 'metal'));
     if (valid.length > 0) return valid;
-    return getHardcodedMetals();
+    return getHardcodedCommodities();
   } catch {
-    return getHardcodedMetals();
+    return getHardcodedCommodities();
   }
 }
 
-function getHardcodedMetals(): NormalizedAsset[] {
+function getHardcodedCommodities(): NormalizedAsset[] {
   return [
     { id: 'XAUUSD', symbol: 'XAUUSD', name: 'Gold', price: 4122.00, changePercent: 0, priceChange24h: 0, type: 'metal' as AssetType, raw: {} },
     { id: 'XAGUSD', symbol: 'XAGUSD', name: 'Silver', price: 60.00, changePercent: 0, priceChange24h: 0, type: 'metal' as AssetType, raw: {} },
     { id: 'XPTUSD', symbol: 'XPTUSD', name: 'Platinum', price: 1634.00, changePercent: 0, priceChange24h: 0, type: 'metal' as AssetType, raw: {} },
     { id: 'XPDUSD', symbol: 'XPDUSD', name: 'Palladium', price: 1282.00, changePercent: 0, priceChange24h: 0, type: 'metal' as AssetType, raw: {} },
+    { id: 'CRUDE_OIL', symbol: 'CRUDE_OIL', name: 'Crude Oil', price: 62.50, changePercent: 0, priceChange24h: 0, type: 'metal' as AssetType, raw: {} },
   ];
 }
 
@@ -289,7 +300,7 @@ export const marketApi = {
         const [crypto, stocks, metals] = await Promise.all([
           fetchCryptoFallback(),
           fetchStocksFallback(),
-          fetchMetalsFallback(),
+          fetchCommoditiesFallback(),
         ]);
         return { crypto, stocks, metals };
       },
@@ -325,20 +336,20 @@ export const marketApi = {
       },
     ).catch(() => getCached<NormalizedAsset[]>('stocks') ?? getHardcodedStocks()),
 
-  getMetals: () =>
+  getCommodities: () =>
     tryBackend(
       async () => {
         const res = await http.get<any>('/market/list');
         const list = (res.metals || []).map((m: any) => normalizeAsset(m, 'metal'));
         if (list.length > 0) setCache('metals', list);
-        return list.length > 0 ? list : (getCached<NormalizedAsset[]>('metals') ?? await fetchMetalsFallback());
+        return list.length > 0 ? list : (getCached<NormalizedAsset[]>('metals') ?? await fetchCommoditiesFallback());
       },
       async () => {
-        const list = await fetchMetalsFallback();
+        const list = await fetchCommoditiesFallback();
         if (list.length > 0) setCache('metals', list);
         return list;
       },
-    ).catch(() => getCached<NormalizedAsset[]>('metals') ?? getHardcodedMetals()),
+    ).catch(() => getCached<NormalizedAsset[]>('metals') ?? getHardcodedCommodities()),
 
   getForex: () =>
     fetchForexFallback().catch(() => getHardcodedForex()),
@@ -375,7 +386,7 @@ export const marketApi = {
             return found ? normalizeAsset(found) : null;
           }),
       async () => {
-        const [stocks, metals] = await Promise.all([fetchStocksFallback(), fetchMetalsFallback()]);
+        const [stocks, metals] = await Promise.all([fetchStocksFallback(), fetchCommoditiesFallback()]);
         const pool = [...stocks, ...metals];
         return pool.find((s) => s.symbol.toUpperCase() === symbol.toUpperCase()) || null;
       },
@@ -398,7 +409,7 @@ export const marketApi = {
         const [crypto, stocks, metals] = await Promise.all([
           fetchCryptoFallback(),
           fetchStocksFallback(),
-          fetchMetalsFallback(),
+          fetchCommoditiesFallback(),
         ]);
         const pool = [...crypto, ...stocks, ...metals];
         const key = idOrSymbol.toLowerCase();

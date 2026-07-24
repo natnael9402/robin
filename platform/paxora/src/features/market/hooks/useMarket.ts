@@ -24,10 +24,10 @@ export function useStockMarket() {
   });
 }
 
-export function useMetalsMarket() {
+export function useCommoditiesMarket() {
   return useQuery<NormalizedAsset[]>({
     queryKey: ['market', 'metals'],
-    queryFn: () => marketApi.getMetals(),
+    queryFn: () => marketApi.getCommodities(),
     staleTime: config.staleTime,
     refetchInterval: config.refetchInterval,
   });

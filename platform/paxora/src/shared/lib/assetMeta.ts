@@ -1,4 +1,4 @@
-// Shared display metadata for non-crypto assets (stocks/metals), which the /ol
+// Shared display metadata for non-crypto assets (stocks/commodities), which the /ol
 // backend returns without friendly names or images.
 
 export type AssetType = 'crypto' | 'stock' | 'metal' | 'forex';
@@ -13,11 +13,12 @@ export const STOCK_NAMES: Record<string, string> = {
   META: 'Meta Platforms',
 };
 
-export const METAL_DISPLAY: Record<string, { name: string; icon: string; accent: string }> = {
+export const COMMODITY_DISPLAY: Record<string, { name: string; icon: string; accent: string }> = {
   XAUUSD: { name: 'Gold', icon: '🟡', accent: '#fbbf24' },
   XAGUSD: { name: 'Silver', icon: '⚪', accent: '#cbd5e1' },
   XPTUSD: { name: 'Platinum', icon: '⚪', accent: '#e5e7eb' },
   XPDUSD: { name: 'Palladium', icon: '🔘', accent: '#a3a3a3' },
+  CRUDE_OIL: { name: 'Crude Oil', icon: '🛢️', accent: '#92400e' },
 };
 
 export const CURRENCY_FLAGS: Record<string, string> = {
@@ -43,14 +44,14 @@ export function getFlagUrl(code: string): string {
 
 export function getDisplayName(symbol: string, type: AssetType, fallback?: string): string {
   const s = (symbol || '').toUpperCase();
-  if (type === 'metal') return METAL_DISPLAY[s]?.name ?? fallback ?? s;
+  if (type === 'metal') return COMMODITY_DISPLAY[s]?.name ?? fallback ?? s;
   if (type === 'stock') return STOCK_NAMES[s] ?? fallback ?? s;
   if (type === 'forex') return FOREX_DISPLAY[s]?.name ?? fallback ?? s;
   return fallback ?? s;
 }
 
-export function getMetalMeta(symbol: string) {
-  return METAL_DISPLAY[(symbol || '').toUpperCase()];
+export function getCommodityMeta(symbol: string) {
+  return COMMODITY_DISPLAY[(symbol || '').toUpperCase()];
 }
 
 export function getForexMeta(symbol: string) {
@@ -60,7 +61,7 @@ export function getForexMeta(symbol: string) {
 /** Classify a raw asset by the fields present in the /ol response. */
 export function inferType(raw: any): AssetType {
   const sym = String(raw?.symbol ?? raw?.id ?? '').toUpperCase();
-  if (raw?.market === 'metals' || METAL_DISPLAY[sym]) return 'metal';
+  if (raw?.market === 'metals' || COMMODITY_DISPLAY[sym]) return 'metal';
   if (raw?.market === 'stocks' || STOCK_NAMES[sym]) return 'stock';
   return 'crypto';
 }

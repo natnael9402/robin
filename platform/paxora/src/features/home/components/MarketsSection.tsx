@@ -6,8 +6,8 @@ import { TrendingDown, TrendingUp } from 'lucide-react';
 import { Tabs } from '../../../shared/components/ui/Tabs';
 import { SkeletonList } from '../../../shared/components/ui/Skeleton';
 import { formatCurrency, formatPercent, safeNumber, cn } from '../../../shared/lib/utils';
-import { getMetalMeta, getForexMeta, getFlagUrl } from '../../../shared/lib/assetMeta';
-import { useCryptoMarket, useStockMarket, useMetalsMarket, useForexMarket } from '../../market/hooks/useMarket';
+import { getCommodityMeta, getForexMeta, getFlagUrl } from '../../../shared/lib/assetMeta';
+import { useCryptoMarket, useStockMarket, useCommoditiesMarket, useForexMarket } from '../../market/hooks/useMarket';
 import type { NormalizedAsset } from '../../../shared/api';
 
 type Filter = 'hot' | '24h' | 'rise' | 'loss';
@@ -25,7 +25,7 @@ export function MarketsSection() {
   const [filter, setFilter] = useState<Filter>('hot');
   const crypto = useCryptoMarket();
   const stocks = useStockMarket();
-  const metals = useMetalsMarket();
+  const metals = useCommoditiesMarket();
   const forex = useForexMarket();
 
   const isLoading = marketType === 'crypto' ? crypto.isLoading : marketType === 'stocks' ? stocks.isLoading : marketType === 'metals' ? metals.isLoading : forex.isLoading;
@@ -65,7 +65,7 @@ export function MarketsSection() {
           options={[
             { value: 'crypto', label: 'Crypto' },
             { value: 'stocks', label: 'Stocks' },
-            { value: 'metals', label: 'Metals' },
+            { value: 'metals', label: 'Commodities' },
             { value: 'forex', label: 'Forex' },
           ]}
           onChange={setMarketType}
@@ -79,7 +79,7 @@ export function MarketsSection() {
           items.map((item) => {
             const change = item.changePercent;
             const positive = change >= 0;
-            const metalMeta = marketType === 'metals' ? getMetalMeta(item.symbol) : undefined;
+            const metalMeta = marketType === 'metals' ? getCommodityMeta(item.symbol) : undefined;
             const forexMeta = marketType === 'forex' ? getForexMeta(item.symbol) : undefined;
             const isForex = marketType === 'forex';
             return (
