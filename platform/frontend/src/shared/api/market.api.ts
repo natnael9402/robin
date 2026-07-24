@@ -189,7 +189,7 @@ async function fetchCommoditiesFallback(): Promise<NormalizedAsset[]> {
       if (oilRes.ok) {
         const oilData = await oilRes.json();
         if (oilData.price > 0) {
-          results.push(Promise.resolve({ value: { id: 'CRUDE_OIL', symbol: 'CRUDE_OIL', name: 'Crude Oil', price: oilData.price, changePercent: 0 } }));
+          results.push({ status: 'fulfilled' as const, value: { id: 'CRUDE_OIL', symbol: 'CRUDE_OIL', name: 'Crude Oil', price: oilData.price, changePercent: 0 } });
         }
       }
     } catch {}
