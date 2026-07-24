@@ -11,7 +11,6 @@ import { DepositModal } from './components/DepositModal';
 import { WithdrawModal } from './components/WithdrawModal';
 import { TransferModal } from './components/TransferModal';
 import { WalletSuccessModal } from './components/WalletSuccessModal';
-import { PendingWithdrawalModal } from './components/PendingWithdrawalModal';
 import { TransactionDetailsModal } from './components/TransactionDetailsModal';
 import type { Transaction } from '../../shared/types';
 
@@ -23,8 +22,7 @@ export function WalletPage() {
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [transferOpen, setTransferOpen] = useState(false);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
-  const [pendingModalOpen, setPendingModalOpen] = useState(false);
-  const [success, setSuccess] = useState<{ open: boolean; type: 'deposit' | 'withdraw'; amount: number }>({
+  const [success, setSuccess] = useState<{ open: boolean; type: 'deposit' | 'withdraw'; amount: number; pending?: boolean }>({
     open: false,
     type: 'deposit',
     amount: 0,
@@ -35,7 +33,6 @@ export function WalletPage() {
   const pendingWithdrawal = (data?.transactions as Transaction[] | undefined)?.find(
     (tx) => tx.type === 'withdrawal' && tx.status === 'pending'
   ) ?? null;
-  const hasPendingWithdrawal = !!pendingWithdrawal;
 
   const handleRefresh = useCallback(async () => {
     const result = await refetch();
@@ -43,8 +40,7 @@ export function WalletPage() {
     return result;
   }, [refetch, toast]);
 
-  // Hide bottom nav & support widget when any modal is open
-  const anyModalOpen = depositOpen || withdrawOpen || transferOpen || success.open || !!selectedTx || pendingModalOpen;
+  const anyModalOpen = depositOpen || withdrawOpen || transferOpen || success.open || !!selectedTx;
 
   useEffect(() => {
     if (anyModalOpen) {
@@ -58,16 +54,15 @@ export function WalletPage() {
   return (
     <div className="fixed inset-0 pt-24 md:pl-64 flex flex-col overflow-hidden z-30 bg-background">
       <div className="flex flex-col flex-1 min-h-0 md:max-w-3xl md:mx-auto w-full">
-      {/* Scrollable wallet content */}
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
         <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => {
-          if (hasPendingWithdrawal) {
-            setPendingModalOpen(true);
+          if (pendingWithdrawal) {
+            setSuccess({ open: true, type: 'withdraw', amount: Number(pendingWithdrawal.amount), pending: true });
             return;
           }
           setWithdrawOpen(true);
-        }} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} pendingWithdrawal={hasPendingWithdrawal} />
-        
+        }} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} />
+
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[17px] font-black tracking-tight text-foreground">Recent Transactions</h2>
         </div>
@@ -112,16 +107,12 @@ export function WalletPage() {
         onClose={() => setSuccess((s) => ({ ...s, open: false }))}
         type={success.type}
         amount={success.amount}
+        pending={success.pending}
       />
       <TransactionDetailsModal
         tx={selectedTx}
         open={!!selectedTx}
         onClose={() => setSelectedTx(null)}
-      />
-      <PendingWithdrawalModal
-        open={pendingModalOpen}
-        onClose={() => setPendingModalOpen(false)}
-        tx={pendingWithdrawal}
       />
     </div>
   );
