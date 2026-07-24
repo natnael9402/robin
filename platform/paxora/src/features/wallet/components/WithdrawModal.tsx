@@ -73,7 +73,7 @@ export function WithdrawModal({
   // --- Handlers ---
 
   const handleCreatePin = async () => {
-    if (!newPin || newPin.length < 4) return toast.error('PIN must be at least 4 characters');
+    if (!newPin || newPin.length < 6) return toast.error('PIN must be at least 6 characters');
     if (newPin !== confirmPin) return toast.error('PINs do not match');
     try {
       await setPinMutation.mutateAsync(newPin);
@@ -117,7 +117,7 @@ export function WithdrawModal({
 
   const handleResetPin = async () => {
     if (!accountPassword) return toast.error('Enter your account password');
-    if (!newPin || newPin.length < 4) return toast.error('PIN must be at least 4 characters');
+    if (!newPin || newPin.length < 6) return toast.error('PIN must be at least 6 characters');
     if (newPin !== confirmPin) return toast.error('PINs do not match');
     try {
       await resetPinMutation.mutateAsync({ accountPassword, newPin });
@@ -145,7 +145,7 @@ export function WithdrawModal({
       <Input
         label="New PIN"
         type={showNewPin ? 'text' : 'password'}
-        placeholder="At least 4 characters"
+        placeholder="At least 6 characters"
         value={newPin}
         onChange={(e) => setNewPin(e.target.value)}
         rightAdornment={
@@ -305,7 +305,7 @@ export function WithdrawModal({
       <Input
         label="New PIN"
         type={showNewPin ? 'text' : 'password'}
-        placeholder="At least 4 characters"
+        placeholder="At least 6 characters"
         value={newPin}
         onChange={(e) => setNewPin(e.target.value)}
         rightAdornment={
