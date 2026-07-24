@@ -50,7 +50,6 @@ const MILESTONES = [
   { year: '2017', event: 'Founded', description: 'Paxora Premium is established with a vision for accessible global trading.' },
   { year: '2018', event: 'Spot Trading Launch', description: 'Platform goes live with spot and futures trading for crypto and forex.' },
   { year: '2020', event: 'Stock & Commodity Markets', description: 'Expanded to equities and precious metals with real-time pricing feeds.' },
-  { year: '2022', event: 'Mobile-First Redesign', description: 'Complete mobile overhaul with native-feel experience and push notifications.' },
   { year: '2024', event: 'Fast Trade Release', description: 'Introduced binary options with up to 40% returns per trade.' },
   { year: '2025', event: 'Global Expansion', description: 'Expanded to 50+ countries with multi-currency support.' },
   { year: '2026', event: 'Version 2.0', description: 'Complete platform redesign with premium features and AI-powered insights.' },
