@@ -196,6 +196,12 @@ async function fetchCommoditiesFallback(): Promise<NormalizedAsset[]> {
     const valid = results
       .filter((r): r is PromiseFulfilledResult<any> => r.status === 'fulfilled' && r.value?.price > 0)
       .map((r) => normalizeAsset(r.value, 'metal'));
+    // Merge with hardcoded defaults so oil always appears even if API doesn't support it
+    const defaults = getHardcodedCommodities();
+    const validIds = new Set(valid.map(v => v.id));
+    for (const d of defaults) {
+      if (!validIds.has(d.id)) valid.push(d);
+    }
     if (valid.length > 0) return valid;
     return getHardcodedCommodities();
   } catch {

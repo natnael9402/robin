@@ -703,6 +703,14 @@ class MarketService {
                     const valid = results
                         .filter((r) => r.status === "fulfilled" && r.value !== null && r.value.price > 0)
                         .map((r) => r.value);
+                    // Merge with defaults so items not supported by the API (e.g. CRUDE_OIL) still appear
+                    const defaults = getDefaultMetals();
+                    const validIds = new Set(valid.map((v) => v.id));
+                    for (const d of defaults) {
+                        if (!validIds.has(d.id)) {
+                            valid.push(d);
+                        }
+                    }
                     if (valid.length > 0)
                         return valid;
                     logger_1.logger.warn("Gold API returned no valid metal prices, using defaults");
