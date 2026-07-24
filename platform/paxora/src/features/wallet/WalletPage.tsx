@@ -6,7 +6,7 @@ import { SkeletonList } from '../../shared/components/ui/Skeleton';
 import { EmptyState } from '../../shared/components/ui/EmptyState';
 import { useWalletData } from './hooks/useWallet';
 import { useToast } from '../../shared/contexts/ToastContext';
-import { BalanceHeader, TransactionRow } from './components/WalletBits';
+import { BalanceHeader, TransactionRow, PendingWithdrawalCard } from './components/WalletBits';
 import { DepositModal } from './components/DepositModal';
 import { WithdrawModal } from './components/WithdrawModal';
 import { TransferModal } from './components/TransferModal';
@@ -30,9 +30,10 @@ export function WalletPage() {
 
   const balance = data?.balances?.total ?? 0;
   const balances = data?.balances ? { spot: data.balances.spot, trading: data.balances.trading, fast_trade: data.balances.fast_trade, total: data.balances.total } : undefined;
-  const hasPendingWithdrawal = (data?.transactions as Transaction[] | undefined)?.some(
+  const pendingWithdrawal = (data?.transactions as Transaction[] | undefined)?.find(
     (tx) => tx.type === 'withdrawal' && tx.status === 'pending'
-  ) ?? false;
+  ) ?? null;
+  const hasPendingWithdrawal = !!pendingWithdrawal;
 
   const handleRefresh = useCallback(async () => {
     const result = await refetch();
@@ -59,11 +60,17 @@ export function WalletPage() {
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-6 pb-24 md:pb-10">
         <BalanceHeader balance={balance} balances={balances} onDeposit={() => setDepositOpen(true)} onWithdraw={() => {
           if (hasPendingWithdrawal) {
-            toast.error('You already have a pending withdrawal request. Please wait for it to be processed.');
+            setSelectedTx(pendingWithdrawal);
             return;
           }
           setWithdrawOpen(true);
         }} onTransfer={() => setTransferOpen(true)} onRefresh={handleRefresh} pendingWithdrawal={hasPendingWithdrawal} />
+        
+        {pendingWithdrawal && (
+          <div className="mb-4">
+            <PendingWithdrawalCard tx={pendingWithdrawal} onClick={setSelectedTx} />
+          </div>
+        )}
         
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[17px] font-black tracking-tight text-foreground">Recent Transactions</h2>

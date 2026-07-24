@@ -1,7 +1,7 @@
 'use client';
 
 import { memo, useState, useEffect } from 'react';
-import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, ChevronRight, RefreshCw, Repeat, Eye, EyeOff } from 'lucide-react';
+import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, ChevronRight, RefreshCw, Repeat, Eye, EyeOff, Clock, ExternalLink, Zap } from 'lucide-react';
 import { formatCurrency, cn } from '../../../shared/lib/utils';
 import { StatusBadge } from '../../../shared/components/ui/StatusBadge';
 
@@ -192,3 +192,87 @@ function TransactionRowBase({ tx, onClick }: TxRowProps) {
 }
 
 export const TransactionRow = memo(TransactionRowBase);
+
+interface PendingWithdrawalCardProps {
+  tx: import('../../../shared/types').Transaction;
+  onClick?: (tx: import('../../../shared/types').Transaction) => void;
+}
+
+function timeAgo(dateStr: string): string {
+  const now = Date.now();
+  const then = new Date(dateStr).getTime();
+  const diffSec = Math.floor((now - then) / 1000);
+  if (diffSec < 60) return 'just now';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}m ago`;
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return `${diffHr}h ago`;
+  const diffDay = Math.floor(diffHr / 24);
+  return `${diffDay}d ago`;
+}
+
+function PendingWithdrawalCardBase({ tx, onClick }: PendingWithdrawalCardProps) {
+  const [elapsed, setElapsed] = useState(() => timeAgo(tx.created_at ?? tx.createdAt));
+
+  useEffect(() => {
+    const interval = setInterval(() => setElapsed(timeAgo(tx.created_at ?? tx.createdAt)), 30000);
+    return () => clearInterval(interval);
+  }, [tx.created_at, tx.createdAt]);
+
+  return (
+    <button
+      onClick={() => onClick?.(tx)}
+      className="w-full relative overflow-hidden rounded-[22px] border border-amber-500/20 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-amber-500/10 backdrop-blur-xl p-4 text-left transition-all active:scale-[0.99] group"
+    >
+      {/* Animated glow */}
+      <div className="absolute -top-12 -right-12 h-24 w-24 rounded-full bg-amber-400/20 blur-3xl animate-pulse" />
+      <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-orange-400/10 blur-2xl" />
+
+      <div className="relative z-10">
+        {/* Top row: icon + status */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 ring-1 ring-amber-500/20">
+              <ArrowUpRight className="h-4 w-4 text-amber-500" strokeWidth={2.5} />
+            </div>
+            <div>
+              <div className="text-[13px] font-black text-foreground tracking-tight">Pending Withdrawal</div>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+                </span>
+                <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Processing</span>
+              </div>
+            </div>
+          </div>
+          <ChevronRight className="h-4 w-4 text-amber-500/40 group-hover:text-amber-500/70 transition-colors" />
+        </div>
+
+        {/* Amount */}
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Amount</div>
+            <div className="text-2xl font-black font-mono text-foreground tracking-tight">
+              ${formatCurrency(tx.amount)}
+            </div>
+          </div>
+          <div className="text-right">
+            {tx.network && (
+              <div className="inline-flex items-center gap-1 rounded-lg bg-white/5 border border-white/10 px-2 py-1 mb-1">
+                <Zap className="h-3 w-3 text-muted-foreground" />
+                <span className="text-[11px] font-bold text-muted-foreground">{tx.network}</span>
+              </div>
+            )}
+            <div className="flex items-center gap-1 text-muted-foreground">
+              <Clock className="h-3 w-3" />
+              <span className="text-[11px] font-medium">{elapsed}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+export const PendingWithdrawalCard = memo(PendingWithdrawalCardBase);
