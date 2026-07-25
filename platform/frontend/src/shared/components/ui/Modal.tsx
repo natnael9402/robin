@@ -18,7 +18,7 @@ const sizeMap = {
   sm: 'max-w-sm',
   md: 'max-w-md',
   lg: 'max-w-lg',
-  full: 'max-w-2xl',
+  full: 'max-w-full md:max-w-2xl',
 };
 
 export function Modal({ open, onClose, title, children, size = 'md', closeOnBackdrop = true }: ModalProps) {

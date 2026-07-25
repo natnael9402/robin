@@ -57,7 +57,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
   const fee = tradeData?.fee ?? 0;
 
   return (
-    <Modal open={open} onClose={onClose} size="sm">
+    <Modal open={open} onClose={onClose} size="full">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -72,13 +72,13 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
         </button>
 
         {/* Hero section */}
-        <div className={cn('relative overflow-hidden rounded-2xl border p-6 mb-4 bg-gradient-to-br', accentBg, accentBorder)}>
+        <div className={cn('relative overflow-hidden rounded-2xl border p-8 mb-6 bg-gradient-to-br', accentBg, accentBorder)}>
           <div
-            className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full blur-3xl"
+            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full blur-3xl"
             style={{ background: accentColor, opacity: 0.15 }}
           />
           <div
-            className="pointer-events-none absolute -bottom-8 -left-8 h-24 w-24 rounded-full blur-2xl"
+            className="pointer-events-none absolute -bottom-12 -left-12 h-36 w-36 rounded-full blur-2xl"
             style={{ background: accentColor, opacity: 0.1 }}
           />
 
@@ -88,13 +88,13 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.1 }}
               className={cn(
-                'mb-3',
+                'mb-4',
                 isWin ? 'text-emerald-500' : isLoss ? 'text-red-500' : 'text-blue-500',
               )}
             >
-              <span className="text-2xl font-black tracking-widest">
+              <span className="text-3xl font-black tracking-widest">
                 {isWin ? 'WIN' : isLoss ? 'LOSS' : 'SPOT'}
-            </span>
+              </span>
             </motion.div>
 
             <div className="flex items-center justify-center gap-2 mb-1">
@@ -146,10 +146,10 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
               transition={{ delay: 0.25, duration: 0.4 }}
               className="mt-1"
             >
-              <div className={cn('text-4xl font-black font-mono tracking-tight', accentText)}>
+              <div className={cn('text-5xl font-black font-mono tracking-tight', accentText)}>
                 {displayProfit >= 0 ? '+' : '-'}${formatCurrency(Math.abs(displayProfit))}
               </div>
-              <div className={cn('mt-1 text-sm font-bold', accentText)}>
+              <div className={cn('mt-2 text-base font-bold', accentText)}>
                 {displayProfit >= 0 ? '+' : ''}{formatCurrency(absRoi)}%
               </div>
             </motion.div>
@@ -157,7 +157,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-2.5 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <StatBox
             label={isSpot ? `Spent` : 'Investment'}
             value={`${isSpot && fromCoin !== 'USDT' ? '' : '$'}${isSpot && fromCoin !== 'USDT' ? `${invest.toFixed(4)} ${fromCoin}` : `$${formatCurrency(invest)}`}`}
@@ -177,7 +177,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
         {/* Spot-specific details */}
         {isSpot && tradeData && (
-          <div className="rounded-xl border border-border bg-surface/50 p-3.5 mb-4">
+          <div className="rounded-xl border border-border bg-surface/50 p-5 mb-6">
             <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
               <Coins className="w-3 h-3" /> Trade Details
             </div>
@@ -192,7 +192,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
         {/* Options-specific details */}
         {!isSpot && resolution && (
-          <div className="rounded-xl border border-border bg-surface/50 p-3.5 mb-4">
+          <div className="rounded-xl border border-border bg-surface/50 p-5 mb-6">
             <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
               <Timer className="w-3 h-3" /> Trade Details
             </div>
@@ -213,7 +213,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
 
         {/* ROI bar */}
-        <div className="mb-4">
+        <div className="mb-6">
           <div className="mb-1.5 flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
             <span>ROI</span>
             <span className={cn('font-mono', accentText)}>{displayProfit >= 0 ? '+' : ''}{formatCurrency(absRoi)}%</span>
@@ -243,12 +243,12 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
 function StatBox({ label, value, accent, icon: Icon }: { label: string; value: string; accent?: string; icon?: React.ComponentType<{ className?: string }> }) {
   return (
-    <div className="rounded-xl border border-border bg-surface px-3.5 py-2.5">
+    <div className="rounded-xl border border-border bg-surface px-4 py-3">
       <div className="flex items-center gap-1.5">
-        {Icon && <Icon className="h-3 w-3 text-muted-foreground" />}
-        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">{label}</p>
+        {Icon && <Icon className="h-3.5 w-3.5 text-muted-foreground" />}
+        <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">{label}</p>
       </div>
-      <p className={cn('mt-0.5 font-mono text-sm font-black text-foreground truncate', accent)}>{value}</p>
+      <p className={cn('mt-1 font-mono text-base font-black text-foreground truncate', accent)}>{value}</p>
     </div>
   );
 }
