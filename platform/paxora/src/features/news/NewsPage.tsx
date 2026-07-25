@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle';
+import { useToast } from '../../shared/contexts/ToastContext';
 import { useNewsList } from './hooks/useNews';
 import { NewsCard } from './components/NewsCard';
 import { SkeletonList } from '../../shared/components/ui/Skeleton';
@@ -11,15 +12,19 @@ import { PageHeader } from '../../shared/components/ui/PageHeader';
 export function NewsPage() {
   useDocumentTitle('News · Paxora');
   const { data, isLoading, refetch } = useNewsList({ limit: 50 });
+  const toast = useToast();
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     if (refreshing) return;
     setRefreshing(true);
+    const start = Date.now();
     try {
       await refetch();
+      toast.success('Up to date');
     } finally {
-      setRefreshing(false);
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
     }
   };
 
@@ -31,18 +36,22 @@ export function NewsPage() {
   return (
     <div className="pb-24 md:pb-12 md:max-w-5xl md:mx-auto px-6 md:px-0">
       <div className="sticky top-0 z-10 pt-14 md:pt-8 bg-background pb-1 -mx-6 px-6 md:mx-0 md:px-0">
-        <div className="flex items-start justify-between">
-          <PageHeader title="Crypto News" subtitle="Latest news from the crypto world." className="mb-0" />
-          <button
-            onClick={handleRefresh}
-            disabled={refreshing}
-            aria-label="Refresh news"
-            className="mt-14 md:mt-8 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-muted-foreground/60 transition-all hover:bg-primary/10 hover:text-primary disabled:pointer-events-none"
-          >
-            <style>{`@keyframes s{0%{transform:rotate(0deg) scale(1)}30%{transform:rotate(180deg) scale(1.3)}60%{transform:rotate(360deg) scale(1)}80%{transform:rotate(400deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}.s{animation:s .8s cubic-bezier(.34,1.56,.64,1) forwards}`}</style>
-            <RefreshCw className={`h-4 w-4 transition-transform ${refreshing ? 's' : ''}`} />
-          </button>
-        </div>
+        <PageHeader
+          title="Crypto News"
+          subtitle="Latest news from the crypto world."
+          className="mb-0"
+          action={
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              aria-label="Refresh news"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-surface/60 text-muted-foreground backdrop-blur-xl shadow-md transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-90 disabled:pointer-events-none disabled:opacity-50"
+            >
+              <style>{`@keyframes s{0%{transform:rotate(0deg) scale(1)}30%{transform:rotate(180deg) scale(1.3)}60%{transform:rotate(360deg) scale(1)}80%{transform:rotate(400deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}.s{animation:s .8s cubic-bezier(.34,1.56,.64,1) forwards}`}</style>
+              <RefreshCw className={`h-4 w-4 transition-transform ${refreshing ? 's' : ''}`} />
+            </button>
+          }
+        />
       </div>
 
       {isLoading ? (

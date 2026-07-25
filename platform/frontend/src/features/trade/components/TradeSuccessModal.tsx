@@ -66,13 +66,13 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
       >
         <button
           onClick={onClose}
-          className="absolute -top-1 right-0 p-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-all z-10"
+          className="fixed top-4 right-4 z-[60] flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white shadow-lg shadow-red-500/30 transition-all hover:bg-red-600 hover:scale-110 active:scale-95"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Hero section */}
-        <div className={cn('relative overflow-hidden rounded-2xl border p-8 mb-6 bg-gradient-to-br', accentBg, accentBorder)}>
+        <div className={cn('relative overflow-hidden rounded-2xl border p-10 md:p-12 mb-8 bg-gradient-to-br', accentBg, accentBorder)}>
           <div
             className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full blur-3xl"
             style={{ background: accentColor, opacity: 0.15 }}
@@ -92,7 +92,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
                 isWin ? 'text-emerald-500' : isLoss ? 'text-red-500' : 'text-blue-500',
               )}
             >
-              <span className="text-3xl font-black tracking-widest">
+              <span className="text-4xl font-black tracking-widest">
                 {isWin ? 'WIN' : isLoss ? 'LOSS' : 'SPOT'}
               </span>
             </motion.div>
@@ -146,10 +146,10 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
               transition={{ delay: 0.25, duration: 0.4 }}
               className="mt-1"
             >
-              <div className={cn('text-5xl font-black font-mono tracking-tight', accentText)}>
+              <div className={cn('text-6xl font-black font-mono tracking-tight', accentText)}>
                 {displayProfit >= 0 ? '+' : '-'}${formatCurrency(Math.abs(displayProfit))}
               </div>
-              <div className={cn('mt-2 text-base font-bold', accentText)}>
+              <div className={cn('mt-3 text-lg font-bold', accentText)}>
                 {displayProfit >= 0 ? '+' : ''}{formatCurrency(absRoi)}%
               </div>
             </motion.div>
@@ -157,7 +157,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <StatBox
             label={isSpot ? `Spent` : 'Investment'}
             value={`${isSpot && fromCoin !== 'USDT' ? '' : '$'}${isSpot && fromCoin !== 'USDT' ? `${invest.toFixed(4)} ${fromCoin}` : `$${formatCurrency(invest)}`}`}
@@ -177,7 +177,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
         {/* Spot-specific details */}
         {isSpot && tradeData && (
-          <div className="rounded-xl border border-border bg-surface/50 p-5 mb-6">
+          <div className="rounded-xl border border-border bg-surface/50 p-6 mb-8">
             <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
               <Coins className="w-3 h-3" /> Trade Details
             </div>
@@ -192,7 +192,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
         {/* Options-specific details */}
         {!isSpot && resolution && (
-          <div className="rounded-xl border border-border bg-surface/50 p-5 mb-6">
+          <div className="rounded-xl border border-border bg-surface/50 p-6 mb-8">
             <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
               <Timer className="w-3 h-3" /> Trade Details
             </div>
@@ -213,7 +213,7 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
 
         {/* ROI bar */}
-        <div className="mb-6">
+        <div className="mb-8">
           <div className="mb-1.5 flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
             <span>ROI</span>
             <span className={cn('font-mono', accentText)}>{displayProfit >= 0 ? '+' : ''}{formatCurrency(absRoi)}%</span>
@@ -243,12 +243,12 @@ export function TradeSuccessModal({ open, onClose, type, symbol, amount, profit,
 
 function StatBox({ label, value, accent, icon: Icon }: { label: string; value: string; accent?: string; icon?: React.ComponentType<{ className?: string }> }) {
   return (
-    <div className="rounded-xl border border-border bg-surface px-4 py-3">
+    <div className="rounded-xl border border-border bg-surface px-4 py-4">
       <div className="flex items-center gap-1.5">
         {Icon && <Icon className="h-3.5 w-3.5 text-muted-foreground" />}
         <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">{label}</p>
       </div>
-      <p className={cn('mt-1 font-mono text-base font-black text-foreground truncate', accent)}>{value}</p>
+      <p className={cn('mt-1.5 font-mono text-base font-black text-foreground truncate', accent)}>{value}</p>
     </div>
   );
 }
