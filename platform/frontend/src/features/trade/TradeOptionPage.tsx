@@ -46,6 +46,7 @@ export function TradeOptionPage() {
   const [depositOpen, setDepositOpen] = useState(false);
   const [depositAmount, setDepositAmount] = useState(0);
   const [intervalSec, setIntervalSec] = useState(3600);
+  const [refreshing, setRefreshing] = useState(false);
   const initialPriceRef = useRef<number | null>(null);
 
   const mapAsset = (a: any, type: 'crypto' | 'stock' | 'metal'): AssetOption => ({
@@ -104,6 +105,18 @@ export function TradeOptionPage() {
     }
     return () => document.body.classList.remove('modal-open');
   }, [successModal.open]);
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    const start = Date.now();
+    try {
+      await queryClient.invalidateQueries({ queryKey: ['trades', 'balances'] });
+    } finally {
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
+    }
+  };
 
   const handleAssetSelect = (asset: AssetOption) => {
     setSelectedAsset(asset);
@@ -228,6 +241,8 @@ export function TradeOptionPage() {
               onAmountChange={setAmount}
               onDurationChange={handleDurationChange}
               onTrade={handleTrade}
+              onRefresh={handleRefresh}
+              isRefreshing={refreshing}
             />
           )}
         </div>

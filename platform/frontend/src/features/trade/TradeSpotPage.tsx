@@ -35,6 +35,7 @@ export function TradeSpotPage() {
   const [selectedAsset, setSelectedAsset] = useState<AssetOption | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [intervalSec, setIntervalSec] = useState(3600);
+  const [refreshing, setRefreshing] = useState(false);
   const [successModal, setSuccessModal] = useState<{ open: boolean; type: TradeDirection; symbol: string; amount: string; profit: number; outcome?: 'WIN' | 'LOSS' | 'SPOT'; completedAt?: number; tradeData?: SpotTradeData }>({
     open: false,
     type: 'buy',
@@ -82,6 +83,18 @@ export function TradeSpotPage() {
   const handleAssetSelect = (asset: AssetOption) => {
     setSelectedAsset(asset);
     stream.reset(asset.current_price);
+  };
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    const start = Date.now();
+    try {
+      await queryClient.invalidateQueries({ queryKey: ['trades', 'balances'] });
+    } finally {
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
+    }
   };
 
   return (
@@ -144,6 +157,8 @@ export function TradeSpotPage() {
             accountLabel="Spot"
             allAssets={assets}
             portfolio={portfolio.data ?? []}
+            onRefresh={handleRefresh}
+            isRefreshing={refreshing}
             onComplete={(res) => {
               setSuccessModal({
                 open: true,

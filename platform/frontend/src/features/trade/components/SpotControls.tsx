@@ -1,10 +1,10 @@
 'use client';
 
 import { memo, useState, useCallback, useMemo } from 'react';
-import { ArrowRight, ArrowLeftRight, Loader2, Eye, EyeOff, ChevronDown } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Loader2, Eye, EyeOff, ChevronDown, RefreshCw } from 'lucide-react';
 import { tradesApi } from '../../../shared/api';
 import { useToast } from '../../../shared/contexts/ToastContext';
-import { formatCurrency } from '../../../shared/lib/utils';
+import { cn, formatCurrency } from '../../../shared/lib/utils';
 import { TransferApprovalModal } from './TransferApprovalModal';
 import type { AssetOption } from '../logic/tradeMath';
 import type { UserAsset } from '../../../shared/types';
@@ -28,12 +28,14 @@ interface Props {
   asset: AssetOption | null;
   balance: number;
   accountLabel?: string;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
   onComplete: (result: { symbol: string; amount: string; profit: number; direction: 'buy' | 'sell'; tradeData?: SpotTradeData }) => void;
   allAssets: AssetOption[];
   portfolio: UserAsset[];
 }
 
-function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete, allAssets, portfolio }: Props) {
+function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onRefresh, isRefreshing, onComplete, allAssets, portfolio }: Props) {
   const [fromCoin, setFromCoin] = useState('USDT');
   const [toCoin, setToCoin] = useState(asset?.symbol?.toUpperCase() ?? 'ETH');
   const [amount, setAmount] = useState('100');
@@ -161,6 +163,13 @@ function SpotControlsBase({ asset, balance, accountLabel = 'Balance', onComplete
           </span>
           <button onClick={() => setShowBalance((v) => !v)} className="text-muted-foreground hover:text-foreground transition-colors">
             {showBalance ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+          </button>
+          <button
+            onClick={onRefresh}
+            disabled={isRefreshing}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <RefreshCw className={cn('h-3.5 w-3.5', isRefreshing && 'animate-spin')} />
           </button>
         </div>
       </div>

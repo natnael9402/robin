@@ -159,6 +159,8 @@ export function TradeContractPage() {
             balance={balances.data?.tradingBalance ?? 0}
             accountLabel="Trading"
             currentPrice={stream.price}
+            onRefresh={handleRefresh}
+            isRefreshing={refreshing}
             onComplete={(res) => {
               setSuccessModal({
                 open: true,

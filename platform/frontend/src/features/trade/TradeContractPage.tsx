@@ -27,6 +27,7 @@ export function TradeContractPage() {
   const [selectedAsset, setSelectedAsset] = useState<AssetOption | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [intervalSec, setIntervalSec] = useState(3600);
+  const [refreshing, setRefreshing] = useState(false);
   const [successModal, setSuccessModal] = useState<{ open: boolean; type: TradeDirection; symbol: string; amount: string; profit: number; outcome?: 'WIN' | 'LOSS' | 'SPOT'; completedAt?: number }>({
     open: false,
     type: 'buy',
@@ -74,6 +75,18 @@ export function TradeContractPage() {
   const handleAssetSelect = (asset: AssetOption) => {
     setSelectedAsset(asset);
     stream.reset(asset.current_price);
+  };
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    const start = Date.now();
+    try {
+      await queryClient.invalidateQueries({ queryKey: ['trades', 'balances'] });
+    } finally {
+      const remaining = Math.max(0, 800 - (Date.now() - start));
+      setTimeout(() => setRefreshing(false), remaining);
+    }
   };
 
   return (
@@ -135,6 +148,8 @@ export function TradeContractPage() {
             balance={balances.data?.tradingBalance ?? 0}
             accountLabel="Trading"
             currentPrice={stream.price}
+            onRefresh={handleRefresh}
+            isRefreshing={refreshing}
             onComplete={(res) => {
               setSuccessModal({
                 open: true,

@@ -250,6 +250,8 @@ export function TradeOptionPage() {
               onAmountChange={setAmount}
               onDurationChange={handleDurationChange}
               onTrade={handleTrade}
+              onRefresh={handleRefresh}
+              isRefreshing={refreshing}
             />
           )}
         </div>

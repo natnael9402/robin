@@ -171,6 +171,8 @@ export function TradeSpotPage() {
             accountLabel="Spot"
             allAssets={assets}
             portfolio={portfolio.data ?? []}
+            onRefresh={handleRefresh}
+            isRefreshing={refreshing}
             onComplete={(res) => {
               setSuccessModal({
                 open: true,
