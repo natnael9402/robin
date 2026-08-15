@@ -33,7 +33,7 @@ function fmtTime(s: string) {
 type Tab = 'notifications' | 'support';
 
 export function LiveChatPage() {
-  useDocumentTitle('Notifications · Paxora Capital');
+  useDocumentTitle('Notifications · Paxora Premium');
   const router = useRouter();
 
   const [tab, setTab] = useState<Tab>('notifications');

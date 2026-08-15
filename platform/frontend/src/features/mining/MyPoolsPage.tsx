@@ -237,7 +237,7 @@ function EmptyState({ onCreate }: { onCreate: () => void }) {
 }
 
 export function MyPoolsPage() {
-  useDocumentTitle('My Mining Pools · Paxora Capital');
+  useDocumentTitle('My Mining Pools · Paxora Premium');
   const router = useRouter();
   const { data: hostings, isLoading } = useMyMining();
   const [cancelling, setCancelling] = useState<UserMining | null>(null);

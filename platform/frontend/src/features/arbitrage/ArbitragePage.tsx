@@ -39,7 +39,7 @@ function useStartHosting() {
 }
 
 export function ArbitragePage() {
-  useDocumentTitle('AI Arbitrage · Paxora Capital');
+  useDocumentTitle('AI Arbitrage · Paxora Premium');
   const router = useRouter();
   const { data: plans, isLoading } = useArbitragePlans();
   const [selected, setSelected] = useState<ArbitragePlan | null>(null);

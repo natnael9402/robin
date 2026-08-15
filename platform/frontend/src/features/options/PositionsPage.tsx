@@ -9,7 +9,7 @@ import { tradesApi } from '../../shared/api';
 import { formatCurrency, safeNumber, cn } from '../../shared/lib/utils';
 
 export function PositionsPage() {
-  useDocumentTitle('Positions · Paxora Capital');
+  useDocumentTitle('Positions · Paxora Premium');
   const toast = useToast();
   const qc = useQueryClient();
   const router = useRouter();

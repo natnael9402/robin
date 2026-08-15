@@ -14,7 +14,7 @@ import { MiningCheckoutModal } from './components/MiningCheckoutModal';
 import type { MiningPlan } from '../../shared/types';
 
 export function MiningPage() {
-  useDocumentTitle('Mining · Paxora Capital');
+  useDocumentTitle('Mining · Paxora Premium');
   const router = useRouter();
   const { data: plans, isLoading } = useMiningPlans();
   const [selected, setSelected] = useState<MiningPlan | null>(null);

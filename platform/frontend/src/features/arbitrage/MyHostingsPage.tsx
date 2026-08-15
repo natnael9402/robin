@@ -166,7 +166,7 @@ function HostingCard({ hosting, onCancel }: { hosting: ArbitrageHosting; onCance
 }
 
 export function MyHostingsPage() {
-  useDocumentTitle('My Hostings · Paxora Capital');
+  useDocumentTitle('My Hostings · Paxora Premium');
   const router = useRouter();
   const { data: hostings, isLoading } = useArbitrageHostings();
   const [cancelling, setCancelling] = useState<ArbitrageHosting | null>(null);

@@ -186,7 +186,7 @@ function LevelCard({ level, index }: { level: typeof TRADE_LEVELS[0]; index: num
 }
 
 export function InfoPage() {
-  useDocumentTitle('Platform Info · Paxora Capital');
+  useDocumentTitle('Platform Info · Paxora Premium');
 
   return (
     <div className="pb-24 md:pb-12 md:max-w-4xl md:mx-auto">

@@ -40,7 +40,7 @@ export default function TermsPage() {
 
             <div className="space-y-5 sm:space-y-6 text-sm sm:text-[15px] text-muted-foreground leading-[1.65] sm:leading-relaxed">
               <p>
-                These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Paxora Capital platform, website, and related services. By creating an account or using our services, you agree to be bound by these Terms.
+                These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Paxora Premium platform, website, and related services. By creating an account or using our services, you agree to be bound by these Terms.
               </p>
 
               <section>
@@ -108,14 +108,14 @@ export default function TermsPage() {
               <section>
                 <h2 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-outfit)' }}>8. Limitation of Liability</h2>
                 <p>
-                  To the maximum extent permitted by law, Paxora Capital, its affiliates, directors, and employees shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or goodwill, arising from your use of the platform.
+                  To the maximum extent permitted by law, Paxora Premium, its affiliates, directors, and employees shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or goodwill, arising from your use of the platform.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-outfit)' }}>9. Intellectual Property</h2>
                 <p>
-                  The Paxora name, logo, platform design, and all related intellectual property are owned by Paxora Capital. You may not reproduce, distribute, or create derivative works without our prior written consent.
+                  The Paxora name, logo, platform design, and all related intellectual property are owned by Paxora Premium. You may not reproduce, distribute, or create derivative works without our prior written consent.
                 </p>
               </section>
 

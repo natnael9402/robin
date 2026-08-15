@@ -15,7 +15,7 @@ import { DepositModal } from '../../shared/components/DepositModal';
 const LEVERAGE_PRESETS = [2, 5, 10, 20, 50, 100];
 
 export function OptionsPage() {
-  useDocumentTitle('Contracts · Paxora Capital');
+  useDocumentTitle('Contracts · Paxora Premium');
   const toast = useToast();
   const qc = useQueryClient();
   const router = useRouter();

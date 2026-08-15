@@ -25,15 +25,14 @@ export interface AssetOption {
 }
 
 // Must match /ol OPTION_TRADE_RULES or the option trade is rejected.
-export const DURATIONS = [30, 60, 90, 120, 180, 300, 700] as const;
+export const DURATIONS = [30, 60, 90, 180, 300, 700] as const;
 export type TradeDuration = (typeof DURATIONS)[number];
 
 export const OPTION_TRADE_RULES: Record<number, { minCapital: number; maxCapital: number; returnRate: number }> = {
   30:  { minCapital: 100,    maxCapital: 5000,   returnRate: 15 },
   60:  { minCapital: 5001,  maxCapital: 20000,  returnRate: 20 },
   90:  { minCapital: 20001, maxCapital: 80000,  returnRate: 25 },
-  120: { minCapital: 80001, maxCapital: 120000, returnRate: 28 },
-  180: { minCapital: 80001, maxCapital: 200000, returnRate: 30 },
+  180: { minCapital: 120000,maxCapital: 200000, returnRate: 30 },
   300: { minCapital: 200001,maxCapital: 300000, returnRate: 35 },
   700: { minCapital: 300001,maxCapital: 500000, returnRate: 40 },
 };

@@ -12,7 +12,7 @@ import { Button } from '../../shared/components/ui/Button';
 import { Modal } from '../../shared/components/ui/Modal';
 
 export function SecurityPage() {
-  useDocumentTitle('Security · Paxora Capital');
+  useDocumentTitle('Security · Paxora Premium');
   const router = useRouter();
   const { user } = useAuth();
   const toast = useToast();

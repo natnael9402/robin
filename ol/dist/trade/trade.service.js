@@ -40,7 +40,6 @@ const tradeInclude = {
 const DEFAULT_OPTION_TRADE_RULES = {
     60: { returnRate: 14 },
     90: { returnRate: 21 },
-    120: { returnRate: 30 },
     180: { returnRate: 47 },
 };
 function parseOptionTradeRules(rawRules, fallback) {

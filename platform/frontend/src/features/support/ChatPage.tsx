@@ -191,7 +191,7 @@ function EmptyChat({ onStart }: { onStart: () => void }) {
 type ChatState = 'loading' | 'empty' | 'ready' | 'error';
 
 export function ChatPage() {
-  useDocumentTitle('Support · Paxora Capital');
+  useDocumentTitle('Support · Paxora Premium');
   const router = useRouter();
   const { user } = useAuth();
 

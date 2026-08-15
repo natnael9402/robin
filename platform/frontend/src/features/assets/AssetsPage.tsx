@@ -15,7 +15,7 @@ import { cn } from '../../shared/lib/utils';
 import type { UserAsset, Stock } from '../../shared/types';
 
 export function AssetsPage() {
-  useDocumentTitle('Assets · Paxora Capital');
+  useDocumentTitle('Assets · Paxora Premium');
   const portfolio = useQuery<UserAsset[]>({
     queryKey: ['assets', 'portfolio'],
     queryFn: () => assetsApi.getPortfolio(),

@@ -15,7 +15,7 @@ import { TransactionDetailsModal } from './components/TransactionDetailsModal';
 import type { Transaction } from '../../shared/types';
 
 export function WalletPage() {
-  useDocumentTitle('Wallet · Paxora Capital');
+  useDocumentTitle('Wallet · Paxora Premium');
   const { data, isLoading, refetch } = useWalletData();
   const toast = useToast();
   const [depositOpen, setDepositOpen] = useState(false);

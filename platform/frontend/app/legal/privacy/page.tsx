@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
             <div className="space-y-5 sm:space-y-6 text-sm sm:text-[15px] text-muted-foreground leading-[1.65] sm:leading-relaxed">
               <p>
-                Paxora Capital (&quot;Paxora,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, website, and services.
+                Paxora Premium (&quot;Paxora,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, website, and services.
               </p>
 
               <section>

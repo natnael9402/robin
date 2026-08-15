@@ -413,7 +413,7 @@ function TLDot({ icon, label, time, color, first, last }: {
 }
 
 export function TradeHistoryPage() {
-  useDocumentTitle('Trade History · Paxora Capital');
+  useDocumentTitle('Trade History · Paxora Premium');
   const router = useRouter();
   const { trades, pagination, stats, isLoading, isStatsLoading, filters, setFilter, setPage } = useTradeHistory();
   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);

@@ -7,7 +7,7 @@ import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle';
 import { cn } from '../../shared/lib/utils';
 
 export function ReferralPage() {
-  useDocumentTitle('Referral · Paxora Capital');
+  useDocumentTitle('Referral · Paxora Premium');
 
   const [data, setData] = useState<ReferralInfo | null>(null);
   const [loading, setLoading] = useState(true);

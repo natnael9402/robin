@@ -10,7 +10,7 @@ import { SkeletonList } from '../../shared/components/ui/Skeleton';
 import { PageHeader } from '../../shared/components/ui/PageHeader';
 
 export function NewsPage() {
-  useDocumentTitle('News · Paxora Capital');
+  useDocumentTitle('News · Paxora Premium');
   const { data, isLoading, refetch } = useNewsList({ limit: 50 });
   const toast = useToast();
   const [refreshing, setRefreshing] = useState(false);

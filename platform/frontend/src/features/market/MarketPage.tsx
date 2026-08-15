@@ -33,7 +33,7 @@ function sortItems(items: NormalizedAsset[], filter: SortFilter): NormalizedAsse
 }
 
 export function MarketPage() {
-  useDocumentTitle('Market · Paxora Capital');
+  useDocumentTitle('Market · Paxora Premium');
   const [tab, setTab] = useState<MarketTab>('all');
   const [sortFilter, setSortFilter] = useState<SortFilter>('hot');
   const [query, setQuery] = useState('');

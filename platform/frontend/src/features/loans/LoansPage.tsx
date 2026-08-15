@@ -22,7 +22,7 @@ function useLoans() {
 }
 
 export function LoansPage() {
-  useDocumentTitle('Loans · Paxora Capital');
+  useDocumentTitle('Loans · Paxora Premium');
   const router = useRouter();
   const { data, isLoading } = useLoans();
 
