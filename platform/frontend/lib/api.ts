@@ -122,8 +122,29 @@ export const loansApi = {
 
 // Verification / KYC — /api/kyc-submissions
 export const verificationApi = {
-    submit: (data: any) =>
-        authFetch('/kyc-submissions', { method: 'POST', body: JSON.stringify(data) }),
+    submit: async (data: Record<string, unknown>) => {
+        const formData = new FormData();
+        formData.append('document_type', String(data.documentType ?? data.document_type ?? ''));
+        formData.append('document_number', String(data.documentNumber ?? data.document_number ?? ''));
+        if (data.frontImage instanceof File) formData.append('front_image', data.frontImage);
+        if (data.backImage instanceof File) formData.append('back_image', data.backImage);
+        if (data.selfieImage instanceof File) formData.append('selfie_image', data.selfieImage);
+        const headers: Record<string, string> = {};
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+        }
+        const res = await fetch(`${API_URL}/kyc-submissions`, {
+            method: 'POST',
+            body: formData,
+            headers,
+        });
+        const text = await res.text();
+        let parsed: { message?: string; error?: string };
+        try { parsed = JSON.parse(text); } catch { parsed = { message: text || res.statusText }; }
+        if (!res.ok) throw new Error(parsed.message || parsed.error || `Error ${res.status}`);
+        return parsed;
+    },
     getStatus: () => authFetch('/kyc-submissions'),
 };
 

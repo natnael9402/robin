@@ -84,6 +84,12 @@ export function KycVerificationPage() {
       clearNewSignup();
       router.push('/kyc-pending');
     } catch (err) {
+      const status = (err as { status?: number })?.status;
+      if (status === 409 || (err as Error).message?.toLowerCase().includes('already have')) {
+        clearNewSignup();
+        router.push('/kyc-pending');
+        return;
+      }
       toast.error((err as Error).message);
     }
   };

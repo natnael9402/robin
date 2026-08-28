@@ -84,7 +84,9 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             if (typeof urlValue === "string" && urlValue.trim().length > 0) {
                 const trimmed = urlValue.trim();
                 if (!blob_upload_route_1.isAllowedBlobUrl(trimmed)) {
-                    throw new Error(`Invalid ${fieldName} URL: must be a Vercel Blob URL`);
+                    const err = new Error(`Invalid ${fieldName} URL: must be a Vercel Blob URL`);
+                    err.statusCode = 400;
+                    throw err;
                 }
                 return trimmed;
             }
@@ -101,27 +103,57 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return "";
         });
 
-        const [frontImageUrl, backImageUrl, selfieImageUrl] = yield Promise.all([
-            resolveImageUrl("front_image", files['front_image']),
-            resolveImageUrl("back_image", files['back_image']),
-            resolveImageUrl("selfie_image", files['selfie_image']),
-        ]);
-
-        const submission = yield (0, kyc_submission_service_1.createSubmission)(userId, {
-            document_type: String((_a = body.document_type) !== null && _a !== void 0 ? _a : "").trim(),
-            document_number: String((_b = body.document_number) !== null && _b !== void 0 ? _b : "").trim(),
-            front_image_url: frontImageUrl,
-            back_image_url: backImageUrl,
-            selfie_image_url: selfieImageUrl,
+        const uploadedUrls = [];
+        const rollback = () => __awaiter(void 0, void 0, void 0, function* () {
+            for (const url of uploadedUrls) {
+                try {
+                    yield blob_storage_1.deleteBlobObject(url);
+                }
+                catch (e) { }
+            }
         });
-        return (0, http_response_1.successResponse)(res, { submission }, "KYC submission created successfully", 201);
+
+        let frontImageUrl = "";
+        let backImageUrl = "";
+        let selfieImageUrl = "";
+        try {
+            frontImageUrl = yield resolveImageUrl("front_image", files['front_image']);
+            if (frontImageUrl) uploadedUrls.push(frontImageUrl);
+            backImageUrl = yield resolveImageUrl("back_image", files['back_image']);
+            if (backImageUrl) uploadedUrls.push(backImageUrl);
+            selfieImageUrl = yield resolveImageUrl("selfie_image", files['selfie_image']);
+            if (selfieImageUrl) uploadedUrls.push(selfieImageUrl);
+        }
+        catch (uploadError) {
+            yield rollback();
+            throw uploadError;
+        }
+
+        try {
+            const submission = yield (0, kyc_submission_service_1.createSubmission)(userId, {
+                document_type: String((_a = body.document_type) !== null && _a !== void 0 ? _a : "").trim(),
+                document_number: String((_b = body.document_number) !== null && _b !== void 0 ? _b : "").trim(),
+                front_image_url: frontImageUrl,
+                back_image_url: backImageUrl,
+                selfie_image_url: selfieImageUrl,
+            });
+            return (0, http_response_1.successResponse)(res, { submission }, "KYC submission created successfully", 201);
+        }
+        catch (createError) {
+            yield rollback();
+            throw createError;
+        }
     }
     catch (error) {
         const err = error;
         if (err.code === "KYC_EXISTS") {
             return (0, http_response_1.errorResponse)(res, err.message, 409);
         }
-        return (0, http_response_1.errorResponse)(res, "Failed to create KYC submission", 500, err.message);
+        const statusCode = err.statusCode || 500;
+        const message = statusCode === 500
+            ? `Failed to create KYC submission: ${err.message}`
+            : err.message;
+        return (0, http_response_1.errorResponse)(res, message, statusCode);
     }
 });
 exports.store = store;

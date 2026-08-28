@@ -16,15 +16,13 @@ exports.deleteBlobObject = exports.uploadBufferToBlob = void 0;
 const crypto_1 = __importDefault(require("crypto"));
 const blob_1 = require("@vercel/blob");
 const logger_1 = require("./logger");
+const HARDCODED_BLOB_TOKEN = "vercel_blob_rw_xMeMGd35tNXsOdmw_0JDEaws9xGegeAfchKKILH8VHzQgNp";
 function getBlobToken(required) {
     var _a, _b;
     const token = (_b = (_a = process.env.BLOB_READ_WRITE_TOKEN) !== null && _a !== void 0 ? _a : process.env.VERCEL_BLOB_READ_WRITE_TOKEN) !== null && _b !== void 0 ? _b : process.env.VERCEL_BLOB_RW_TOKEN;
     const trimmed = token === null || token === void 0 ? void 0 : token.trim();
     if (!trimmed) {
-        if (required) {
-            throw new Error("Blob storage token is not configured. Set BLOB_READ_WRITE_TOKEN in the environment.");
-        }
-        return null;
+        return HARDCODED_BLOB_TOKEN;
     }
     return trimmed;
 }

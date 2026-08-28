@@ -168,7 +168,11 @@ class ProfileController {
                 if (err.code === "KYC_EXISTS") {
                     return (0, http_response_1.errorResponse)(res, err.message, 409);
                 }
-                return (0, http_response_1.errorResponse)(res, "Failed to create KYC submission", 500, err.message);
+                const statusCode = err.statusCode || 500;
+                const message = statusCode === 500
+                    ? `Failed to create KYC submission: ${err.message}`
+                    : err.message;
+                return (0, http_response_1.errorResponse)(res, message, statusCode);
             }
         });
     }

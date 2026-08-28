@@ -125,21 +125,24 @@ const createSubmission = (userId, input) => __awaiter(void 0, void 0, void 0, fu
         error.code = "KYC_EXISTS";
         throw error;
     }
-    const submission = yield prisma_1.default.kycSubmission.create({
-        data: {
-            user_id: userId,
-            document_type: input.document_type,
-            document_number: input.document_number,
-            front_image_url: input.front_image_url,
-            back_image_url: input.back_image_url,
-            selfie_image_url: input.selfie_image_url,
-            status: prisma_2.KycSubmissionStatus.pending,
-        },
-    });
-    yield prisma_1.default.profile.updateMany({
-        where: { user_id: userId },
-        data: { kyc_status: prisma_2.ProfileKycStatus.pending },
-    });
+    const submission = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+        const created = yield tx.kycSubmission.create({
+            data: {
+                user_id: userId,
+                document_type: input.document_type,
+                document_number: input.document_number,
+                front_image_url: input.front_image_url,
+                back_image_url: input.back_image_url,
+                selfie_image_url: input.selfie_image_url,
+                status: prisma_2.KycSubmissionStatus.pending,
+            },
+        });
+        yield tx.profile.updateMany({
+            where: { user_id: userId },
+            data: { kyc_status: prisma_2.ProfileKycStatus.pending },
+        });
+        return created;
+    }));
     return formatSubmission(submission, {
         includeRelations: false,
     });
