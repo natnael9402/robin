@@ -14,18 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBlobObject = exports.uploadBufferToBlob = void 0;
 const crypto_1 = __importDefault(require("crypto"));
-const blob_1 = require("@vercel/blob");
 const logger_1 = require("./logger");
-const HARDCODED_BLOB_TOKEN = "vercel_blob_rw_xMeMGd35tNXsOdmw_0JDEaws9xGegeAfchKKILH8VHzQgNp";
-function getBlobToken(required) {
-    var _a, _b;
-    const token = (_b = (_a = process.env.BLOB_READ_WRITE_TOKEN) !== null && _a !== void 0 ? _a : process.env.VERCEL_BLOB_READ_WRITE_TOKEN) !== null && _b !== void 0 ? _b : process.env.VERCEL_BLOB_RW_TOKEN;
-    const trimmed = token === null || token === void 0 ? void 0 : token.trim();
-    if (!trimmed) {
-        return HARDCODED_BLOB_TOKEN;
-    }
-    return trimmed;
-}
 const buildPathname = (originalName, options) => {
     var _a, _b, _c, _d, _e;
     const folder = (_b = (_a = options.folder) === null || _a === void 0 ? void 0 : _a.replace(/^\/*/, "").replace(/\/*$/, "")) !== null && _b !== void 0 ? _b : "uploads";
@@ -36,76 +25,61 @@ const buildPathname = (originalName, options) => {
     const ext = extMatch ? `.${extMatch[1]}` : "";
     return `${folder}/${prefix}-${Date.now()}-${randomSuffix}${ext}`;
 };
+const getUploadsDir = () => {
+    const path = require("path");
+    return path.join(process.cwd(), "uploads");
+};
 const uploadBufferToBlob = (buffer_1, contentType_1, originalName_1, ...args_1) => __awaiter(void 0, [buffer_1, contentType_1, originalName_1, ...args_1], void 0, function* (buffer, contentType, originalName, options = {}) {
-    var _a;
-    const token = getBlobToken(false);
-    if (!token) {
-        logger_1.logger.info("BLOB_READ_WRITE_TOKEN not set — storing attachment locally");
-        const pathname = buildPathname(originalName, options);
-        const fs = require("fs");
-        const path = require("path");
-        const uploadsDir = path.join(process.cwd(), "uploads");
-        const fullPath = path.join(uploadsDir, pathname);
-        
-        fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-        fs.writeFileSync(fullPath, buffer);
-        
-        return {
-            url: `/uploads/${pathname}`,
-            downloadUrl: `/uploads/${pathname}`,
-            pathname: pathname,
-            size: buffer.byteLength,
-            contentType,
-        };
-    }
+    const fs = require("fs");
+    const path = require("path");
     const pathname = buildPathname(originalName, options);
-    let result;
-    try {
-        result = yield (0, blob_1.put)(pathname, buffer, {
-            access: (_a = options.access) !== null && _a !== void 0 ? _a : "public",
-            cacheControlMaxAge: options.cacheControlMaxAge,
-            contentType,
-            token,
-        });
-    }
-    catch (error) {
-        logger_1.logger.error("Failed to upload file to Vercel Blob", {
-            error: error instanceof Error ? error.message : String(error),
-        });
-        throw error;
-    }
+    const uploadsDir = getUploadsDir();
+    const fullPath = path.join(uploadsDir, pathname);
+    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+    fs.writeFileSync(fullPath, buffer);
+    const url = `/uploads/${pathname}`;
     return {
-        url: result.url,
-        downloadUrl: result.downloadUrl,
-        pathname: result.pathname,
+        url,
+        downloadUrl: url,
+        pathname,
         size: buffer.byteLength,
-        contentType: result.contentType,
+        contentType,
     };
 });
 exports.uploadBufferToBlob = uploadBufferToBlob;
 const toBlobIdentifier = (urlOrPathname) => {
+    let value;
     try {
         const parsed = new URL(urlOrPathname);
-        return parsed.pathname.replace(/^\//, "");
+        value = parsed.pathname.replace(/^\/+/, "");
     }
     catch (_error) {
-        return urlOrPathname.replace(/^\//, "");
+        value = urlOrPathname.replace(/^\/+/, "");
     }
+    // Files are stored directly under <uploadsDir>/<pathname> (no "uploads" root
+    // segment), so strip an optional leading "uploads/" segment from the URL.
+    return value.replace(/^uploads\//i, "");
 };
 const deleteBlobObject = (urlOrPathname) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = getBlobToken(false);
-    if (!token) {
-        logger_1.logger.warn("Skipped deleting blob because BLOB_READ_WRITE_TOKEN is not configured");
+    try {
+        const fs = require("fs");
+        const path = require("path");
+        const uploadsDir = getUploadsDir();
+        const target = toBlobIdentifier(urlOrPathname);
+        const fullPath = path.join(uploadsDir, target);
+        if (!fullPath.startsWith(uploadsDir)) {
+            logger_1.logger.warn("Refusing to delete file outside uploads directory", { target });
+            return false;
+        }
+        if (fs.existsSync(fullPath)) {
+            fs.unlinkSync(fullPath);
+            return true;
+        }
         return false;
     }
-    const target = toBlobIdentifier(urlOrPathname);
-    try {
-        yield (0, blob_1.del)(target, { token });
-        return true;
-    }
     catch (error) {
-        logger_1.logger.warn("Failed to delete blob object", {
-            target,
+        logger_1.logger.warn("Failed to delete uploaded file", {
+            target: urlOrPathname,
             error: error instanceof Error ? error.message : String(error),
         });
         return false;

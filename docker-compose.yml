@@ -49,6 +49,8 @@ services:
       DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-postgres}@db:5432/base_trade_prod
       DIRECT_URL: postgresql://postgres:${DB_PASSWORD:-postgres}@db:5432/base_trade_prod
       PORT: 4000
+    volumes:
+      - robin-uploads:/app/uploads
     networks:
       - proxy
     depends_on:
@@ -113,3 +115,4 @@ volumes:
   pgdata:
   npm-data:
   npm-letsencrypt:
+  robin-uploads:
