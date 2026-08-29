@@ -43,7 +43,6 @@ const onboarding_routes_1 = __importDefault(require("./onboarding/onboarding.rou
 const referral_routes_1 = __importDefault(require("./referral/referral.routes"));
 const transfer_routes_1 = __importDefault(require("./transfer/transfer.routes"));
 const load_routes_1 = __importDefault(require("./transfer/load.routes"));
-const blob_upload_route_1 = __importDefault(require("./utils/blob-upload-route"));
 const multer_1 = __importDefault(require("multer"));
 const prisma_1 = __importDefault(require("./prisma"));
 const request_logger_middleware_1 = require("./middleware/request-logger.middleware");
@@ -188,7 +187,6 @@ app.use("/api/referral", referral_routes_1.default);
 app.use("/api/transfer", transfer_routes_1.default);
 app.use("/api/trading-balance", load_routes_1.default);
 app.use("/api/transfer", load_routes_1.default);
-app.use("/api/blob", blob_upload_route_1.default);
 app.use(error_handler_middleware_1.errorHandler);
 const loanScheduler = new loan_scheduler_1.LoanScheduler();
 loanScheduler.start();
