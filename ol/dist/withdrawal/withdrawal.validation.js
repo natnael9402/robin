@@ -52,8 +52,14 @@ exports.updateWithdrawalStatusValidator = [
     (0, express_validator_1.body)("status")
         .isIn(["approved", "rejected"])
         .withMessage("Status must be approved or rejected."),
-    (0, express_validator_1.body)("rejection_reason")
+    (0, express_validator_1.body)(["rejection_reason", "rejectionReason"])
         .if((0, express_validator_1.body)("status").equals("rejected"))
-        .notEmpty()
-        .withMessage("Rejection reason is required when rejecting a withdrawal."),
+        .custom((value, { req }) => {
+            var _a;
+            const reason = (_a = value !== null && value !== void 0 ? value : req.body.rejection_reason) !== null && _a !== void 0 ? _a : req.body.rejectionReason;
+            if (!reason || typeof reason !== "string" || reason.trim() === "") {
+                throw new Error("Rejection reason is required when rejecting a withdrawal.");
+            }
+            return true;
+        }),
 ];
