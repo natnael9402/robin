@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { X } from 'lucide-react';
 import { Button } from './Button';
@@ -160,6 +160,84 @@ export function ConfirmModal({
           {confirmText}
         </Button>
       </Modal.Footer>
+    </Modal>
+  );
+}
+
+export interface RejectModalProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: (reason: string) => void;
+  title: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  reasonPlaceholder?: string;
+  loading?: boolean;
+}
+
+export function RejectModal({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  confirmText = 'Reject',
+  cancelText = 'Cancel',
+  reasonPlaceholder = 'Enter the reason for rejection...',
+  loading = false,
+}: RejectModalProps) {
+  const [reason, setReason] = useState('');
+  const [error, setError] = useState('');
+
+  const handleClose = () => {
+    if (loading) return;
+    setReason('');
+    setError('');
+    onClose();
+  };
+
+  const handleConfirm = () => {
+    if (!reason.trim()) {
+      setError('A rejection reason is required.');
+      return;
+    }
+    onConfirm(reason.trim());
+    setReason('');
+    setError('');
+  };
+
+  return (
+    <Modal open={open} onClose={handleClose} title={title} description={message} size="sm">
+      <div className="space-y-3">
+        <div>
+          <textarea
+            value={reason}
+            onChange={(e) => {
+              setReason(e.target.value);
+              if (error && e.target.value.trim()) setError('');
+            }}
+            placeholder={reasonPlaceholder}
+            rows={4}
+            disabled={loading}
+            className={cn(
+              'w-full resize-none rounded-xl border bg-surface px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground',
+              'focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50',
+              error ? 'border-destructive' : 'border-border-medium'
+            )}
+          />
+          {error && <p className="mt-1.5 text-xs font-medium text-destructive">{error}</p>}
+        </div>
+        <p className="text-xs text-muted-foreground">The user will receive this reason as a notification.</p>
+        <div className="flex items-center justify-end gap-2.5">
+          <Button variant="ghost" onClick={handleClose} disabled={loading}>
+            {cancelText}
+          </Button>
+          <Button variant="danger" onClick={handleConfirm} loading={loading}>
+            {confirmText}
+          </Button>
+        </div>
+      </div>
     </Modal>
   );
 }

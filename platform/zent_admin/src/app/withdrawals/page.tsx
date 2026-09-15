@@ -7,6 +7,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { StatusBadge } from '@/shared/components/ui/StatusBadge';
 import { ActionButtons } from '@/shared/components/ui/ActionButtons';
+import { RejectModal } from '@/shared/components/ui/Modal';
 import { SkeletonCard } from '@/shared/components/ui/Skeleton';
 import { cn, formatDateTime } from '@/shared/lib/utils';
 
@@ -31,7 +32,7 @@ interface Withdrawal {
 interface WithdrawalCardProps {
   wd: Withdrawal;
   onApprove: (id: number) => void;
-  onReject: (id: number) => void;
+  onReject: (wd: Withdrawal) => void;
   showActions?: boolean;
 }
 
@@ -126,7 +127,7 @@ function WithdrawalCard({ wd, onApprove, onReject, showActions = true }: Withdra
       {showActions && (
         <ActionButtons
           onApprove={() => onApprove(wd.id)}
-          onReject={() => onReject(wd.id)}
+          onReject={() => onReject(wd)}
           approveIcon={<Check size={16} />}
           rejectIcon={<X size={16} />}
         />
@@ -146,6 +147,8 @@ export default function WithdrawalsPage() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<Toast>(null);
   const [tab, setTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [rejectTarget, setRejectTarget] = useState<Withdrawal | null>(null);
+  const [rejectBusy, setRejectBusy] = useState(false);
 
   const notify = (type: 'success' | 'error', message: string) => {
     setToast({ type, message });
@@ -165,22 +168,32 @@ export default function WithdrawalsPage() {
   }, [tab, fetchWithdrawals]);
 
   const handleApprove = async (id: number) => {
+    if (!confirm('Approve this withdrawal request?')) return;
     try {
       await approveWithdrawal(id);
       notify('success', 'Withdrawal approved');
       fetchWithdrawals(tab);
-    } catch (error) {
-      notify('error', 'Failed to approve withdrawal');
+    } catch (err: any) {
+      notify('error', err?.message || 'Failed to approve withdrawal');
     }
   };
 
-  const handleReject = async (id: number) => {
+  const handleReject = (wd: Withdrawal) => {
+    setRejectTarget(wd);
+  };
+
+  const handleRejectConfirm = async (reason: string) => {
+    if (!rejectTarget) return;
+    setRejectBusy(true);
     try {
-      await rejectWithdrawal(id);
+      await rejectWithdrawal(rejectTarget.id, reason);
       notify('success', 'Withdrawal rejected');
+      setRejectTarget(null);
       fetchWithdrawals(tab);
-    } catch (error) {
-      notify('error', 'Failed to reject withdrawal');
+    } catch (err: any) {
+      notify('error', err?.message || 'Failed to reject withdrawal');
+    } finally {
+      setRejectBusy(false);
     }
   };
 
@@ -236,6 +249,19 @@ export default function WithdrawalsPage() {
           </div>
         )}
       </main>
+
+      <RejectModal
+        open={!!rejectTarget}
+        onClose={() => setRejectTarget(null)}
+        onConfirm={handleRejectConfirm}
+        loading={rejectBusy}
+        title="Reject Withdrawal?"
+        message={rejectTarget
+          ? `Reject the $${Number(rejectTarget.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} withdrawal for ${rejectTarget.user?.name || 'this user'} to ${rejectTarget.walletAddress || rejectTarget.wallet_address || 'their wallet'}?`
+          : ''}
+        confirmText="Reject Withdrawal"
+        reasonPlaceholder="Enter the reason for rejecting this withdrawal..."
+      />
     </div>
   );
 }

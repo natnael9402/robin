@@ -7,6 +7,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { StatusBadge } from '@/shared/components/ui/StatusBadge';
 import { ActionButtons } from '@/shared/components/ui/ActionButtons';
+import { RejectModal } from '@/shared/components/ui/Modal';
 import { SkeletonCard } from '@/shared/components/ui/Skeleton';
 import { cn, formatDateTime } from '@/shared/lib/utils';
 
@@ -37,7 +38,7 @@ interface Deposit {
   user: { email: string; name: string; id?: number };
 }
 
-function DepositCard({ tx, onApprove, onReject, showActions = true }: { tx: Deposit; onApprove: (id: number) => void; onReject: (id: number) => void; showActions?: boolean }) {
+function DepositCard({ tx, onApprove, onReject, showActions = true }: { tx: Deposit; onApprove: (id: number) => void; onReject: (tx: Deposit) => void; showActions?: boolean }) {
   const [imgOpen, setImgOpen] = useState(false);
   const proof = getImageUrl(tx.proofImage || tx.proof_image_url || tx.proof_image);
   const network = tx.network || tx.paymentMethod || tx.payment_method || '—';
@@ -99,7 +100,7 @@ function DepositCard({ tx, onApprove, onReject, showActions = true }: { tx: Depo
       {showActions && (
         <ActionButtons
           onApprove={() => onApprove(tx.id)}
-          onReject={() => onReject(tx.id)}
+          onReject={() => onReject(tx)}
           approveIcon={<Check size={16} />}
           rejectIcon={<X size={16} />}
         />
@@ -114,6 +115,8 @@ export default function DepositsPage() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<Toast>(null);
   const [tab, setTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [rejectTarget, setRejectTarget] = useState<Deposit | null>(null);
+  const [rejectBusy, setRejectBusy] = useState(false);
 
   const notify = (type: 'success' | 'error', message: string) => {
     setToast({ type, message });
@@ -131,13 +134,28 @@ export default function DepositsPage() {
   useEffect(() => { fetchDeposits(tab); }, [tab, fetchDeposits]);
 
   const handleApprove = async (id: number) => {
+    if (!confirm('Approve this deposit request?')) return;
     try { await approveTransaction(id); notify('success', 'Deposit approved'); fetchDeposits(tab); }
-    catch { notify('error', 'Failed to approve deposit'); }
+    catch (err: any) { notify('error', err?.message || 'Failed to approve deposit'); }
   };
 
-  const handleReject = async (id: number) => {
-    try { await rejectTransaction(id); notify('success', 'Deposit rejected'); fetchDeposits(tab); }
-    catch { notify('error', 'Failed to reject deposit'); }
+  const handleReject = (tx: Deposit) => {
+    setRejectTarget(tx);
+  };
+
+  const handleRejectConfirm = async (reason: string) => {
+    if (!rejectTarget) return;
+    setRejectBusy(true);
+    try {
+      await rejectTransaction(rejectTarget.id, reason);
+      notify('success', 'Deposit rejected');
+      setRejectTarget(null);
+      fetchDeposits(tab);
+    } catch (err: any) {
+      notify('error', err?.message || 'Failed to reject deposit');
+    } finally {
+      setRejectBusy(false);
+    }
   };
 
   return (
@@ -179,6 +197,19 @@ export default function DepositsPage() {
           </div>
         )}
       </main>
+
+      <RejectModal
+        open={!!rejectTarget}
+        onClose={() => setRejectTarget(null)}
+        onConfirm={handleRejectConfirm}
+        loading={rejectBusy}
+        title="Reject Deposit?"
+        message={rejectTarget
+          ? `Reject the $${Number(rejectTarget.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} deposit from ${rejectTarget.user?.name || 'this user'}?`
+          : ''}
+        confirmText="Reject Deposit"
+        reasonPlaceholder="Enter the reason for rejecting this deposit..."
+      />
     </div>
   );
 }

@@ -181,18 +181,29 @@ const createWithdrawal = (userId, input) => __awaiter(void 0, void 0, void 0, fu
             throw new WithdrawalError(`Insufficient balance to cover the withdrawal fee of ${fee.toString()} USDT`, 400, "FEE_INSUFFICIENT");
         }
     }
-    const withdrawal = yield prisma_1.default.withdrawal.create({
-        data: {
-            user_id: userId,
-            currency: normalizedCurrency,
-            amount: amountDecimal,
-            fee,
-            wallet_address: input.walletAddress,
-            network: normalizedNetwork,
-            status: "pending",
-        },
-    });
-    return formatWithdrawal(withdrawal);
+    return prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+        const withdrawal = yield tx.withdrawal.create({
+            data: {
+                user_id: userId,
+                currency: normalizedCurrency,
+                amount: amountDecimal,
+                fee,
+                wallet_address: input.walletAddress,
+                network: normalizedNetwork,
+                status: "pending",
+            },
+        });
+        yield tx.notification.create({
+            data: {
+                user_id: userId,
+                admin_id: null,
+                title: "Withdrawal Submitted",
+                message: `Your ${amountDecimal.toNumber().toFixed(2)} ${normalizedCurrency} withdrawal request is pending review.`,
+                image_url: null,
+            },
+        });
+        return formatWithdrawal(withdrawal);
+    }));
 });
 exports.createWithdrawal = createWithdrawal;
 const updateWithdrawalStatus = (withdrawalId, adminId, input) => __awaiter(void 0, void 0, void 0, function* () {
@@ -328,6 +339,26 @@ const updateWithdrawalStatus = (withdrawalId, adminId, input) => __awaiter(void 
                     },
                 });
             }
+            yield tx.notification.create({
+                data: {
+                    user_id: withdrawal.user_id,
+                    admin_id: adminId,
+                    title: "Withdrawal Approved",
+                    message: `Your ${amount.toNumber().toFixed(2)} ${withdrawal.currency} withdrawal has been approved and is being processed.`,
+                    image_url: null,
+                },
+            });
+        }
+        else if (input.status === "rejected") {
+            yield tx.notification.create({
+                data: {
+                    user_id: withdrawal.user_id,
+                    admin_id: adminId,
+                    title: "Withdrawal Rejected",
+                    message: `Your ${amount.toNumber().toFixed(2)} ${withdrawal.currency} withdrawal was rejected. Reason: ${input.rejectionReason}`,
+                    image_url: null,
+                },
+            });
         }
         const updatedWithdrawal = yield tx.withdrawal.update({
             where: { id: withdrawalId },

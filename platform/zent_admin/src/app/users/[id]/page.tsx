@@ -283,12 +283,14 @@ export default function UserDetailsPage() {
   };
 
   const handleTxApprove = async (id: number) => {
+    if (!confirm('Approve this deposit?')) return;
     try { await approveTransaction(id); notify('success', 'Transaction approved'); fetchAllData(); }
-    catch { notify('error', 'Failed to approve'); }
+    catch (err: any) { notify('error', err?.message || 'Failed to approve'); }
   };
   const handleTxReject = async (id: number) => {
+    if (!confirm('Reject this deposit?')) return;
     try { await rejectTransaction(id); notify('success', 'Transaction rejected'); fetchAllData(); }
-    catch { notify('error', 'Failed to reject'); }
+    catch (err: any) { notify('error', err?.message || 'Failed to reject'); }
   };
   const handleTxDelete = async (id: number) => {
     if (!confirm('Delete this transaction?')) return;

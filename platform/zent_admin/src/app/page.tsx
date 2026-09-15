@@ -108,9 +108,10 @@ export default function OverviewPage() {
   );
 
   // ---- Queue actions (wired to /ol) ----
-  const act = async (fn: () => Promise<any>, msg: string) => {
+  const act = async (fn: () => Promise<any>, msg: string, confirmMsg?: string) => {
+    if (confirmMsg && !confirm(confirmMsg)) return;
     try { await fn(); notify('success', msg); load(true); }
-    catch { notify('error', 'Action failed'); }
+    catch (err: any) { notify('error', err?.message || 'Action failed'); }
   };
 
   if (loading) {
@@ -240,8 +241,8 @@ export default function OverviewPage() {
                 : deposits.slice(0, 8).map((d) => (
                   <QueueRow key={d.id} title={money(d.amount)} subtitle={`${d.user?.name ?? `User #${d.userId ?? d.user_id ?? '—'}`} · ${d.paymentMethod ?? d.currency ?? 'deposit'}`} date={d.createdAt}
                     actions={<>
-                      <ActBtn tone="success" onClick={() => act(() => approveTransaction(d.id), 'Deposit approved')}><Check size={15} /></ActBtn>
-                      <ActBtn tone="destructive" onClick={() => act(() => rejectTransaction(d.id), 'Deposit rejected')}><X size={15} /></ActBtn>
+                      <ActBtn tone="success" onClick={() => act(() => approveTransaction(d.id), 'Deposit approved', `Approve this $${Number(d.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} deposit?`)}><Check size={15} /></ActBtn>
+                      <ActBtn tone="destructive" onClick={() => act(() => rejectTransaction(d.id), 'Deposit rejected', `Reject this $${Number(d.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} deposit?`)}><X size={15} /></ActBtn>
                     </>} />
                 )))}
 

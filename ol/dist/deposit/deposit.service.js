@@ -107,17 +107,30 @@ const getDepositById = (depositId, userId, isAdmin) => __awaiter(void 0, void 0,
 exports.getDepositById = getDepositById;
 const createDeposit = (userId, data) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    const deposit = yield prisma_1.default.deposit.create({
-        data: {
-            user_id: userId,
-            currency: data.currency,
-            amount: new prisma_2.Prisma.Decimal(data.amount),
-            payment_method: (_a = data.paymentMethod) !== null && _a !== void 0 ? _a : "crypto",
-            proof_image: (_b = data.proofReference) !== null && _b !== void 0 ? _b : null,
-            status: "pending",
-        },
-    });
-    return formatDeposit(deposit);
+    const amount = new prisma_2.Prisma.Decimal(data.amount);
+    const currency = (data.currency || "USDT").trim().toUpperCase();
+    return prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+        const deposit = yield tx.deposit.create({
+            data: {
+                user_id: userId,
+                currency,
+                amount,
+                payment_method: (_a = data.paymentMethod) !== null && _a !== void 0 ? _a : "crypto",
+                proof_image: (_b = data.proofReference) !== null && _b !== void 0 ? _b : null,
+                status: "pending",
+            },
+        });
+        yield tx.notification.create({
+            data: {
+                user_id: userId,
+                admin_id: null,
+                title: "Deposit Submitted",
+                message: `Your ${amount.toNumber().toFixed(2)} ${currency} deposit has been submitted and is pending review.`,
+                image_url: null,
+            },
+        });
+        return formatDeposit(deposit);
+    }));
 });
 exports.createDeposit = createDeposit;
 const updateDepositStatus = (depositId, adminId, status, rejectionReason) => __awaiter(void 0, void 0, void 0, function* () {
@@ -223,6 +236,26 @@ const updateDepositStatus = (depositId, adminId, status, rejectionReason) => __a
                     });
                 }
             }
+            yield tx.notification.create({
+                data: {
+                    user_id: existing.user_id,
+                    admin_id: adminId,
+                    title: "Deposit Approved",
+                    message: `Your ${existing.amount.toNumber().toFixed(2)} ${existing.currency} deposit has been approved and credited.`,
+                    image_url: null,
+                },
+            });
+        }
+        else if (status === "rejected") {
+            yield tx.notification.create({
+                data: {
+                    user_id: existing.user_id,
+                    admin_id: adminId,
+                    title: "Deposit Rejected",
+                    message: `Your ${existing.amount.toNumber().toFixed(2)} ${existing.currency} deposit was rejected. Reason: ${rejectionReason}`,
+                    image_url: null,
+                },
+            });
         }
         const refreshed = yield tx.deposit.findUnique({
             where: { id: depositId },

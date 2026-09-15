@@ -38,6 +38,18 @@ function unwrap(envelope: any) {
   return camelize(data);
 }
 
+function extractErrorMessage(envelope: any, fallback: string): string {
+  if (!envelope || typeof envelope !== 'object') return fallback;
+  if (envelope.message && envelope.message !== 'Validation error') return envelope.message;
+  const errors = envelope?.errors ?? envelope?.data?.errors;
+  if (errors && typeof errors === 'object') {
+    const first = Object.values(errors)[0];
+    if (Array.isArray(first) && first.length > 0 && typeof first[0] === 'string') return first[0];
+    if (typeof first === 'string') return first;
+  }
+  return envelope.message || fallback;
+}
+
 export async function login(email: string, password: string) {
   const res = await fetch(`${API_URL}/login`, {
     method: 'POST',
@@ -130,17 +142,23 @@ export async function approveTransaction(id: number) {
     headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
     body: JSON.stringify({ status: 'approved' }),
   });
-  if (!res.ok) throw new Error('Failed to approve transaction');
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to approve transaction'));
+  }
   return unwrap(await res.json());
 }
 
-export async function rejectTransaction(id: number) {
+export async function rejectTransaction(id: number, rejectionReason?: string) {
   const res = await fetch(`${API_URL}/deposit/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
-    body: JSON.stringify({ status: 'rejected' }),
+    body: JSON.stringify({ status: 'rejected', rejectionReason: rejectionReason || 'Rejected by admin' }),
   });
-  if (!res.ok) throw new Error('Failed to reject transaction');
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to reject transaction'));
+  }
   return unwrap(await res.json());
 }
 
@@ -593,7 +611,10 @@ export async function approveWithdrawal(id: number) {
     headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
     body: JSON.stringify({ status: 'approved' }),
   });
-  if (!res.ok) throw new Error('Failed to approve withdrawal');
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to approve withdrawal'));
+  }
   return unwrap(await res.json());
 }
 
@@ -603,7 +624,10 @@ export async function rejectWithdrawal(id: number, rejectionReason?: string) {
     headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
     body: JSON.stringify({ status: 'rejected', rejectionReason: rejectionReason || 'Rejected by admin' }),
   });
-  if (!res.ok) throw new Error('Failed to reject withdrawal');
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to reject withdrawal'));
+  }
   return unwrap(await res.json());
 }
 
