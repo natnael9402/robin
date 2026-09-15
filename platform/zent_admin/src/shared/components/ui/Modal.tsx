@@ -164,6 +164,16 @@ export function ConfirmModal({
   );
 }
 
+const SUGGESTED_REJECT_REASONS = [
+  'Insufficient payment proof',
+  'Incorrect wallet address',
+  'Payment details do not match',
+  'Suspected fraud',
+  'Duplicate request',
+  'Limit exceeded',
+  'Policy violation',
+];
+
 export interface RejectModalProps {
   open: boolean;
   onClose: () => void;
@@ -211,6 +221,31 @@ export function RejectModal({
     <Modal open={open} onClose={handleClose} title={title} description={message} size="sm">
       <div className="space-y-3">
         <div>
+          <div className="mb-2 flex flex-wrap gap-1.5">
+            {SUGGESTED_REJECT_REASONS.map((suggestion) => {
+              const active = reason === suggestion;
+              return (
+                <button
+                  key={suggestion}
+                  type="button"
+                  onClick={() => {
+                    setReason(suggestion);
+                    setError('');
+                  }}
+                  disabled={loading}
+                  className={cn(
+                    'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+                    'focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50',
+                    active
+                      ? 'border-primary text-primary'
+                      : 'border-border-medium bg-surface text-muted-foreground hover:border-primary/60 hover:text-foreground'
+                  )}
+                >
+                  {suggestion}
+                </button>
+              );
+            })}
+          </div>
           <textarea
             value={reason}
             onChange={(e) => {
