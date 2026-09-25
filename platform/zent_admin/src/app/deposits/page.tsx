@@ -10,15 +10,9 @@ import { ActionButtons } from '@/shared/components/ui/ActionButtons';
 import { RejectModal } from '@/shared/components/ui/Modal';
 import { SkeletonCard } from '@/shared/components/ui/Skeleton';
 import { cn, formatDateTime } from '@/shared/lib/utils';
+import { getImageUrl } from '@/shared/lib/images';
 
 type Toast = { type: 'success' | 'error'; message: string } | null;
-
-const getImageUrl = (urlPath: string | undefined | null) => {
-  if (!urlPath) return '';
-  if (urlPath.startsWith('http')) return urlPath;
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-  return `${baseUrl}${urlPath.startsWith('/') ? '' : '/'}${urlPath}`;
-};
 
 interface Deposit {
   id: number;

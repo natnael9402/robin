@@ -9,13 +9,7 @@ import { StatusBadge } from '@/shared/components/ui/StatusBadge';
 import { ActionButtons } from '@/shared/components/ui/ActionButtons';
 import { SkeletonCard } from '@/shared/components/ui/Skeleton';
 import { cn } from '@/shared/lib/utils';
-
-const getImageUrl = (urlPath: string | undefined | null) => {
-  if (!urlPath) return '';
-  if (urlPath.startsWith('http')) return urlPath;
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-  return `${baseUrl}${urlPath.startsWith('/') ? '' : '/'}${urlPath}`;
-};
+import { getImageUrl } from '@/shared/lib/images';
 
 const statusMap: Record<string, 'pending' | 'approved' | 'rejected'> = {
   pending: 'pending',

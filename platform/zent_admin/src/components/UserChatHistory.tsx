@@ -5,6 +5,7 @@ import { MessageCircle, Send, ArrowUpRight, Paperclip, FileText, ImageIcon, X } 
 import Link from 'next/link';
 import { getSupportTickets, getSupportTicket, sendSupportMessage } from '@/lib/api';
 import { formatDateTime } from '@/shared/lib/utils';
+import { getImageUrl } from '@/shared/lib/images';
 
 const senderOf = (m: any): 'admin' | 'user' =>
   m?.sender === 'admin' || m?.sender === 'user'
@@ -38,7 +39,7 @@ function AttachmentChips({ attachments }: { attachments: any[] }) {
   return (
     <div className="mt-1.5 space-y-1">
       {images.map((a: any, i: number) => {
-        const src = a.url || a.downloadUrl;
+        const src = getImageUrl(a.url || a.downloadUrl);
         return src ? (
           <a key={i} href={src} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-white/10">
             <img src={src} alt={a.name} className="max-h-32 w-auto object-cover" loading="lazy" />
@@ -46,7 +47,7 @@ function AttachmentChips({ attachments }: { attachments: any[] }) {
         ) : null;
       })}
       {files.map((a: any, i: number) => {
-        const href = a.url || a.downloadUrl;
+        const href = getImageUrl(a.url || a.downloadUrl);
         return (
           <a key={i} href={href} target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[11px] text-foreground/80 transition-colors hover:bg-white/10">
