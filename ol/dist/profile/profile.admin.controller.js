@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserAccount = exports.updateUser = exports.setLevel = exports.upgradeLevel = exports.resetWithdrawal = exports.setTradeStatus = exports.setKycStatus = exports.getProfile = exports.listProfiles = void 0;
+exports.purgeUserAccount = exports.restoreUserAccount = exports.getUserDeleteImpact = exports.deleteUserAccount = exports.updateUser = exports.setLevel = exports.upgradeLevel = exports.resetWithdrawal = exports.setTradeStatus = exports.setKycStatus = exports.getProfile = exports.listProfiles = void 0;
 const profile_admin_service_1 = require("./profile.admin.service");
+const profile_admin_user_delete_service_1 = require("./profile.admin.user-delete.service");
 const http_response_1 = require("../utils/http-response");
 const pagination_1 = require("../utils/pagination");
 const coerceEnum = (value) => typeof value === "string" ? value : undefined;
@@ -255,24 +256,93 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.updateUser = updateUser;
-const deleteUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+/**
+ * Maps service errors onto HTTP status codes. Explicit statusCode wins; Prisma
+ * codes are translated so a foreign-key failure reads as a conflict instead of
+ * a generic 500.
+ */
+const respondWithUserDeleteError = (res, err, fallbackMessage) => {
+    const statusCode = (err && err.statusCode) || 500;
+    const message = (err && err.message) || fallbackMessage;
+    if (err && err.code === "P2003") {
+        return (0, http_response_1.errorResponse)(res, "This user has related records that prevent the change", 409, message);
+    }
+    if (err && err.code === "P2025") {
+        return (0, http_response_1.errorResponse)(res, "User not found", 404, message);
+    }
+    return (0, http_response_1.errorResponse)(res, message, statusCode);
+};
+const resolveUserId = (req) => {
+    const userId = Number(req.params.id);
+    if (!Number.isFinite(userId) || userId <= 0) {
+        const err = new Error("User not found");
+        err.statusCode = 404;
+        err.code = "NOT_FOUND";
+        throw err;
+    }
+    return userId;
+};
+const getActingAdminId = (req) => {
+    const raw = req.user && req.user.id;
+    if (raw === null || raw === undefined)
+        return null;
+    return String(raw);
+};
+const getClientIp = (req) => {
+    const forwarded = req.headers["x-forwarded-for"];
+    if (typeof forwarded === "string" && forwarded.length > 0) {
+        return forwarded.split(",")[0].trim();
+    }
+    return req.ip || req.socket?.remoteAddress || null;
+};
+/** Dry run powering the delete confirmation modal. Never mutates. */
+const getUserDeleteImpact = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = Number(req.params.id);
-        if (!Number.isFinite(userId) || userId <= 0) {
-            return (0, http_response_1.errorResponse)(res, "User not found", 404);
-        }
-        yield (0, profile_admin_service_1.deleteUserByAdmin)(userId);
-        return (0, http_response_1.successResponse)(res, [], "User deleted successfully");
+        const userId = resolveUserId(req);
+        const impact = yield (0, profile_admin_user_delete_service_1.getUserDeleteImpact)(userId);
+        return (0, http_response_1.successResponse)(res, impact, "Delete impact calculated");
     }
     catch (error) {
-        const err = error;
-        if (err.statusCode === 403) {
-            return (0, http_response_1.errorResponse)(res, err.message, 403);
-        }
-        if (err.statusCode === 404 || err.message === "User not found") {
-            return (0, http_response_1.errorResponse)(res, "User not found", 404);
-        }
-        return (0, http_response_1.errorResponse)(res, "Failed to delete user", 500, err.message);
+        return respondWithUserDeleteError(res, error, "Failed to calculate delete impact");
+    }
+});
+exports.getUserDeleteImpact = getUserDeleteImpact;
+/** Soft delete: archives the account and signs the user out. Reversible. */
+const deleteUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = resolveUserId(req);
+        const result = yield (0, profile_admin_user_delete_service_1.deleteUserByAdmin)(userId, {
+            reason: req.body ? req.body.reason : undefined,
+            adminId: getActingAdminId(req),
+            ip: getClientIp(req),
+        });
+        return (0, http_response_1.successResponse)(res, result, "User deleted successfully. You can restore this account from Deleted Accounts.");
+    }
+    catch (error) {
+        return respondWithUserDeleteError(res, error, "Failed to delete user");
     }
 });
 exports.deleteUserAccount = deleteUserAccount;
+const restoreUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = resolveUserId(req);
+        const result = yield (0, profile_admin_user_delete_service_1.restoreUserByAdmin)(userId);
+        return (0, http_response_1.successResponse)(res, result, "User restored successfully");
+    }
+    catch (error) {
+        return respondWithUserDeleteError(res, error, "Failed to restore user");
+    }
+});
+exports.restoreUserAccount = restoreUserAccount;
+/** Irreversible. Only operates on an already-archived account. */
+const purgeUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = resolveUserId(req);
+        const result = yield (0, profile_admin_user_delete_service_1.purgeUserByAdmin)(userId);
+        return (0, http_response_1.successResponse)(res, result, "User permanently deleted");
+    }
+    catch (error) {
+        return respondWithUserDeleteError(res, error, "Failed to permanently delete user");
+    }
+});
+exports.purgeUserAccount = purgeUserAccount;

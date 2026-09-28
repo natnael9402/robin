@@ -187,30 +187,13 @@ router.get("/:id", auth_middleware_1.authenticateJWT, admin_middleware_1.authori
  *         description: User not found
  */
 router.put("/:id", auth_middleware_1.authenticateJWT, admin_middleware_1.authorizeAdmin, userController.updateUser);
-/**
- * @swagger
- * /api/users/{id}:
- *   delete:
- *     summary: Delete a user by ID
- *     tags: [User]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: The user ID
- *     responses:
- *       200:
- *         description: User deleted successfully
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden (Admin only)
- *       404:
- *         description: User not found
+/*
+ * DELETE /api/users/:id was removed.
+ *
+ * It was a second hard-delete path that bypassed every guard on the admin route:
+ * no superadmin protection, no self-delete check, no reason, no archive, and a
+ * bare 500 for any foreign-key failure. Admin deletion now lives solely at
+ * DELETE /api/admin/users/:id (soft delete, reversible) with an explicit
+ * /purge for permanent removal.
  */
-router.delete("/:id", auth_middleware_1.authenticateJWT, admin_middleware_1.authorizeAdmin, userController.deleteUser);
 exports.default = router;

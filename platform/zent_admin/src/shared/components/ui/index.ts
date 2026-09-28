@@ -24,3 +24,10 @@ export type { TableProps, Column, SimpleTableProps } from './Table';
 
 export { ActionButtons, SingleActionButton } from './ActionButtons';
 export type { ActionButtonsProps, SingleActionButtonProps } from './ActionButtons';
+
+export { DeleteUserModal, RestoreUserModal, PurgeUserModal } from './DeleteUserModal';
+export type {
+  DeleteUserModalProps,
+  RestoreUserModalProps,
+  PurgeUserModalProps,
+} from './DeleteUserModal';

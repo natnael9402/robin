@@ -907,3 +907,108 @@ export async function deleteUserAsset(userId: number, assetId: number) {
   }
   return unwrap(await res.json());
 }
+
+// ---- Admin user deletion ----
+
+export interface DeleteImpactUser {
+  id: number;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  role: string;
+  status: string;
+  createdAt: string | null;
+}
+
+export interface DeleteImpactBalances {
+  fastTrade: number;
+  spot: number;
+  trading: number;
+  total: number;
+}
+
+export interface DeleteImpactCounts {
+  trades: number;
+  openTrades: number;
+  deposits: number;
+  pendingDeposits: number;
+  withdrawals: number;
+  pendingWithdrawals: number;
+  loans: number;
+  openLoans: number;
+  assets: number;
+  kycSubmissions: number;
+  supportTickets: number;
+  notifications: number;
+  transactions: number;
+  referralCommissions: number;
+}
+
+export interface DeleteImpactWarning {
+  code: string;
+  label: string;
+  detail: string;
+}
+
+export interface DeleteImpact {
+  user: DeleteImpactUser;
+  balances: DeleteImpactBalances;
+  counts: DeleteImpactCounts;
+  warnings: DeleteImpactWarning[];
+}
+
+/**
+ * Dry run for the delete confirmation modal: what the user holds and what would
+ * be removed. Read only, safe to call repeatedly.
+ */
+export async function getUserDeleteImpact(id: number): Promise<DeleteImpact> {
+  const res = await fetch(`${API_URL}/admin/users/${id}/delete-impact`, {
+    headers: getAuthHeader(),
+    cache: 'no-store',
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to load delete preview'));
+  }
+  return unwrap(await res.json());
+}
+
+/** Archives the account. Reversible via restoreUser. */
+export async function deleteUser(id: number, reason: string) {
+  const res = await fetch(`${API_URL}/admin/users/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+    body: JSON.stringify({ reason }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to delete user'));
+  }
+  return unwrap(await res.json());
+}
+
+/** Undoes a soft delete. */
+export async function restoreUser(id: number) {
+  const res = await fetch(`${API_URL}/admin/users/${id}/restore`, {
+    method: 'POST',
+    headers: getAuthHeader(),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to restore user'));
+  }
+  return unwrap(await res.json());
+}
+
+/** Irreversible. Only valid on an already-archived account. */
+export async function purgeUser(id: number) {
+  const res = await fetch(`${API_URL}/admin/users/${id}/purge`, {
+    method: 'DELETE',
+    headers: getAuthHeader(),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(extractErrorMessage(err, 'Failed to permanently delete user'));
+  }
+  return unwrap(await res.json());
+}

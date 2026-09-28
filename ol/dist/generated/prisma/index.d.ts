@@ -149,6 +149,13 @@ export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model DeletedAccount
+ * Snapshot of a user account archived by an admin soft-delete.
+ * `original_user_id` intentionally has NO foreign key so the archive row
+ * survives a permanent purge of the source user.
+ */
+export type DeletedAccount = $Result.DefaultSelection<Prisma.$DeletedAccountPayload>
+/**
  * Model Withdrawal
  * 
  */
@@ -219,6 +226,7 @@ export type ArbitrageHostingStatus = (typeof ArbitrageHostingStatus)[keyof typeo
 
 export const MiningHostingStatus: {
   running: 'running',
+  paused: 'paused',
   ended: 'ended',
   cancelled: 'cancelled'
 };
@@ -750,6 +758,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deletedAccount`: Exposes CRUD operations for the **DeletedAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeletedAccounts
+    * const deletedAccounts = await prisma.deletedAccount.findMany()
+    * ```
+    */
+  get deletedAccount(): Prisma.DeletedAccountDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.withdrawal`: Exposes CRUD operations for the **Withdrawal** model.
@@ -1288,6 +1306,7 @@ export namespace Prisma {
     Trade: 'Trade',
     Transaction: 'Transaction',
     User: 'User',
+    DeletedAccount: 'DeletedAccount',
     Withdrawal: 'Withdrawal',
     Loan: 'Loan',
     LoanRepayment: 'LoanRepayment',
@@ -1313,7 +1332,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "arbitrageHosting" | "arbitrageProduct" | "asset" | "cache" | "cacheLock" | "cryptoAddress" | "deposit" | "failedJob" | "jobBatch" | "job" | "kycSubmission" | "migration" | "miningHosting" | "miningProduct" | "passwordResetToken" | "notification" | "personalAccessToken" | "profile" | "session" | "supportTicketMessage" | "supportTicket" | "tradeContract" | "tradeOption" | "tradeSpot" | "trade" | "transaction" | "user" | "withdrawal" | "loan" | "loanRepayment" | "newsArticle" | "accountBalance" | "referralCommission" | "userOnboarding"
+      modelProps: "arbitrageHosting" | "arbitrageProduct" | "asset" | "cache" | "cacheLock" | "cryptoAddress" | "deposit" | "failedJob" | "jobBatch" | "job" | "kycSubmission" | "migration" | "miningHosting" | "miningProduct" | "passwordResetToken" | "notification" | "personalAccessToken" | "profile" | "session" | "supportTicketMessage" | "supportTicket" | "tradeContract" | "tradeOption" | "tradeSpot" | "trade" | "transaction" | "user" | "deletedAccount" | "withdrawal" | "loan" | "loanRepayment" | "newsArticle" | "accountBalance" | "referralCommission" | "userOnboarding"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3315,6 +3334,80 @@ export namespace Prisma {
           }
         }
       }
+      DeletedAccount: {
+        payload: Prisma.$DeletedAccountPayload<ExtArgs>
+        fields: Prisma.DeletedAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeletedAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeletedAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.DeletedAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeletedAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          findMany: {
+            args: Prisma.DeletedAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>[]
+          }
+          create: {
+            args: Prisma.DeletedAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          createMany: {
+            args: Prisma.DeletedAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeletedAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.DeletedAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          update: {
+            args: Prisma.DeletedAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeletedAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeletedAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeletedAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.DeletedAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeletedAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.DeletedAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeletedAccount>
+          }
+          groupBy: {
+            args: Prisma.DeletedAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeletedAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeletedAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<DeletedAccountCountAggregateOutputType> | number
+          }
+        }
+      }
       Withdrawal: {
         payload: Prisma.$WithdrawalPayload<ExtArgs>
         fields: Prisma.WithdrawalFieldRefs
@@ -3956,6 +4049,7 @@ export namespace Prisma {
     trade?: TradeOmit
     transaction?: TransactionOmit
     user?: UserOmit
+    deletedAccount?: DeletedAccountOmit
     withdrawal?: WithdrawalOmit
     loan?: LoanOmit
     loanRepayment?: LoanRepaymentOmit
@@ -32326,6 +32420,7 @@ export namespace Prisma {
     result: string | null
     pnl: Decimal | null
     fee: Decimal | null
+    market_type: string | null
     opened_at: Date | null
     closed_at: Date | null
     closed_by: bigint | null
@@ -32349,6 +32444,7 @@ export namespace Prisma {
     result: string | null
     pnl: Decimal | null
     fee: Decimal | null
+    market_type: string | null
     opened_at: Date | null
     closed_at: Date | null
     closed_by: bigint | null
@@ -32372,6 +32468,7 @@ export namespace Prisma {
     result: number
     pnl: number
     fee: number
+    market_type: number
     opened_at: number
     closed_at: number
     closed_by: number
@@ -32421,6 +32518,7 @@ export namespace Prisma {
     result?: true
     pnl?: true
     fee?: true
+    market_type?: true
     opened_at?: true
     closed_at?: true
     closed_by?: true
@@ -32444,6 +32542,7 @@ export namespace Prisma {
     result?: true
     pnl?: true
     fee?: true
+    market_type?: true
     opened_at?: true
     closed_at?: true
     closed_by?: true
@@ -32467,6 +32566,7 @@ export namespace Prisma {
     result?: true
     pnl?: true
     fee?: true
+    market_type?: true
     opened_at?: true
     closed_at?: true
     closed_by?: true
@@ -32577,6 +32677,7 @@ export namespace Prisma {
     result: string | null
     pnl: Decimal
     fee: Decimal
+    market_type: string | null
     opened_at: Date
     closed_at: Date | null
     closed_by: bigint | null
@@ -32619,6 +32720,7 @@ export namespace Prisma {
     result?: boolean
     pnl?: boolean
     fee?: boolean
+    market_type?: boolean
     opened_at?: boolean
     closed_at?: boolean
     closed_by?: boolean
@@ -32649,6 +32751,7 @@ export namespace Prisma {
     result?: boolean
     pnl?: boolean
     fee?: boolean
+    market_type?: boolean
     opened_at?: boolean
     closed_at?: boolean
     closed_by?: boolean
@@ -32674,6 +32777,7 @@ export namespace Prisma {
     result?: boolean
     pnl?: boolean
     fee?: boolean
+    market_type?: boolean
     opened_at?: boolean
     closed_at?: boolean
     closed_by?: boolean
@@ -32699,6 +32803,7 @@ export namespace Prisma {
     result?: boolean
     pnl?: boolean
     fee?: boolean
+    market_type?: boolean
     opened_at?: boolean
     closed_at?: boolean
     closed_by?: boolean
@@ -32706,7 +32811,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type TradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "symbol" | "type" | "direction" | "amount" | "entry_price" | "exit_price" | "exchange_rate" | "from_coin" | "to_coin" | "status" | "result" | "pnl" | "fee" | "opened_at" | "closed_at" | "closed_by" | "created_at" | "updated_at", ExtArgs["result"]["trade"]>
+  export type TradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "symbol" | "type" | "direction" | "amount" | "entry_price" | "exit_price" | "exchange_rate" | "from_coin" | "to_coin" | "status" | "result" | "pnl" | "fee" | "market_type" | "opened_at" | "closed_at" | "closed_by" | "created_at" | "updated_at", ExtArgs["result"]["trade"]>
   export type TradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contracts?: boolean | Trade$contractsArgs<ExtArgs>
     options?: boolean | Trade$optionsArgs<ExtArgs>
@@ -32751,6 +32856,7 @@ export namespace Prisma {
       result: string | null
       pnl: Prisma.Decimal
       fee: Prisma.Decimal
+      market_type: string | null
       opened_at: Date
       closed_at: Date | null
       closed_by: bigint | null
@@ -33200,6 +33306,7 @@ export namespace Prisma {
     readonly result: FieldRef<"Trade", 'String'>
     readonly pnl: FieldRef<"Trade", 'Decimal'>
     readonly fee: FieldRef<"Trade", 'Decimal'>
+    readonly market_type: FieldRef<"Trade", 'String'>
     readonly opened_at: FieldRef<"Trade", 'DateTime'>
     readonly closed_at: FieldRef<"Trade", 'DateTime'>
     readonly closed_by: FieldRef<"Trade", 'BigInt'>
@@ -34966,6 +35073,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     status: $Enums.UserStatus | null
     remember_token: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
     balance: Decimal | null
@@ -34981,6 +35089,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     status: $Enums.UserStatus | null
     remember_token: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
     balance: Decimal | null
@@ -34996,6 +35105,7 @@ export namespace Prisma {
     role: number
     status: number
     remember_token: number
+    deleted_at: number
     created_at: number
     updated_at: number
     balance: number
@@ -35023,6 +35133,7 @@ export namespace Prisma {
     role?: true
     status?: true
     remember_token?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
     balance?: true
@@ -35038,6 +35149,7 @@ export namespace Prisma {
     role?: true
     status?: true
     remember_token?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
     balance?: true
@@ -35053,6 +35165,7 @@ export namespace Prisma {
     role?: true
     status?: true
     remember_token?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
     balance?: true
@@ -35155,6 +35268,7 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     remember_token: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
     balance: Decimal
@@ -35189,6 +35303,7 @@ export namespace Prisma {
     role?: boolean
     status?: boolean
     remember_token?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     balance?: boolean
@@ -35231,6 +35346,7 @@ export namespace Prisma {
     role?: boolean
     status?: boolean
     remember_token?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     balance?: boolean
@@ -35246,6 +35362,7 @@ export namespace Prisma {
     role?: boolean
     status?: boolean
     remember_token?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     balance?: boolean
@@ -35261,12 +35378,13 @@ export namespace Prisma {
     role?: boolean
     status?: boolean
     remember_token?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     balance?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "email_verified_at" | "password" | "role" | "status" | "remember_token" | "created_at" | "updated_at" | "balance", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "email_verified_at" | "password" | "role" | "status" | "remember_token" | "deleted_at" | "created_at" | "updated_at" | "balance", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountBalances?: boolean | User$accountBalancesArgs<ExtArgs>
     arbitrageHostings?: boolean | User$arbitrageHostingsArgs<ExtArgs>
@@ -35339,6 +35457,7 @@ export namespace Prisma {
       role: $Enums.UserRole
       status: $Enums.UserStatus
       remember_token: string | null
+      deleted_at: Date | null
       created_at: Date | null
       updated_at: Date | null
       balance: Prisma.Decimal
@@ -35800,6 +35919,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly status: FieldRef<"User", 'UserStatus'>
     readonly remember_token: FieldRef<"User", 'String'>
+    readonly deleted_at: FieldRef<"User", 'DateTime'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
     readonly balance: FieldRef<"User", 'Decimal'>
@@ -36825,6 +36945,1176 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeletedAccount
+   */
+
+  export type AggregateDeletedAccount = {
+    _count: DeletedAccountCountAggregateOutputType | null
+    _avg: DeletedAccountAvgAggregateOutputType | null
+    _sum: DeletedAccountSumAggregateOutputType | null
+    _min: DeletedAccountMinAggregateOutputType | null
+    _max: DeletedAccountMaxAggregateOutputType | null
+  }
+
+  export type DeletedAccountAvgAggregateOutputType = {
+    id: number | null
+    original_user_id: number | null
+    balance: Decimal | null
+    fast_trade_balance: Decimal | null
+    spot_balance: Decimal | null
+    trading_balance: Decimal | null
+    deleted_by: number | null
+  }
+
+  export type DeletedAccountSumAggregateOutputType = {
+    id: bigint | null
+    original_user_id: bigint | null
+    balance: Decimal | null
+    fast_trade_balance: Decimal | null
+    spot_balance: Decimal | null
+    trading_balance: Decimal | null
+    deleted_by: bigint | null
+  }
+
+  export type DeletedAccountMinAggregateOutputType = {
+    id: bigint | null
+    original_user_id: bigint | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    balance: Decimal | null
+    fast_trade_balance: Decimal | null
+    spot_balance: Decimal | null
+    trading_balance: Decimal | null
+    role: $Enums.UserRole | null
+    reason: string | null
+    deleted_by: bigint | null
+    deleted_at: Date | null
+    deleted_by_ip: string | null
+  }
+
+  export type DeletedAccountMaxAggregateOutputType = {
+    id: bigint | null
+    original_user_id: bigint | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    balance: Decimal | null
+    fast_trade_balance: Decimal | null
+    spot_balance: Decimal | null
+    trading_balance: Decimal | null
+    role: $Enums.UserRole | null
+    reason: string | null
+    deleted_by: bigint | null
+    deleted_at: Date | null
+    deleted_by_ip: string | null
+  }
+
+  export type DeletedAccountCountAggregateOutputType = {
+    id: number
+    original_user_id: number
+    name: number
+    email: number
+    phone: number
+    balance: number
+    fast_trade_balance: number
+    spot_balance: number
+    trading_balance: number
+    role: number
+    reason: number
+    deleted_by: number
+    deleted_at: number
+    deleted_by_ip: number
+    _all: number
+  }
+
+
+  export type DeletedAccountAvgAggregateInputType = {
+    id?: true
+    original_user_id?: true
+    balance?: true
+    fast_trade_balance?: true
+    spot_balance?: true
+    trading_balance?: true
+    deleted_by?: true
+  }
+
+  export type DeletedAccountSumAggregateInputType = {
+    id?: true
+    original_user_id?: true
+    balance?: true
+    fast_trade_balance?: true
+    spot_balance?: true
+    trading_balance?: true
+    deleted_by?: true
+  }
+
+  export type DeletedAccountMinAggregateInputType = {
+    id?: true
+    original_user_id?: true
+    name?: true
+    email?: true
+    phone?: true
+    balance?: true
+    fast_trade_balance?: true
+    spot_balance?: true
+    trading_balance?: true
+    role?: true
+    reason?: true
+    deleted_by?: true
+    deleted_at?: true
+    deleted_by_ip?: true
+  }
+
+  export type DeletedAccountMaxAggregateInputType = {
+    id?: true
+    original_user_id?: true
+    name?: true
+    email?: true
+    phone?: true
+    balance?: true
+    fast_trade_balance?: true
+    spot_balance?: true
+    trading_balance?: true
+    role?: true
+    reason?: true
+    deleted_by?: true
+    deleted_at?: true
+    deleted_by_ip?: true
+  }
+
+  export type DeletedAccountCountAggregateInputType = {
+    id?: true
+    original_user_id?: true
+    name?: true
+    email?: true
+    phone?: true
+    balance?: true
+    fast_trade_balance?: true
+    spot_balance?: true
+    trading_balance?: true
+    role?: true
+    reason?: true
+    deleted_by?: true
+    deleted_at?: true
+    deleted_by_ip?: true
+    _all?: true
+  }
+
+  export type DeletedAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeletedAccount to aggregate.
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeletedAccounts to fetch.
+     */
+    orderBy?: DeletedAccountOrderByWithRelationInput | DeletedAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeletedAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeletedAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeletedAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeletedAccounts
+    **/
+    _count?: true | DeletedAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DeletedAccountAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeletedAccountSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeletedAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeletedAccountMaxAggregateInputType
+  }
+
+  export type GetDeletedAccountAggregateType<T extends DeletedAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeletedAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeletedAccount[P]>
+      : GetScalarType<T[P], AggregateDeletedAccount[P]>
+  }
+
+
+
+
+  export type DeletedAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeletedAccountWhereInput
+    orderBy?: DeletedAccountOrderByWithAggregationInput | DeletedAccountOrderByWithAggregationInput[]
+    by: DeletedAccountScalarFieldEnum[] | DeletedAccountScalarFieldEnum
+    having?: DeletedAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeletedAccountCountAggregateInputType | true
+    _avg?: DeletedAccountAvgAggregateInputType
+    _sum?: DeletedAccountSumAggregateInputType
+    _min?: DeletedAccountMinAggregateInputType
+    _max?: DeletedAccountMaxAggregateInputType
+  }
+
+  export type DeletedAccountGroupByOutputType = {
+    id: bigint
+    original_user_id: bigint
+    name: string
+    email: string | null
+    phone: string | null
+    balance: Decimal
+    fast_trade_balance: Decimal
+    spot_balance: Decimal
+    trading_balance: Decimal
+    role: $Enums.UserRole
+    reason: string | null
+    deleted_by: bigint | null
+    deleted_at: Date
+    deleted_by_ip: string | null
+    _count: DeletedAccountCountAggregateOutputType | null
+    _avg: DeletedAccountAvgAggregateOutputType | null
+    _sum: DeletedAccountSumAggregateOutputType | null
+    _min: DeletedAccountMinAggregateOutputType | null
+    _max: DeletedAccountMaxAggregateOutputType | null
+  }
+
+  type GetDeletedAccountGroupByPayload<T extends DeletedAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeletedAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeletedAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeletedAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], DeletedAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeletedAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    original_user_id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    balance?: boolean
+    fast_trade_balance?: boolean
+    spot_balance?: boolean
+    trading_balance?: boolean
+    role?: boolean
+    reason?: boolean
+    deleted_by?: boolean
+    deleted_at?: boolean
+    deleted_by_ip?: boolean
+  }, ExtArgs["result"]["deletedAccount"]>
+
+  export type DeletedAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    original_user_id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    balance?: boolean
+    fast_trade_balance?: boolean
+    spot_balance?: boolean
+    trading_balance?: boolean
+    role?: boolean
+    reason?: boolean
+    deleted_by?: boolean
+    deleted_at?: boolean
+    deleted_by_ip?: boolean
+  }, ExtArgs["result"]["deletedAccount"]>
+
+  export type DeletedAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    original_user_id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    balance?: boolean
+    fast_trade_balance?: boolean
+    spot_balance?: boolean
+    trading_balance?: boolean
+    role?: boolean
+    reason?: boolean
+    deleted_by?: boolean
+    deleted_at?: boolean
+    deleted_by_ip?: boolean
+  }, ExtArgs["result"]["deletedAccount"]>
+
+  export type DeletedAccountSelectScalar = {
+    id?: boolean
+    original_user_id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    balance?: boolean
+    fast_trade_balance?: boolean
+    spot_balance?: boolean
+    trading_balance?: boolean
+    role?: boolean
+    reason?: boolean
+    deleted_by?: boolean
+    deleted_at?: boolean
+    deleted_by_ip?: boolean
+  }
+
+  export type DeletedAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "original_user_id" | "name" | "email" | "phone" | "balance" | "fast_trade_balance" | "spot_balance" | "trading_balance" | "role" | "reason" | "deleted_by" | "deleted_at" | "deleted_by_ip", ExtArgs["result"]["deletedAccount"]>
+
+  export type $DeletedAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeletedAccount"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      original_user_id: bigint
+      name: string
+      email: string | null
+      phone: string | null
+      balance: Prisma.Decimal
+      fast_trade_balance: Prisma.Decimal
+      spot_balance: Prisma.Decimal
+      trading_balance: Prisma.Decimal
+      role: $Enums.UserRole
+      reason: string | null
+      deleted_by: bigint | null
+      deleted_at: Date
+      deleted_by_ip: string | null
+    }, ExtArgs["result"]["deletedAccount"]>
+    composites: {}
+  }
+
+  type DeletedAccountGetPayload<S extends boolean | null | undefined | DeletedAccountDefaultArgs> = $Result.GetResult<Prisma.$DeletedAccountPayload, S>
+
+  type DeletedAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeletedAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeletedAccountCountAggregateInputType | true
+    }
+
+  export interface DeletedAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeletedAccount'], meta: { name: 'DeletedAccount' } }
+    /**
+     * Find zero or one DeletedAccount that matches the filter.
+     * @param {DeletedAccountFindUniqueArgs} args - Arguments to find a DeletedAccount
+     * @example
+     * // Get one DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeletedAccountFindUniqueArgs>(args: SelectSubset<T, DeletedAccountFindUniqueArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeletedAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeletedAccountFindUniqueOrThrowArgs} args - Arguments to find a DeletedAccount
+     * @example
+     * // Get one DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeletedAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, DeletedAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeletedAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountFindFirstArgs} args - Arguments to find a DeletedAccount
+     * @example
+     * // Get one DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeletedAccountFindFirstArgs>(args?: SelectSubset<T, DeletedAccountFindFirstArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeletedAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountFindFirstOrThrowArgs} args - Arguments to find a DeletedAccount
+     * @example
+     * // Get one DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeletedAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, DeletedAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeletedAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeletedAccounts
+     * const deletedAccounts = await prisma.deletedAccount.findMany()
+     * 
+     * // Get first 10 DeletedAccounts
+     * const deletedAccounts = await prisma.deletedAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deletedAccountWithIdOnly = await prisma.deletedAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeletedAccountFindManyArgs>(args?: SelectSubset<T, DeletedAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeletedAccount.
+     * @param {DeletedAccountCreateArgs} args - Arguments to create a DeletedAccount.
+     * @example
+     * // Create one DeletedAccount
+     * const DeletedAccount = await prisma.deletedAccount.create({
+     *   data: {
+     *     // ... data to create a DeletedAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeletedAccountCreateArgs>(args: SelectSubset<T, DeletedAccountCreateArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeletedAccounts.
+     * @param {DeletedAccountCreateManyArgs} args - Arguments to create many DeletedAccounts.
+     * @example
+     * // Create many DeletedAccounts
+     * const deletedAccount = await prisma.deletedAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeletedAccountCreateManyArgs>(args?: SelectSubset<T, DeletedAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeletedAccounts and returns the data saved in the database.
+     * @param {DeletedAccountCreateManyAndReturnArgs} args - Arguments to create many DeletedAccounts.
+     * @example
+     * // Create many DeletedAccounts
+     * const deletedAccount = await prisma.deletedAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeletedAccounts and only return the `id`
+     * const deletedAccountWithIdOnly = await prisma.deletedAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeletedAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, DeletedAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeletedAccount.
+     * @param {DeletedAccountDeleteArgs} args - Arguments to delete one DeletedAccount.
+     * @example
+     * // Delete one DeletedAccount
+     * const DeletedAccount = await prisma.deletedAccount.delete({
+     *   where: {
+     *     // ... filter to delete one DeletedAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeletedAccountDeleteArgs>(args: SelectSubset<T, DeletedAccountDeleteArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeletedAccount.
+     * @param {DeletedAccountUpdateArgs} args - Arguments to update one DeletedAccount.
+     * @example
+     * // Update one DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeletedAccountUpdateArgs>(args: SelectSubset<T, DeletedAccountUpdateArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeletedAccounts.
+     * @param {DeletedAccountDeleteManyArgs} args - Arguments to filter DeletedAccounts to delete.
+     * @example
+     * // Delete a few DeletedAccounts
+     * const { count } = await prisma.deletedAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeletedAccountDeleteManyArgs>(args?: SelectSubset<T, DeletedAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeletedAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeletedAccounts
+     * const deletedAccount = await prisma.deletedAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeletedAccountUpdateManyArgs>(args: SelectSubset<T, DeletedAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeletedAccounts and returns the data updated in the database.
+     * @param {DeletedAccountUpdateManyAndReturnArgs} args - Arguments to update many DeletedAccounts.
+     * @example
+     * // Update many DeletedAccounts
+     * const deletedAccount = await prisma.deletedAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeletedAccounts and only return the `id`
+     * const deletedAccountWithIdOnly = await prisma.deletedAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeletedAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, DeletedAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeletedAccount.
+     * @param {DeletedAccountUpsertArgs} args - Arguments to update or create a DeletedAccount.
+     * @example
+     * // Update or create a DeletedAccount
+     * const deletedAccount = await prisma.deletedAccount.upsert({
+     *   create: {
+     *     // ... data to create a DeletedAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeletedAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeletedAccountUpsertArgs>(args: SelectSubset<T, DeletedAccountUpsertArgs<ExtArgs>>): Prisma__DeletedAccountClient<$Result.GetResult<Prisma.$DeletedAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeletedAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountCountArgs} args - Arguments to filter DeletedAccounts to count.
+     * @example
+     * // Count the number of DeletedAccounts
+     * const count = await prisma.deletedAccount.count({
+     *   where: {
+     *     // ... the filter for the DeletedAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeletedAccountCountArgs>(
+      args?: Subset<T, DeletedAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeletedAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeletedAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeletedAccountAggregateArgs>(args: Subset<T, DeletedAccountAggregateArgs>): Prisma.PrismaPromise<GetDeletedAccountAggregateType<T>>
+
+    /**
+     * Group by DeletedAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeletedAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeletedAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeletedAccountGroupByArgs['orderBy'] }
+        : { orderBy?: DeletedAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeletedAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeletedAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeletedAccount model
+   */
+  readonly fields: DeletedAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeletedAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeletedAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeletedAccount model
+   */
+  interface DeletedAccountFieldRefs {
+    readonly id: FieldRef<"DeletedAccount", 'BigInt'>
+    readonly original_user_id: FieldRef<"DeletedAccount", 'BigInt'>
+    readonly name: FieldRef<"DeletedAccount", 'String'>
+    readonly email: FieldRef<"DeletedAccount", 'String'>
+    readonly phone: FieldRef<"DeletedAccount", 'String'>
+    readonly balance: FieldRef<"DeletedAccount", 'Decimal'>
+    readonly fast_trade_balance: FieldRef<"DeletedAccount", 'Decimal'>
+    readonly spot_balance: FieldRef<"DeletedAccount", 'Decimal'>
+    readonly trading_balance: FieldRef<"DeletedAccount", 'Decimal'>
+    readonly role: FieldRef<"DeletedAccount", 'UserRole'>
+    readonly reason: FieldRef<"DeletedAccount", 'String'>
+    readonly deleted_by: FieldRef<"DeletedAccount", 'BigInt'>
+    readonly deleted_at: FieldRef<"DeletedAccount", 'DateTime'>
+    readonly deleted_by_ip: FieldRef<"DeletedAccount", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeletedAccount findUnique
+   */
+  export type DeletedAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter, which DeletedAccount to fetch.
+     */
+    where: DeletedAccountWhereUniqueInput
+  }
+
+  /**
+   * DeletedAccount findUniqueOrThrow
+   */
+  export type DeletedAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter, which DeletedAccount to fetch.
+     */
+    where: DeletedAccountWhereUniqueInput
+  }
+
+  /**
+   * DeletedAccount findFirst
+   */
+  export type DeletedAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter, which DeletedAccount to fetch.
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeletedAccounts to fetch.
+     */
+    orderBy?: DeletedAccountOrderByWithRelationInput | DeletedAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeletedAccounts.
+     */
+    cursor?: DeletedAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeletedAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeletedAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeletedAccounts.
+     */
+    distinct?: DeletedAccountScalarFieldEnum | DeletedAccountScalarFieldEnum[]
+  }
+
+  /**
+   * DeletedAccount findFirstOrThrow
+   */
+  export type DeletedAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter, which DeletedAccount to fetch.
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeletedAccounts to fetch.
+     */
+    orderBy?: DeletedAccountOrderByWithRelationInput | DeletedAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeletedAccounts.
+     */
+    cursor?: DeletedAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeletedAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeletedAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeletedAccounts.
+     */
+    distinct?: DeletedAccountScalarFieldEnum | DeletedAccountScalarFieldEnum[]
+  }
+
+  /**
+   * DeletedAccount findMany
+   */
+  export type DeletedAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter, which DeletedAccounts to fetch.
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeletedAccounts to fetch.
+     */
+    orderBy?: DeletedAccountOrderByWithRelationInput | DeletedAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeletedAccounts.
+     */
+    cursor?: DeletedAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeletedAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeletedAccounts.
+     */
+    skip?: number
+    distinct?: DeletedAccountScalarFieldEnum | DeletedAccountScalarFieldEnum[]
+  }
+
+  /**
+   * DeletedAccount create
+   */
+  export type DeletedAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DeletedAccount.
+     */
+    data: XOR<DeletedAccountCreateInput, DeletedAccountUncheckedCreateInput>
+  }
+
+  /**
+   * DeletedAccount createMany
+   */
+  export type DeletedAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeletedAccounts.
+     */
+    data: DeletedAccountCreateManyInput | DeletedAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeletedAccount createManyAndReturn
+   */
+  export type DeletedAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeletedAccounts.
+     */
+    data: DeletedAccountCreateManyInput | DeletedAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeletedAccount update
+   */
+  export type DeletedAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DeletedAccount.
+     */
+    data: XOR<DeletedAccountUpdateInput, DeletedAccountUncheckedUpdateInput>
+    /**
+     * Choose, which DeletedAccount to update.
+     */
+    where: DeletedAccountWhereUniqueInput
+  }
+
+  /**
+   * DeletedAccount updateMany
+   */
+  export type DeletedAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeletedAccounts.
+     */
+    data: XOR<DeletedAccountUpdateManyMutationInput, DeletedAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which DeletedAccounts to update
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * Limit how many DeletedAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeletedAccount updateManyAndReturn
+   */
+  export type DeletedAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update DeletedAccounts.
+     */
+    data: XOR<DeletedAccountUpdateManyMutationInput, DeletedAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which DeletedAccounts to update
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * Limit how many DeletedAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeletedAccount upsert
+   */
+  export type DeletedAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DeletedAccount to update in case it exists.
+     */
+    where: DeletedAccountWhereUniqueInput
+    /**
+     * In case the DeletedAccount found by the `where` argument doesn't exist, create a new DeletedAccount with this data.
+     */
+    create: XOR<DeletedAccountCreateInput, DeletedAccountUncheckedCreateInput>
+    /**
+     * In case the DeletedAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeletedAccountUpdateInput, DeletedAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * DeletedAccount delete
+   */
+  export type DeletedAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
+    /**
+     * Filter which DeletedAccount to delete.
+     */
+    where: DeletedAccountWhereUniqueInput
+  }
+
+  /**
+   * DeletedAccount deleteMany
+   */
+  export type DeletedAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeletedAccounts to delete
+     */
+    where?: DeletedAccountWhereInput
+    /**
+     * Limit how many DeletedAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeletedAccount without action
+   */
+  export type DeletedAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeletedAccount
+     */
+    select?: DeletedAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeletedAccount
+     */
+    omit?: DeletedAccountOmit<ExtArgs> | null
   }
 
 
@@ -45676,6 +46966,7 @@ export namespace Prisma {
     result: 'result',
     pnl: 'pnl',
     fee: 'fee',
+    market_type: 'market_type',
     opened_at: 'opened_at',
     closed_at: 'closed_at',
     closed_by: 'closed_by',
@@ -45712,12 +47003,33 @@ export namespace Prisma {
     role: 'role',
     status: 'status',
     remember_token: 'remember_token',
+    deleted_at: 'deleted_at',
     created_at: 'created_at',
     updated_at: 'updated_at',
     balance: 'balance'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const DeletedAccountScalarFieldEnum: {
+    id: 'id',
+    original_user_id: 'original_user_id',
+    name: 'name',
+    email: 'email',
+    phone: 'phone',
+    balance: 'balance',
+    fast_trade_balance: 'fast_trade_balance',
+    spot_balance: 'spot_balance',
+    trading_balance: 'trading_balance',
+    role: 'role',
+    reason: 'reason',
+    deleted_by: 'deleted_by',
+    deleted_at: 'deleted_at',
+    deleted_by_ip: 'deleted_by_ip'
+  };
+
+  export type DeletedAccountScalarFieldEnum = (typeof DeletedAccountScalarFieldEnum)[keyof typeof DeletedAccountScalarFieldEnum]
 
 
   export const WithdrawalScalarFieldEnum: {
@@ -48124,6 +49436,7 @@ export namespace Prisma {
     result?: StringNullableFilter<"Trade"> | string | null
     pnl?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
     fee?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
+    market_type?: StringNullableFilter<"Trade"> | string | null
     opened_at?: DateTimeFilter<"Trade"> | Date | string
     closed_at?: DateTimeNullableFilter<"Trade"> | Date | string | null
     closed_by?: BigIntNullableFilter<"Trade"> | bigint | number | null
@@ -48153,6 +49466,7 @@ export namespace Prisma {
     result?: SortOrderInput | SortOrder
     pnl?: SortOrder
     fee?: SortOrder
+    market_type?: SortOrderInput | SortOrder
     opened_at?: SortOrder
     closed_at?: SortOrderInput | SortOrder
     closed_by?: SortOrderInput | SortOrder
@@ -48185,6 +49499,7 @@ export namespace Prisma {
     result?: StringNullableFilter<"Trade"> | string | null
     pnl?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
     fee?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
+    market_type?: StringNullableFilter<"Trade"> | string | null
     opened_at?: DateTimeFilter<"Trade"> | Date | string
     closed_at?: DateTimeNullableFilter<"Trade"> | Date | string | null
     closed_by?: BigIntNullableFilter<"Trade"> | bigint | number | null
@@ -48214,6 +49529,7 @@ export namespace Prisma {
     result?: SortOrderInput | SortOrder
     pnl?: SortOrder
     fee?: SortOrder
+    market_type?: SortOrderInput | SortOrder
     opened_at?: SortOrder
     closed_at?: SortOrderInput | SortOrder
     closed_by?: SortOrderInput | SortOrder
@@ -48245,6 +49561,7 @@ export namespace Prisma {
     result?: StringNullableWithAggregatesFilter<"Trade"> | string | null
     pnl?: DecimalWithAggregatesFilter<"Trade"> | Decimal | DecimalJsLike | number | string
     fee?: DecimalWithAggregatesFilter<"Trade"> | Decimal | DecimalJsLike | number | string
+    market_type?: StringNullableWithAggregatesFilter<"Trade"> | string | null
     opened_at?: DateTimeWithAggregatesFilter<"Trade"> | Date | string
     closed_at?: DateTimeNullableWithAggregatesFilter<"Trade"> | Date | string | null
     closed_by?: BigIntNullableWithAggregatesFilter<"Trade"> | bigint | number | null
@@ -48350,6 +49667,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     remember_token?: StringNullableFilter<"User"> | string | null
+    deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     balance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
@@ -48391,6 +49709,7 @@ export namespace Prisma {
     role?: SortOrder
     status?: SortOrder
     remember_token?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     balance?: SortOrder
@@ -48435,6 +49754,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     remember_token?: StringNullableFilter<"User"> | string | null
+    deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     balance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
@@ -48476,6 +49796,7 @@ export namespace Prisma {
     role?: SortOrder
     status?: SortOrder
     remember_token?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     balance?: SortOrder
@@ -48499,9 +49820,109 @@ export namespace Prisma {
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
     remember_token?: StringNullableWithAggregatesFilter<"User"> | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     balance?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type DeletedAccountWhereInput = {
+    AND?: DeletedAccountWhereInput | DeletedAccountWhereInput[]
+    OR?: DeletedAccountWhereInput[]
+    NOT?: DeletedAccountWhereInput | DeletedAccountWhereInput[]
+    id?: BigIntFilter<"DeletedAccount"> | bigint | number
+    original_user_id?: BigIntFilter<"DeletedAccount"> | bigint | number
+    name?: StringFilter<"DeletedAccount"> | string
+    email?: StringNullableFilter<"DeletedAccount"> | string | null
+    phone?: StringNullableFilter<"DeletedAccount"> | string | null
+    balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFilter<"DeletedAccount"> | $Enums.UserRole
+    reason?: StringNullableFilter<"DeletedAccount"> | string | null
+    deleted_by?: BigIntNullableFilter<"DeletedAccount"> | bigint | number | null
+    deleted_at?: DateTimeFilter<"DeletedAccount"> | Date | string
+    deleted_by_ip?: StringNullableFilter<"DeletedAccount"> | string | null
+  }
+
+  export type DeletedAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    name?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    role?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    deleted_at?: SortOrder
+    deleted_by_ip?: SortOrderInput | SortOrder
+  }
+
+  export type DeletedAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    original_user_id?: bigint | number
+    AND?: DeletedAccountWhereInput | DeletedAccountWhereInput[]
+    OR?: DeletedAccountWhereInput[]
+    NOT?: DeletedAccountWhereInput | DeletedAccountWhereInput[]
+    name?: StringFilter<"DeletedAccount"> | string
+    email?: StringNullableFilter<"DeletedAccount"> | string | null
+    phone?: StringNullableFilter<"DeletedAccount"> | string | null
+    balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFilter<"DeletedAccount"> | $Enums.UserRole
+    reason?: StringNullableFilter<"DeletedAccount"> | string | null
+    deleted_by?: BigIntNullableFilter<"DeletedAccount"> | bigint | number | null
+    deleted_at?: DateTimeFilter<"DeletedAccount"> | Date | string
+    deleted_by_ip?: StringNullableFilter<"DeletedAccount"> | string | null
+  }, "id" | "original_user_id">
+
+  export type DeletedAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    name?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    role?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    deleted_at?: SortOrder
+    deleted_by_ip?: SortOrderInput | SortOrder
+    _count?: DeletedAccountCountOrderByAggregateInput
+    _avg?: DeletedAccountAvgOrderByAggregateInput
+    _max?: DeletedAccountMaxOrderByAggregateInput
+    _min?: DeletedAccountMinOrderByAggregateInput
+    _sum?: DeletedAccountSumOrderByAggregateInput
+  }
+
+  export type DeletedAccountScalarWhereWithAggregatesInput = {
+    AND?: DeletedAccountScalarWhereWithAggregatesInput | DeletedAccountScalarWhereWithAggregatesInput[]
+    OR?: DeletedAccountScalarWhereWithAggregatesInput[]
+    NOT?: DeletedAccountScalarWhereWithAggregatesInput | DeletedAccountScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"DeletedAccount"> | bigint | number
+    original_user_id?: BigIntWithAggregatesFilter<"DeletedAccount"> | bigint | number
+    name?: StringWithAggregatesFilter<"DeletedAccount"> | string
+    email?: StringNullableWithAggregatesFilter<"DeletedAccount"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"DeletedAccount"> | string | null
+    balance?: DecimalWithAggregatesFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalWithAggregatesFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalWithAggregatesFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalWithAggregatesFilter<"DeletedAccount"> | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleWithAggregatesFilter<"DeletedAccount"> | $Enums.UserRole
+    reason?: StringNullableWithAggregatesFilter<"DeletedAccount"> | string | null
+    deleted_by?: BigIntNullableWithAggregatesFilter<"DeletedAccount"> | bigint | number | null
+    deleted_at?: DateTimeWithAggregatesFilter<"DeletedAccount"> | Date | string
+    deleted_by_ip?: StringNullableWithAggregatesFilter<"DeletedAccount"> | string | null
   }
 
   export type WithdrawalWhereInput = {
@@ -51322,6 +52743,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -51350,6 +52772,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -51376,6 +52799,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51404,6 +52828,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -51431,6 +52856,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -51453,6 +52879,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51475,6 +52902,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -51581,6 +53009,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -51622,6 +53051,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -51663,6 +53093,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51704,6 +53135,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51745,6 +53177,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -51760,6 +53193,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51775,9 +53209,129 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type DeletedAccountCreateInput = {
+    id?: bigint | number
+    original_user_id: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: Decimal | DecimalJsLike | number | string
+    spot_balance?: Decimal | DecimalJsLike | number | string
+    trading_balance?: Decimal | DecimalJsLike | number | string
+    role?: $Enums.UserRole
+    reason?: string | null
+    deleted_by?: bigint | number | null
+    deleted_at?: Date | string
+    deleted_by_ip?: string | null
+  }
+
+  export type DeletedAccountUncheckedCreateInput = {
+    id?: bigint | number
+    original_user_id: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: Decimal | DecimalJsLike | number | string
+    spot_balance?: Decimal | DecimalJsLike | number | string
+    trading_balance?: Decimal | DecimalJsLike | number | string
+    role?: $Enums.UserRole
+    reason?: string | null
+    deleted_by?: bigint | number | null
+    deleted_at?: Date | string
+    deleted_by_ip?: string | null
+  }
+
+  export type DeletedAccountUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    original_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deleted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_by_ip?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DeletedAccountUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    original_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deleted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_by_ip?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DeletedAccountCreateManyInput = {
+    id?: bigint | number
+    original_user_id: bigint | number
+    name: string
+    email?: string | null
+    phone?: string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: Decimal | DecimalJsLike | number | string
+    spot_balance?: Decimal | DecimalJsLike | number | string
+    trading_balance?: Decimal | DecimalJsLike | number | string
+    role?: $Enums.UserRole
+    reason?: string | null
+    deleted_by?: bigint | number | null
+    deleted_at?: Date | string
+    deleted_by_ip?: string | null
+  }
+
+  export type DeletedAccountUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    original_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deleted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_by_ip?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DeletedAccountUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    original_user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fast_trade_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spot_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trading_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    deleted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_by_ip?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WithdrawalCreateInput = {
@@ -54322,6 +55876,7 @@ export namespace Prisma {
     result?: SortOrder
     pnl?: SortOrder
     fee?: SortOrder
+    market_type?: SortOrder
     opened_at?: SortOrder
     closed_at?: SortOrder
     closed_by?: SortOrder
@@ -54357,6 +55912,7 @@ export namespace Prisma {
     result?: SortOrder
     pnl?: SortOrder
     fee?: SortOrder
+    market_type?: SortOrder
     opened_at?: SortOrder
     closed_at?: SortOrder
     closed_by?: SortOrder
@@ -54380,6 +55936,7 @@ export namespace Prisma {
     result?: SortOrder
     pnl?: SortOrder
     fee?: SortOrder
+    market_type?: SortOrder
     opened_at?: SortOrder
     closed_at?: SortOrder
     closed_by?: SortOrder
@@ -54598,6 +56155,7 @@ export namespace Prisma {
     role?: SortOrder
     status?: SortOrder
     remember_token?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     balance?: SortOrder
@@ -54618,6 +56176,7 @@ export namespace Prisma {
     role?: SortOrder
     status?: SortOrder
     remember_token?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     balance?: SortOrder
@@ -54633,6 +56192,7 @@ export namespace Prisma {
     role?: SortOrder
     status?: SortOrder
     remember_token?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     balance?: SortOrder
@@ -54661,6 +56221,77 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserStatusFilter<$PrismaModel>
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type DeletedAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    role?: SortOrder
+    reason?: SortOrder
+    deleted_by?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by_ip?: SortOrder
+  }
+
+  export type DeletedAccountAvgOrderByAggregateInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    deleted_by?: SortOrder
+  }
+
+  export type DeletedAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    role?: SortOrder
+    reason?: SortOrder
+    deleted_by?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by_ip?: SortOrder
+  }
+
+  export type DeletedAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    role?: SortOrder
+    reason?: SortOrder
+    deleted_by?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by_ip?: SortOrder
+  }
+
+  export type DeletedAccountSumOrderByAggregateInput = {
+    id?: SortOrder
+    original_user_id?: SortOrder
+    balance?: SortOrder
+    fast_trade_balance?: SortOrder
+    spot_balance?: SortOrder
+    trading_balance?: SortOrder
+    deleted_by?: SortOrder
   }
 
   export type EnumWithdrawalStatusFilter<$PrismaModel = never> = {
@@ -57929,6 +59560,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -57969,6 +59601,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58064,6 +59697,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58104,6 +59738,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58216,6 +59851,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58256,6 +59892,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58312,6 +59949,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58352,6 +59990,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58392,6 +60031,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58432,6 +60072,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58477,6 +60118,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58517,6 +60159,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58573,6 +60216,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58613,6 +60257,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58664,6 +60309,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58704,6 +60350,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58744,6 +60391,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58784,6 +60432,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58829,6 +60478,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58869,6 +60519,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -58957,6 +60608,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -58997,6 +60649,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59048,6 +60701,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59088,6 +60742,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59159,6 +60814,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59199,6 +60855,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59244,6 +60901,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59284,6 +60942,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59340,6 +60999,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59380,6 +61040,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59431,6 +61092,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59471,6 +61133,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59560,6 +61223,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59600,6 +61264,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59711,6 +61376,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59751,6 +61417,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -59863,6 +61530,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59903,6 +61571,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59948,6 +61617,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -59988,6 +61658,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60044,6 +61715,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60084,6 +61756,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60135,6 +61808,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60175,6 +61849,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60215,6 +61890,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60255,6 +61931,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60462,6 +62139,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60502,6 +62180,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60665,6 +62344,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60705,6 +62385,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60781,6 +62462,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60821,6 +62503,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -60877,6 +62560,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -60917,6 +62601,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -61005,6 +62690,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -61045,6 +62731,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -61117,6 +62804,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -61157,6 +62845,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -61244,6 +62933,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -61284,6 +62974,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -61329,6 +63020,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -61356,6 +63048,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -61397,6 +63090,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -61424,6 +63118,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -61449,6 +63144,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -61476,6 +63172,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -61517,6 +63214,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -61544,6 +63242,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -61569,6 +63268,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -61596,6 +63296,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -61637,6 +63338,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -61664,6 +63366,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -61776,6 +63479,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -61816,6 +63520,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -61861,6 +63566,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -61901,6 +63607,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -62082,6 +63789,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -62122,6 +63830,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -62173,6 +63882,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -62213,6 +63923,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -62290,6 +64001,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -62317,6 +64029,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -62342,6 +64055,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -62382,6 +64096,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -62443,6 +64158,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -62470,6 +64186,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -62501,6 +64218,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -62541,6 +64259,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -63385,6 +65104,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -63412,6 +65132,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -63447,6 +65168,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -63473,6 +65195,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -64186,6 +65909,7 @@ export namespace Prisma {
     result?: StringNullableFilter<"Trade"> | string | null
     pnl?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
     fee?: DecimalFilter<"Trade"> | Decimal | DecimalJsLike | number | string
+    market_type?: StringNullableFilter<"Trade"> | string | null
     opened_at?: DateTimeFilter<"Trade"> | Date | string
     closed_at?: DateTimeNullableFilter<"Trade"> | Date | string | null
     closed_by?: BigIntNullableFilter<"Trade"> | bigint | number | null
@@ -64305,6 +66029,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64345,6 +66070,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64390,6 +66116,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64430,6 +66157,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64486,6 +66214,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64526,6 +66255,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64577,6 +66307,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64617,6 +66348,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64691,6 +66423,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64731,6 +66464,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64776,6 +66510,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64816,6 +66551,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -64888,6 +66624,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64928,6 +66665,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64979,6 +66717,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65019,6 +66758,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65112,6 +66852,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65152,6 +66893,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65267,6 +67009,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65307,6 +67050,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65347,6 +67091,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65387,6 +67132,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65443,6 +67189,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65483,6 +67230,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65580,6 +67328,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65620,6 +67369,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65780,6 +67530,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65820,6 +67571,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -65907,6 +67659,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -65947,6 +67700,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     status?: $Enums.UserStatus
     remember_token?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     balance?: Decimal | DecimalJsLike | number | string
@@ -66003,6 +67757,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -66043,6 +67798,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -66890,6 +68646,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     created_at?: Date | string | null
@@ -66911,6 +68668,7 @@ export namespace Prisma {
     result?: string | null
     pnl?: Decimal | DecimalJsLike | number | string
     fee?: Decimal | DecimalJsLike | number | string
+    market_type?: string | null
     opened_at?: Date | string
     closed_at?: Date | string | null
     closed_by?: bigint | number | null
@@ -67861,6 +69619,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67888,6 +69647,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67914,6 +69674,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67935,6 +69696,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67961,6 +69723,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
@@ -67987,6 +69750,7 @@ export namespace Prisma {
     result?: NullableStringFieldUpdateOperationsInput | string | null
     pnl?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    market_type?: NullableStringFieldUpdateOperationsInput | string | null
     opened_at?: DateTimeFieldUpdateOperationsInput | Date | string
     closed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closed_by?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null

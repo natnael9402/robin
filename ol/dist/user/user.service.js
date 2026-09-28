@@ -106,10 +106,11 @@ class UserService {
             return user;
         });
     }
-    deleteUser(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield prisma_1.default.user.delete({ where: { id } });
-        });
-    }
+    /*
+     * deleteUser was an unguarded hard delete used only by
+     * DELETE /api/users/:id, which has been removed. Admin deletion goes
+     * through profile.admin.user-delete.service instead, which archives to
+     * deleted_accounts and is reversible.
+     */
 }
 exports.UserService = UserService;

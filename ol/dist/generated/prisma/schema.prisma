@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../dist/generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -173,9 +174,9 @@ model KycSubmission {
   user_id          BigInt
   document_type    String              @db.VarChar(255)
   document_number  String?             @db.VarChar(255)
-  front_image_url  String?             @db.VarChar(255)
-  back_image_url   String?             @db.VarChar(255)
-  selfie_image_url String?             @db.VarChar(255)
+  front_image_url  String?             @db.Text
+  back_image_url   String?             @db.Text
+  selfie_image_url String?             @db.Text
   status           KycSubmissionStatus @default(pending)
   rejection_reason String?
   approved_at      DateTime?           @db.Timestamp(0)
@@ -189,6 +190,7 @@ model KycSubmission {
 
   @@index([processed_by])
   @@index([user_id])
+  @@index([user_id, status])
   @@map("kyc_submissions")
 }
 
@@ -435,6 +437,7 @@ model Trade {
   result        String?         @db.VarChar(255)
   pnl           Decimal         @default(0.00) @db.Decimal(15, 2)
   fee           Decimal         @default(0.00) @db.Decimal(15, 2)
+  market_type   String?         @db.VarChar(50)
   opened_at     DateTime        @default(now()) @db.Timestamp(0)
   closed_at     DateTime?       @db.Timestamp(0)
   closed_by     BigInt?
@@ -481,6 +484,7 @@ model User {
   role                    UserRole               @default(user)
   status                  UserStatus             @default(active)
   remember_token          String?                @db.VarChar(100)
+  deleted_at              DateTime?              @db.Timestamp(0)
   created_at              DateTime?              @default(now()) @db.Timestamp(0)
   updated_at              DateTime?              @updatedAt @db.Timestamp(0)
   balance                 Decimal                @default(0.00) @db.Decimal(15, 2)
@@ -511,7 +515,30 @@ model User {
   withdrawals             Withdrawal[]           @relation("UserWithdrawals")
   referral_commissions    ReferralCommission[]   @relation("ReferredUserCommissions")
 
+  @@index([deleted_at])
   @@map("users")
+}
+
+/// Snapshot of a user account archived by an admin soft-delete.
+/// `original_user_id` intentionally has NO foreign key so the archive row
+/// survives a permanent purge of the source user.
+model DeletedAccount {
+  id                 BigInt   @id @default(autoincrement())
+  original_user_id   BigInt   @unique
+  name               String   @db.VarChar(255)
+  email              String?  @db.VarChar(255)
+  phone              String?  @db.VarChar(255)
+  balance            Decimal  @default(0.00) @db.Decimal(15, 2)
+  fast_trade_balance Decimal  @default(0.00) @db.Decimal(15, 2)
+  spot_balance       Decimal  @default(0.00) @db.Decimal(15, 2)
+  trading_balance    Decimal  @default(0.00) @db.Decimal(15, 2)
+  role               UserRole @default(user)
+  reason             String?
+  deleted_by         BigInt?
+  deleted_at         DateTime @default(now()) @db.Timestamp(0)
+  deleted_by_ip      String?  @db.VarChar(45)
+
+  @@map("deleted_accounts")
 }
 
 model Withdrawal {
@@ -670,6 +697,7 @@ enum ArbitrageHostingStatus {
 
 enum MiningHostingStatus {
   running
+  paused
   ended
   cancelled
 

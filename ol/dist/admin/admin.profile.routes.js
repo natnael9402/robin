@@ -227,9 +227,10 @@ router.put("/profiles/:id/level", profile_admin_validation_1.adminProfileIdParam
 router.put("/users/:id", [...profile_admin_validation_1.adminProfileIdParamValidator, ...profile_admin_validation_1.adminUpdateUserValidator], validation_middleware_1.validationMiddleware, profile_admin_controller_1.updateUser);
 /**
  * @swagger
- * /api/admin/users/{id}:
- *   delete:
- *     summary: Delete a user account
+ * /api/admin/users/{id}/delete-impact:
+ *   get:
+ *     summary: Preview what deleting a user would affect
+ *     description: Returns balances, related-record counts and advisory warnings. Read only.
  *     tags: [Admin Profiles]
  *     security:
  *       - bearerAuth: []
@@ -241,9 +242,99 @@ router.put("/users/:id", [...profile_admin_validation_1.adminProfileIdParamValid
  *           type: string
  *     responses:
  *       200:
- *         description: User deleted successfully
+ *         description: Delete impact calculated
+ *       403:
+ *         description: Account is protected
  *       404:
  *         description: User not found
  */
-router.delete("/users/:id", profile_admin_validation_1.adminProfileIdParamValidator, validation_middleware_1.validationMiddleware, profile_admin_controller_1.deleteUserAccount);
+router.get("/users/:id/delete-impact", profile_admin_validation_1.adminProfileIdParamValidator, validation_middleware_1.validationMiddleware, profile_admin_controller_1.getUserDeleteImpact);
+/**
+ * @swagger
+ * /api/admin/users/{id}:
+ *   delete:
+ *     summary: Soft delete a user account
+ *     description: Archives the account to deleted_accounts, stamps deleted_at and signs the user out. Reversible via POST /api/admin/users/{id}/restore.
+ *     tags: [Admin Profiles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [reason]
+ *             properties:
+ *               reason:
+ *                 type: string
+ *                 minLength: 3
+ *                 maxLength: 500
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       400:
+ *         description: Reason missing or invalid
+ *       403:
+ *         description: Account is protected, is the acting admin, or is an admin account
+ *       404:
+ *         description: User not found
+ *       409:
+ *         description: User is already deleted
+ */
+router.delete("/users/:id", [...profile_admin_validation_1.adminProfileIdParamValidator, ...profile_admin_validation_1.adminDeleteUserValidator], validation_middleware_1.validationMiddleware, profile_admin_controller_1.deleteUserAccount);
+/**
+ * @swagger
+ * /api/admin/users/{id}/restore:
+ *   post:
+ *     summary: Restore a soft deleted user
+ *     description: Clears deleted_at, reactivates the account and drops its archive row.
+ *     tags: [Admin Profiles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User restored successfully
+ *       404:
+ *         description: User not found or not deleted
+ */
+router.post("/users/:id/restore", profile_admin_validation_1.adminProfileIdParamValidator, validation_middleware_1.validationMiddleware, profile_admin_controller_1.restoreUserAccount);
+/**
+ * @swagger
+ * /api/admin/users/{id}/purge:
+ *   delete:
+ *     summary: Permanently delete an archived user
+ *     description: Irreversible. Cascades all related rows and removes uploaded evidence files. Only works on an already soft deleted account.
+ *     tags: [Admin Profiles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User permanently deleted
+ *       403:
+ *         description: Account is protected
+ *       404:
+ *         description: User not found or not deleted
+ *       409:
+ *         description: Related records prevent permanent deletion
+ */
+router.delete("/users/:id/purge", profile_admin_validation_1.adminProfileIdParamValidator, validation_middleware_1.validationMiddleware, profile_admin_controller_1.purgeUserAccount);
 exports.default = router;

@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserByAdmin = exports.updateUserByAdmin = exports.upgradeProfileLevel = exports.resetWithdrawalPassword = exports.updateTradeStatus = exports.updateKycStatus = exports.getProfileById = exports.getProfiles = void 0;
+exports.updateUserByAdmin = exports.upgradeProfileLevel = exports.resetWithdrawalPassword = exports.updateTradeStatus = exports.updateKycStatus = exports.getProfileById = exports.getProfiles = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const prisma_1 = __importDefault(require("../prisma"));
 const prisma_2 = require("../generated/prisma");
@@ -309,22 +309,7 @@ const updateUserByAdmin = (id, data) => __awaiter(void 0, void 0, void 0, functi
     return safeUser;
 });
 exports.updateUserByAdmin = updateUserByAdmin;
-const deleteUserByAdmin = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma_1.default.user.findUnique({
-        where: { id: BigInt(id) },
-    });
-    if (!user) {
-        const notFound = new Error("User not found");
-        notFound.statusCode = 404;
-        throw notFound;
-    }
-    if (user.email && user.email.includes("superadmin")) {
-        const forbidden = new Error("Deletion of superadmin account is not allowed");
-        forbidden.statusCode = 403;
-        throw forbidden;
-    }
-    yield prisma_1.default.user.delete({
-        where: { id: BigInt(id) },
-    });
-});
-exports.deleteUserByAdmin = deleteUserByAdmin;
+// `deleteUserByAdmin` used to live here as an unguarded hard delete. It is gone:
+// admin deletion is now an archive, and the implementation lives in
+// profile.admin.user-delete.service.js (impact preview, soft delete, restore and
+// the explicit purge). Reached through profile.admin.controller.js only.

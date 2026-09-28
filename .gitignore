@@ -2,6 +2,8 @@ node_modules
 .next
 dist
 !ol/dist
+# Prisma regenerates this inside the ol image; it is a build artifact, not source.
+ol/dist/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node
 build
 coverage
 .env

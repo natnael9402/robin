@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUsers, createUser, setBalance } from '@/lib/api';
-import { Plus, Search, ChevronRight, Calendar, X, Filter, RefreshCw } from 'lucide-react';
+import { Plus, Search, ChevronRight, Calendar, X, Filter, RefreshCw, Trash2, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/shared/components/ui/Button';
 import { Input } from '@/shared/components/ui/Input';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
@@ -11,6 +11,7 @@ import { StatusBadge } from '@/shared/components/ui/StatusBadge';
 import { Modal } from '@/shared/components/ui/Modal';
 import { SkeletonList } from '@/shared/components/ui/Skeleton';
 import { Table, type Column } from '@/shared/components/ui/Table';
+import { DeleteUserModal } from '@/shared/components/ui/DeleteUserModal';
 import { cn, formatDate } from '@/shared/lib/utils';
 
 interface User {
@@ -51,6 +52,13 @@ export default function UsersPage() {
   });
   const [balanceAmount, setBalanceAmount] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<User | null>(null);
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const notify = useCallback((type: 'success' | 'error', message: string) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 2600);
+  }, []);
 
   const fetchUsers = useCallback(() => {
     setLoading(true);
@@ -161,17 +169,49 @@ export default function UsersPage() {
       key: 'actions',
       header: '',
       className: 'text-right',
-      width: '60px',
-      render: () => (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground transition-colors">
-          View <ChevronRight size={15} />
-        </span>
+      width: '96px',
+      render: (user) => (
+        <div className="flex items-center justify-end gap-1.5">
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground transition-colors">
+            View <ChevronRight size={15} />
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              // Table rows navigate on click; keep the delete button from
+              // opening the detail page underneath the modal.
+              e.stopPropagation();
+              setDeleteTarget(user);
+            }}
+            title={`Delete ${user.name || user.email}`}
+            aria-label={`Delete ${user.name || user.email}`}
+            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive-muted hover:text-destructive"
+          >
+            <Trash2 size={15} />
+          </button>
+        </div>
       ),
     },
   ];
 
   return (
     <div className="min-h-screen">
+      {toast && (
+        <div className="animate-rise fixed bottom-6 left-1/2 z-[600] -translate-x-1/2">
+          <div
+            className={cn(
+              'glass-strong flex items-center gap-2.5 rounded-2xl border px-4 py-3 text-sm font-semibold shadow-glass-lg',
+              toast.type === 'success'
+                ? 'border-success/30 text-success'
+                : 'border-destructive/30 text-destructive'
+            )}
+          >
+            {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertTriangle size={18} />}
+            {toast.message}
+          </div>
+        </div>
+      )}
+
       <main className="container mx-auto p-6 lg:p-8 lg:pt-16">
         <PageHeader
           title="Users"
@@ -293,7 +333,18 @@ export default function UsersPage() {
                         <p className="text-[10px] font-mono text-subtle-foreground mt-0.5">ID #{user.id}</p>
                       </div>
                     </div>
-                    <StatusBadge status={isAdminUser(user) ? 'admin' : 'user'} size="xs" />
+                    <div className="flex items-center gap-1.5">
+                      <StatusBadge status={isAdminUser(user) ? 'admin' : 'user'} size="xs" />
+                      <button
+                        type="button"
+                        onClick={() => setDeleteTarget(user)}
+                        title={`Delete ${user.name || user.email}`}
+                        aria-label={`Delete ${user.name || user.email}`}
+                        className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive-muted hover:text-destructive"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="flex items-center justify-between p-3 bg-surface-hover rounded-xl">
@@ -419,6 +470,19 @@ export default function UsersPage() {
           />
         </form>
       </Modal>
+
+      <DeleteUserModal
+        open={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        userId={deleteTarget?.id ?? 0}
+        userName={deleteTarget?.name}
+        userEmail={deleteTarget?.email}
+        onNotify={notify}
+        onDeleted={(deletedId) => {
+          setUsers((current) => current.filter((u) => u.id !== deletedId));
+          setDeleteTarget(null);
+        }}
+      />
     </div>
   );
 }

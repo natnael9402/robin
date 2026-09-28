@@ -26,6 +26,7 @@ import { Input } from '@/shared/components/ui/Input';
 import { Modal } from '@/shared/components/ui/Modal';
 import { SkeletonCard, SkeletonTable } from '@/shared/components/ui/Skeleton';
 import { Table, type Column } from '@/shared/components/ui/Table';
+import { DeleteUserModal } from '@/shared/components/ui/DeleteUserModal';
 import { cn, formatDate, formatDateTime } from '@/shared/lib/utils';
 
 type Toast = { type: 'success' | 'error'; message: string } | null;
@@ -67,6 +68,7 @@ export default function UserDetailsPage() {
   const [showConfirmPin, setShowConfirmPin] = useState(false);
   const [resettingPin, setResettingPin] = useState(false);
   const [toast, setToast] = useState<Toast>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [accounts, setAccounts] = useState<{ fast_trade: number; spot: number; trading: number; total: number } | null>(null);
   const [accountEditType, setAccountEditType] = useState<'fast_trade' | 'spot' | 'trading' | null>(null);
@@ -922,7 +924,50 @@ export default function UserDetailsPage() {
             </Card>
           </div>
         </div>
+
+        {user && (
+          <Card padding="lg" className="mt-6 border-destructive/30">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-destructive-muted">
+                  <AlertTriangle size={17} className="text-destructive" />
+                </span>
+                <div>
+                  <p className="text-sm font-bold text-foreground">Danger Zone</p>
+                  <p className="mt-1 max-w-xl text-xs text-muted-foreground">
+                    Deleting archives this account, signs the user out and hides it from the user
+                    list. Balances, trades and documents stay on record and can be restored from
+                    Deleted Accounts.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="danger"
+                leftIcon={<Trash2 size={16} />}
+                onClick={() => setIsDeleteModalOpen(true)}
+                className="shrink-0"
+              >
+                Delete user
+              </Button>
+            </div>
+          </Card>
+        )}
       </main>
+
+      {user && (
+        <DeleteUserModal
+          open={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          userId={userId}
+          userName={user.name}
+          userEmail={user.email}
+          onNotify={notify}
+          onDeleted={() => {
+            setIsDeleteModalOpen(false);
+            router.push('/users');
+          }}
+        />
+      )}
 
       <Modal
         open={isPasswordModalOpen}

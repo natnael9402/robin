@@ -92,17 +92,13 @@ class UserController {
                 res.status(500).json({ message: "Server error" });
             }
         });
-        this.deleteUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const userId = parseInt(req.params.id);
-                yield this.userService.deleteUser(userId);
-                res.json({ message: "User deleted successfully" });
-            }
-            catch (error) {
-                logger_1.logger.error("Error deleting user", error);
-                res.status(500).json({ message: "Server error" });
-            }
-        });
+        /*
+         * deleteUser and UserService.deleteUser were removed along with
+         * DELETE /api/users/:id. That route hard-deleted the row while skipping
+         * the superadmin guard, the self-delete check, the required reason and
+         * the deleted_accounts archive, and it surfaced FK violations as a bare
+         * 500. Deletion now lives at DELETE /api/admin/users/:id.
+         */
     }
 }
 exports.UserController = UserController;

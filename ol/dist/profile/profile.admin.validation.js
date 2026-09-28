@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminUpdateUserValidator = exports.adminProfileTradeStatusValidator = exports.adminProfileKycStatusValidator = exports.adminProfileIdParamValidator = exports.adminProfileListQueryValidator = void 0;
+exports.adminUpdateUserValidator = exports.adminDeleteUserValidator = exports.adminProfileTradeStatusValidator = exports.adminProfileKycStatusValidator = exports.adminProfileIdParamValidator = exports.adminProfileListQueryValidator = void 0;
 const express_validator_1 = require("express-validator");
 const pickLastValue = (value) => Array.isArray(value) && value.length > 0 ? value[value.length - 1] : value;
 const coalesceRequestValue = (primary, fallback) => pickLastValue(primary !== null && primary !== void 0 ? primary : fallback);
@@ -76,4 +76,17 @@ exports.adminUpdateUserValidator = [
         .withMessage("Password must be at least 8 characters"),
     (0, express_validator_1.body)("passwordConfirmation").optional().custom(confirmPasswordMatches),
     (0, express_validator_1.body)("password_confirmation").optional().custom(confirmPasswordMatches),
+];
+/**
+ * Deleting an account is audited, so a reason is mandatory. It is stored on the
+ * deleted_accounts archive row and shown in the Deleted Accounts screen.
+ */
+exports.adminDeleteUserValidator = [
+    (0, express_validator_1.body)("reason")
+        .customSanitizer((value) => trimIfString(value))
+        .notEmpty()
+        .withMessage("A reason is required to delete a user.")
+        .bail()
+        .isLength({ min: 3, max: 500 })
+        .withMessage("Reason must be between 3 and 500 characters."),
 ];

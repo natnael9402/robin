@@ -444,6 +444,7 @@ exports.Prisma.TradeScalarFieldEnum = {
   result: 'result',
   pnl: 'pnl',
   fee: 'fee',
+  market_type: 'market_type',
   opened_at: 'opened_at',
   closed_at: 'closed_at',
   closed_by: 'closed_by',
@@ -474,9 +475,27 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   remember_token: 'remember_token',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at',
   balance: 'balance'
+};
+
+exports.Prisma.DeletedAccountScalarFieldEnum = {
+  id: 'id',
+  original_user_id: 'original_user_id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  balance: 'balance',
+  fast_trade_balance: 'fast_trade_balance',
+  spot_balance: 'spot_balance',
+  trading_balance: 'trading_balance',
+  role: 'role',
+  reason: 'reason',
+  deleted_by: 'deleted_by',
+  deleted_at: 'deleted_at',
+  deleted_by_ip: 'deleted_by_ip'
 };
 
 exports.Prisma.WithdrawalScalarFieldEnum = {
@@ -617,6 +636,7 @@ exports.KycSubmissionStatus = exports.$Enums.KycSubmissionStatus = {
 
 exports.MiningHostingStatus = exports.$Enums.MiningHostingStatus = {
   running: 'running',
+  paused: 'paused',
   ended: 'ended',
   cancelled: 'cancelled'
 };
@@ -708,6 +728,7 @@ exports.Prisma.ModelName = {
   Trade: 'Trade',
   Transaction: 'Transaction',
   User: 'User',
+  DeletedAccount: 'DeletedAccount',
   Withdrawal: 'Withdrawal',
   Loan: 'Loan',
   LoanRepayment: 'LoanRepayment',
