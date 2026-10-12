@@ -28,6 +28,9 @@ const HOST = process.env.HOST || '0.0.0.0';
 const TOKEN = (process.env.EXTRACTOR_TOKEN || '').trim();
 const POT_URL = (process.env.POT_PROVIDER_URL || 'http://pot-provider:4416').trim();
 const COOKIES = (process.env.YTDLP_COOKIES || '/run/secrets/cookies/youtube.txt').trim();
+// Optional egress proxy (residential beats every datacenter IP):
+//   YTDLP_PROXY=http://user:pass@host:port
+const PROXY = (process.env.YTDLP_PROXY || '').trim();
 const MIN_INTERVAL_MS = Number(process.env.EXTRACTOR_MIN_INTERVAL_MS) || 6000;
 const RESOLVE_TTL_MS = 10 * 60_000;
 const RESOLVE_TIMEOUT_MS = 120_000;
@@ -47,6 +50,7 @@ function baseArgs(client) {
     '--socket-timeout', '30',
     '--extractor-args', `youtube:player_client=${client}`,
   ];
+  if (PROXY) args.push('--proxy', PROXY);
   try {
     if (COOKIES && fs.existsSync(COOKIES) && fs.statSync(COOKIES).size > 0) {
       args.push('--cookies', COOKIES);

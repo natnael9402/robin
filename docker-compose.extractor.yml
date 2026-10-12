@@ -17,6 +17,9 @@ services:
       PORT: 4100
       POT_PROVIDER_URL: http://pot-provider:4416
       YTDLP_COOKIES: /run/secrets/cookies/youtube.txt
+      # Optional egress proxy (residential beats every datacenter IP):
+      #   YTDLP_PROXY=http://user:pass@host:port docker compose -f docker-compose.extractor.yml up -d
+      YTDLP_PROXY: ${YTDLP_PROXY:-}
       # Optional: set to require an x-extractor-token header. Empty = open.
       EXTRACTOR_TOKEN: ${EXTRACTOR_TOKEN:-}
     volumes:
