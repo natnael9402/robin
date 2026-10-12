@@ -1,5 +1,5 @@
 # Kinet Extractor — standalone yt-dlp API. Zero overlap with the /ol image.
-FROM node:20-slim
+FROM node:22-slim
 
 # ffmpeg: yt-dlp needs it to merge bestvideo+bestaudio and to transcode mp3.
 RUN apt-get update \
