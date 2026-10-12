@@ -1,0 +1,33 @@
+# Kinet Extractor — standalone yt-dlp API. Zero overlap with the /ol image.
+FROM node:20-slim
+
+# ffmpeg: yt-dlp needs it to merge bestvideo+bestaudio and to transcode mp3.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ffmpeg curl ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# yt-dlp as a self-contained binary (no host-Python dependency).
+ADD --chmod=755 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux /usr/local/bin/yt-dlp
+
+# bgutil PO-token plugin — mints YouTube proof-of-origin tokens via the
+# pot-provider sidecar (same proven pair as the main Kinet worker).
+ADD --chmod=644 https://raw.githubusercontent.com/Brainicism/bgutil-ytdlp-pot-provider/2.0.2/plugin/yt_dlp_plugins/extractor/getpot_bgutil.py /home/node/.config/yt-dlp/plugins/bgutil/yt_dlp_plugins/extractor/getpot_bgutil.py
+ADD --chmod=644 https://raw.githubusercontent.com/Brainicism/bgutil-ytdlp-pot-provider/2.0.2/plugin/yt_dlp_plugins/extractor/getpot_bgutil_http.py /home/node/.config/yt-dlp/plugins/bgutil/yt_dlp_plugins/extractor/getpot_bgutil_http.py
+ADD --chmod=644 https://raw.githubusercontent.com/Brainicism/bgutil-ytdlp-pot-provider/2.0.2/plugin/yt_dlp_plugins/extractor/getpot_bgutil_script.py /home/node/.config/yt-dlp/plugins/bgutil/yt_dlp_plugins/extractor/getpot_bgutil_script.py
+# ADD --chmod leaks onto auto-created parent dirs (no search bit) — fix explicitly.
+RUN chmod -R a+rX /home/node/.config && chown -R node:node /home/node/.config
+
+WORKDIR /app
+COPY extractor/server.js ./server.js
+
+ENV NODE_ENV=production \
+    PORT=4100 \
+    POT_PROVIDER_URL=http://pot-provider:4416 \
+    YTDLP_COOKIES=/run/secrets/cookies/youtube.txt \
+    EXTRACTOR_TMP=/tmp/extractor
+
+RUN mkdir -p /tmp/extractor && chown node:node /tmp/extractor
+USER node
+
+EXPOSE 4100
+CMD ["node", "server.js"]

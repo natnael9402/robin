@@ -1,0 +1,43 @@
+# Kinet Extractor — standalone stack. Does NOT touch the Paxora compose file,
+# network, or any existing container. Build & run beside them:
+#
+#   docker compose -f docker-compose.extractor.yml up -d --build
+#
+name: kinet-extractor
+
+services:
+  extractor:
+    build:
+      context: .
+      dockerfile: Dockerfile.extractor
+    image: kinet-extractor
+    container_name: kinet-extractor
+    restart: unless-stopped
+    environment:
+      PORT: 4100
+      POT_PROVIDER_URL: http://pot-provider:4416
+      YTDLP_COOKIES: /run/secrets/cookies/youtube.txt
+      # Optional: set to require an x-extractor-token header. Empty = open.
+      EXTRACTOR_TOKEN: ${EXTRACTOR_TOKEN:-}
+    volumes:
+      # Optional trust boost: drop the Netscape cookies.txt here on the host.
+      - ./secrets/cookies:/run/secrets/cookies:ro
+      - extractor-tmp:/tmp/extractor
+    ports:
+      - '4100:4100'
+    networks: [extractor-net]
+    depends_on:
+      - pot-provider
+
+  pot-provider:
+    image: brainicism/bgutil-ytdlp-pot-provider:2.0.2
+    container_name: kinet-extractor-pot
+    restart: unless-stopped
+    networks: [extractor-net]
+
+networks:
+  extractor-net:
+    driver: bridge
+
+volumes:
+  extractor-tmp:
