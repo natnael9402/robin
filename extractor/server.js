@@ -37,7 +37,7 @@ const RESOLVE_TIMEOUT_MS = 120_000;
 const DOWNLOAD_TIMEOUT_MS = 15 * 60_000;
 const AUDIO_TIMEOUT_MS = 6 * 60_000;
 const TMP = process.env.EXTRACTOR_TMP || '/tmp/extractor';
-const CLIENTS = ['android', 'tv_simply', 'web_embedded', 'default'];
+const CLIENTS = ['default', 'android', 'tv_simply', 'web_embedded'];
 
 fs.mkdirSync(TMP, { recursive: true });
 
@@ -58,6 +58,8 @@ function baseArgs(client) {
   } catch {}
   if (POT_URL) args.push('--extractor-args', `youtubepot-bgutilhttp:base_url=${POT_URL}`);
   args.push('--js-runtimes', 'node:/usr/local/bin/node');
+  // EJS challenge solver: without it web clients return zero formats.
+  args.push('--remote-components', 'ejs:github');
   return args;
 }
 
