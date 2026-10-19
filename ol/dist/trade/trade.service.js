@@ -1290,11 +1290,15 @@ class TradeService {
         return "crypto";
     }
     normalizeMarketTypeBySymbol(symbol) {
-        if (typeof symbol === "string" &&
-            ["XAUUSD", "XAGUSD", "XPTUSD", "XPDUSD", "CRUDE_OIL"].includes(symbol.toUpperCase())) {
+        // Strip the quote suffix so shapes like "XAUUSD/USD" classify correctly
+        // (mirrors normalizeMarketType which already does this).
+        const sym = typeof symbol === "string"
+            ? symbol.replace(/\/USD(T)?$/i, "").trim().toUpperCase()
+            : "";
+        if (["XAUUSD", "XAGUSD", "XPTUSD", "XPDUSD", "CRUDE_OIL", "XAU", "XAG", "XPT", "XPD"].includes(sym)) {
             return "metals";
         }
-        if (typeof symbol === "string" &&
+        if (sym &&
             [
                 "AAPL", "MSFT", "AMZN", "GOOGL", "TSLA", "NVDA", "META", "NFLX",
                 "AMD", "INTC", "BABA", "BA", "DIS", "V", "JPM", "GS", "PYPL", "SQ",
@@ -1302,7 +1306,7 @@ class TradeService {
                 "DKNG", "PLTR", "SOFI", "NIO", "RIVN", "MARA", "RIOT", "HOOD",
                 "RBLX", "ABNB", "NET", "CRWD", "ZS", "DDOG", "SNOW", "NOW",
                 "ISRG", "PFE", "JNJ", "LLY", "ABBV", "AMGN", "GILD",
-            ].includes(symbol.toUpperCase())) {
+            ].includes(sym)) {
             return "stocks";
         }
         return "crypto";
@@ -1432,6 +1436,12 @@ class TradeService {
                 const price = new library_1.Decimal(CRYPTO_PRICES[normalizedSymbol]);
                 setCache(price);
                 return { symbol: normalizedSymbol, price };
+            }
+            // Last resort: a misrouted metal/stock symbol must resolve through
+            // its own market path instead of failing on a crypto lookup.
+            const retryMarketType = this.normalizeMarketTypeBySymbol(cleanSymbol);
+            if (retryMarketType !== "crypto") {
+                return yield this.getSymbolAndPrice(cleanSymbol, retryMarketType);
             }
             throw new Error(`Unable to fetch market price for ${symbol}`);
         });

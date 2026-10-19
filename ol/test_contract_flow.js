@@ -152,6 +152,27 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
     check('result = lost', closed4.result === 'lost');
     check('pnl = -amount', Math.abs(Number(closed4.pnl) + 150) < 0.01, `pnl=${fmt(closed4.pnl)}`);
 
+    // ---- 5. gold contract WITHOUT market_type (misroute regression) ---------
+    console.log('\n[5] POST /trades/contract symbol=XAUUSD/USD, no market_type -> must route as metals');
+    const r5 = await api('POST', '/contract', token, {
+      symbol: 'XAUUSD/USD', direction: 'buy', amount: 100, leverage: 10,
+      take_profit_amount: 20, stop_loss_amount: 10,
+    });
+    if (r5.status === 201) {
+      const trade5 = r5.json.trade;
+      const entry5 = Number(trade5.entry_price);
+      const tp5 = trade5.contract?.take_profit ? Number(trade5.contract.take_profit) : null;
+      console.log(`  market_type=${trade5.market_type} entry=${entry5} tp=${tp5}`);
+      check('market_type = metals', trade5.market_type === 'metals', `got ${trade5.market_type}`);
+      check('gold entry price plausible (> $1000)', entry5 > 1000, `entry=${entry5}`);
+      check('$ TP converted (entry x 1.02)', tp5 !== null && Math.abs(tp5 - entry5 * 1.02) / (entry5 * 1.02) < 0.001, `tp=${tp5}`);
+      await api('POST', `/${trade5.id}/cancel`, token);
+    } else {
+      fail += 3;
+      pass += 0;
+      console.log(`  FAIL  gold contract creation -> status=${r5.status} body=${JSON.stringify(r5.json).slice(0, 160)}`);
+    }
+
     // ---- reset profile status ----------------------------------------------
     await prisma.$transaction(async (tx) => {
       const p = await tx.profile.findFirst({ where: { user_id: user.id }, orderBy: { created_at: 'desc' } });

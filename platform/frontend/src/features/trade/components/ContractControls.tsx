@@ -46,6 +46,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   const toast = useToast();
 
   const symbol = asset ? `${asset.symbol.toUpperCase()}/USD` : '';
+  const marketType = asset?.type === 'metal' ? 'metals' : asset?.type === 'stock' ? 'stocks' : 'crypto';
   const positionSize = Number(amount) * leverage;
 
   const stopPolling = useCallback(() => {
@@ -97,6 +98,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         leverage,
         take_profit_amount: tp,
         stop_loss_amount: sl,
+        market_type: marketType,
       });
       const trade = res.trade;
       setPosition({
@@ -115,7 +117,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     } finally {
       setPlacingDirection(null);
     }
-  }, [amount, symbol, leverage, minProfit, maxLoss, toast]);
+  }, [amount, symbol, leverage, minProfit, maxLoss, marketType, toast]);
 
   const handleApproved = useCallback(async () => {
     const dir = pendingDirectionRef.current;
@@ -142,6 +144,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         leverage,
         take_profit_amount: tp,
         stop_loss_amount: sl,
+        market_type: marketType,
       });
       const trade = res.trade;
       setPosition({
@@ -160,7 +163,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     } finally {
       setPlacingDirection(null);
     }
-  }, [amount, symbol, leverage, minProfit, maxLoss, toast]);
+  }, [amount, symbol, leverage, minProfit, maxLoss, marketType, toast]);
 
   useEffect(() => {
     if (!position) return;
