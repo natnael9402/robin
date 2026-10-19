@@ -398,7 +398,19 @@ export default function UserDetailsPage() {
 
   const money = (v: any) => `$${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+  const tradeTypeLabel: Record<string, string> = { option: 'OPTION', contract: 'CONTRACT', spot: 'SPOT', stock: 'STOCK' };
+  const tradeTypeChip = (t: any) => {
+    const label = tradeTypeLabel[String(t?.type || '').toLowerCase()];
+    if (!label) return null;
+    return (
+      <span className={cn('rounded-full px-1.5 py-0.5 text-[9px] font-black tracking-wider', t.type === 'contract' ? 'bg-primary/10 text-primary' : 'bg-surface-hover text-muted-foreground')}>
+        {label}
+      </span>
+    );
+  };
+
   const tradeColumns: Column<any>[] = [
+    { key: 'type', header: 'Type', render: (t) => tradeTypeChip(t) ?? <span className="text-muted-foreground">—</span> },
     { key: 'asset', header: 'Asset', render: (t) => <span className="font-bold text-foreground">{t.assetSymbol || t.symbol}</span> },
     { key: 'amount', header: 'Amount', render: (t) => <span className="text-foreground">{money(t.amount)}</span> },
     { key: 'outcome', header: 'Outcome', render: (t) => {
@@ -562,7 +574,7 @@ export default function UserDetailsPage() {
                 <SegBtn active={userTradeMode === 'ALWAYS_LOSS'} tone="loss" busy={tradeBusy} onClick={() => handleSetMode('ALWAYS_LOSS')} icon={<TrendingDown size={15} />}>Force Loss</SegBtn>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground sm:text-right">This overrides the outcome of every new trade for this user.</p>
+            <p className="mt-3 text-xs text-muted-foreground sm:text-right">This overrides the outcome of every new fast (option) and contract trade for this user. Forced contract trades close roughly a minute after they open.</p>
           </div>
         </Card>
 
@@ -702,7 +714,9 @@ export default function UserDetailsPage() {
               ) : (
                 <div className="divide-y divide-border-light">
                   {activeTrades.map((trade) => {
-                    const isBuy = trade.type === 'call' || trade.type === 'buy';
+                    const isBuy = trade.direction === 'buy' || trade.direction === 'call' || trade.type === 'call' || trade.type === 'buy';
+                    const contractLeverage = trade.contract?.leverage ? `${trade.contract.leverage}x` : null;
+                    const typeChip = tradeTypeChip(trade);
                     return (
                       <div key={trade.id} className="flex flex-col gap-3 p-4 transition-colors hover:bg-surface-hover sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-4">
@@ -710,8 +724,13 @@ export default function UserDetailsPage() {
                             {isBuy ? 'BUY' : 'SELL'}
                           </div>
                           <div className="min-w-0">
-                            <div className="font-bold text-foreground">{trade.assetSymbol || trade.symbol}</div>
-                            <div className="font-mono text-xs text-muted-foreground">{money(trade.amount)} &bull; {trade.durationSeconds || trade.duration || 0}s</div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-bold text-foreground">{trade.assetSymbol || trade.symbol}</span>
+                              {typeChip}
+                            </div>
+                            <div className="font-mono text-xs text-muted-foreground">
+                              {money(trade.amount)} &bull; {contractLeverage ?? `${trade.durationSeconds || trade.duration || 0}s`}
+                            </div>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">

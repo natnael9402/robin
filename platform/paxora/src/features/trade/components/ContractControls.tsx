@@ -17,7 +17,7 @@ interface Props {
   currentPrice: number;
   onRefresh?: () => void;
   isRefreshing?: boolean;
-  onComplete: (result: { symbol: string; amount: string; profit: number; direction: 'buy' | 'sell' }) => void;
+  onComplete: (result: { symbol: string; amount: string; profit: number; direction: 'buy' | 'sell'; result?: 'won' | 'lost' | null }) => void;
 }
 
 interface ContractPosition {
@@ -28,16 +28,16 @@ interface ContractPosition {
   leverage: number;
   entryPrice: number;
   liquidationPrice: number | null;
-  takeProfit: number | null;
-  stopLoss: number | null;
+  minProfit: number | null;
+  maxLoss: number | null;
 }
 
 function ContractControlsBase({ asset, balance, accountLabel = 'Balance', currentPrice, onRefresh, isRefreshing, onComplete }: Props) {
   const [showBalance, setShowBalance] = useState(false);
   const [amount, setAmount] = useState('100');
   const [leverage, setLeverage] = useState(10);
-  const [takeProfit, setTakeProfit] = useState('');
-  const [stopLoss, setStopLoss] = useState('');
+  const [minProfit, setMinProfit] = useState('');
+  const [maxLoss, setMaxLoss] = useState('');
   const [placingDirection, setPlacingDirection] = useState<'buy' | 'sell' | null>(null);
   const [position, setPosition] = useState<ContractPosition | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -69,6 +69,20 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
       toast.error('Select an asset first');
       return;
     }
+    const tp = minProfit ? Number(minProfit) : undefined;
+    const sl = maxLoss ? Number(maxLoss) : undefined;
+    if (tp !== undefined && (!Number.isFinite(tp) || tp <= 0)) {
+      toast.error('Min profit must be greater than $0');
+      return;
+    }
+    if (sl !== undefined && (!Number.isFinite(sl) || sl <= 0)) {
+      toast.error('Max loss must be greater than $0');
+      return;
+    }
+    if (sl !== undefined && sl > amt) {
+      toast.error('Max loss cannot exceed the margin amount');
+      return;
+    }
     if (amt > balance) {
       pendingDirectionRef.current = dir;
       setShowApprovalModal(true);
@@ -81,8 +95,8 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         direction: dir,
         amount: amt,
         leverage,
-        take_profit: takeProfit ? Number(takeProfit) : undefined,
-        stop_loss: stopLoss ? Number(stopLoss) : undefined,
+        take_profit_amount: tp,
+        stop_loss_amount: sl,
       });
       const trade = res.trade;
       setPosition({
@@ -93,30 +107,41 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         leverage,
         entryPrice: Number(trade.entry_price),
         liquidationPrice: trade.contract?.liquidation_price ? Number(trade.contract.liquidation_price) : null,
-        takeProfit: takeProfit ? Number(takeProfit) : null,
-        stopLoss: stopLoss ? Number(stopLoss) : null,
+        minProfit: tp ?? null,
+        maxLoss: sl ?? null,
       });
     } catch (err) {
       toast.error((err as Error).message ?? 'Contract trade failed');
     } finally {
       setPlacingDirection(null);
     }
-  }, [amount, symbol, leverage, takeProfit, stopLoss, toast]);
+  }, [amount, symbol, leverage, minProfit, maxLoss, toast]);
 
   const handleApproved = useCallback(async () => {
     const dir = pendingDirectionRef.current;
     if (!dir) return;
     pendingDirectionRef.current = null;
     setShowApprovalModal(false);
+    const amt = Number(amount);
+    const tp = minProfit ? Number(minProfit) : undefined;
+    const sl = maxLoss ? Number(maxLoss) : undefined;
+    if (!amt || amt < 10) {
+      toast.error('Minimum amount is $10');
+      return;
+    }
+    if (sl !== undefined && sl > amt) {
+      toast.error('Max loss cannot exceed the margin amount');
+      return;
+    }
     setPlacingDirection(dir);
     try {
       const res = await tradesApi.createContract({
         symbol,
         direction: dir,
-        amount: Number(amount),
+        amount: amt,
         leverage,
-        take_profit: takeProfit ? Number(takeProfit) : undefined,
-        stop_loss: stopLoss ? Number(stopLoss) : undefined,
+        take_profit_amount: tp,
+        stop_loss_amount: sl,
       });
       const trade = res.trade;
       setPosition({
@@ -127,15 +152,15 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         leverage,
         entryPrice: Number(trade.entry_price),
         liquidationPrice: trade.contract?.liquidation_price ? Number(trade.contract.liquidation_price) : null,
-        takeProfit: takeProfit ? Number(takeProfit) : null,
-        stopLoss: stopLoss ? Number(stopLoss) : null,
+        minProfit: tp ?? null,
+        maxLoss: sl ?? null,
       });
     } catch (err) {
       toast.error((err as Error).message ?? 'Contract trade failed');
     } finally {
       setPlacingDirection(null);
     }
-  }, [amount, symbol, leverage, takeProfit, stopLoss, toast]);
+  }, [amount, symbol, leverage, minProfit, maxLoss, toast]);
 
   useEffect(() => {
     if (!position) return;
@@ -151,6 +176,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
             amount: String(position.amount),
             profit: pnl,
             direction: position.direction,
+            result: trade.result ?? null,
           });
           setPosition(null);
         }
@@ -213,11 +239,11 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
           </div>
         </div>
 
-        {(position.takeProfit || position.stopLoss) && (
+        {(position.minProfit || position.maxLoss) && (
           <div className="mt-2 text-[10px] text-center text-muted-foreground font-bold">
-            {position.takeProfit ? `TP: $${formatCurrency(position.takeProfit)}` : ''}
-            {position.takeProfit && position.stopLoss ? ' · ' : ''}
-            {position.stopLoss ? `SL: $${formatCurrency(position.stopLoss)}` : ''}
+            {position.minProfit ? `Min Profit: $${formatCurrency(position.minProfit)}` : ''}
+            {position.minProfit && position.maxLoss ? ' · ' : ''}
+            {position.maxLoss ? `Max Loss: $${formatCurrency(position.maxLoss)}` : ''}
           </div>
         )}
       </div>
@@ -289,28 +315,36 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
 
       <div className="flex gap-2">
         <div className="flex-1 relative bg-surface border border-border rounded-[14px] p-2">
-          <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Take Profit</label>
+          <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Min Profit ($)</label>
           <input
             type="number"
             inputMode="decimal"
-            value={takeProfit}
-            onChange={(e) => setTakeProfit(e.target.value)}
+            min="0"
+            value={minProfit}
+            onChange={(e) => setMinProfit(e.target.value)}
             className="bg-transparent text-sm font-black text-foreground outline-none w-full tracking-tight placeholder-white/10"
             placeholder="Optional"
           />
         </div>
         <div className="flex-1 relative bg-surface border border-border rounded-[14px] p-2">
-          <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Stop Loss</label>
+          <label className="text-[9px] font-black tracking-widest text-muted-foreground uppercase block mb-0.5">Max Loss ($)</label>
           <input
             type="number"
             inputMode="decimal"
-            value={stopLoss}
-            onChange={(e) => setStopLoss(e.target.value)}
+            min="0"
+            value={maxLoss}
+            onChange={(e) => setMaxLoss(e.target.value)}
             className="bg-transparent text-sm font-black text-foreground outline-none w-full tracking-tight placeholder-white/10"
             placeholder="Optional"
           />
         </div>
       </div>
+
+      {(minProfit || maxLoss) && (
+        <div className="text-[9px] text-center text-muted-foreground font-bold px-1">
+          Trade auto-closes when your {minProfit ? `profit hits $${minProfit}` : ''}{(minProfit && maxLoss) ? ' or ' : ''}{maxLoss ? `loss reaches $${maxLoss}` : ''}
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-2">
         <button

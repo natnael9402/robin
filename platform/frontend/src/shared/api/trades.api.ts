@@ -27,6 +27,10 @@ export const tradesApi = {
     direction: 'buy' | 'sell';
     amount: number;
     leverage: number;
+    /** Dollar-based targets: minimum profit / maximum loss. */
+    take_profit_amount?: number;
+    stop_loss_amount?: number;
+    /** Legacy price-based levels (still supported by the API). */
     take_profit?: number;
     stop_loss?: number;
     market_type?: 'crypto' | 'metals' | 'stocks';

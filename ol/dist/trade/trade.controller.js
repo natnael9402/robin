@@ -62,6 +62,12 @@ class TradeController {
                         ? Number(req.body.take_profit)
                         : undefined,
                     stopLoss: req.body.stop_loss ? Number(req.body.stop_loss) : undefined,
+                    takeProfitAmount: req.body.take_profit_amount
+                        ? Number(req.body.take_profit_amount)
+                        : undefined,
+                    stopLossAmount: req.body.stop_loss_amount
+                        ? Number(req.body.stop_loss_amount)
+                        : undefined,
                     marketType: typeof req.body.market_type === "string"
                         ? req.body.market_type
                         : undefined,

@@ -26,6 +26,14 @@ exports.contractTradeValidator = [
         .withMessage("Invalid leverage option"),
     (0, express_validator_1.body)("take_profit").optional().isFloat({ min: 0 }),
     (0, express_validator_1.body)("stop_loss").optional().isFloat({ min: 0 }),
+    (0, express_validator_1.body)("take_profit_amount")
+        .optional()
+        .isFloat({ min: 0 })
+        .withMessage("take_profit_amount must be a positive number"),
+    (0, express_validator_1.body)("stop_loss_amount")
+        .optional()
+        .isFloat({ min: 0 })
+        .withMessage("stop_loss_amount must be a positive number"),
     (0, express_validator_1.body)("market_type").optional().isIn(MARKET_TYPES),
 ];
 exports.spotTradeValidator = [

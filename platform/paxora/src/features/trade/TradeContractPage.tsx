@@ -168,7 +168,11 @@ export function TradeContractPage() {
                 symbol: res.symbol,
                 amount: res.amount,
                 profit: res.profit,
-                outcome: res.profit >= 0 ? 'WIN' : 'LOSS',
+                outcome: res.result === 'won'
+                  ? 'WIN'
+                  : res.result === 'lost'
+                    ? 'LOSS'
+                    : res.profit >= 0 ? 'WIN' : 'LOSS',
                 completedAt: Date.now(),
               });
               queryClient.invalidateQueries({ queryKey: ['trades', 'balances'] });

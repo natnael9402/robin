@@ -269,7 +269,7 @@ export default function OverviewPage() {
               {tab === 'trades' && (trades.length === 0
                 ? <Empty label="No open trades" />
                 : trades.slice(0, 8).map((t) => (
-                  <QueueRow key={t.id} title={`${t.symbol ?? t.assetSymbol ?? 'Trade'} · ${money(t.amount)}`} subtitle={`User #${t.userId ?? t.user_id ?? '—'} · ${t.type ?? t.direction ?? '—'}`} date={t.openedAt ?? t.opened_at ?? t.createdAt}
+                  <QueueRow key={t.id} title={`${t.symbol ?? t.assetSymbol ?? 'Trade'} · ${money(t.amount)}`} subtitle={`User #${t.userId ?? t.user_id ?? '—'} · ${String(t.direction ?? '—').toUpperCase()} · ${String(t.type ?? '').toUpperCase()}`} date={t.openedAt ?? t.opened_at ?? t.createdAt}
                     actions={<>
                       <button onClick={() => act(() => forceTradeOutcome(t.id, 'WIN'), 'Trade forced WIN')} className="rounded-lg bg-success-muted px-2.5 py-1.5 text-xs font-bold text-success transition-colors hover:bg-success/20">WIN</button>
                       <button onClick={() => act(() => forceTradeOutcome(t.id, 'LOSS'), 'Trade forced LOSS')} className="rounded-lg bg-destructive-muted px-2.5 py-1.5 text-xs font-bold text-destructive transition-colors hover:bg-destructive/20">LOSS</button>
