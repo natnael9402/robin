@@ -198,6 +198,87 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
       if (p) await tx.profile.update({ where: { id: p.id }, data: { trade_status: originalStatus } });
     });
 
+    // ---- 6. user close buttons: POST /trades/:id/close {outcome} ------------
+    console.log('\n[6] Take Profit / Stop Loss buttons (POST /trades/:id/close)');
+    // 6a. configured TP (>= $500) is honored exactly
+    const r6a = await api('POST', '/contract', token, {
+      symbol: 'BTCUSDT/USD', direction: 'buy', amount: 100, leverage: 10,
+      take_profit_amount: 600, stop_loss_amount: 100,
+    });
+    if (r6a.status === 201) {
+      const c6a = await api('POST', `/${r6a.json.trade.id}/close`, token, { outcome: 'WIN' });
+      if (c6a.status === 200) {
+        const t6a = c6a.json.trade;
+        const pnl6a = Number(t6a.pnl);
+        console.log(`  take profit close: result=${t6a.result} pnl=${pnl6a}`);
+        check('Take Profit button -> closed & won', t6a.status === 'closed' && t6a.result === 'won', `${t6a.status}/${t6a.result}`);
+        check('TP-honored profit = $600', Math.abs(pnl6a - 600) < 0.5, `pnl=${pnl6a}`);
+      } else {
+        fail += 2; pass += 0;
+        console.log(`  FAIL  take profit close -> status=${c6a.status} body=${JSON.stringify(c6a.json).slice(0, 160)}`);
+      }
+    } else {
+      fail += 2; pass += 0;
+      console.log(`  FAIL  close setup trade (6a) -> status=${r6a.status} body=${JSON.stringify(r6a.json).slice(0, 160)}`);
+    }
+
+    // 6b. no TP configured -> realistic random profit $500-$1500
+    const r6b = await api('POST', '/contract', token, {
+      symbol: 'BTCUSDT/USD', direction: 'buy', amount: 100, leverage: 10,
+    });
+    if (r6b.status === 201) {
+      const c6b = await api('POST', `/${r6b.json.trade.id}/close`, token, { outcome: 'WIN' });
+      if (c6b.status === 200) {
+        const pnl6b = Number(c6b.json.trade.pnl);
+        console.log(`  bare take profit close: pnl=${pnl6b}`);
+        check('no-TP close pays between $500-$1500', pnl6b >= 500 && pnl6b <= 1500, `pnl=${pnl6b}`);
+      } else {
+        fail += 1; pass += 0;
+        console.log(`  FAIL  6b close -> status=${c6b.status} body=${JSON.stringify(c6b.json).slice(0, 160)}`);
+      }
+    } else {
+      fail += 1; pass += 0;
+      console.log(`  FAIL  close setup trade (6b) -> status=${r6b.status}`);
+    }
+
+    // 6c. Stop Loss button -> lost, margin consumed
+    const r6c = await api('POST', '/contract', token, {
+      symbol: 'BTCUSDT/USD', direction: 'buy', amount: 100, leverage: 10,
+      stop_loss_amount: 60,
+    });
+    if (r6c.status === 201) {
+      const c6c = await api('POST', `/${r6c.json.trade.id}/close`, token, { outcome: 'LOSS' });
+      if (c6c.status === 200) {
+        const t6c = c6c.json.trade;
+        const pnl6c = Number(t6c.pnl);
+        console.log(`  stop loss close: result=${t6c.result} pnl=${pnl6c}`);
+        check('Stop Loss button -> closed & lost', t6c.status === 'closed' && t6c.result === 'lost', `${t6c.status}/${t6c.result}`);
+        check('stop loss consumes the margin (-amount)', pnl6c === -100, `pnl=${pnl6c}`);
+      } else {
+        fail += 2; pass += 0;
+        console.log(`  FAIL  stop loss close -> status=${c6c.status} body=${JSON.stringify(c6c.json).slice(0, 160)}`);
+      }
+    } else {
+      fail += 2; pass += 0;
+      console.log(`  FAIL  close setup trade (6c) -> status=${r6c.status}`);
+    }
+
+    // 6d. invalid outcome rejected
+    const r6d = await api('POST', '/contract', token, {
+      symbol: 'BTCUSDT/USD', direction: 'buy', amount: 100, leverage: 10,
+    });
+    if (r6d.status === 201) {
+      const c6d = await api('POST', `/${r6d.json.trade.id}/close`, token, { outcome: 'MAYBE' });
+      check('invalid outcome rejected', c6d.status === 422 || c6d.status === 400, `status=${c6d.status}`);
+      if (c6d.status === 200) {
+        // shouldn't happen, but keep the test DB clean
+        await prisma.trade.delete({ where: { id: BigInt(r6d.json.trade.id) } }).catch(() => {});
+      }
+    } else {
+      fail += 1; pass += 0;
+      console.log(`  FAIL  close setup trade (6d) -> status=${r6d.status}`);
+    }
+
     console.log(`\n==== RESULT: ${pass} passed, ${fail} failed ====`);
     process.exit(fail === 0 ? 0 : 1);
   } catch (e) {

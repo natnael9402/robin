@@ -36,6 +36,12 @@ export const tradesApi = {
     market_type?: 'crypto' | 'metals' | 'stocks';
   }) => http.post<{ trade: any }>('/trades/contract', params),
 
+  // User-initiated contract close (Take Profit / Stop Loss buttons)
+  closeContract: (
+    id: number,
+    outcome: 'WIN' | 'LOSS',
+  ) => http.post<{ trade: any }>(`/trades/${id}/close`, { outcome }),
+
   // Trade history & management
   getUserTrades: (filters?: Record<string, string | number | undefined>) =>
     http.get<{ trades: any[]; pagination: any }>('/trades', { query: filters as Record<string, string | number | boolean | undefined> }),

@@ -345,6 +345,31 @@ class TradeController {
             }
         });
     }
+    /**
+     * User-initiated close from the contract active-trade panel:
+     * POST /:id/close { outcome: "WIN" | "LOSS" } maps to the platform's
+     * "Take Profit" / "Stop Loss" buttons.
+     */
+    closeTrade(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a;
+            try {
+                if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.id)) {
+                    return res.status(401).json({ error: "Unauthorized" });
+                }
+                const tradeId = BigInt(req.params.id);
+                const trade = yield this.service.closeContractTrade(BigInt(req.user.id), tradeId, req.body.outcome);
+                trade_scheduler_1.default.clearContractCheck(BigInt(trade.id));
+                return res.json({
+                    message: "Trade closed successfully",
+                    trade,
+                });
+            }
+            catch (error) {
+                return res.status(400).json({ error: error.message });
+            }
+        });
+    }
     getMarketPrice(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;

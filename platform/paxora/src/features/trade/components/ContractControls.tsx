@@ -39,6 +39,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   const [minProfit, setMinProfit] = useState('');
   const [maxLoss, setMaxLoss] = useState('');
   const [placingDirection, setPlacingDirection] = useState<'buy' | 'sell' | null>(null);
+  const [closingOutcome, setClosingOutcome] = useState<'WIN' | 'LOSS' | null>(null);
   const [position, setPosition] = useState<ContractPosition | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
@@ -165,6 +166,29 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     }
   }, [amount, symbol, leverage, minProfit, maxLoss, marketType, toast]);
 
+  const handleClose = useCallback(async (outcome: 'WIN' | 'LOSS') => {
+    if (!position || closingOutcome !== null) return;
+    setClosingOutcome(outcome);
+    try {
+      const res = await tradesApi.closeContract(position.id, outcome);
+      stopPolling();
+      const trade = res.trade;
+      onComplete({
+        symbol: trade.symbol,
+        amount: String(position.amount),
+        profit: Number(trade.pnl ?? 0),
+        direction: position.direction,
+        result: trade.result ?? (outcome === 'WIN' ? 'won' : 'lost'),
+      });
+      onRefresh?.();
+      setPosition(null);
+    } catch (err) {
+      toast.error((err as Error).message ?? 'Failed to close trade');
+    } finally {
+      setClosingOutcome(null);
+    }
+  }, [position, closingOutcome, stopPolling, onComplete, onRefresh, toast]);
+
   useEffect(() => {
     if (!position) return;
     pollingRef.current = setInterval(async () => {
@@ -191,10 +215,12 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   }, [position, stopPolling, onComplete]);
 
   if (position) {
-    const pnl = position.direction === 'buy'
-      ? (currentPrice - position.entryPrice) * position.leverage
-      : (position.entryPrice - currentPrice) * position.leverage;
-    const pnlPercent = position.entryPrice > 0 ? (pnl / (position.amount || 1)) * 100 : 0;
+    const rawMove = position.direction === 'buy'
+      ? (currentPrice - position.entryPrice)
+      : (position.entryPrice - currentPrice);
+    // Matches the backend pnl math exactly: margin x %move x leverage.
+    const pnl = position.entryPrice > 0 ? (rawMove / position.entryPrice) * position.amount * position.leverage : 0;
+    const pnlPercent = position.amount > 0 ? (pnl / position.amount) * 100 : 0;
     const isPositive = pnl >= 0;
 
     return (
@@ -249,6 +275,37 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
             {position.maxLoss ? `Max Loss: $${formatCurrency(position.maxLoss)}` : ''}
           </div>
         )}
+
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button
+            disabled={closingOutcome !== null}
+            onClick={() => handleClose('WIN')}
+            className="relative rounded-[14px] bg-emerald-600 px-3 py-2.5 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <div className="flex items-center justify-center gap-1.5 text-white">
+              {closingOutcome === 'WIN'
+                ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} />
+                : <TrendingUp className="w-4 h-4" strokeWidth={4} />}
+              <span className="text-[12px] font-black tracking-wider">
+                {closingOutcome === 'WIN' ? 'Closing...' : 'Take Profit'}
+              </span>
+            </div>
+          </button>
+          <button
+            disabled={closingOutcome !== null}
+            onClick={() => handleClose('LOSS')}
+            className="relative rounded-[14px] bg-red-600 px-3 py-2.5 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <div className="flex items-center justify-center gap-1.5 text-white">
+              {closingOutcome === 'LOSS'
+                ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={4} />
+                : <TrendingDown className="w-4 h-4" strokeWidth={4} />}
+              <span className="text-[12px] font-black tracking-wider">
+                {closingOutcome === 'LOSS' ? 'Closing...' : 'Stop Loss'}
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     );
   }

@@ -92,6 +92,10 @@ const MIN_OPTION_TRADE_AMOUNT = 100;
 const MIN_CONTRACT_TRADE_AMOUNT = 10;
 const FORCED_WIN_MIN_PERCENT = new library_1.Decimal("0.2");
 const FORCED_WIN_MAX_PERCENT = new library_1.Decimal("1");
+// User-initiated "Take Profit" closes pay a realistic profit in this band
+// when the trade has no profitable take-profit level of its own.
+const CONTRACT_USER_WIN_MIN_PROFIT = new library_1.Decimal("500");
+const CONTRACT_USER_WIN_MAX_PROFIT = new library_1.Decimal("1500");
 const FORCED_CONTRACT_MIN_HOLD_SECONDS = (() => {
     const raw = Number(process.env.CONTRACT_FORCED_MIN_HOLD_SECONDS);
     if (Number.isFinite(raw) && raw >= 0) {
@@ -1707,6 +1711,103 @@ class TradeService {
             return contract.stop_loss;
         }
         return null;
+    }
+    /**
+     * Exit price for a user-initiated contract close (Take Profit / Stop Loss
+     * buttons on the active-trade panel). Mirrors synthesizeContractExitPrice
+     * but guarantees the payout band the platform promises:
+     *  - "won": exit at the client's take-profit when that locks in at least
+     *    the minimum promised profit; otherwise back-compute a favorable exit
+     *    price from a realistic profit between $500 and $1500.
+     *  - "lost": exit at the client's stop-loss when it implies a loss,
+     *    otherwise null (resolveTrade then uses the live market price).
+     */
+    synthesizeUserCloseExitPrice(trade, result) {
+        const entryPrice = trade.entry_price;
+        if (!entryPrice || entryPrice.eq(0)) {
+            return null;
+        }
+        const contract = trade.contracts && trade.contracts[0];
+        const leverage = new library_1.Decimal((contract && contract.leverage !== undefined && contract.leverage !== null) ? contract.leverage : 1);
+        // Exact same math calculatePnl uses for contract wins, so the exit
+        // price below credits precisely the intended profit.
+        const impliedPercent = (price) => {
+            let percentChange = price.sub(entryPrice).div(entryPrice).mul(100);
+            if (trade.direction === "sell") {
+                percentChange = percentChange.neg();
+            }
+            return trade.amount.mul(percentChange).mul(leverage).div(100);
+        };
+        if (result === "won") {
+            if (contract && contract.take_profit) {
+                const impliedProfit = impliedPercent(contract.take_profit);
+                if (impliedProfit.gt(0) &&
+                    impliedProfit.gte(CONTRACT_USER_WIN_MIN_PROFIT)) {
+                    logger_1.logger.info("User take-profit close honored at configured take profit", {
+                        tradeId: trade.id.toString(),
+                        profit: impliedProfit.toFixed(2),
+                    });
+                    return contract.take_profit;
+                }
+            }
+            // No usable take-profit on the trade: choose a realistic profit
+            // between $500 and $1500 and derive the favorable exit price.
+            const profit = CONTRACT_USER_WIN_MIN_PROFIT.add(CONTRACT_USER_WIN_MAX_PROFIT.sub(CONTRACT_USER_WIN_MIN_PROFIT).mul(Math.random())).toDecimalPlaces(2);
+            const favorablePercent = profit.mul(100).div(trade.amount.mul(leverage));
+            const favorableMultiplier = trade.direction === "buy"
+                ? new library_1.Decimal(1).add(favorablePercent.div(100))
+                : new library_1.Decimal(1).sub(favorablePercent.div(100));
+            logger_1.logger.info("User take-profit close synthesized with realistic profit", {
+                tradeId: trade.id.toString(),
+                profit: profit.toFixed(2),
+            });
+            return entryPrice.mul(favorableMultiplier);
+        }
+        if (contract && contract.stop_loss) {
+            const impliedPercentRaw = contract.stop_loss
+                .sub(entryPrice)
+                .div(entryPrice)
+                .mul(100);
+            const directionAdjusted = trade.direction === "sell"
+                ? impliedPercentRaw.neg()
+                : impliedPercentRaw;
+            if (directionAdjusted.lt(0)) {
+                return contract.stop_loss;
+            }
+        }
+        return null;
+    }
+    /**
+     * User-facing contract close from the Take Profit / Stop Loss buttons.
+     * Only the owner of an open contract trade can close it, and the outcome
+     * is applied immediately through the shared resolution pipeline (same
+     * crediting, notifications and bookkeeping as every other resolution).
+     */
+    closeContractTrade(userId, tradeId, outcome) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const requestedResult = outcome === "WIN"
+                ? "won"
+                : outcome === "LOSS"
+                    ? "lost"
+                    : null;
+            if (!requestedResult) {
+                throw new Error("Invalid close outcome");
+            }
+            const trade = yield prisma_1.default.trade.findFirst({
+                where: {
+                    id: tradeId,
+                    user_id: userId,
+                    type: "contract",
+                    status: "open",
+                },
+                include: tradeInclude,
+            });
+            if (!trade) {
+                throw new Error("Open contract trade not found");
+            }
+            const exitPrice = this.synthesizeUserCloseExitPrice(trade, requestedResult);
+            return yield this.resolveTrade(trade.id, requestedResult, null, exitPrice !== null && exitPrice !== void 0 ? exitPrice : undefined);
+        });
     }
     ensureSufficientBalance(balance, required) {
         if (balance.lt(required)) {

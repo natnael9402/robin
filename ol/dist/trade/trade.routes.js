@@ -352,5 +352,8 @@ router.get("/", auth_middleware_1.authenticateJWT, trade_validation_1.tradeFilte
 router.get("/stats", auth_middleware_1.authenticateJWT, trade_validation_1.tradeFiltersValidator, validation_middleware_1.validationMiddleware, (req, res) => trade_controller_1.default.getTradeStats(req, res));
 router.get("/:id", auth_middleware_1.authenticateJWT, trade_validation_1.tradeIdParamValidator, validation_middleware_1.validationMiddleware, (req, res) => trade_controller_1.default.getTrade(req, res));
 router.post("/:id/cancel", auth_middleware_1.authenticateJWT, trade_validation_1.tradeIdParamValidator, validation_middleware_1.validationMiddleware, (req, res) => trade_controller_1.default.cancelTrade(req, res));
+
+// User-initiated close from the contract panel's Take Profit / Stop Loss buttons
+router.post("/:id/close", auth_middleware_1.authenticateJWT, trade_validation_1.tradeIdParamValidator, trade_validation_1.tradeCloseValidator, validation_middleware_1.validationMiddleware, (req, res) => trade_controller_1.default.closeTrade(req, res));
 router.get("/price/:symbol", auth_middleware_1.authenticateJWT, trade_validation_1.marketPriceParamValidator, validation_middleware_1.validationMiddleware, (req, res) => trade_controller_1.default.getMarketPrice(req, res));
 exports.default = router;
