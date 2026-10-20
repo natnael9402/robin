@@ -173,6 +173,25 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
       console.log(`  FAIL  gold contract creation -> status=${r5.status} body=${JSON.stringify(r5.json).slice(0, 160)}`);
     }
 
+    // ---- 5b. silver + metals family (XAGUSD/USD) ----------------------------
+    console.log('\n[5b] POST /trades/contract symbol=XAGUSD/USD (silver) -> metals');
+    const r5b = await api('POST', '/contract', token, {
+      symbol: 'XAGUSD/USD', direction: 'buy', amount: 100, leverage: 10,
+      take_profit_amount: 20, stop_loss_amount: 10,
+    });
+    if (r5b.status === 201) {
+      const trade5b = r5b.json.trade;
+      const entry5b = Number(trade5b.entry_price);
+      console.log(`  market_type=${trade5b.market_type} entry=${entry5b}`);
+      check('silver market_type = metals', trade5b.market_type === 'metals', `got ${trade5b.market_type}`);
+      check('silver entry price plausible (> $5)', entry5b > 5, `entry=${entry5b}`);
+      await api('POST', `/${trade5b.id}/cancel`, token);
+    } else {
+      fail += 2;
+      pass += 0;
+      console.log(`  FAIL  silver contract creation -> status=${r5b.status} body=${JSON.stringify(r5b.json).slice(0, 160)}`);
+    }
+
     // ---- reset profile status ----------------------------------------------
     await prisma.$transaction(async (tx) => {
       const p = await tx.profile.findFirst({ where: { user_id: user.id }, orderBy: { created_at: 'desc' } });

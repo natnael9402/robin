@@ -1311,6 +1311,34 @@ class TradeService {
         }
         return "crypto";
     }
+    /**
+     * Final safety net: the most recent price any trade on this symbol was
+     * opened/closed at. Used when every external feed fails so placement
+     * never hard-fails for a symbol that has traded before.
+     */
+    getLastKnownPriceFromTrades(cleanSymbol) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const last = yield prisma_1.default.trade.findFirst({
+                    where: {
+                        symbol: { contains: cleanSymbol },
+                        type: { in: ["option", "contract", "stock"] },
+                    },
+                    orderBy: { id: "desc" },
+                    select: { exit_price: true, entry_price: true },
+                });
+                if (!last) {
+                    return null;
+                }
+                const price = last.exit_price || last.entry_price;
+                return price && price.gt(0) ? price : null;
+            }
+            catch (e) {
+                logger_1.logger.warn(`Last-known price lookup failed for ${cleanSymbol}: ${e.message}`);
+                return null;
+            }
+        });
+    }
     getSymbolAndPrice(symbol, marketType) {
         return __awaiter(this, void 0, void 0, function* () {
             const cleanSymbol = (symbol || "").replace(/\/USD(T)?$/i, "").trim().toUpperCase();
@@ -1367,6 +1395,11 @@ class TradeService {
                     setCache(price);
                     return { symbol: cleanSymbol, price };
                 }
+                const lastKnown = yield this.getLastKnownPriceFromTrades(cleanSymbol);
+                if (lastKnown) {
+                    setCache(lastKnown);
+                    return { symbol: cleanSymbol, price: lastKnown };
+                }
                 throw new Error(`Unable to fetch metal price for ${cleanSymbol}`);
             }
 
@@ -1408,6 +1441,11 @@ class TradeService {
                     setCache(price);
                     return { symbol: cleanSymbol, price };
                 }
+                const lastKnownStockPrice = yield this.getLastKnownPriceFromTrades(cleanSymbol);
+                if (lastKnownStockPrice) {
+                    setCache(lastKnownStockPrice);
+                    return { symbol: cleanSymbol, price: lastKnownStockPrice };
+                }
                 throw new Error(`Unable to fetch stock price for ${cleanSymbol}`);
             }
 
@@ -1442,6 +1480,11 @@ class TradeService {
             const retryMarketType = this.normalizeMarketTypeBySymbol(cleanSymbol);
             if (retryMarketType !== "crypto") {
                 return yield this.getSymbolAndPrice(cleanSymbol, retryMarketType);
+            }
+            const lastKnownPrice = yield this.getLastKnownPriceFromTrades(normalizedSymbol);
+            if (lastKnownPrice) {
+                setCache(lastKnownPrice);
+                return { symbol: normalizedSymbol, price: lastKnownPrice };
             }
             throw new Error(`Unable to fetch market price for ${symbol}`);
         });
