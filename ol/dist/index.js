@@ -50,6 +50,7 @@ const error_handler_middleware_1 = require("./middleware/error-handler.middlewar
 const logger_1 = require("./utils/logger");
 const rateLimit = require("express-rate-limit");
 const loan_scheduler_1 = require("./loan/jobs/loan.scheduler");
+const trade_scheduler_1 = __importDefault(require("./trade/jobs/trade.scheduler"));
 const app = (0, express_1.default)();
 const port = 4000;
 const defaultAllowedOrigins = ((_a = process.env.ALLOWED_ORIGINS) === null || _a === void 0 ? void 0 : _a.split(",").filter((origin) => Boolean(origin))) || [];
@@ -190,6 +191,7 @@ app.use("/api/transfer", load_routes_1.default);
 app.use(error_handler_middleware_1.errorHandler);
 const loanScheduler = new loan_scheduler_1.LoanScheduler();
 loanScheduler.start();
+trade_scheduler_1.default.start();
 app.listen(port, () => {
     logger_1.logger.info("Server started", {
         port,

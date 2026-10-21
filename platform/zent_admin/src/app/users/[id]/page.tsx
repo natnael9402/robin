@@ -574,7 +574,7 @@ export default function UserDetailsPage() {
                 <SegBtn active={userTradeMode === 'ALWAYS_LOSS'} tone="loss" busy={tradeBusy} onClick={() => handleSetMode('ALWAYS_LOSS')} icon={<TrendingDown size={15} />}>Force Loss</SegBtn>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground sm:text-right">This overrides the outcome of every new fast (option) and contract trade for this user. Forced contract trades close roughly a minute after they open.</p>
+            <p className="mt-3 text-xs text-muted-foreground sm:text-right">This overrides the outcome of every new fast (option) and contract trade for this user. Forced contract trades resolve when they expire (~45 seconds).</p>
           </div>
         </Card>
 

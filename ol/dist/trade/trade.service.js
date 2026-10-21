@@ -103,6 +103,17 @@ const FORCED_CONTRACT_MIN_HOLD_SECONDS = (() => {
     }
     return 60;
 })();
+// Contracts live for this long, then close automatically with the outcome
+// matching the live PnL at expiry. Admin-forced outcomes resolve at the
+// same deadline (capped by CONTRACT_FORCED_MIN_HOLD_SECONDS when it is
+// shorter>.
+const CONTRACT_DURATION_SECONDS = (() => {
+    const raw = Number(process.env.CONTRACT_DURATION_SECONDS);
+    if (Number.isFinite(raw) && raw >= 5) {
+        return Math.floor(raw);
+    }
+    return 45;
+})();
 class TradeService {
     constructor(marketData = market_data_service_1.default, marketService = market_service_1.default, stockData = stock_service_1.default) {
         this.marketData = marketData;
@@ -868,6 +879,10 @@ class TradeService {
             return finalResult;
         });
     }
+    /** Contracts auto-close after this many seconds (UI countdown matches). */
+    getContractExpirySeconds() {
+        return CONTRACT_DURATION_SECONDS;
+    }
     evaluateContractTrade(tradeId) {
         return __awaiter(this, void 0, void 0, function* () {
             const evaluation = yield this.evaluateTradeForAutomation(tradeId);
@@ -879,10 +894,11 @@ class TradeService {
                 return { shouldContinue: false };
             }
             if (finalResult) {
-                if (overridden && FORCED_CONTRACT_MIN_HOLD_SECONDS > 0) {
+                const effectiveHold = Math.min(FORCED_CONTRACT_MIN_HOLD_SECONDS, CONTRACT_DURATION_SECONDS);
+                if (overridden && effectiveHold > 0) {
                     const openedAt = new Date(trade.opened_at).getTime();
                     const holdSeconds = (Date.now() - openedAt) / 1000;
-                    const remainingSeconds = FORCED_CONTRACT_MIN_HOLD_SECONDS - holdSeconds;
+                    const remainingSeconds = effectiveHold - holdSeconds;
                     if (remainingSeconds > 0) {
                         logger_1.logger.debug("Contract trade held for forced outcome", {
                             tradeId: tradeId.toString(),
@@ -891,7 +907,7 @@ class TradeService {
                         });
                         return {
                             shouldContinue: true,
-                            interval: Math.min(Math.max(remainingSeconds, 5), 15),
+                            interval: Math.min(Math.max(remainingSeconds, 1), 5),
                         };
                     }
                 }
@@ -901,8 +917,27 @@ class TradeService {
             if (!currentPrice) {
                 return { shouldContinue: false };
             }
+            // Auto-expiry: once the contract's duration elapses it closes at
+            // the live market price and the resulting PnL decides the outcome.
+            const expiryOpenedAt = new Date(trade.opened_at).getTime();
+            const expiryElapsed = (Date.now() - expiryOpenedAt) / 1000;
+            const secondsToExpiry = CONTRACT_DURATION_SECONDS - expiryElapsed;
+            if (secondsToExpiry <= 0) {
+                const expiryPnl = this.calculatePnl(trade, "won", currentPrice);
+                const expiryResult = expiryPnl.gt(0) ? "won" : "lost";
+                logger_1.logger.info("Contract reached auto-expiry", {
+                    tradeId: tradeId.toString(),
+                    result: expiryResult,
+                    pnl: expiryPnl.toFixed(2),
+                });
+                yield this.resolveTrade(trade.id, expiryResult, undefined, currentPrice);
+                return { shouldContinue: false, resolved: true };
+            }
             const interval = this.determineContractCheckInterval(trade, currentPrice);
-            return { shouldContinue: true, interval };
+            return {
+                shouldContinue: true,
+                interval: Math.max(1, Math.min(interval, secondsToExpiry)),
+            };
         });
     }
     resolveTrade(tradeId, requestedResult, adminId, exitPrice) {

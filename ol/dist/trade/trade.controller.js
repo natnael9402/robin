@@ -72,7 +72,7 @@ class TradeController {
                         ? req.body.market_type
                         : undefined,
                 });
-                trade_scheduler_1.default.scheduleContractCheck(BigInt(trade.id), 15);
+                trade_scheduler_1.default.scheduleContractCheck(BigInt(trade.id), Math.min(15, Math.max(1, this.service.getContractExpirySeconds() - 2)));
                 return res.status(201).json({
                     message: "Contract trade created successfully",
                     trade,

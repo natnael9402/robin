@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const trade_service_1 = __importDefault(require("../trade.service"));
 const logger_1 = require("../../utils/logger");
+const prisma_1 = __importDefault(require("../../prisma"));
 const MILLISECONDS_IN_SECOND = 1000;
 class TradeJobScheduler {
     constructor() {
         this.optionTimers = new Map();
         this.contractTimers = new Map();
+        this.startInvoked = false;
         this.DEFAULT_CONTRACT_INTERVAL_SECONDS = 15;
         this.MIN_CONTRACT_INTERVAL_SECONDS = 5;
         this.OPTION_RETRY_DELAY_SECONDS = 2;
@@ -109,7 +111,11 @@ class TradeJobScheduler {
             try {
                 const result = yield trade_service_1.default.evaluateContractTrade(tradeId);
                 if (result.shouldContinue && result.interval) {
-                    const nextDelay = Math.max(result.interval, this.MIN_CONTRACT_INTERVAL_SECONDS);
+                    // Small intervals (< 5s) are honoured as-is so the final
+                    // tick can land exactly on the contract's expiry moment.
+                    const nextDelay = result.interval < this.MIN_CONTRACT_INTERVAL_SECONDS
+                        ? Math.max(result.interval, 1)
+                        : result.interval;
                     this.scheduleContractCheck(tradeId, nextDelay);
                 }
             }
@@ -134,6 +140,43 @@ class TradeJobScheduler {
             clearTimeout(timer);
             this.contractTimers.delete(key);
         }
+    }
+    /**
+     * Re-arm timers for contracts that are still open after a server
+     * (re)start. Without this, rotations of the container would leave open
+     * contracts without any resolution loop attached. Called once at boot.
+     */
+    start() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.startInvoked) {
+                return;
+            }
+            this.startInvoked = true;
+            try {
+                const openContracts = yield prisma_1.default.trade.findMany({
+                    where: { status: "open", type: "contract" },
+                    select: { id: true, opened_at: true },
+                    orderBy: { id: "asc" },
+                });
+                const now = Date.now();
+                const expirySeconds = trade_service_1.default.getContractExpirySeconds();
+                for (const trade of openContracts) {
+                    const openedAt = new Date(trade.opened_at).getTime();
+                    const secondsToExpiry = expirySeconds - (now - openedAt) / 1000;
+                    const delaySeconds = Math.min(Math.max(secondsToExpiry, 1), this.DEFAULT_CONTRACT_INTERVAL_SECONDS);
+                    this.scheduleContractCheck(trade.id, delaySeconds);
+                }
+                logger_1.logger.info("Trade scheduler started.", {
+                    openContracts: openContracts.length,
+                    contractExpirySeconds: expirySeconds,
+                });
+            }
+            catch (error) {
+                logger_1.logger.error("Trade scheduler boot re-arm failed", {
+                    error: error instanceof Error ? error.message : String(error),
+                });
+            }
+        });
     }
 }
 exports.default = new TradeJobScheduler();
