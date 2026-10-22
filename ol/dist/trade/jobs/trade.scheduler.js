@@ -26,6 +26,8 @@ class TradeJobScheduler {
         this.MIN_CONTRACT_INTERVAL_SECONDS = 5;
         this.OPTION_RETRY_DELAY_SECONDS = 2;
         this.OPTION_MAX_RETRIES = 2;
+        this.CONTRACT_SWEEP_INTERVAL_SECONDS = 20;
+        this.sweepRunning = false;
     }
     scheduleOptionResolution(tradeId, durationSeconds) {
         const key = tradeId.toString();
@@ -146,6 +148,56 @@ class TradeJobScheduler {
         }
     }
     /**
+     * Watchdog: re-arm evaluation for any open contract that is already past
+     * its expiry deadline (+ small grace). A lost timer, a transient error
+     * storm or a container rotation can strand a per-trade resolution chain;
+     * this sweep guarantees every overdue contract is picked up again within
+     * seconds, forever, on every server.
+     */
+    sweepExpiredContracts() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.sweepRunning) {
+                return;
+            }
+            this.sweepRunning = true;
+            try {
+                const expirySeconds = trade_service_1.default.getContractExpirySeconds();
+                const graceMs = 5 * MILLISECONDS_IN_SECOND;
+                const openedBefore = new Date(Date.now() - (expirySeconds * MILLISECONDS_IN_SECOND + graceMs));
+                const overdue = yield prisma_1.default.trade.findMany({
+                    where: {
+                        status: "open",
+                        type: "contract",
+                        opened_at: { lt: openedBefore },
+                    },
+                    select: { id: true },
+                    orderBy: { id: "asc" },
+                    take: 100,
+                });
+                if (overdue.length === 0) {
+                    return;
+                }
+                logger_1.logger.warn("Contract watchdog re-armed overdue contracts", {
+                    count: overdue.length,
+                    tradeIds: overdue.map((trade) => trade.id.toString()).join(","),
+                });
+                for (const trade of overdue) {
+                    // Evaluation resolves an overdue contract on this tick and
+                    // terminates its chain, so a short delay is enough.
+                    this.scheduleContractCheck(trade.id, 0.5);
+                }
+            }
+            catch (error) {
+                logger_1.logger.error("Contract watchdog sweep failed", {
+                    error: error instanceof Error ? error.message : String(error),
+                });
+            }
+            finally {
+                this.sweepRunning = false;
+            }
+        });
+    }
+    /**
      * Re-arm timers for contracts that are still open after a server
      * (re)start. Without this, rotations of the container would leave open
      * contracts without any resolution loop attached. Called once at boot.
@@ -180,6 +232,10 @@ class TradeJobScheduler {
                     error: error instanceof Error ? error.message : String(error),
                 });
             }
+            // Watchdog sweep runs for the lifetime of the process, regardless
+            // of whether the boot re-arm itself succeeded.
+            this.sweepExpiredContracts();
+            setInterval(() => this.sweepExpiredContracts(), this.CONTRACT_SWEEP_INTERVAL_SECONDS * MILLISECONDS_IN_SECOND);
         });
     }
 }

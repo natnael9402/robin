@@ -96,24 +96,17 @@ const FORCED_WIN_MAX_PERCENT = new library_1.Decimal("1");
 // when the trade has no profitable take-profit level of its own.
 const CONTRACT_USER_WIN_MIN_PROFIT = new library_1.Decimal("500");
 const CONTRACT_USER_WIN_MAX_PROFIT = new library_1.Decimal("1500");
-const FORCED_CONTRACT_MIN_HOLD_SECONDS = (() => {
-    const raw = Number(process.env.CONTRACT_FORCED_MIN_HOLD_SECONDS);
-    if (Number.isFinite(raw) && raw >= 0) {
-        return Math.floor(raw);
-    }
-    return 60;
-})();
-// Contracts live for this long, then close automatically with the outcome
-// matching the live PnL at expiry. Admin-forced outcomes resolve at the
-// same deadline (capped by CONTRACT_FORCED_MIN_HOLD_SECONDS when it is
-// shorter>.
-const CONTRACT_DURATION_SECONDS = (() => {
-    const raw = Number(process.env.CONTRACT_DURATION_SECONDS);
-    if (Number.isFinite(raw) && raw >= 5) {
-        return Math.floor(raw);
-    }
-    return 45;
-})();
+// Admin-forced outcomes are held this long at minimum before resolving;
+// the effective hold is capped to the contract duration below, so forced
+// wins/losses always resolve AT the auto-close deadline.
+// NOTE: hard-coded on purpose. A server-side env override must never be
+// able to silently change contract lifetimes (45s is contractual).
+const FORCED_CONTRACT_MIN_HOLD_SECONDS = 60;
+// Contracts live for exactly this long, then close automatically with the
+// outcome matching the live PnL at expiry. Hard-coded: no .env override is
+// honored. The UI countdown (platform/frontend + platform/paxora) matches
+// this value.
+const CONTRACT_DURATION_SECONDS = 45;
 class TradeService {
     constructor(marketData = market_data_service_1.default, marketService = market_service_1.default, stockData = stock_service_1.default) {
         this.marketData = marketData;

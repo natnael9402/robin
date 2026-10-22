@@ -198,8 +198,10 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   useEffect(() => {
     if (!position) return;
     let cancelled = false;
+    let inFlight = false;
     const poll = async () => {
-      if (cancelled) return;
+      if (cancelled || inFlight) return;
+      inFlight = true;
       try {
         const res = await tradesApi.getTrade(position.id);
         const trade = res.trade;
@@ -216,8 +218,18 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
           setPosition(null);
           return;
         }
+        // Re-anchor the countdown to the server's clock. Wallet/WebView
+        // browsers (and phones with skewed clocks) otherwise freeze the
+        // panel at "Closing" when opened_at drifts from local time.
+        const serverOpenedAt = typeof trade.opened_at === 'string' ? Date.parse(trade.opened_at) : NaN;
+        if (Number.isFinite(serverOpenedAt) && Math.abs(serverOpenedAt - position.openedAt) > 2000) {
+          setPosition({ ...position, openedAt: serverOpenedAt });
+          return;
+        }
       } catch {
         // polling errors silently ignored
+      } finally {
+        inFlight = false;
       }
       const remaining = position.openedAt + CONTRACT_DURATION_SECONDS * 1000 - Date.now();
       if (!cancelled) {
@@ -226,9 +238,17 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     };
     const first = setTimeout(() => { void poll(); }, 4000);
     pollingRef.current = first;
+    // Wallet/WebView browsers pause JS timers while backgrounded or when
+    // the screen locks. On refocus, reconcile immediately: poll right away
+    // so the panel clears the moment the trade result is known.
+    const handleVisibilityChange = () => {
+      if (!document.hidden) void poll();
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
       cancelled = true;
       clearTimeout(first);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       stopPolling();
     };
   }, [position, stopPolling, onComplete]);
