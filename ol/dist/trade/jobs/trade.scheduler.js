@@ -22,6 +22,7 @@ class TradeJobScheduler {
         this.contractTimers = new Map();
         this.startInvoked = false;
         this.DEFAULT_CONTRACT_INTERVAL_SECONDS = 15;
+        this.CONTRACT_ERROR_RETRY_SECONDS = 5;
         this.MIN_CONTRACT_INTERVAL_SECONDS = 5;
         this.OPTION_RETRY_DELAY_SECONDS = 2;
         this.OPTION_MAX_RETRIES = 2;
@@ -128,7 +129,10 @@ class TradeJobScheduler {
                 if (message === "Trade not found") {
                     return;
                 }
-                this.scheduleContractCheck(tradeId, this.DEFAULT_CONTRACT_INTERVAL_SECONDS);
+                // A transient failure (e.g. price feed outage) must never
+                // strand an open contract: retry quickly so the resolution
+                // lands as soon as the failure clears.
+                this.scheduleContractCheck(tradeId, this.CONTRACT_ERROR_RETRY_SECONDS);
             }
         }), normalizedDelaySeconds * MILLISECONDS_IN_SECOND);
         this.contractTimers.set(key, timer);
