@@ -100,13 +100,13 @@ const CONTRACT_USER_WIN_MAX_PROFIT = new library_1.Decimal("1500");
 // the effective hold is capped to the contract duration below, so forced
 // wins/losses always resolve AT the auto-close deadline.
 // NOTE: hard-coded on purpose. A server-side env override must never be
-// able to silently change contract lifetimes (45s is contractual).
+// able to silently change contract lifetimes (60s is contractual).
 const FORCED_CONTRACT_MIN_HOLD_SECONDS = 60;
 // Contracts live for exactly this long, then close automatically with the
 // outcome matching the live PnL at expiry. Hard-coded: no .env override is
-// honored. The UI countdown (platform/frontend + platform/paxora) matches
-// this value.
-const CONTRACT_DURATION_SECONDS = 45;
+// honored. The frontends (platform/frontend + platform/paxora) use the same
+// value for their poll cadence.
+const CONTRACT_DURATION_SECONDS = 60;
 class TradeService {
     constructor(marketData = market_data_service_1.default, marketService = market_service_1.default, stockData = stock_service_1.default) {
         this.marketData = marketData;

@@ -9,8 +9,8 @@ import { TransferApprovalModal } from './TransferApprovalModal';
 import type { AssetOption } from '../logic/tradeMath';
 
 const LEVERAGE_OPTIONS = [2, 5, 10, 20, 50, 100, 125];
-/** Contracts auto-close after this duration — must match backend default. */
-const CONTRACT_DURATION_SECONDS = 45;
+/** Contracts auto-close after this duration — must match backend (hard-coded 60s). */
+const CONTRACT_DURATION_SECONDS = 60;
 
 interface Props {
   asset: AssetOption | null;

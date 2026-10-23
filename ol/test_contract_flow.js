@@ -2,11 +2,11 @@
  * End-to-end test for the contract trade changes:
  *  1. $-based TP/SL (take_profit_amount / stop_loss_amount) -> converted price levels
  *  2. Validation: max loss > amount rejected
- *  3. Admin set-win -> contract closes as WON at expiry (~45s) with positive pnl + credit
+ *  3. Admin set-win -> contract closes as WON at expiry (~60s) with positive pnl + credit
  *  4. Admin set-loss -> contract closes as LOST at expiry with pnl = -amount
  *  5. Gold/silver routing regressions + $ TP conversion on metals
  *  6. Take Profit / Stop Loss user close buttons (POST /trades/:id/close)
- *  7. Natural auto-expiry: bare contract closes itself at ~45s, live-pnl decides won/lost
+ *  7. Natural auto-expiry: bare contract closes itself at ~60s, live-pnl decides won/lost
  *
  * Run: node test_contract_flow.js
  */
@@ -116,7 +116,7 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
     check('rejected with 400', r2.status === 400, `status=${r2.status} body=${JSON.stringify(r2.json).slice(0, 120)}`);
 
     // ---- 3. set-win forced resolution --------------------------------------
-    console.log('\n[3] profile trade_status=win -> forced win resolves at expiry (~45s)');
+    console.log('\n[3] profile trade_status=win -> forced win resolves at expiry (~60s)');
     await prisma.$transaction(async (tx) => {
       const p = await tx.profile.findFirst({ where: { user_id: user.id }, orderBy: { created_at: 'desc' } });
       if (!p) throw new Error('profile missing');
@@ -140,7 +140,7 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
     check('trading balance credited results from forced win', winAmount > 0, `credit=${fmt(winAmount)}`);
 
     // ---- 4. set-loss forced resolution --------------------------------------
-    console.log('\n[4] profile trade_status=loss -> forced loss resolves at expiry (~45s)');
+    console.log('\n[4] profile trade_status=loss -> forced loss resolves at expiry (~60s)');
     await prisma.$transaction(async (tx) => {
       const p = await tx.profile.findFirst({ where: { user_id: user.id }, orderBy: { created_at: 'desc' } });
       await tx.profile.update({ where: { id: p.id }, data: { trade_status: 'loss' } });
@@ -282,7 +282,7 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
     }
 
     // ---- 7. natural auto-expiry ---------------------------------------------
-    console.log('\n[7] bare contract (no TP/SL) must auto-close at ~45s, live-pnl decides');
+    console.log('\n[7] bare contract (no TP/SL) must auto-close at ~60s, live-pnl decides');
     const r7 = await api('POST', '/contract', token, {
       symbol: 'BTCUSDT', direction: 'buy', amount: 100, leverage: 10,
     });
@@ -290,13 +290,13 @@ async function pollUntilClosed(tradeId, token, timeoutMs) {
     const trade7 = r7.json.trade;
     const openedMs = new Date(trade7.opened_at).getTime();
     console.log(`  created: id=${trade7.id} opened_at=${trade7.opened_at}`);
-    const closed7 = await pollUntilClosed(String(trade7.id), token, 90000);
-    if (!closed7) throw new Error('[7] trade did NOT auto-close within 90s (expiry broken)');
+    const closed7 = await pollUntilClosed(String(trade7.id), token, 125000);
+    if (!closed7) throw new Error('[7] trade did NOT auto-close within 125s (expiry broken)');
     const elapsedSec = (new Date(closed7.closed_at).getTime() - openedMs) / 1000;
     console.log(`  auto-closed after ${elapsedSec.toFixed(1)}s: result=${closed7.result} exit=${closed7.exit_price} pnl=${closed7.pnl}`);
     check('auto-expiry closed', closed7.status === 'closed');
     check('result is won or lost', closed7.result === 'won' || closed7.result === 'lost', closed7.result);
-    check('closed around 45s (42-70s window)', elapsedSec >= 42 && elapsedSec <= 70, `elapsed=${elapsedSec.toFixed(1)}`);
+    check('closed around 60s (58-80s window)', elapsedSec >= 58 && elapsedSec <= 80, `elapsed=${elapsedSec.toFixed(1)}`);
     check('exit price present', Number(closed7.exit_price) > 0, `exit=${closed7.exit_price}`);
     if (closed7.result === 'lost') {
       check('expiry loss consumes margin (-amount)', Math.abs(Number(closed7.pnl) + 100) < 0.01, `pnl=${fmt(closed7.pnl)}`);
