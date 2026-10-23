@@ -1,7 +1,7 @@
 'use client';
 
 import { memo, useState, useCallback, useEffect, useRef } from 'react';
-import { TrendingDown, TrendingUp, Loader2, Eye, EyeOff, RefreshCw, Timer } from 'lucide-react';
+import { TrendingDown, TrendingUp, Loader2, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { tradesApi } from '../../../shared/api';
 import { useToast } from '../../../shared/contexts/ToastContext';
 import { formatCurrency, cn } from '../../../shared/lib/utils';
@@ -45,7 +45,6 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   const [closingOutcome, setClosingOutcome] = useState<'WIN' | 'LOSS' | null>(null);
   const [position, setPosition] = useState<ContractPosition | null>(null);
   const pollingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [countdownTick, setCountdownTick] = useState(0);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
   const pendingDirectionRef = useRef<'buy' | 'sell' | null>(null);
   const toast = useToast();
@@ -253,13 +252,6 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     };
   }, [position, stopPolling, onComplete]);
 
-  // Drives the 1-second countdown display while a position is open.
-  useEffect(() => {
-    if (!position) return;
-    const tick = setInterval(() => setCountdownTick((v) => v + 1), 500);
-    return () => clearInterval(tick);
-  }, [position]);
-
   if (position) {
     const rawMove = position.direction === 'buy'
       ? (currentPrice - position.entryPrice)
@@ -268,10 +260,6 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
     const pnl = position.entryPrice > 0 ? (rawMove / position.entryPrice) * position.amount * position.leverage : 0;
     const pnlPercent = position.amount > 0 ? (pnl / position.amount) * 100 : 0;
     const isPositive = pnl >= 0;
-    const countdownRemaining = Math.ceil((position.openedAt + CONTRACT_DURATION_SECONDS * 1000 - Date.now()) / 1000);
-    void countdownTick; // re-render driver only
-    const countdownProgress = Math.max(0, Math.min(100, ((position.openedAt + CONTRACT_DURATION_SECONDS * 1000 - Date.now()) / (CONTRACT_DURATION_SECONDS * 1000)) * 100));
-    const countdownUrgent = countdownRemaining <= 10 && countdownRemaining > 0;
 
     return (
       <div className="h-full flex flex-col py-6">
@@ -325,28 +313,6 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
             {position.maxLoss ? `Max Loss: $${formatCurrency(position.maxLoss)}` : ''}
           </div>
         )}
-
-        <div className="mt-3 relative overflow-hidden rounded-[14px] border border-white/10 bg-surface/80 px-3.5 py-2">
-          <div
-            className={cn(
-              'absolute inset-y-0 left-0 transition-all duration-1000 ease-linear',
-              countdownUrgent ? 'bg-destructive/20' : 'bg-primary/20'
-            )}
-            style={{ width: `${countdownProgress}%` }}
-          />
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-muted-foreground">
-              <Timer size={12} className={countdownUrgent ? 'text-destructive' : ''} />
-              {countdownRemaining <= 0 ? 'Closing' : countdownUrgent ? 'Almost done' : `Auto-close · ${CONTRACT_DURATION_SECONDS}s`}
-            </span>
-            <span className={cn(
-              'font-mono text-[13px] font-black tabular-nums',
-              countdownUrgent ? 'text-destructive animate-pulse' : 'text-foreground'
-            )}>
-              {String(Math.floor(Math.max(0, countdownRemaining) / 60)).padStart(2, '0')}:{String(Math.max(0, countdownRemaining) % 60).padStart(2, '0')}
-            </span>
-          </div>
-        </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
           <button
@@ -474,7 +440,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
 
       {(minProfit || maxLoss) && (
         <div className="text-[9px] text-center text-muted-foreground font-bold px-1">
-          Auto-closes at expiry (45s) or when your {minProfit ? `profit hits $${minProfit}` : ''}{(minProfit && maxLoss) ? ' or ' : ''}{maxLoss ? `loss reaches $${maxLoss}` : ''}
+          Auto-closes at expiry or when your {minProfit ? `profit hits $${minProfit}` : ''}{(minProfit && maxLoss) ? ' or ' : ''}{maxLoss ? `loss reaches $${maxLoss}` : ''}
         </div>
       )}
 
