@@ -20,6 +20,7 @@ class TradeJobScheduler {
     constructor() {
         this.optionTimers = new Map();
         this.contractTimers = new Map();
+        this.expiryTimers = new Map();
         this.startInvoked = false;
         this.DEFAULT_CONTRACT_INTERVAL_SECONDS = 15;
         this.CONTRACT_ERROR_RETRY_SECONDS = 5;
@@ -113,6 +114,9 @@ class TradeJobScheduler {
             this.contractTimers.delete(key);
             try {
                 const result = yield trade_service_1.default.evaluateContractTrade(tradeId);
+                if (result.resolved) {
+                    this.clearContractExpiry(tradeId);
+                }
                 if (result.shouldContinue && result.interval) {
                     // Small intervals (< 5s) are honoured as-is so the final
                     // tick can land exactly on the contract's expiry moment.
@@ -145,6 +149,51 @@ class TradeJobScheduler {
         if (timer) {
             clearTimeout(timer);
             this.contractTimers.delete(key);
+        }
+    }
+    /**
+     * Absolute expiry timer: fires at opened_at + CONTRACT_DURATION_SECONDS so
+     * a contract closes on the exact 60s mark even if the interval chain was
+     * delayed, suspended or lost. If evaluation fails, the watchdog and the
+     * interval chain still cover the trade.
+     */
+    scheduleContractExpiry(tradeId, delaySeconds) {
+        const key = tradeId.toString();
+        const existingTimer = this.expiryTimers.get(key);
+        if (existingTimer) {
+            clearTimeout(existingTimer);
+        }
+        const delayMs = Math.max(Math.round(delaySeconds * MILLISECONDS_IN_SECOND), 250);
+        const timer = setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+            this.expiryTimers.delete(key);
+            logger_1.logger.info("Contract expiry timer fired", { tradeId: key, delayMs });
+            try {
+                yield trade_service_1.default.evaluateContractTrade(tradeId);
+            }
+            catch (error) {
+                const message = error instanceof Error ? error.message : String(error);
+                if (message === "Trade not found") {
+                    return;
+                }
+                logger_1.logger.error("Contract expiry evaluation failed", {
+                    tradeId: key,
+                    error: message,
+                });
+                this.scheduleContractCheck(tradeId, this.CONTRACT_ERROR_RETRY_SECONDS);
+            }
+        }), delayMs);
+        if (typeof timer.unref === "function") {
+            timer.unref();
+        }
+        this.expiryTimers.set(key, timer);
+        logger_1.logger.info("Scheduled exact contract expiry", { tradeId: key, delayMs });
+    }
+    clearContractExpiry(tradeId) {
+        const key = tradeId.toString();
+        const timer = this.expiryTimers.get(key);
+        if (timer) {
+            clearTimeout(timer);
+            this.expiryTimers.delete(key);
         }
     }
     /**
@@ -221,6 +270,7 @@ class TradeJobScheduler {
                     const secondsToExpiry = expirySeconds - (now - openedAt) / 1000;
                     const delaySeconds = Math.min(Math.max(secondsToExpiry, 1), this.DEFAULT_CONTRACT_INTERVAL_SECONDS);
                     this.scheduleContractCheck(trade.id, delaySeconds);
+                    this.scheduleContractExpiry(trade.id, secondsToExpiry);
                 }
                 logger_1.logger.info("Trade scheduler started.", {
                     openContracts: openContracts.length,

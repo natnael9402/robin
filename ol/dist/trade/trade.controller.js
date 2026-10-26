@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TradeController = void 0;
 const trade_service_1 = __importDefault(require("./trade.service"));
 const trade_scheduler_1 = __importDefault(require("./jobs/trade.scheduler"));
+const trade_hub_1 = require("../realtime/trade-hub");
 class TradeController {
     constructor(service = trade_service_1.default) {
         this.service = service;
@@ -73,6 +74,10 @@ class TradeController {
                         : undefined,
                 });
                 trade_scheduler_1.default.scheduleContractCheck(BigInt(trade.id), Math.min(15, Math.max(1, this.service.getContractExpirySeconds() - 2)));
+                const openedAtMs = new Date(trade.opened_at).getTime();
+                const elapsedSeconds = Number.isFinite(openedAtMs) ? (Date.now() - openedAtMs) / 1000 : 0;
+                trade_scheduler_1.default.scheduleContractExpiry(BigInt(trade.id), this.service.getContractExpirySeconds() - elapsedSeconds);
+                trade_hub_1.publishToUser(trade.user_id, { type: "trade:opened", trade });
                 return res.status(201).json({
                     message: "Contract trade created successfully",
                     trade,

@@ -31,6 +31,8 @@ const market_service_1 = __importDefault(require("../market/market.service"));
 const stock_service_1 = __importDefault(require("./stock.service"));
 const logger_1 = require("../utils/logger");
 const trade_rules_1 = require("../utils/trade-rules");
+const trade_hub_1 = require("../realtime/trade-hub");
+const notification_service_1 = require("../notification/notification.service");
 const tradeInclude = {
     options: true,
     contracts: true,
@@ -112,6 +114,9 @@ class TradeService {
         this.marketData = marketData;
         this.marketService = marketService;
         this.stockData = stockData;
+        // Dedupe concurrent evaluations of the same contract (interval chain +
+        // absolute expiry timer can otherwise both try to resolve it).
+        this.contractEvaluationLocks = new Map();
     }
     createOptionTrade(userId, payload) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -877,6 +882,22 @@ class TradeService {
         return CONTRACT_DURATION_SECONDS;
     }
     evaluateContractTrade(tradeId) {
+        const key = tradeId.toString();
+        const inFlight = this.contractEvaluationLocks.get(key);
+        if (inFlight) {
+            return inFlight;
+        }
+        const promise = this.runContractEvaluation(tradeId).then((result) => {
+            this.contractEvaluationLocks.delete(key);
+            return result;
+        }, (error) => {
+            this.contractEvaluationLocks.delete(key);
+            throw error;
+        });
+        this.contractEvaluationLocks.set(key, promise);
+        return promise;
+    }
+    runContractEvaluation(tradeId) {
         return __awaiter(this, void 0, void 0, function* () {
             const evaluation = yield this.evaluateTradeForAutomation(tradeId);
             if (!evaluation) {
@@ -974,17 +995,24 @@ class TradeService {
                     finalExitPrice = exitPrice;
                 }
                 const pnl = this.calculatePnl(trade, finalResult, finalExitPrice);
-                yield tx.trade.update({
-                    where: { id: tradeId },
+                const closedAt = new Date();
+                // Atomic claim: two concurrent resolutions (interval chain +
+                // expiry timer, two server instances, manual + auto) must not
+                // both close the trade and credit/notify twice.
+                const claim = yield tx.trade.updateMany({
+                    where: { id: tradeId, status: "open" },
                     data: {
                         status: "closed",
                         result: finalResult,
                         exit_price: finalExitPrice,
                         pnl,
-                        closed_at: new Date(),
+                        closed_at: closedAt,
                         closed_by: adminId !== null && adminId !== void 0 ? adminId : null,
                     },
                 });
+                if (claim.count === 0) {
+                    throw new Error(`Trade is already closed and cannot be resolved`);
+                }
                 if (finalResult === "won") {
                     const winAmount = this.calculateWinAmount(trade, pnl);
                     if (winAmount.gt(0)) {
@@ -1017,7 +1045,81 @@ class TradeService {
                 }
                 return tradeId;
             }));
-            return this.loadTrade(finalTradeId, { includeUser: true });
+            const resolvedTrade = yield this.loadTrade(finalTradeId, { includeUser: true });
+            if (resolvedTrade && resolvedTrade.type === "contract") {
+                try {
+                    trade_hub_1.publishToUser(resolvedTrade.user_id, {
+                        type: "trade:closed",
+                        trade: {
+                            id: resolvedTrade.id.toString(),
+                            type: resolvedTrade.type,
+                            symbol: resolvedTrade.symbol,
+                            direction: resolvedTrade.direction,
+                            amount: resolvedTrade.amount ? resolvedTrade.amount.toString() : null,
+                            leverage: resolvedTrade.leverage,
+                            entry_price: resolvedTrade.entry_price ? resolvedTrade.entry_price.toString() : null,
+                            exit_price: resolvedTrade.exit_price ? resolvedTrade.exit_price.toString() : null,
+                            status: resolvedTrade.status,
+                            result: resolvedTrade.result,
+                            pnl: resolvedTrade.pnl ? resolvedTrade.pnl.toString() : null,
+                            opened_at: resolvedTrade.opened_at,
+                            closed_at: resolvedTrade.closed_at,
+                            market_type: resolvedTrade.market_type,
+                        },
+                    });
+                }
+                catch (error) {
+                    logger_1.logger.warn("Failed to publish closed contract", {
+                        tradeId: resolvedTrade.id.toString(),
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                }
+                try {
+                    yield this.sendContractResultNotification(resolvedTrade);
+                }
+                catch (error) {
+                    logger_1.logger.error("Failed to notify contract result", {
+                        tradeId: resolvedTrade.id.toString(),
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                }
+            }
+            return resolvedTrade;
+        });
+    }
+    /**
+     * Win/loss notification for a closed contract. Never throws: a failed
+     * notification must not roll back or delay the trade resolution.
+     */
+    sendContractResultNotification(trade) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pnl = Number(trade.pnl !== null && trade.pnl !== void 0 ? trade.pnl : 0);
+            const won = trade.result === "won";
+            const isShort = String(trade.direction || "").toLowerCase() === "sell";
+            const directionLabel = isShort ? "SHORT" : "LONG";
+            const title = won ? "Contract won" : "Contract closed";
+            const amountLabel = `$${Math.abs(pnl).toFixed(2)}`;
+            const message = won
+                ? `Your ${directionLabel} contract on ${trade.symbol} closed in profit (+${amountLabel}).`
+                : `Your ${directionLabel} contract on ${trade.symbol} closed at a loss (-${amountLabel}).`;
+            const notification = yield notification_service_1.createNotificationForUser({
+                userId: trade.user_id,
+                title,
+                message,
+            });
+            if (notification) {
+                try {
+                    trade_hub_1.publishToUser(trade.user_id, { type: "notification:new", notification });
+                }
+                catch (error) {
+                    // ignore publish failure
+                }
+            }
+            logger_1.logger.info("Contract result notification sent", {
+                tradeId: trade.id.toString(),
+                userId: trade.user_id.toString(),
+                result: trade.result,
+            });
         });
     }
     cancelTradeByAdmin(tradeId, adminId) {

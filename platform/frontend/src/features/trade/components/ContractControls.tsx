@@ -5,12 +5,20 @@ import { TrendingDown, TrendingUp, Loader2, Eye, EyeOff, RefreshCw } from 'lucid
 import { tradesApi } from '../../../shared/api';
 import { useToast } from '../../../shared/contexts/ToastContext';
 import { formatCurrency, cn } from '../../../shared/lib/utils';
+import { config } from '../../../shared/lib/config';
+import { storage } from '../../../shared/lib/storage';
 import { TransferApprovalModal } from './TransferApprovalModal';
 import type { AssetOption } from '../logic/tradeMath';
 
 const LEVERAGE_OPTIONS = [2, 5, 10, 20, 50, 100, 125];
 /** Contracts auto-close after this duration — must match backend (hard-coded 60s). */
 const CONTRACT_DURATION_SECONDS = 60;
+
+/** Realtime trade socket (server closes contracts at 60s and pushes the result). */
+function getTradeSocketUrl(token: string): string {
+  const base = config.apiUrl.replace(/^http/i, 'ws').replace(/\/api\/?$/i, '');
+  return `${base}/ws/trades?token=${encodeURIComponent(token)}`;
+}
 
 interface Props {
   asset: AssetOption | null;
@@ -47,7 +55,14 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   const pollingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
   const pendingDirectionRef = useRef<'buy' | 'sell' | null>(null);
+  const completedRef = useRef(false);
+  const manualCloseRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
   const toast = useToast();
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const symbol = asset ? `${asset.symbol.toUpperCase()}/USD` : '';
   const marketType = asset?.type === 'metal' ? 'metals' : asset?.type === 'stock' ? 'stocks' : 'crypto';
@@ -63,6 +78,12 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
   useEffect(() => {
     return stopPolling;
   }, [stopPolling]);
+
+  // A new position starts a fresh completion cycle (poll + websocket race guard).
+  useEffect(() => {
+    completedRef.current = false;
+    manualCloseRef.current = false;
+  }, [position?.id]);
 
   const handleSubmit = useCallback(async (dir: 'buy' | 'sell') => {
     const amt = Number(amount);
@@ -173,11 +194,13 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
 
   const handleClose = useCallback(async (outcome: 'WIN' | 'LOSS') => {
     if (!position || closingOutcome !== null) return;
+    manualCloseRef.current = true;
     setClosingOutcome(outcome);
     try {
       const res = await tradesApi.closeContract(position.id, outcome);
       stopPolling();
       const trade = res.trade;
+      completedRef.current = true;
       onComplete({
         symbol: trade.symbol,
         amount: String(position.amount),
@@ -188,6 +211,7 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
       onRefresh?.();
       setPosition(null);
     } catch (err) {
+      manualCloseRef.current = false;
       toast.error((err as Error).message ?? 'Failed to close trade');
     } finally {
       setClosingOutcome(null);
@@ -205,9 +229,11 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
         const res = await tradesApi.getTrade(position.id);
         const trade = res.trade;
         if (trade.status === 'closed') {
+          if (completedRef.current || manualCloseRef.current) return;
+          completedRef.current = true;
           stopPolling();
           const pnl = Number(trade.pnl ?? 0);
-          onComplete({
+          onCompleteRef.current({
             symbol: trade.symbol,
             amount: String(position.amount),
             profit: pnl,
@@ -250,7 +276,112 @@ function ContractControlsBase({ asset, balance, accountLabel = 'Balance', curren
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       stopPolling();
     };
-  }, [position, stopPolling, onComplete]);
+  }, [position, stopPolling]);
+
+  // Server-driven close: the backend pushes trade:closed the moment the 60s
+  // contract resolves, even if this tab/WebView was backgrounded. Polling
+  // above stays as a fallback when the socket cannot connect.
+  useEffect(() => {
+    if (!position) return;
+    let socket: WebSocket | null = null;
+    let stopped = false;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
+    let retries = 0;
+
+    const finishFromRealtime = (trade: any) => {
+      if (!trade || stopped) return;
+      if (String(trade.id) !== String(position.id)) return;
+      if ((trade.status ?? 'closed') !== 'closed') return;
+      if (completedRef.current || manualCloseRef.current) return;
+      completedRef.current = true;
+      stopPolling();
+      onCompleteRef.current({
+        symbol: trade.symbol ?? position.symbol,
+        amount: String(position.amount),
+        profit: Number(trade.pnl ?? 0),
+        direction: position.direction,
+        result: trade.result ?? null,
+      });
+      setPosition(null);
+    };
+
+    const connect = () => {
+      if (stopped) return;
+      const token = storage.getToken();
+      if (!token) return;
+      try {
+        socket = new WebSocket(getTradeSocketUrl(token));
+      } catch {
+        return;
+      }
+      socket.onopen = () => {
+        retries = 0;
+      };
+      socket.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data as string);
+          if (!message || typeof message.type !== 'string') return;
+          if (message.type === 'trade:closed') {
+            finishFromRealtime(message.trade);
+            return;
+          }
+          if (message.type === 'trade:snapshot') {
+            (Array.isArray(message.trades) ? message.trades : []).forEach(finishFromRealtime);
+            (Array.isArray(message.recentClosed) ? message.recentClosed : []).forEach(finishFromRealtime);
+          }
+        } catch {
+          // ignore malformed frames
+        }
+      };
+      socket.onclose = () => {
+        socket = null;
+        if (stopped) return;
+        const delay = Math.min(15000, 1000 * 2 ** Math.min(retries, 4));
+        retries += 1;
+        retryTimer = setTimeout(connect, delay);
+      };
+      socket.onerror = () => {
+        try {
+          socket?.close();
+        } catch {
+          // ignore
+        }
+      };
+    };
+
+    const sendExit = () => {
+      try {
+        socket?.send(JSON.stringify({ type: 'exit' }));
+      } catch {
+        // ignore
+      }
+    };
+
+    connect();
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        sendExit();
+        return;
+      }
+      if (!socket) connect();
+    };
+    const handlePageHide = () => sendExit();
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('pagehide', handlePageHide);
+
+    return () => {
+      stopped = true;
+      if (retryTimer) clearTimeout(retryTimer);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('pagehide', handlePageHide);
+      try {
+        socket?.close();
+      } catch {
+        // ignore
+      }
+    };
+  }, [position, stopPolling]);
 
   if (position) {
     const rawMove = position.direction === 'buy'
