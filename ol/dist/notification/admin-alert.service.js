@@ -1,42 +1,4 @@
-"use strict";
-/**
- * Admin activity alerts.
- *
- * Every meaningful action in the robin platform (sign in, sign up, trade
- * open/close, deposit, withdrawal, transfer, KYC, ...) is delivered to the
- * admin team through Telegram (and mirrored into the in-app notification feed
- * for admin accounts).
- *
- * Telegram recipients are configured either through TELEGRAM_ADMIN_CHAT_IDS or
- * by messaging the bot:
- *   /start <bind-code>   register this chat
- *   /stop                unregister this chat
- *   /status              show the alert status
- *
- * The first chat that sends a bare /start claims admin access when no chat is
- * configured yet. Recipients are persisted in the uploads volume so they
- * survive container rebuilds.
- */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(value); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(value); } catch (e) { reject(e); } }
-        function resolve(value) {
-            if (value && value instanceof P) {
-                if (value instanceof Promise) {
-                    value.then(fulfilled, rejected);
-                    return value;
-                }
-                value = new P(function (resolve) {
-                    value.then(fulfilled, rejected);
-                });
-            }
-            return resolve(value);
-        }
-        resolve(value);
-    });
-};
+﻿"use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -151,87 +113,110 @@ function saveStore() {
     }
 }
 
-function telegram(method, payload, timeoutMs) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!BOT_TOKEN) {
-            throw new Error("Telegram bot token is not configured");
-        }
-        const res = yield fetch(`${API_BASE}/${method}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload || {}),
-            signal: AbortSignal.timeout(timeoutMs || 12000),
-        });
-        let data = null;
-        try {
-            data = yield res.json();
-        }
-        catch (e) {
-            data = null;
-        }
-        if (!data || !data.ok) {
-            const description = data && data.description ? data.description : `Telegram ${method} failed (${res.status})`;
-            const error = new Error(description);
-            error.code = data && data.error_code ? data.error_code : res.status;
-            throw error;
-        }
-        return data.result;
+async function telegram(method, payload, timeoutMs) {
+    if (!BOT_TOKEN) {
+        throw new Error("Telegram bot token is not configured");
+    }
+    const res = await fetch(`${API_BASE}/${method}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload || {}),
+        signal: AbortSignal.timeout(timeoutMs || 12000),
     });
+    let data = null;
+    try {
+        data = await res.json();
+    }
+    catch (e) {
+        data = null;
+    }
+    if (!data || !data.ok) {
+        const description = data && data.description ? data.description : `Telegram ${method} failed (${res.status})`;
+        const error = new Error(description);
+        error.code = data && data.error_code ? data.error_code : res.status;
+        throw error;
+    }
+    return data.result;
 }
 
 function getAdminChatIds() {
     return [...chats.keys()];
 }
 
-function sendToChat(chatId, text) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield telegram("sendMessage", {
-                chat_id: chatId,
-                text: text.length > 4000 ? `${text.slice(0, 3990)}…` : text,
-                parse_mode: "HTML",
-                disable_web_page_preview: true,
-            });
-            stats.sent += 1;
-            stats.lastSentAt = new Date().toISOString();
-            return true;
+async function sendToChat(chatId, text, extra) {
+    try {
+        await telegram("sendMessage", Object.assign({
+            chat_id: chatId,
+            text: text.length > 4000 ? `${text.slice(0, 3990)}...` : text,
+            parse_mode: "HTML",
+            disable_web_page_preview: true,
+        }, extra || {}));
+        stats.sent += 1;
+        stats.lastSentAt = new Date().toISOString();
+        return true;
+    }
+    catch (error) {
+        stats.failed += 1;
+        stats.lastError = error instanceof Error ? error.message : String(error);
+        const message = stats.lastError;
+        if (error && (error.code === 403 || /blocked|chat not found|user is deactivated/i.test(message))) {
+            chats.delete(chatId);
+            stats.recipients = chats.size;
+            saveStore();
+            logger_1.logger.warn("Removed unreachable Telegram admin chat", { chatId, error: message });
         }
-        catch (error) {
-            stats.failed += 1;
-            stats.lastError = error instanceof Error ? error.message : String(error);
-            const message = stats.lastError;
-            if (error && (error.code === 403 || /blocked|chat not found|user is deactivated/i.test(message))) {
-                chats.delete(chatId);
-                stats.recipients = chats.size;
-                saveStore();
-                logger_1.logger.warn("Removed unreachable Telegram admin chat", { chatId, error: message });
-            }
-            else {
-                logger_1.logger.warn("Telegram admin alert failed", { chatId, error: message });
-            }
-            return false;
+        else {
+            logger_1.logger.warn("Telegram admin alert failed", { chatId, error: message });
         }
-    });
+        return false;
+    }
 }
 
-function broadcast(text) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (DISABLED) {
-            return { sent: 0, skipped: true };
+async function sendPhotoToChat(chatId, photo, caption, extra) {
+    try {
+        await telegram("sendPhoto", Object.assign({
+            chat_id: chatId,
+            photo,
+            caption: caption && caption.length > 1024 ? `${caption.slice(0, 1015)}...` : caption,
+            parse_mode: "HTML",
+            disable_web_page_preview: true,
+        }, extra || {}));
+        stats.sent += 1;
+        stats.lastSentAt = new Date().toISOString();
+        return true;
+    }
+    catch (error) {
+        stats.failed += 1;
+        stats.lastError = error instanceof Error ? error.message : String(error);
+        const message = stats.lastError;
+        if (error && (error.code === 403 || /blocked|chat not found|user is deactivated/i.test(message))) {
+            chats.delete(chatId);
+            stats.recipients = chats.size;
+            saveStore();
         }
-        const recipients = getAdminChatIds();
-        if (!recipients.length) {
-            return { sent: 0, skipped: true, reason: "no-admins" };
+        else {
+            logger_1.logger.warn("Telegram admin photo failed", { chatId, error: message });
         }
-        let sent = 0;
-        for (const chatId of recipients) {
-            if (yield sendToChat(chatId, text)) {
-                sent += 1;
-            }
-            yield sleep(80);
+        return false;
+    }
+}
+
+async function broadcast(text, extra) {
+    if (DISABLED) {
+        return { sent: 0, skipped: true };
+    }
+    const recipients = getAdminChatIds();
+    if (!recipients.length) {
+        return { sent: 0, skipped: true, reason: "no-admins" };
+    }
+    let sent = 0;
+    for (const chatId of recipients) {
+        if (await sendToChat(chatId, text, extra)) {
+            sent += 1;
         }
-        return { sent };
-    });
+        await sleep(80);
+    }
+    return { sent };
 }
 
 function formatUser(user) {
@@ -292,72 +277,130 @@ function appFromRequest(req) {
     return "unknown";
 }
 
-function mirroredRecipientIds() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const admins = yield prisma_1.default.user.findMany({
-                where: { role: "admin" },
-                select: { id: true },
-            });
-            return admins.map((admin) => admin.id);
-        }
-        catch (error) {
-            return [];
-        }
-    });
+async function mirroredRecipientIds() {
+    try {
+        const admins = await prisma_1.default.user.findMany({
+            where: { role: "admin" },
+            select: { id: true },
+        });
+        return admins.map((admin) => admin.id);
+    }
+    catch (error) {
+        return [];
+    }
 }
 
-function mirrorInApp(event, plainText) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!MIRROR_IN_APP) {
-            return;
-        }
-        const adminIds = yield mirroredRecipientIds();
-        if (!adminIds.length) {
-            return;
-        }
-        const title = String(event.title || "Admin alert").slice(0, 255);
-        const message = plainText.slice(0, 2000);
-        for (const adminId of adminIds) {
-            try {
-                const notification = yield (0, notification_service_1.createNotificationForUser)({
-                    userId: adminId,
-                    title,
-                    message,
-                });
-                if (notification) {
-                    try {
-                        (0, trade_hub_1.publishToUser)(adminId, { type: "notification:new", notification });
-                    }
-                    catch (e) {
-                        // websocket is optional
-                    }
+async function mirrorInApp(event, plainText) {
+    if (!MIRROR_IN_APP) {
+        return;
+    }
+    const adminIds = await mirroredRecipientIds();
+    if (!adminIds.length) {
+        return;
+    }
+    const title = String(event.title || "Admin alert").slice(0, 255);
+    const message = plainText.slice(0, 2000);
+    for (const adminId of adminIds) {
+        try {
+            const notification = await (0, notification_service_1.createNotificationForUser)({
+                userId: adminId,
+                title,
+                message,
+            });
+            if (notification) {
+                try {
+                    (0, trade_hub_1.publishToUser)(adminId, { type: "notification:new", notification });
+                }
+                catch (e) {
+                    // websocket is optional
                 }
             }
-            catch (error) {
-                logger_1.logger.warn("Could not mirror admin alert in-app", {
-                    adminId: adminId.toString(),
-                    error: error instanceof Error ? error.message : String(error),
-                });
+        }
+        catch (error) {
+            logger_1.logger.warn("Could not mirror admin alert in-app", {
+                adminId: adminId.toString(),
+                error: error instanceof Error ? error.message : String(error),
+            });
+        }
+    }
+}
+
+function buildKeyboard(buttons) {
+    if (!Array.isArray(buttons) || buttons.length === 0) {
+        return null;
+    }
+    return {
+        inline_keyboard: buttons,
+    };
+}
+
+async function broadcastWithMedia(text, extra, photo) {
+    if (DISABLED) {
+        return { sent: 0, skipped: true };
+    }
+    const recipients = getAdminChatIds();
+    if (!recipients.length) {
+        return { sent: 0, skipped: true, reason: "no-admins" };
+    }
+    let sent = 0;
+    for (const chatId of recipients) {
+        let ok = false;
+        if (photo) {
+            ok = await sendPhotoToChat(chatId, photo, text, extra);
+            if (!ok) {
+                ok = await sendToChat(chatId, `${text}\n\n🖼 <b>Proof:</b> ${escapeHtml(photo)}`, extra);
             }
         }
-    });
+        else {
+            ok = await sendToChat(chatId, text, extra);
+        }
+        if (ok) {
+            sent += 1;
+        }
+        await sleep(80);
+    }
+    return { sent };
 }
 
 /**
  * Fire-and-forget admin alert. Never throws and never blocks the request.
- *
- * @param {object} event
- * @param {string} event.title      Short event title ("SIGN IN", "TRADE OPENED", ...)
- * @param {string} [event.emoji]    Emoji shown before the title
- * @param {object} [event.user]     { id, name, email } of the acting user
- * @param {string} [event.app]      paxora | paxora-premium | frontend | admin
- * @param {object} [event.req]      Express request (used for app, ip, user agent)
- * @param {Array<[string, string]>} [event.fields] Extra "label: value" lines
- * @param {boolean} [event.mirror]  Mirror into admin in-app notifications (default true)
  */
 function notifyAdmin(event) {
     if (!event || DISABLED) {
+        return;
+    }
+    if (event.actionButtons && (event.photo || event.attachments)) {
+        const app = event.app || appFromRequest(event.req);
+        const emoji = event.emoji || "🔔";
+        const title = String(event.title || "ADMIN ALERT").toUpperCase();
+        const fields = Array.isArray(event.fields) ? event.fields : [];
+        const lines = [`${emoji} <b>${escapeHtml(title)}</b>`];
+        lines.push(formatUser(event.user));
+        for (const field of fields) {
+            if (!field || field[1] === undefined || field[1] === null || field[1] === "") {
+                continue;
+            }
+            lines.push(`${escapeHtml(field[0])}: <b>${escapeHtml(field[1])}</b>`);
+        }
+        lines.push(`🌐 App: <b>${escapeHtml(formatApp(app))}</b>`);
+        const ip = requestIp(event.req);
+        if (ip) {
+            lines.push(`🌍 IP: ${escapeHtml(ip)}`);
+        }
+        if (event.req && typeof event.req.headers["user-agent"] === "string") {
+            lines.push(`📱 Device: ${escapeHtml(String(event.req.headers["user-agent"]).slice(0, 120))}`);
+        }
+        lines.push(`🕒 ${escapeHtml(new Date().toISOString().replace("T", " ").replace(/\..+$/, " UTC"))}`);
+        const text = lines.filter(Boolean).join("\n");
+        const keyboard = buildKeyboard(event.actionButtons);
+        const extra = keyboard ? { reply_markup: keyboard } : {};
+        void broadcastWithMedia(text, extra, event.photo).catch((error) => {
+            stats.lastError = error instanceof Error ? error.message : String(error);
+        });
+        if (event.mirror !== false && title !== "APP OPEN") {
+            const plainText = stripTags(lines.slice(2).join(" | "));
+            void mirrorInApp(event, plainText).catch(() => { });
+        }
         return;
     }
     const app = event.app || appFromRequest(event.req);
@@ -391,104 +434,99 @@ function notifyAdmin(event) {
     }
 }
 
-function reply(chatId, text) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield telegram("sendMessage", { chat_id: chatId, text, parse_mode: "HTML", disable_web_page_preview: true });
-        }
-        catch (error) {
-            logger_1.logger.warn("Could not reply to Telegram admin", {
-                chatId,
-                error: error instanceof Error ? error.message : String(error),
-            });
-        }
-    });
+async function reply(chatId, text) {
+    try {
+        await telegram("sendMessage", { chat_id: chatId, text, parse_mode: "HTML", disable_web_page_preview: true });
+    }
+    catch (error) {
+        logger_1.logger.warn("Could not reply to Telegram admin", {
+            chatId,
+            error: error instanceof Error ? error.message : String(error),
+        });
+    }
 }
 
-function handleUpdate(update) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const message = update && update.message;
-        if (!message || !message.text) {
+async function handleUpdate(update) {
+    const message = update && update.message;
+    if (!message || !message.text) {
+        return;
+    }
+    const chatId = String(message.chat.id);
+    const text = String(message.text).trim();
+    const [command, arg] = text.split(/\s+/);
+    const envConfigured = String(process.env.TELEGRAM_ADMIN_CHAT_IDS || "").trim().length > 0;
+    if (command === "/start") {
+        if (chats.has(chatId)) {
+            await reply(chatId, "✅ This chat is already receiving all admin notifications.");
             return;
         }
-        const chatId = String(message.chat.id);
-        const text = String(message.text).trim();
-        const [command, arg] = text.split(/\s+/);
-        const envConfigured = String(process.env.TELEGRAM_ADMIN_CHAT_IDS || "").trim().length > 0;
-        if (command === "/start") {
-            if (chats.has(chatId)) {
-                yield reply(chatId, "✅ This chat is already receiving all admin notifications.");
-                return;
-            }
-            const canClaim = !envConfigured && chats.size === 0;
-            if (arg !== BIND_CODE && !canClaim) {
-                yield reply(chatId, "🔒 This bot is private. Send <b>/start &lt;bind-code&gt;</b> to subscribe.");
-                return;
-            }
-            chats.set(chatId, {
-                id: chatId,
-                label: message.chat.username || message.chat.title || message.chat.first_name || null,
-                added_at: new Date().toISOString(),
-            });
+        const canClaim = !envConfigured && chats.size === 0;
+        if (arg !== BIND_CODE && !canClaim) {
+            await reply(chatId, "🔒 This bot is private. Send <b>/start &lt;bind-code&gt;</b> to subscribe.");
+            return;
+        }
+        chats.set(chatId, {
+            id: chatId,
+            label: message.chat.username || message.chat.title || message.chat.first_name || null,
+            added_at: new Date().toISOString(),
+        });
+        stats.recipients = chats.size;
+        saveStore();
+        logger_1.logger.info("Telegram admin chat registered", { chatId, recipients: chats.size });
+        await reply(chatId, [
+            "✅ <b>Registered for admin notifications</b>",
+            "",
+            "You will now receive sign-ups, sign-ins, app visits, trades, deposits, withdrawals, transfers and KYC activity in real time.",
+            "",
+            "Send /stop to unsubscribe.",
+        ].join("\n"));
+        return;
+    }
+    if (command === "/stop") {
+        if (chats.delete(chatId)) {
             stats.recipients = chats.size;
             saveStore();
-            logger_1.logger.info("Telegram admin chat registered", { chatId, recipients: chats.size });
-            yield reply(chatId, [
-                "✅ <b>Registered for admin notifications</b>",
-                "",
-                "You will now receive sign-ups, sign-ins, app visits, trades, deposits, withdrawals, transfers and KYC activity in real time.",
-                "",
-                "Send /stop to unsubscribe.",
-            ].join("\n"));
-            return;
+            await reply(chatId, "🛑 You will no longer receive admin notifications.");
         }
-        if (command === "/stop") {
-            if (chats.delete(chatId)) {
-                stats.recipients = chats.size;
-                saveStore();
-                yield reply(chatId, "🛑 You will no longer receive admin notifications.");
-            }
-            else {
-                yield reply(chatId, "This chat is not registered.");
-            }
-            return;
+        else {
+            await reply(chatId, "This chat is not registered.");
         }
-        if (command === "/status" || command === "/ping") {
-            yield reply(chatId, [
-                "🤖 <b>Robin admin alerts</b>",
-                `Status: ${stats.enabled ? "enabled" : "disabled"}`,
-                `Recipients: ${chats.size}`,
-                `Sent: ${stats.sent}`,
-                `Failed: ${stats.failed}`,
-                `Last error: ${stats.lastError ? escapeHtml(stats.lastError) : "none"}`,
-            ].join("\n"));
-        }
-    });
+        return;
+    }
+    if (command === "/status" || command === "/ping") {
+        await reply(chatId, [
+            "🤖 <b>Robin admin alerts</b>",
+            `Status: ${stats.enabled ? "enabled" : "disabled"}`,
+            `Recipients: ${chats.size}`,
+            `Sent: ${stats.sent}`,
+            `Failed: ${stats.failed}`,
+            `Last error: ${stats.lastError ? escapeHtml(stats.lastError) : "none"}`,
+        ].join("\n"));
+    }
 }
 
-function pollLoop() {
-    return __awaiter(this, void 0, void 0, function* () {
-        while (polling) {
-            try {
-                const updates = yield telegram("getUpdates", {
-                    offset: updateOffset,
-                    timeout: 25,
-                    allowed_updates: ["message"],
-                }, 32000);
-                if (Array.isArray(updates)) {
-                    for (const update of updates) {
-                        updateOffset = Math.max(updateOffset, Number(update.update_id) + 1);
-                        yield handleUpdate(update);
-                    }
+async function pollLoop() {
+    while (polling) {
+        try {
+            const updates = await telegram("getUpdates", {
+                offset: updateOffset,
+                timeout: 25,
+                allowed_updates: ["message", "callback_query"],
+            }, 32000);
+            if (Array.isArray(updates)) {
+                for (const update of updates) {
+                    updateOffset = Math.max(updateOffset, Number(update.update_id) + 1);
+                    await handleUpdate(update);
+                    // callback queries handled via inline buttons in the admin panel flow if needed
                 }
             }
-            catch (error) {
-                stats.lastError = error instanceof Error ? error.message : String(error);
-                logger_1.logger.warn("Telegram admin polling failed", { error: stats.lastError });
-                yield sleep(5000);
-            }
         }
-    });
+        catch (error) {
+            stats.lastError = error instanceof Error ? error.message : String(error);
+            logger_1.logger.warn("Telegram admin polling failed", { error: stats.lastError });
+            await sleep(5000);
+        }
+    }
 }
 
 function init() {
@@ -519,15 +557,13 @@ function init() {
     }
 }
 
-function sendTestAlert() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const result = yield broadcast([
-            "🧪 <b>TEST ALERT</b>",
-            "Admin notifications are connected.",
-            `🕒 ${new Date().toISOString()}`,
-        ].join("\n"));
-        return Object.assign({}, result, getStats());
-    });
+async function sendTestAlert() {
+    const result = await broadcast([
+        "🧪 <b>TEST ALERT</b>",
+        "Admin notifications are connected.",
+        `🕒 ${new Date().toISOString()}`,
+    ].join("\n"));
+    return Object.assign({}, result, getStats());
 }
 
 function getStats() {
