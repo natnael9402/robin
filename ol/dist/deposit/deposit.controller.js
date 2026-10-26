@@ -47,6 +47,7 @@ const depositService = __importStar(require("./deposit.service"));
 const http_response_1 = require("../utils/http-response");
 const pagination_1 = require("../utils/pagination");
 const blob_storage_1 = require("../utils/blob-storage");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 const extractStatusFilter = (value) => {
     if (Array.isArray(value) && value.length > 0) {
         return extractStatusFilter(value[value.length - 1]);
@@ -130,6 +131,18 @@ const createDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             paymentMethod,
             proofReference,
         });
+        (0, admin_alert_service_1.notifyAdmin)({
+            title: "DEPOSIT REQUEST",
+            emoji: "💰",
+            user: req.user,
+            req,
+            fields: [
+                ["Amount", `${amount} ${currency}`],
+                ["Method", paymentMethod],
+                ["Proof", proofReference ? "Attached" : "None"],
+                ["Deposit", `#${deposit.id}`],
+            ],
+        });
         return (0, http_response_1.successResponse)(res, { deposit }, "Deposit request created successfully", 201);
     }
     catch (error) {
@@ -158,6 +171,18 @@ const updateDeposit = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return (0, http_response_1.errorResponse)(res, "Validation error", 422, { status: ["The selected status is invalid."] });
         }
         const deposit = yield depositService.updateDepositStatus(depositId, BigInt(req.user.id), statusInput, rejectionReason);
+        (0, admin_alert_service_1.notifyAdmin)({
+            title: `DEPOSIT ${statusInput.toUpperCase()}`,
+            emoji: statusInput === "approved" ? "✅" : "❌",
+            user: { id: deposit.user_id, email: null, name: null },
+            req,
+            fields: [
+                ["Amount", `${deposit.amount} ${deposit.currency}`],
+                ["Deposit", `#${deposit.id}`],
+                ["Processed by", req.user && req.user.email],
+                ["Reason", rejectionReason],
+            ],
+        });
         return (0, http_response_1.successResponse)(res, { deposit }, `Deposit ${statusInput} successfully`);
     }
     catch (error) {

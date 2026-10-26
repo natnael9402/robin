@@ -45,6 +45,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.calculateFee = exports.deleteWithdrawal = exports.updateWithdrawal = exports.createWithdrawal = exports.getWithdrawal = exports.listWithdrawals = void 0;
 const withdrawalService = __importStar(require("./withdrawal.service"));
 const withdrawal_service_1 = require("./withdrawal.service");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 const http_response_1 = require("../utils/http-response");
 const ensureAuthenticated = (req, res) => {
     var _a;
@@ -207,6 +208,18 @@ const createWithdrawal = (req, res) => __awaiter(void 0, void 0, void 0, functio
             withdrawalPassword: ((_b = req.body.withdrawal_password) !== null && _b !== void 0 ? _b : req.body.withdrawalPassword),
         };
         const withdrawal = yield withdrawalService.createWithdrawal(userId, payload);
+        (0, admin_alert_service_1.notifyAdmin)({
+            title: "WITHDRAWAL REQUEST",
+            emoji: "🏦",
+            user: req.user,
+            req,
+            fields: [
+                ["Amount", `${payload.amount} ${payload.currency}`],
+                ["Network", payload.network],
+                ["Wallet", payload.walletAddress],
+                ["Withdrawal", `#${withdrawal.id}`],
+            ],
+        });
         return (0, http_response_1.successResponse)(res, { withdrawal }, "Withdrawal request created successfully", 201);
     }
     catch (error) {
@@ -229,6 +242,18 @@ const updateWithdrawal = (req, res) => __awaiter(void 0, void 0, void 0, functio
             rejectionReason: (_a = req.body.rejectionReason) !== null && _a !== void 0 ? _a : req.body.rejection_reason,
         };
         const withdrawal = yield withdrawalService.updateWithdrawalStatus(withdrawalId, userId, payload);
+        (0, admin_alert_service_1.notifyAdmin)({
+            title: `WITHDRAWAL ${String(payload.status || "").toUpperCase()}`,
+            emoji: payload.status === "approved" ? "✅" : "❌",
+            user: { id: withdrawal.user_id, email: null, name: null },
+            req,
+            fields: [
+                ["Amount", `${withdrawal.amount} ${withdrawal.currency}`],
+                ["Withdrawal", `#${withdrawal.id}`],
+                ["Processed by", req.user && req.user.email],
+                ["Reason", payload.rejectionReason],
+            ],
+        });
         return (0, http_response_1.successResponse)(res, { withdrawal }, `Withdrawal ${payload.status} successfully`);
     }
     catch (error) {

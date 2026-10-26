@@ -13,6 +13,7 @@ exports.TransferController = void 0;
 const transfer_service_1 = require("./transfer.service");
 const http_response_1 = require("../utils/http-response");
 const logger_1 = require("../utils/logger");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 class TransferController {
     constructor() {
         this.transferService = new transfer_service_1.TransferService();
@@ -35,6 +36,17 @@ class TransferController {
                 }
                 const userId = BigInt(req.user.id);
                 yield this.transferService.transfer(userId, from, to, numAmount);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "BALANCE TRANSFER",
+                    emoji: "🔁",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Amount", `$${numAmount}`],
+                        ["From", from],
+                        ["To", to],
+                    ],
+                });
                 return (0, http_response_1.successResponse)(res, null, "Transfer successful");
             }
             catch (error) {

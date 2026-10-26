@@ -11,6 +11,7 @@ export { assetsApi } from './assets.api';
 export { arbitrageApi } from './arbitrage.api';
 export { verificationApi } from './verification.api';
 export { notificationApi } from './notifications.api';
+export { activityApi } from './activity.api';
 export type { AppNotification } from './notifications.api';
 export { chatApi } from './chat.api';
 export { newsApi } from '../../features/news/api/news.api';

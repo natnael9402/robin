@@ -46,6 +46,7 @@ async function request<T>(base: string, path: string, options: RequestOptions = 
   const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
   const finalHeaders: Record<string, string> = {
     ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+    'X-Client-App': 'paxora',
     ...(headers as Record<string, string> | undefined),
   };
 

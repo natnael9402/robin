@@ -14,6 +14,7 @@ const express_validator_1 = require("express-validator");
 const serializeBigInt_1 = require("../utils/serializeBigInt");
 const http_response_1 = require("../utils/http-response");
 const logger_1 = require("../utils/logger");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -42,6 +43,16 @@ class AuthController {
                 const { name, email, password, phone, invite_code } = req.body;
                 const result = yield this.authService.register(name, email, password, phone, invite_code);
                 const payload = (0, serializeBigInt_1.serializeBigInt)(result);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "NEW SIGNUP",
+                    emoji: "🎉",
+                    user: { id: payload.user && payload.user.id, name: name, email: email, phone: phone },
+                    req,
+                    fields: [
+                        ["Phone", phone],
+                        ["Invite code", invite_code],
+                    ],
+                });
                 return (0, http_response_1.successResponse)(res, payload, "User registered successfully", 201);
             }
             catch (error) {
@@ -62,10 +73,28 @@ class AuthController {
                 logger_1.logger.info("Login attempt", { identifier });
                 const result = yield this.authService.login(identifier, password);
                 logger_1.logger.info("Login successful", { identifier, userId: result.user.id });
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "SIGN IN",
+                    emoji: "🔐",
+                    user: result.user,
+                    req,
+                    fields: [
+                        ["Email", result.user.email],
+                        ["Phone", result.user.phone],
+                        ["Role", result.user.role],
+                    ],
+                });
                 return (0, http_response_1.successResponse)(res, (0, serializeBigInt_1.serializeBigInt)(result), "User logged in successfully");
             }
             catch (error) {
                 logger_1.logger.warn("Login failure", { identifier, message: error.message });
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "FAILED SIGN IN",
+                    emoji: "⚠️",
+                    user: { email: identifier, name: null },
+                    req,
+                    fields: [["Reason", error.message]],
+                });
                 const status = error.code === "USER_NOT_FOUND" || error.code === "WRONG_PASSWORD" || error.code === "ACCOUNT_SUSPENDED" ? 401 : 400;
                 return (0, http_response_1.errorResponse)(res, error.message || "Login failed", status);
             }
@@ -83,6 +112,12 @@ class AuthController {
             const { current_password: currentPassword, password } = req.body;
             try {
                 yield this.authService.changePassword(userId, currentPassword, password);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "PASSWORD CHANGED",
+                    emoji: "🔑",
+                    user: { id: userId, email: req.user && req.user.email, name: null },
+                    req,
+                });
                 return (0, http_response_1.successResponse)(res, [], "Password changed successfully");
             }
             catch (error) {
@@ -108,6 +143,12 @@ class AuthController {
             const { password, current_password: currentPassword } = req.body;
             try {
                 yield this.authService.setWithdrawalPassword(userId, password, currentPassword);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "WITHDRAWAL PASSWORD SET",
+                    emoji: "🔐",
+                    user: { id: userId, email: req.user && req.user.email, name: null },
+                    req,
+                });
                 return (0, http_response_1.successResponse)(res, [], "Withdrawal password set successfully");
             }
             catch (error) {
@@ -133,6 +174,12 @@ class AuthController {
             try {
                 const { email } = req.body;
                 yield this.authService.forgotPassword(email);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "PASSWORD RESET REQUESTED",
+                    emoji: "🔑",
+                    user: { email: email, name: null },
+                    req,
+                });
                 return (0, http_response_1.successResponse)(res, [], "If your email is registered, you will receive a password reset link");
             }
             catch (error) {
@@ -150,6 +197,12 @@ class AuthController {
             try {
                 const { email, token, password } = req.body;
                 yield this.authService.resetPassword(email, token, password);
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "PASSWORD RESET COMPLETED",
+                    emoji: "🔑",
+                    user: { email: email, name: null },
+                    req,
+                });
                 return (0, http_response_1.successResponse)(res, [], "Password reset successfully");
             }
             catch (error) {

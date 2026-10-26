@@ -16,6 +16,7 @@ exports.TradeController = void 0;
 const trade_service_1 = __importDefault(require("./trade.service"));
 const trade_scheduler_1 = __importDefault(require("./jobs/trade.scheduler"));
 const trade_hub_1 = require("../realtime/trade-hub");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 class TradeController {
     constructor(service = trade_service_1.default) {
         this.service = service;
@@ -37,6 +38,20 @@ class TradeController {
                         : undefined,
                 });
                 trade_scheduler_1.default.scheduleOptionResolution(BigInt(trade.id), Number(req.body.duration));
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "TRADE OPENED",
+                    emoji: "📈",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Type", "Option"],
+                        ["Symbol", trade.symbol],
+                        ["Direction", trade.direction],
+                        ["Amount", `$${trade.amount}`],
+                        ["Duration", `${req.body.duration}s`],
+                        ["Trade", `#${trade.id}`],
+                    ],
+                });
                 return res.status(201).json({
                     message: "Option trade created successfully",
                     trade,
@@ -78,6 +93,20 @@ class TradeController {
                 const elapsedSeconds = Number.isFinite(openedAtMs) ? (Date.now() - openedAtMs) / 1000 : 0;
                 trade_scheduler_1.default.scheduleContractExpiry(BigInt(trade.id), this.service.getContractExpirySeconds() - elapsedSeconds);
                 trade_hub_1.publishToUser(trade.user_id, { type: "trade:opened", trade });
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "TRADE OPENED",
+                    emoji: "📈",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Type", "Contract (60s)"],
+                        ["Symbol", trade.symbol],
+                        ["Direction", trade.direction],
+                        ["Amount", `$${trade.amount}`],
+                        ["Leverage", `${trade.leverage}x`],
+                        ["Trade", `#${trade.id}`],
+                    ],
+                });
                 return res.status(201).json({
                     message: "Contract trade created successfully",
                     trade,
@@ -108,6 +137,19 @@ class TradeController {
                         ? req.body.market_type
                         : undefined,
                 });
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "TRADE OPENED",
+                    emoji: "📈",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Type", "Spot"],
+                        ["Symbol", trade.symbol],
+                        ["Direction", trade.direction],
+                        ["Amount", `$${trade.amount}`],
+                        ["Trade", `#${trade.id}`],
+                    ],
+                });
                 return res.status(201).json({
                     message: "Spot trade created successfully",
                     trade,
@@ -132,6 +174,20 @@ class TradeController {
                     exchangeRate: req.body.exchange_rate
                         ? Number(req.body.exchange_rate)
                         : undefined,
+                });
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "TRADE OPENED",
+                    emoji: "📈",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Type", "Stocks"],
+                        ["Symbol", trade.symbol],
+                        ["Direction", trade.direction],
+                        ["Shares", req.body.shares],
+                        ["Amount", trade.amount ? `$${trade.amount}` : null],
+                        ["Trade", `#${trade.id}`],
+                    ],
                 });
                 return res.status(201).json({
                     message: "Stock trade executed successfully",
@@ -340,6 +396,18 @@ class TradeController {
                 if (trade.type === "contract") {
                     trade_scheduler_1.default.clearContractCheck(BigInt(trade.id));
                 }
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: "TRADE CANCELLED",
+                    emoji: "⚪",
+                    user: req.user,
+                    req,
+                    fields: [
+                        ["Type", trade.type],
+                        ["Symbol", trade.symbol],
+                        ["Amount", trade.amount ? `$${trade.amount}` : null],
+                        ["Trade", `#${trade.id}`],
+                    ],
+                });
                 return res.json({
                     message: "Trade canceled successfully",
                     trade,

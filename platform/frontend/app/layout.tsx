@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Outfit, Plus_Jakarta_Sans, Space_Mono } from 'next/font/google';
 import { ScrollToTop } from '../src/shared/components/ScrollToTop';
 import { ServiceWorkerRegister } from '../src/shared/components/ServiceWorkerRegister';
+import { AppOpenTracker } from '../src/shared/components/AppOpenTracker';
 import { ThemeProvider } from '../src/shared/contexts/ThemeContext';
 import { AuthProvider } from '../src/shared/contexts/AuthContext';
 import { ToastProvider } from '../src/shared/contexts/ToastContext';
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <PremiumBackground />
                 <ScrollToTop />
                 <ServiceWorkerRegister />
+                <AppOpenTracker />
                 {children}
               </ToastProvider>
             </AuthProvider>

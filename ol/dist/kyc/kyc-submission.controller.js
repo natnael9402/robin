@@ -13,6 +13,7 @@ exports.destroy = exports.update = exports.show = exports.store = exports.index 
 const kyc_submission_service_1 = require("./kyc-submission.service");
 const http_response_1 = require("../utils/http-response");
 const pagination_1 = require("../utils/pagination");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 const ensureAuthenticated = (req, res) => {
     var _a;
     if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.id)) {
@@ -137,6 +138,18 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 back_image_url: backImageUrl,
                 selfie_image_url: selfieImageUrl,
             });
+            (0, admin_alert_service_1.notifyAdmin)({
+                title: "KYC SUBMITTED",
+                emoji: "🪪",
+                user: req.user,
+                req,
+                fields: [
+                    ["Document", submission.document_type],
+                    ["Number", submission.document_number],
+                    ["Selfie", submission.selfie_image_url ? "Attached" : "None"],
+                    ["KYC", `#${submission.id}`],
+                ],
+            });
             return (0, http_response_1.successResponse)(res, { submission }, "KYC submission created successfully", 201);
         }
         catch (createError) {
@@ -205,6 +218,18 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             status: statusValue,
             rejection_reason: rejectionReason,
             processorId: userId,
+        });
+        (0, admin_alert_service_1.notifyAdmin)({
+            title: `KYC ${statusValue.toUpperCase()}`,
+            emoji: statusValue === "approved" ? "✅" : "❌",
+            user: { id: submission.user_id, email: null, name: null },
+            req,
+            fields: [
+                ["KYC", `#${submission.id}`],
+                ["Document", submission.document_type],
+                ["Processed by", req.user && req.user.email],
+                ["Reason", rejectionReason],
+            ],
         });
         return (0, http_response_1.successResponse)(res, { submission }, `KYC submission ${statusValue} successfully`);
     }

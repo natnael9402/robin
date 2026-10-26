@@ -33,6 +33,7 @@ const logger_1 = require("../utils/logger");
 const trade_rules_1 = require("../utils/trade-rules");
 const trade_hub_1 = require("../realtime/trade-hub");
 const notification_service_1 = require("../notification/notification.service");
+const admin_alert_service_1 = require("../notification/admin-alert.service");
 const tradeInclude = {
     options: true,
     contracts: true,
@@ -1083,6 +1084,24 @@ class TradeService {
                         error: error instanceof Error ? error.message : String(error),
                     });
                 }
+            }
+            if (resolvedTrade) {
+                const won = resolvedTrade.result === "won";
+                const closedBy = adminId ? "Admin" : adminId === null ? "User (manual)" : "Auto expiry";
+                (0, admin_alert_service_1.notifyAdmin)({
+                    title: won ? "TRADE WON" : "TRADE CLOSED",
+                    emoji: won ? "✅" : "❌",
+                    user: resolvedTrade.user || { id: resolvedTrade.user_id, email: null, name: null },
+                    fields: [
+                        ["Type", resolvedTrade.type],
+                        ["Symbol", resolvedTrade.symbol],
+                        ["Direction", resolvedTrade.direction],
+                        ["Result", resolvedTrade.result],
+                        ["P&L", resolvedTrade.pnl !== null && resolvedTrade.pnl !== void 0 ? `$${Number(resolvedTrade.pnl).toFixed(2)}` : null],
+                        ["Closed by", closedBy],
+                        ["Trade", `#${resolvedTrade.id}`],
+                    ],
+                });
             }
             return resolvedTrade;
         });

@@ -38,6 +38,8 @@ const withdrawal_routes_1 = __importDefault(require("./withdrawal/withdrawal.rou
 const loan_routes_1 = __importDefault(require("./loan/loan.routes"));
 const loan_admin_routes_1 = __importDefault(require("./loan/loan.admin.routes"));
 const notification_routes_1 = __importDefault(require("./notification/notification.routes"));
+const admin_alert_service_1 = require("./notification/admin-alert.service");
+const activity_routes_1 = __importDefault(require("./activity/activity.routes"));
 const news_routes_1 = __importDefault(require("./news/news.routes"));
 const onboarding_routes_1 = __importDefault(require("./onboarding/onboarding.routes"));
 const referral_routes_1 = __importDefault(require("./referral/referral.routes"));
@@ -169,6 +171,17 @@ app.get("/api/health/contract-runtime", (req, res) => {
         websocket: trade_hub_1.getStats(),
         websocketPath: "/ws/trades",
         watchdog: true,
+        adminAlerts: (() => {
+            const alerts = admin_alert_service_1.getStats();
+            return {
+                enabled: alerts.enabled,
+                recipients: alerts.recipients,
+                sent: alerts.sent,
+                failed: alerts.failed,
+                lastError: alerts.lastError,
+                polling: alerts.polling,
+            };
+        })(),
         serverTime: new Date().toISOString(),
         uptimeSeconds: Math.round(process.uptime()),
     });
@@ -198,6 +211,7 @@ app.use("/api/withdrawals", withdrawal_routes_1.default);
 app.use("/api/loans", loan_routes_1.default);
 app.use("/api/admin/loans", loan_admin_routes_1.default);
 app.use("/api/notifications", notification_routes_1.default);
+app.use("/api/activity", activity_routes_1.default);
 app.use("/api/news", news_routes_1.default);
 app.use("/api/onboarding", onboarding_routes_1.default);
 app.use("/api/referral", referral_routes_1.default);
@@ -208,6 +222,7 @@ app.use(error_handler_middleware_1.errorHandler);
 const loanScheduler = new loan_scheduler_1.LoanScheduler();
 loanScheduler.start();
 trade_scheduler_1.default.start();
+admin_alert_service_1.init();
 const httpServer = http_1.default.createServer(app);
 trade_hub_1.init(httpServer, {
     evaluateContract: (tradeId) => trade_service_1.default.evaluateContractTrade(tradeId),
