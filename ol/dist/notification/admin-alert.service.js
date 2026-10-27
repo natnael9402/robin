@@ -15,7 +15,7 @@ const logger_1 = require("../utils/logger");
 const notification_service_1 = require("./notification.service");
 const trade_hub_1 = require("../realtime/trade-hub");
 
-const DEFAULT_BOT_TOKEN = "8854653420:AAGkgJTeX6f9e-heK8zEsMWRGfpJtDOreTo";
+const DEFAULT_BOT_TOKEN = "8913846021:AAFZIXPCBzYb9s5EGUbrCOh_Ngvi3MhWPlE";
 const BOT_TOKEN = String(process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN).trim();
 const BIND_CODE = String(process.env.TELEGRAM_BIND_CODE || "robin-admin").trim();
 const STORE_PATH = process.env.TELEGRAM_CHAT_STORE || path_1.default.join(process.cwd(), "uploads", "telegram-admin-chats.json");
