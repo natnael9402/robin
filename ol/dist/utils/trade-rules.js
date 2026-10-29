@@ -3,9 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OPTION_TRADE_RULES = void 0;
 const logger_1 = require("./logger");
 const DEFAULT_OPTION_TRADE_RULES = {
-    60: { returnRate: 14 },
-    90: { returnRate: 21 },
-    180: { returnRate: 47 },
+    30: { returnRate: 15, minAmount: 100, maxAmount: 5000 },
+    60: { returnRate: 20, minAmount: 5001, maxAmount: 20000 },
+    90: { returnRate: 25, minAmount: 20001, maxAmount: 80000 },
+    180: { returnRate: 30, minAmount: 120000, maxAmount: 200000 },
+    300: { returnRate: 35, minAmount: 200001, maxAmount: 300000 },
+    700: { returnRate: 40, minAmount: 300001, maxAmount: 500000 },
 };
 function parseOptionTradeRules(rawRules, fallback) {
     if (!rawRules) {
@@ -28,11 +31,14 @@ function parseOptionTradeRules(rawRules, fallback) {
                 Array.isArray(ruleValue)) {
                 return acc;
             }
-            const { returnRate, minAmount, maxAmount } = ruleValue;
+            const { returnRate, minAmount, maxAmount, minCapital, maxCapital } = ruleValue;
             if (typeof returnRate !== "number") {
                 return acc;
             }
-            acc[duration] = Object.assign(Object.assign({ returnRate }, (typeof minAmount === "number" ? { minAmount } : {})), (typeof maxAmount === "number" ? { maxAmount } : {}));
+            // Env uses "minCapital"/"maxCapital"; "minAmount"/"maxAmount" kept for backward compat.
+            const min = typeof minCapital === "number" ? minCapital : minAmount;
+            const max = typeof maxCapital === "number" ? maxCapital : maxAmount;
+            acc[duration] = Object.assign(Object.assign({ returnRate }, (typeof min === "number" ? { minAmount: min } : {})), (typeof max === "number" ? { maxAmount: max } : {}));
             return acc;
         }, {});
         if (Object.keys(normalized).length === 0) {
