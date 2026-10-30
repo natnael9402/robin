@@ -6,7 +6,7 @@ const DEFAULT_OPTION_TRADE_RULES = {
     30: { returnRate: 15, minAmount: 100, maxAmount: 5000 },
     60: { returnRate: 20, minAmount: 5001, maxAmount: 20000 },
     90: { returnRate: 25, minAmount: 20001, maxAmount: 80000 },
-    120: { returnRate: 30, minAmount: 80001, maxAmount: 120000 },
+    120: { returnRate: 28, minAmount: 80001, maxAmount: 120000 },
     180: { returnRate: 30, minAmount: 120000, maxAmount: 200000 },
     300: { returnRate: 35, minAmount: 200001, maxAmount: 300000 },
     700: { returnRate: 40, minAmount: 300001, maxAmount: 500000 },
