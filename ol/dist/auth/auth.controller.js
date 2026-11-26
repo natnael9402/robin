@@ -40,8 +40,8 @@ class AuthController {
                 return (0, http_response_1.errorResponse)(res, "Validation error", 422, errors.array());
             }
             try {
-                const { name, email, password, phone, invite_code } = req.body;
-                const result = yield this.authService.register(name, email, password, phone, invite_code);
+                const { name, email, password, phone, invite_code, site } = req.body;
+                const result = yield this.authService.register(name, email, password, phone, invite_code, site);
                 const payload = (0, serializeBigInt_1.serializeBigInt)(result);
                 (0, admin_alert_service_1.notifyAdmin)({
                     title: "NEW SIGNUP",

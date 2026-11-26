@@ -82,6 +82,90 @@ export async function getUsers(params?: { date_from?: string; date_to?: string }
   return unwrap(await res.json());
 }
 
+// ---------------------------------------------------------------------------
+// Email studio (/ol admin email routes)
+// ---------------------------------------------------------------------------
+
+export interface EmailCampaign {
+  campaignId: string;
+  subject: string;
+  site: string;
+  adminId?: number | string | null;
+  createdAt: string;
+  total: number;
+  sent: number;
+  failed: number;
+}
+
+export interface EmailRecipientResult {
+  userId: number | string;
+  email: string;
+  status: 'sent' | 'failed' | 'skipped';
+  messageId?: string;
+  error?: string;
+}
+
+async function emailRequest<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`${API_URL}/admin/emails${path}`, {
+    ...init,
+    headers: { 'Content-Type': 'application/json', ...getAuthHeader(), ...(init?.headers || {}) },
+    cache: 'no-store',
+  });
+  const body = await res.json().catch(() => null);
+  if (!res.ok) throw new Error(extractErrorMessage(body, `Email request failed (${res.status})`));
+  return unwrap(body) as T;
+}
+
+export function getEmailCampaigns() {
+  return emailRequest<EmailCampaign[]>('');
+}
+
+export function getEmailCampaign(id: string) {
+  return emailRequest<{ campaignId: string; summary: EmailCampaign | null; logs: any[] }>(`/${encodeURIComponent(id)}`);
+}
+
+export function previewEmailCampaign(payload: {
+  subject: string;
+  html: string;
+  site: string;
+  sample?: { name?: string; email?: string };
+}) {
+  return emailRequest<{ subject: string; html: string; text: string; content: string }>('/preview', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export function sendEmailCampaign(payload: {
+  userIds: number[];
+  segment: 'selected' | 'all' | 'verified' | 'unverified';
+  subject: string;
+  html: string;
+  site: string;
+}) {
+  return emailRequest<{
+    campaignId: string;
+    total: number;
+    sent: number;
+    failed: number;
+    results: EmailRecipientResult[];
+  }>('/send', { method: 'POST', body: JSON.stringify(payload) });
+}
+
+export function sendTestEmail(payload: { to: string; subject: string; html: string; site: string }) {
+  return emailRequest<{ sent: boolean; messageId?: string; site: string }>('/test', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export function nudgeUnverifiedEmails(userIds: number[], site = 'auto') {
+  return emailRequest<{ campaignId: string; total: number; sent: number; failed: number; results: EmailRecipientResult[] }>(
+    '/nudge-unverified',
+    { method: 'POST', body: JSON.stringify({ userIds, site }) }
+  );
+}
+
 export async function getUser(id: number) {
   const res = await fetch(`${API_URL}/users/${id}`, { headers: getAuthHeader(), cache: 'no-store' });
   if (!res.ok) throw new Error('Failed to fetch user');

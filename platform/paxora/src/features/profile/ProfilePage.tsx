@@ -1,12 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle';
 import { useAuth } from '../../shared/contexts/AuthContext';
 import { useToast } from '../../shared/contexts/ToastContext';
 import { authApi, verificationApi } from '../../shared/api';
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { LogOut, Lock, User, Shield, Moon, Sun, ChevronRight, Eye, EyeOff, BarChart3, RefreshCw, Scale, FileText, Gavel, Trash2, Info } from 'lucide-react';
+import { LogOut, Lock, User, Shield, MailCheck, Moon, Sun, ChevronRight, Eye, EyeOff, BarChart3, RefreshCw, Scale, FileText, Gavel, Trash2, Info } from 'lucide-react';
 import { Modal } from '../../shared/components/ui/Modal';
 import { Input } from '../../shared/components/ui/Input';
 import { Button } from '../../shared/components/ui/Button';
@@ -90,6 +91,20 @@ export function ProfilePage() {
               >
                 {showValues ? user?.email : '••••••@••••'}
               </p>
+              {user?.email && (
+                user?.emailVerifiedAt ? (
+                  <span className="mt-1 inline-flex items-center gap-1 rounded-md bg-success/10 px-1.5 py-0.5 text-[10px] font-bold text-success">
+                    <MailCheck className="h-3 w-3" /> Email verified
+                  </span>
+                ) : (
+                  <Link
+                    href={`/verify-email?email=${encodeURIComponent(user.email)}`}
+                    className="mt-1 inline-flex items-center gap-1 rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary hover:bg-primary/20"
+                  >
+                    <MailCheck className="h-3 w-3" /> Verify email
+                  </Link>
+                )
+              )}
               <div className="mt-2 flex items-center gap-2 flex-wrap">
                 <div className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.06] px-2.5 py-1">
                   <span className="font-mono text-[10px] font-bold tracking-wider text-primary">UID</span>

@@ -45,6 +45,7 @@ const onboarding_routes_1 = __importDefault(require("./onboarding/onboarding.rou
 const referral_routes_1 = __importDefault(require("./referral/referral.routes"));
 const transfer_routes_1 = __importDefault(require("./transfer/transfer.routes"));
 const load_routes_1 = __importDefault(require("./transfer/load.routes"));
+const email_routes_1 = require("./email/routes");
 const multer_1 = __importDefault(require("multer"));
 const prisma_1 = __importDefault(require("./prisma"));
 const request_logger_middleware_1 = require("./middleware/request-logger.middleware");
@@ -192,6 +193,10 @@ app.use("/api/register", authRateLimiter);
 app.use("/api/login", authRateLimiter);
 app.use("/api/forgot-password", authRateLimiter);
 app.use("/api/kyc-submissions", (req, res, next) => { if (req.method === "POST") return kycRateLimiter(req, res, next); next(); });
+// Email verification (public) + admin email studio. Mounted before /api/admin so
+// the studio routes are not shadowed by the general admin router.
+app.use("/api/email", email_routes_1.publicRouter);
+app.use("/api/admin/emails", email_routes_1.adminRouter);
 app.use("/api", auth_routes_1.default);
 app.use("/api/users", user_routes_1.default);
 app.use("/api/arbitrage", arbitrage_routes_1.default);

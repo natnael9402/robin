@@ -13,11 +13,15 @@ export interface ProfileData {
 }
 
 export const authApi = {
-  signup: (data: { email: string; password: string; name?: string; phone?: string; captchaToken?: string; invite_code?: string }) =>
-    http.post<{ access_token: string; user: User }>('/register', data, { skipAuth: true }),
+  signup: (data: { email: string; password: string; name?: string; phone?: string; captchaToken?: string; invite_code?: string; site?: 'premium' | 'lab' }) =>
+    http.post<{ access_token: string; user: User; verificationSent?: boolean }>('/register', data, { skipAuth: true }),
   login: (data: { email?: string; phone?: string; password: string; captchaToken?: string }) =>
     http.post<{ access_token: string; user: User }>('/login', data, { skipAuth: true }),
   logout: () => Promise.resolve(),
+  verifyEmail: (token: string) =>
+    http.post<{ verified: boolean; alreadyVerified: boolean; site: string }>('/email/verify-token', { token }, { skipAuth: true }),
+  resendVerification: (data: { email?: string; site?: 'premium' | 'lab' }) =>
+    http.post<{ sent: boolean; site: string | null }>('/email/resend', data, { skipAuth: true }),
   // The endpoint responds with { profile, balance, assets, user, ... } where the
   // identity fields (name, email, id, role) live under `user`. Flatten those onto
   // the top level so `user.name` survives a page refresh, while keeping the
@@ -33,6 +37,8 @@ export const authApi = {
       email: (u.email ?? res.email) as string | undefined,
       balance: Number(res.balance ?? u.balance ?? 0),
       kycStatus: (p.kyc_status ?? u.kyc_status ?? 'unverified') as User['kycStatus'],
+      emailVerifiedAt: (u.email_verified_at ?? res.email_verified_at ?? null) as string | null,
+      signupSite: (u.signup_site ?? res.signup_site ?? null) as string | null,
     } as User;
   },
   getProfileData: async (): Promise<ProfileData> => {
@@ -51,6 +57,8 @@ export const authApi = {
         email: (u.email ?? res.email) as string | undefined,
         balance: Number(res.balance ?? u.balance ?? 0),
         level: Number(p.level ?? 1),
+        emailVerifiedAt: (u.email_verified_at ?? res.email_verified_at ?? null) as string | null,
+        signupSite: (u.signup_site ?? res.signup_site ?? null) as string | null,
       } as User,
     };
   },

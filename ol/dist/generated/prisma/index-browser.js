@@ -471,6 +471,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   email_verified_at: 'email_verified_at',
+  signup_site: 'signup_site',
   password: 'password',
   role: 'role',
   status: 'status',
@@ -600,6 +601,21 @@ exports.Prisma.UserOnboardingScalarFieldEnum = {
   investment_goal: 'investment_goal',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.EmailLogScalarFieldEnum = {
+  id: 'id',
+  campaign_id: 'campaign_id',
+  type: 'type',
+  user_id: 'user_id',
+  admin_id: 'admin_id',
+  email: 'email',
+  subject: 'subject',
+  site: 'site',
+  status: 'status',
+  error: 'error',
+  sent_at: 'sent_at',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -735,7 +751,8 @@ exports.Prisma.ModelName = {
   NewsArticle: 'NewsArticle',
   AccountBalance: 'AccountBalance',
   ReferralCommission: 'ReferralCommission',
-  UserOnboarding: 'UserOnboarding'
+  UserOnboarding: 'UserOnboarding',
+  EmailLog: 'EmailLog'
 };
 
 /**

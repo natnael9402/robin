@@ -19,8 +19,11 @@ const crypto_1 = __importDefault(require("crypto"));
 const prisma_1 = __importDefault(require("../prisma"));
 const logger_1 = require("../utils/logger");
 const mailer_1 = require("../utils/mailer");
+const email_service_1 = require("../email/service");
+const sites_1 = require("../email/sites");
+const email_mailer_1 = require("../email/mailer");
 class AuthService {
-    register(name, email, password, phone, invite_code) {
+    register(name, email, password, phone, invite_code, site) {
         return __awaiter(this, void 0, void 0, function* () {
             const finalEmail = email || null;
             const finalPhone = phone || null;
@@ -33,6 +36,7 @@ class AuthService {
             if (existingUser) {
                 throw new Error("User already exists");
             }
+            const signupSiteId = (0, sites_1.normalizeSiteId)(site);
             const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
             let referredByProfile = null;
             if (invite_code) {
@@ -46,6 +50,7 @@ class AuthService {
                     email: finalEmail,
                     password: hashedPassword,
                     phone: finalPhone,
+                    signup_site: signupSiteId,
                     profiles: {
                         create: {
                             uuid: crypto_1.default.randomUUID(),
@@ -71,13 +76,29 @@ class AuthService {
                     newUserId: user.id,
                 });
             }
+            // Verification is intentionally soft: a mail outage must never fail signup.
+            let verificationSent = false;
+            if (finalEmail) {
+                try {
+                    const verification = yield email_service_1.sendVerificationEmail(
+                        Object.assign({}, user, { signup_site: signupSiteId }),
+                        signupSiteId
+                    );
+                    verificationSent = Boolean(verification && verification.sent);
+                } catch (error) {
+                    logger_1.logger.warn("Signup verification email could not be sent", {
+                        userId: user.id,
+                        message: error.message,
+                    });
+                }
+            }
             const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
                 expiresIn: "180d",
             });
             logger_1.logger.debug("Generated JWT token for user", {
                 userId: user.id,
             });
-            return { access_token: token, user };
+            return { access_token: token, user, verificationSent };
         });
     }
     login(identifier, password) {
@@ -181,38 +202,28 @@ class AuthService {
                 update: { token, created_at: new Date() },
                 create: { email, token, created_at: new Date() },
             });
-            const frontendUrl = process.env.FRONT_END_URL || "http://localhost:3000";
-            const resetLink = `${frontendUrl.replace(/\/$/, "")}/reset-password?token=${token}&email=${email}`;
+            const site = (0, sites_1.resolveSite)(user.signup_site);
+            const configuredFrontend = String(process.env.FRONT_END_URL || "").replace(/\/$/, "");
+            const frontendBase = configuredFrontend && user.signup_site !== "lab" && !configuredFrontend.includes("paxoralab")
+                ? configuredFrontend
+                : site.url;
+            const resetLink = `${frontendBase}/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
             logger_1.logger.info(`[FORGOT PASSWORD] Email: ${email}`);
             logger_1.logger.info(`[FORGOT PASSWORD] Token: ${token}`);
             logger_1.logger.info(`[FORGOT PASSWORD] Reset link: ${resetLink}`);
             try {
-                yield (0, mailer_1.sendEmail)(email, "Password Reset Request", `You requested a password reset. Your token is: ${token}. Or click here: ${resetLink}`, `
-      <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 20px;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden;">
-        <div style="background-color: #007bff; color: #ffffff; padding: 25px; text-align: center;">
-        <h1 style="margin: 0; font-size: 28px; font-weight: 500;">Password Reset Request</h1>
-        </div>
-        <div style="padding: 30px 40px;">
-        <p style="font-size: 16px;">Hello,</p>
-        <p style="font-size: 16px;">We received a request to reset the password for your account. To proceed, please click the button below.</p>
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${resetLink}" style="background-color: #007bff; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 5px; font-size: 18px; font-weight: bold; display: inline-block;">Reset Your Password</a>
-        </div>
-        <p style="font-size: 16px;">If you're having trouble with the button, you can use the token below on the reset page:</p>
-        <p style="background-color: #e9ecef; border: 1px solid #ced4da; padding: 12px; font-size: 20px; text-align: center; border-radius: 4px; letter-spacing: 3px; font-family: 'Courier New', Courier, monospace;">
-          <b>${token}</b>
-        </p>
-        <p style="font-size: 14px; color: #6c757d;">This password reset link and token are valid for one hour.</p>
-        <hr style="border: 0; border-top: 1px solid #e9ecef; margin: 30px 0;">
-        <p style="font-size: 14px; color: #6c757d;">If you did not request a password reset, please disregard this email. Your account is secure.</p>
-        </div>
-        <div style="background-color: #f8f9fa; padding: 20px 40px; text-align: center; font-size: 12px; color: #6c757d;">
-        <p style="margin: 0;">&copy; ${new Date().getFullYear()} Your Company. All rights reserved.</p>
-        </div>
-      </div>
-      </div>
-      `);
+                const rendered = email_service_1.renderPasswordResetEmail({
+                    site,
+                    name: user.name,
+                    resetUrl: resetLink,
+                    token,
+                });
+                yield (0, email_mailer_1.sendRawEmail)({
+                    to: email,
+                    subject: rendered.subject,
+                    html: rendered.html,
+                    text: rendered.text,
+                });
             }
             catch (emailError) {
                 logger_1.logger.warn(`Email send failed for ${email}, token logged to console: ${emailError.message}`);

@@ -23,6 +23,7 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   Newspaper,
+  Mail,
 } from 'lucide-react';
 import { logout, getSupportUnreadCount } from '@/lib/api';
 import { cn } from '@/shared/lib/utils';
@@ -54,6 +55,7 @@ const NAV: NavItem[] = [
   { href: '/', icon: LayoutDashboard, label: 'Overview', match: (p) => p === '/' },
   { href: '/users', icon: Users, label: 'Users', match: (p) => p.startsWith('/users') },
   { href: '/news', icon: Newspaper, label: 'News', match: (p) => p.startsWith('/news') },
+  { href: '/emails', icon: Mail, label: 'Emails', match: (p) => p.startsWith('/emails') },
   { href: '/kyc', icon: UserCheck, label: 'KYC Requests' },
   { href: '/loans', icon: CreditCard, label: 'Loans' },
   { href: '/deposits', icon: ArrowDownLeft, label: 'Deposits' },

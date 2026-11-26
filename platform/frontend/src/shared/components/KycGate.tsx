@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
 import { PageLoader } from './ui/PageLoader';
 
-const KYC_EXEMPT_PATHS = ['/kyc-verification', '/onboard', '/onboarding', '/login', '/signup', '/forgot-password', '/reset-password'];
+const KYC_EXEMPT_PATHS = ['/kyc-verification', '/onboard', '/onboarding', '/login', '/signup', '/verify-email', '/forgot-password', '/reset-password'];
 
 export function KycGate({ children }: { children: ReactNode }) {
   const { user, isLoading, logout } = useAuth();

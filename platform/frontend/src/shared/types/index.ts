@@ -24,6 +24,9 @@ export interface User {
   level: number;
   createdAt: string;
   kycStatus?: 'unverified' | 'pending' | 'approved' | 'verified' | 'rejected';
+  /** Email verification (separate from KYC). Null/undefined means not verified yet. */
+  emailVerifiedAt?: string | null;
+  signupSite?: 'premium' | 'lab' | string | null;
 }
 
 export interface TransferPayload {

@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, u
 import { useRouter } from 'next/navigation';
 import { authApi, setTokenProvider, ApiError } from '../api';
 import { storage } from '../lib/storage';
+import { getSiteId } from '../lib/config';
 import type { User } from '../types';
 import { useMounted } from '../hooks/useMounted';
 import { nukeHubspot } from '../components/HubSpotIdentify';
@@ -90,6 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       name,
       ...(phone ? { phone } : {}),
       ...(referralCode ? { invite_code: referralCode } : {}),
+      site: getSiteId(),
     };
     console.log('SIGNUP PAYLOAD:', JSON.stringify(payload));
     const newUser = await authApi.signup(payload);

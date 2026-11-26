@@ -480,6 +480,8 @@ model User {
   email                   String?                @unique(map: "users_email_unique") @db.VarChar(255)
   phone                   String?                @unique(map: "users_phone_unique") @db.VarChar(255)
   email_verified_at       DateTime?              @db.Timestamp(0)
+  /// Which customer site the account was created on: "premium" or "lab".
+  signup_site             String?                @db.VarChar(20)
   password                String                 @db.VarChar(255)
   role                    UserRole               @default(user)
   status                  UserStatus             @default(active)
@@ -791,4 +793,26 @@ model UserOnboarding {
   user              User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
 
   @@map("user_onboarding")
+}
+
+/// Every outbound email is recorded here so the admin studio can show history,
+/// per-recipient delivery status and verification reminders.
+model EmailLog {
+  id           BigInt    @id @default(autoincrement())
+  campaign_id  String    @db.VarChar(36)
+  type         String    @db.VarChar(30)
+  user_id      BigInt?
+  admin_id     BigInt?
+  email        String    @db.VarChar(255)
+  subject      String    @db.VarChar(500)
+  site         String    @db.VarChar(20)
+  status       String    @db.VarChar(20)
+  error        String?   @db.Text
+  sent_at      DateTime? @db.Timestamp(0)
+  created_at   DateTime  @default(now()) @db.Timestamp(0)
+
+  @@index([campaign_id])
+  @@index([type, created_at])
+  @@index([user_id])
+  @@map("email_logs")
 }

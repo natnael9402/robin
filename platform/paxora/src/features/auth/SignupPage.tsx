@@ -58,8 +58,13 @@ export function SignupPage() {
     setLoading(true);
     try {
       await signup(email, password, name, captchaToken, phone || undefined);
-      toast.success('Account created');
-      router.push('/onboard');
+      if (contactTab === 'email' && email.trim()) {
+        toast.success('Account created — check your inbox');
+        router.push(`/verify-email?email=${encodeURIComponent(email.trim())}&sent=1`);
+      } else {
+        toast.success('Account created');
+        router.push('/onboard');
+      }
     } catch (err) {
       console.error('Signup error:', err);
       toast.error((err as Error).message);
