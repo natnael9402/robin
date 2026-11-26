@@ -76,22 +76,9 @@ class AuthService {
                     newUserId: user.id,
                 });
             }
-            // Verification is intentionally soft: a mail outage must never fail signup.
-            let verificationSent = false;
-            if (finalEmail) {
-                try {
-                    const verification = yield email_service_1.sendVerificationEmail(
-                        Object.assign({}, user, { signup_site: signupSiteId }),
-                        signupSiteId
-                    );
-                    verificationSent = Boolean(verification && verification.sent);
-                } catch (error) {
-                    logger_1.logger.warn("Signup verification email could not be sent", {
-                        userId: user.id,
-                        message: error.message,
-                    });
-                }
-            }
+            // Email confirmation happens after KYC submission, while the identity
+            // review is pending. Signup must stay fast and must never depend on SMTP.
+            const verificationSent = false;
             const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
                 expiresIn: "180d",
             });

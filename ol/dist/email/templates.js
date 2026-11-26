@@ -142,19 +142,19 @@ exports.renderEmail = renderEmail;
 
 function renderVerificationEmail({ site, name, verifyUrl, expiresHours = 24 }) {
     const firstName = String(name || "").trim().split(/\s+/)[0] || "there";
-    const subject = `Verify your email · ${site.name}`;
+    const subject = `One quick step while your ID is reviewed · ${site.name}`;
     const content = `
-<h1 style="margin:0 0 18px;font-size:24px;line-height:1.3;color:#ffffff;">Confirm your email address</h1>
+<h1 style="margin:0 0 18px;font-size:24px;line-height:1.3;color:#ffffff;">Confirm your email while we review your ID</h1>
 <p style="margin:0 0 16px;">Hi ${escapeHtml(firstName)},</p>
-<p style="margin:0 0 16px;">Thanks for joining <strong style="color:#D4AF37;">${escapeHtml(site.name)}</strong>. Verify your email to secure your account and make sure you never miss important account updates.</p>
+<p style="margin:0 0 16px;">Your identity documents are being reviewed. While you wait, confirm your email address so your <strong style="color:#D4AF37;">${escapeHtml(site.name)}</strong> account is ready as soon as approval finishes.</p>
 <p style="margin:0;color:#b9bec5;">Tap the button below — it only takes a second.</p>`;
     const html = renderEmail({
         site,
         subject,
-        preheader: `Confirm your email to secure your ${site.name} account.`,
+        preheader: `Confirm your email while your ${site.name} identity review is in progress.`,
         contentHtml: content,
         cta: { label: "Verify my email", url: verifyUrl },
-        footerNote: `This verification link expires in ${expiresHours} hours. If you did not create this account, you can safely ignore this email.`,
+        footerNote: `This verification link expires in ${expiresHours} hours. If you did not submit these documents, you can safely ignore this email.`,
     });
     return { subject, html, text: htmlToText(html) };
 }
@@ -162,7 +162,7 @@ exports.renderVerificationEmail = renderVerificationEmail;
 
 function renderVerificationReminderEmail({ site, name, verifyUrl, expiresHours = 24 }) {
     const rendered = renderVerificationEmail({ site, name, verifyUrl, expiresHours });
-    return Object.assign({}, rendered, { subject: `Reminder: verify your email · ${site.name}` });
+    return Object.assign({}, rendered, { subject: `Reminder: confirm your email · ${site.name}` });
 }
 exports.renderVerificationReminderEmail = renderVerificationReminderEmail;
 

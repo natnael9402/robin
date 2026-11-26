@@ -81,11 +81,16 @@ export function KycVerificationPage() {
         backImage: backImage!,
         selfieImage: selfieImage!,
       });
+      await refresh(true);
       clearNewSignup();
+      toast.success(user?.email
+        ? 'Documents submitted — confirm your email while we review your ID.'
+        : 'Documents submitted');
       router.push('/kyc-pending');
     } catch (err) {
       const status = (err as { status?: number })?.status;
       if (status === 409 || (err as Error).message?.toLowerCase().includes('already have')) {
+        await refresh(true);
         clearNewSignup();
         router.push('/kyc-pending');
         return;

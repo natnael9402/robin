@@ -1,11 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Mail, MailCheck, RefreshCw } from 'lucide-react';
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle';
 import { authApi, ApiError } from '../../shared/api';
+import { useAuth } from '../../shared/contexts/AuthContext';
 import { useToast } from '../../shared/contexts/ToastContext';
 import { Button } from '../../shared/components/ui/Button';
 import { Input } from '../../shared/components/ui/Input';
@@ -21,6 +21,7 @@ export function VerifyEmailPage() {
   const params = useSearchParams();
   const router = useRouter();
   const toast = useToast();
+  const { user, refresh } = useAuth();
   const token = params.get('token');
   const queryEmail = params.get('email') || '';
   const queryStatus = params.get('status');
@@ -55,6 +56,10 @@ export function VerifyEmailPage() {
   }, [token]);
 
   useEffect(() => {
+    if (status === 'success' || status === 'already') void refresh(true);
+  }, [status, refresh]);
+
+  useEffect(() => {
     if (cooldown <= 0) return;
     const timer = setTimeout(() => setCooldown((value) => value - 1), 1000);
     return () => clearTimeout(timer);
@@ -79,6 +84,9 @@ export function VerifyEmailPage() {
     }
   }, [email, siteId, toast]);
 
+  const kycPending = user?.kycStatus === 'pending';
+  const returnTarget = kycPending ? '/kyc-pending' : '/home';
+  const returnLabel = kycPending ? 'Back to verification status' : 'Continue to dashboard';
   const needsResend = status === 'invalid' || status === 'expired' || status === 'idle';
 
   return (
@@ -111,8 +119,8 @@ export function VerifyEmailPage() {
                 : `Your ${siteName} account is confirmed. We will send important updates to your inbox.`}
             </p>
             <div className="mt-7 space-y-3">
-              <Button fullWidth size="lg" rightIcon={<ArrowRight className="h-4 w-4" />} onClick={() => router.push('/home')}>
-                Continue to dashboard
+              <Button fullWidth size="lg" rightIcon={<ArrowRight className="h-4 w-4" />} onClick={() => router.push(returnTarget)}>
+                {returnLabel}
               </Button>
               <Button fullWidth size="md" variant="ghost" onClick={() => router.push('/profile')}>View my profile</Button>
             </div>
@@ -127,7 +135,7 @@ export function VerifyEmailPage() {
             <h1 className="mt-5 text-2xl font-bold text-foreground">Check your inbox</h1>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               We sent a verification link to <span className="font-semibold text-foreground">{email || 'your email address'}</span>.
-              Open it to confirm your address — the link is valid for 24 hours.
+              Confirm your email while your identity review is in progress — the link is valid for 24 hours.
             </p>
             <div className="mt-6 rounded-2xl border border-white/5 bg-background/60 p-4 text-left">
               <p className="text-xs leading-relaxed text-muted-foreground">
@@ -147,11 +155,8 @@ export function VerifyEmailPage() {
                 </Button>
               </div>
             </div>
-            <div className="mt-6 space-y-2">
-              <Button fullWidth variant="ghost" size="md" onClick={() => router.push('/home')}>Continue to dashboard</Button>
-              <p className="text-[11px] text-muted-foreground">
-                Verifying is optional — your account already works.
-              </p>
+            <div className="mt-6">
+              <Button fullWidth variant="ghost" size="md" onClick={() => router.push(returnTarget)}>{returnLabel}</Button>
             </div>
           </div>
         )}
@@ -187,11 +192,8 @@ export function VerifyEmailPage() {
                 {cooldown > 0 ? `Try again in ${cooldown}s` : 'Send verification email'}
               </Button>
             </form>
-            <div className="mt-6 space-y-2">
+            <div className="mt-6">
               <Button fullWidth variant="ghost" size="md" onClick={() => router.push('/login')}>Back to sign in</Button>
-              <Link href="/home" className="block text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground">
-                Continue to dashboard instead
-              </Link>
             </div>
           </div>
         )}

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Outfit, Plus_Jakarta_Sans, Space_Mono } from 'next/font/google';
 import { ScrollToTop } from '../src/shared/components/ScrollToTop';
+import { EmailVerificationBanner } from '../src/shared/components/EmailVerificationBanner';
 import { ServiceWorkerRegister } from '../src/shared/components/ServiceWorkerRegister';
 import { AppOpenTracker } from '../src/shared/components/AppOpenTracker';
 import { ThemeProvider } from '../src/shared/contexts/ThemeContext';
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <AuthProvider>
               <ToastProvider>
                 <PremiumBackground />
+                <EmailVerificationBanner />
                 <ScrollToTop />
                 <ServiceWorkerRegister />
                 <AppOpenTracker />

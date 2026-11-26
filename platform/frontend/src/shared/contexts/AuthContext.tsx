@@ -17,7 +17,7 @@ interface AuthContextValue {
   login: (identifier: string, password: string, captchaToken?: string) => Promise<void>;
   signup: (email: string, password: string, name?: string, captchaToken?: string, phone?: string, referralCode?: string) => Promise<void>;
   logout: () => Promise<void>;
-  refresh: () => Promise<void>;
+  refresh: (force?: boolean) => Promise<void>;
   clearNewSignup: () => void;
 }
 

@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSubmission = exports.updateSubmissionStatus = exports.createSubmission = exports.getSubmissionById = exports.listSubmissions = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
 const prisma_2 = require("../generated/prisma");
+const email_service_1 = require("../email/service");
+const logger_1 = require("../utils/logger");
 const toPlainObject = (input) => {
     if (input === null || input === undefined) {
         return input;
@@ -143,9 +145,37 @@ const createSubmission = (userId, input) => __awaiter(void 0, void 0, void 0, fu
         });
         return created;
     }));
-    return formatSubmission(submission, {
+    const formatted = formatSubmission(submission, {
         includeRelations: false,
     });
+    // Send the verification link only after KYC has been submitted, so the
+    // pending screen can use the wait time to get the address confirmed.
+    let verificationSent = false;
+    try {
+        const user = yield prisma_1.default.user.findUnique({
+            where: { id: userId },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                signup_site: true,
+                email_verified_at: true,
+            },
+        });
+        if (user && user.email && !user.email_verified_at) {
+            const verification = yield email_service_1.sendVerificationEmail(user, user.signup_site);
+            verificationSent = Boolean(verification && verification.sent);
+        }
+    }
+    catch (error) {
+        // Mail outages must never fail a KYC submission or block the review queue.
+        logger_1.logger.warn("Post-KYC verification email could not be sent", {
+            userId: String(userId),
+            message: error.message,
+        });
+    }
+    formatted.verificationSent = verificationSent;
+    return formatted;
 });
 exports.createSubmission = createSubmission;
 const updateSubmissionStatus = (id, input) => __awaiter(void 0, void 0, void 0, function* () {

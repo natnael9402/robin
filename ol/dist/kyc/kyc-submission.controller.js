@@ -150,7 +150,10 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     ["KYC", `#${submission.id}`],
                 ],
             });
-            return (0, http_response_1.successResponse)(res, { submission }, "KYC submission created successfully", 201);
+            return (0, http_response_1.successResponse)(res, {
+                submission,
+                verificationSent: Boolean(submission.verificationSent),
+            }, "KYC submission created successfully", 201);
         }
         catch (createError) {
             yield rollback();
