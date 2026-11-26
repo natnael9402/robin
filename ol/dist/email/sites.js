@@ -30,6 +30,9 @@ exports.SITES = SITES;
 const DEFAULT_SITE_ID = () => (process.env.DEFAULT_EMAIL_SITE === "lab" ? "lab" : "premium");
 
 function normalizeSiteId(value, fallback) {
+    // Accept either a site id/host string or an already-resolved SITES object.
+    // Without this, resolveSite(resolveSite("lab")) would silently fall back to premium.
+    if (value && typeof value === "object" && SITES[value.id]) return value.id;
     const raw = String(value == null ? "" : value).trim().toLowerCase();
     if (SITES[raw]) return raw;
     if (raw.includes("paxoralab")) return "lab";
